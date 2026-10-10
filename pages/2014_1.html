@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2014年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2014-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>関数 $f(x) = x - \sin x$ $\left(0 \le x \le \dfrac{\pi}{2}\right)$ を考える。曲線 $y = f(x)$ の接線で傾きが $\dfrac12$ となるものを $l$ とする。</p>
+    <ol>
+      <li>(1)　$l$ の方程式と接点の座標 $(a,\ b)$ を求めよ。</li>
+      <li>(2)　$a$ は (1) で求めたものとする。曲線 $y = f(x)$，直線 $x = a$，および $x$ 軸で囲まれた領域を，$x$ 軸のまわりに 1 回転してできる回転体の体積 $V$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2014 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は $f'(x) = \frac12$ を解くだけ。(2) は $(x - \sin x)^2$ を展開して、$x^2$，$x\sin x$（部分積分），$\sin^2x$（半角）を別々に積分する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f'(x) = 1 - \cos x = \frac12$ より $\cos x = \frac12$，$0 \le x \le \frac\pi2$ で $x = \frac\pi3$。</p>
+      $$a = \frac\pi3,\quad b = \frac\pi3 - \frac{\sqrt3}{2},\qquad l：y = \frac12x + \frac\pi6 - \frac{\sqrt3}{2}$$
+
+      <h3>(2)</h3>
+      <p>$0 \le x \le \frac\pi3$ で $f(x) \ge 0$（$f(0) = 0$，$f' \ge 0$）なので</p>
+      $$V = \pi\int_0^{\frac\pi3}(x - \sin x)^2dx = \pi\int_0^{\frac\pi3}\left(x^2 - 2x\sin x + \sin^2x\right)dx$$
+      <ul>
+        <li>$\displaystyle\int_0^{\frac\pi3}x^2dx = \frac{\pi^3}{81}$</li>
+        <li>$\displaystyle\int_0^{\frac\pi3}x\sin x\,dx = \Big[-x\cos x + \sin x\Big]_0^{\frac\pi3} = -\frac\pi6 + \frac{\sqrt3}{2}$</li>
+        <li>$\displaystyle\int_0^{\frac\pi3}\sin^2x\,dx = \left[\frac x2 - \frac{\sin 2x}{4}\right]_0^{\frac\pi3} = \frac\pi6 - \frac{\sqrt3}{8}$</li>
+      </ul>
+      $$V = \pi\left\{\frac{\pi^3}{81} - 2\left(-\frac\pi6 + \frac{\sqrt3}{2}\right) + \frac\pi6 - \frac{\sqrt3}{8}\right\} = \pi\left(\frac{\pi^3}{81} + \frac\pi2 - \frac{9\sqrt3}{8}\right)$$
+      <p>（$V \approx 0.0158$。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>点の位置を動かすと、その点での接線の傾き $1 - \cos x$ が表示されます。傾きが $\frac12$ になる点が (1) の接点。赤い部分を $x$ 軸のまわりに回転したものが (2) の回転体です（薄い部分は回転した像の断面）。</p>
+
+  <div class="widget">
+    <label>接点の x：<input type="range" id="x" min="5" max="157" value="70"></label>
+    <span class="readout no-math" id="xv"></span>
+    <button id="ans">x = π/3 にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="400" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>サイクロイドとのつながり</h3>
+  <p>$x = \theta - \sin\theta$ は、サイクロイド $(\theta - \sin\theta,\ 1 - \cos\theta)$ の $x$ 座標と同じ式です。$f(x) = x - \sin x$ は原点付近で $\frac{x^3}{6}$ のようにふるまう（3 次の接触）ので、グラフは原点で $x$ 軸に非常に強く接しています。そのため体積は約 $0.016$ ととても小さくなります。</p>
+  <p>chopin 先生は「(1) は教科書レベルの問題」「(2) もテンプレ通りの体積計算の問題です。計算ミスに注意して解きましょう」とコメントしています。</p>
+  <div class="point">回転体の体積 $\pi\int y^2dx$ は、2 乗を展開して<b>部分積分</b>（$x\sin x$）と<b>半角の公式</b>（$\sin^2x$）に分ける。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y = \sin x$（$0 \le x \le \pi$）と $x$ 軸で囲まれた部分を，$x$ 軸のまわりに 1 回転してできる回転体の体積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\pi\displaystyle\int_0^\pi\sin^2x\,dx = \pi\left[\frac x2 - \frac{\sin 2x}{4}\right]_0^\pi = \frac{\pi^2}{2}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の曲線 $y = f(x)$，接線 $l$，および $y$ 軸で囲まれた部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2014　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f''(x) = \sin x \ge 0$ で $f$ は下に凸なので、$0 \le x \le \frac\pi3$ で $l$ は曲線の下にある。</p>
+    $$\int_0^{\frac\pi3}\left\{x - \sin x - \frac x2 - \frac\pi6 + \frac{\sqrt3}{2}\right\}dx = \left[\frac{x^2}{4} + \cos x\right]_0^{\frac\pi3} - \left(\frac\pi6 - \frac{\sqrt3}{2}\right)\frac\pi3$$
+    $$= \frac{\pi^2}{36} - \frac12 - \frac{\pi^2}{18} + \frac{\sqrt3\pi}{6} = \frac{\sqrt3\pi}{6} - \frac{\pi^2}{36} - \frac12\ (\approx 0.133)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.1, xmax: 1.7, ymin: -0.45, ymax: 0.65 });
+  const f = (x) => x - Math.sin(x);
+  function draw() {
+    const x0 = $("x").value / 100, m = 1 - Math.cos(x0), y0 = f(x0), a = Math.PI / 3;
+    $("xv").textContent = ` ${x0.toFixed(2)}`;
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    const reg = [[0, 0]]; for (let i = 0; i <= 80; i++) { const x = a * i / 80; reg.push([x, f(x)]); } reg.push([a, 0]);
+    P.fill(reg, "rgba(138,21,56,.35)");
+    const mir = [[0, 0]]; for (let i = 0; i <= 80; i++) { const x = a * i / 80; mir.push([x, -f(x)]); } mir.push([a, 0]);
+    P.fill(mir, "rgba(138,21,56,.12)");
+    P.fn(f, 0, Math.PI / 2, "#8a1538", 2.2);
+    P.line([[a, -0.45], [a, 0.65]], "#aaa", 1, [4, 3]);
+    P.fn((x) => m * (x - x0) + y0, -0.1, 1.7, Math.abs(m - 0.5) < 0.01 ? "#2f9e44" : "#1c7ed6", 1.5);
+    P.dot(x0, y0, "#e8590c", 4.5);
+    P.text("x = π/3", a + 0.02, 0.6, "#888");
+    $("info").innerHTML = `接点 (${x0.toFixed(3)}, ${y0.toFixed(4)})<br>傾き 1 − cos x = ${m.toFixed(4)}` + (Math.abs(m - 0.5) < 0.01 ? '<br><span class="ok">傾き 1/2！ a = π/3</span>' : "") +
+      `<br>V = π(π³/81 + π/2 − 9√3/8)<br>　≈ ${(Math.PI * (Math.PI ** 3 / 81 + Math.PI / 2 - 9 * Math.sqrt(3) / 8)).toFixed(5)}`;
+  }
+  $("x").addEventListener("input", draw);
+  $("ans").onclick = () => { $("x").value = 105; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

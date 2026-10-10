@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2009年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2009-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>曲線 $y = e^x$ 上を動く点 $P$ の時刻 $t$ における座標を $(x(t),\ y(t))$ と表し，$P$ の速度ベクトルと加速度ベクトルをそれぞれ $\vec v = \left(\dfrac{dx}{dt},\ \dfrac{dy}{dt}\right)$ と $\vec\alpha = \left(\dfrac{d^2x}{dt^2},\ \dfrac{d^2y}{dt^2}\right)$ とする。すべての時刻 $t$ で $|\vec v| = 1$ かつ $\dfrac{dx}{dt} > 0$ であるとして，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$P$ が点 $(s,\ e^s)$ を通過する時刻における速度ベクトル $\vec v$ を $s$ を用いて表せ。</li>
+      <li>(2)　$P$ が点 $(s,\ e^s)$ を通過する時刻における加速度ベクトル $\vec\alpha$ を $s$ を用いて表せ。</li>
+      <li>(3)　$P$ が曲線全体を動くとき，$|\vec\alpha|$ の最大値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2009 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$\dfrac{dy}{dt} = e^x\dfrac{dx}{dt}$ と $|\vec v| = 1$ から $\dfrac{dx}{dt}$ が $x$ の式で書けます。加速度は「$x$ で微分してから $\frac{dx}{dt}$ を掛ける」（合成関数の微分）で求めます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$y = e^x$ より $\dfrac{dy}{dt} = e^x\dfrac{dx}{dt}$。$|\vec v|^2 = (1 + e^{2x})\left(\dfrac{dx}{dt}\right)^2 = 1$ と $\dfrac{dx}{dt} > 0$ より</p>
+      $$\frac{dx}{dt} = \frac{1}{\sqrt{1 + e^{2x}}},\qquad \vec v = \left(\frac{1}{\sqrt{1 + e^{2s}}},\ \frac{e^s}{\sqrt{1 + e^{2s}}}\right)$$
+
+      <h3>(2)</h3>
+      <p>$\vec v$ を $x$ の関数とみて $x$ で微分し、$\dfrac{dx}{dt}$ を掛ける。</p>
+      $$\frac{d}{dx}(1 + e^{2x})^{-\frac12} = -e^{2x}(1 + e^{2x})^{-\frac32}$$
+      $$\frac{d}{dx}\left\{e^x(1 + e^{2x})^{-\frac12}\right\} = e^x(1 + e^{2x})^{-\frac12} - e^{3x}(1 + e^{2x})^{-\frac32} = e^x(1 + e^{2x})^{-\frac32}$$
+      <p>これに $\dfrac{dx}{dt} = (1 + e^{2x})^{-\frac12}$ を掛けて</p>
+      $$\vec\alpha = \left(-\frac{e^{2s}}{(1 + e^{2s})^2},\ \frac{e^s}{(1 + e^{2s})^2}\right)$$
+      <p>（$\vec\alpha\cdot\vec v = 0$：速さ一定なら加速度は速度に垂直。）</p>
+
+      <h3>(3)</h3>
+      $$|\vec\alpha|^2 = \frac{e^{4s} + e^{2s}}{(1 + e^{2s})^4} = \frac{e^{2s}}{(1 + e^{2s})^3}$$
+      <p>$u = e^{2s}\ (> 0)$ とおき $g(u) = \dfrac{u}{(1 + u)^3}$ とすると</p>
+      $$g'(u) = \frac{(1 + u) - 3u}{(1 + u)^4} = \frac{1 - 2u}{(1 + u)^4}$$
+      <p>$u = \frac12$ で最大、$g\left(\frac12\right) = \dfrac{1/2}{27/8} = \dfrac{4}{27}$。よって</p>
+      $$\max|\vec\alpha| = \frac{2}{3\sqrt3} = \frac{2\sqrt3}{9}\qquad\left(s = -\frac12\log2\ \text{のとき}\right)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>点の位置 $s$ を動かすと、速度ベクトル（青，長さ 1）と加速度ベクトル（赤，見やすいよう 3 倍に拡大）が表示されます。加速度はつねに速度と垂直で、曲線の曲がりが最もきつい $s = -\frac12\log2 \approx -0.347$ で最大になります。</p>
+
+  <div class="widget">
+    <label>s：<input type="range" id="s" min="-300" max="150" value="-35"></label>
+    <span class="readout no-math" id="sv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>速さ 1 で動くときの加速度 ＝ 曲率</h3>
+  <p>曲線上を速さ 1 で動く点の加速度の大きさは、その点での曲線の<b>曲率</b>（曲率半径の逆数）に一致します。一般の曲線 $y = f(x)$ の曲率は $\dfrac{|f''(x)|}{(1 + f'(x)^2)^{3/2}}$ で、$f = e^x$ なら $\dfrac{e^x}{(1 + e^{2x})^{3/2}}$ ── (3) の $|\vec\alpha|$ と同じ式です。車でカーブを一定の速さで走るとき、ハンドルを最も大きく切る地点がここ、というイメージです。</p>
+  <p>chopin 先生は「(1)(2) 速さが 1 という条件から、$dx/dt$ が $x$ の式で表現できるので、これを使って速度と加速度の式を求めることができます」「(3) (2) の大きさを $s$ の式で表して増減を調べます」とコメントしています。</p>
+  <div class="point">$\dfrac{d}{dt} = \dfrac{dx}{dt}\cdot\dfrac{d}{dx}$。速さ一定なら $\vec\alpha \perp \vec v$。$e^{2s}$ のかたまりは $u$ と置いて 1 変数の分数関数に。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>円 $x^2 + y^2 = r^2$ 上を，速さ 1 で反時計回りに動く点の加速度ベクトルの大きさを求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>角速度は $\frac1r$ なので $P = \left(r\cos\frac tr,\ r\sin\frac tr\right)$。$\vec\alpha = -\frac{1}{r^2}\overrightarrow{OP}$ で $|\vec\alpha| = \dfrac1r$（円の曲率）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の曲線を放物線 $y = x^2$ に変えて，同じ条件（$|\vec v| = 1$，$\frac{dx}{dt} > 0$）で動くとき，点 $(s,\ s^2)$ における $|\vec\alpha|$ と，その最大値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2009　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\frac{dx}{dt} = (1 + 4x^2)^{-\frac12}$，$\vec v = \dfrac{(1,\ 2x)}{\sqrt{1 + 4x^2}}$。$x$ で微分して $\frac{dx}{dt}$ を掛けると</p>
+    $$\vec\alpha = \frac{(-4s,\ 2)}{(1 + 4s^2)^2},\qquad |\vec\alpha| = \frac{2}{(1 + 4s^2)^{\frac32}}$$
+    <p>最大値は $s = 0$（頂点）で $2$。（曲率半径 $\frac12$ の円で頂点を近似できる。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -3.2, xmax: 2, ymin: -0.6, ymax: 4, equal: true });
+  function draw() {
+    const s = $("s").value / 100; $("sv").textContent = ` s = ${s.toFixed(2)}`;
+    const E = Math.exp(s), D = 1 + E * E;
+    const v = [1 / Math.sqrt(D), E / Math.sqrt(D)], al = [-E * E / D ** 2, E / D ** 2];
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.fn(Math.exp, -3.2, 1.45, "#333", 2);
+    const p = [s, E];
+    P.line([p, [p[0] + v[0], p[1] + v[1]]], "#1c7ed6", 2.4);
+    P.line([p, [p[0] + 3 * al[0], p[1] + 3 * al[1]]], "#c92a2a", 2.4);
+    // 曲率円
+    const k = Math.hypot(al[0], al[1]), R = 1 / k, n = [al[0] / k, al[1] / k];
+    P.circle(p[0] + R * n[0], p[1] + R * n[1], R, "rgba(232,89,12,.5)", 1, [4, 3]);
+    P.dot(p[0], p[1], "#222", 4, "P", -16, -6);
+    const sm = -0.5 * Math.log(2);
+    P.dot(sm, Math.exp(sm), "#2f9e44", 3);
+    $("info").innerHTML = `<span style="color:#1c7ed6">v = (${v[0].toFixed(4)}, ${v[1].toFixed(4)})</span><br><span style="color:#c92a2a">α = (${al[0].toFixed(4)}, ${al[1].toFixed(4)})</span><br>|α| = ${k.toFixed(5)}<br>v·α = ${(v[0] * al[0] + v[1] * al[1]).toFixed(6)}<br><span style="color:#e8590c">破線：半径 1/|α| の曲率円</span><br>最大値 2√3/9 ≈ ${(2 * Math.sqrt(3) / 9).toFixed(5)}<br>（s = −(log 2)/2 ≈ ${sm.toFixed(3)}，緑の点）`;
+  }
+  $("s").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

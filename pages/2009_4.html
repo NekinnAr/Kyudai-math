@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2009年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2009-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 次の列ベクトル $X,\ Y,\ Z$ は大きさが 1 であり，$X = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ かつ $Y \ne X$ とする。ただし，一般に 2 次の列ベクトル $\begin{pmatrix} x \\ y \end{pmatrix}$ の大きさは $\sqrt{x^2 + y^2}$ で定義される。また，2 次の正方行列 $A$ が $AX = Y$，$AY = Z$，$AZ = X$ をみたすとする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$Y \ne -X$ を示せ。</li>
+      <li>(2)　$Z$ は $Z = sX + tY$（$s,\ t$ は実数）の形にただ一通りに表せることを示せ。</li>
+      <li>(3)　$X + Y + Z = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$ を示せ。</li>
+      <li>(4)　行列 $A$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2009 九州大学 前期 理系 第4問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。(3) は原文では「$X + Y + X$」と印刷されていますが、$X + Y + Z$ の誤植と考えられます。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$X \to Y \to Z \to X$ と 3 回で一周する変換です。(2) で $X,\ Y$ が 1 次独立（基底）であることを確認し、(3) は $AZ = X$ に $Z = sX + tY$ を代入して係数比較します。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$Y = -X$ と仮定すると $Z = AY = -AX = -Y = X$。すると $X = AZ = AX = Y = -X$ より $X = \vec 0$ となり、$|X| = 1$ に矛盾。よって $Y \ne -X$。</p>
+
+      <h3>(2)</h3>
+      <p>$|X| = |Y| = 1$ で $Y \ne \pm X$ なので $X,\ Y$ は平行でない（大きさ 1 の平行なベクトルは $\pm X$ だけ）。$X = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$，$Y = \begin{pmatrix} p \\ q \end{pmatrix}$ とすると $q \ne 0$ で、$Z = \begin{pmatrix} z_1 \\ z_2 \end{pmatrix}$ に対し $t = \dfrac{z_2}{q}$，$s = z_1 - pt$ とただ一通りに定まる。</p>
+
+      <h3>(3)</h3>
+      <p>$Z = sX + tY$ の両辺に $A$ を掛けて</p>
+      $$X = AZ = sAX + tAY = sY + tZ = sY + t(sX + tY) = stX + (s + t^2)Y$$
+      <p>(2) の一意性より $st = 1$，$s + t^2 = 0$。$s = -t^2$ を代入して $-t^3 = 1$，$t = -1$，$s = -1$。よって $Z = -X - Y$，すなわち</p>
+      $$X + Y + Z = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$$
+
+      <h3>(4)</h3>
+      <p>$|Z|^2 = |X + Y|^2 = 2 + 2X\cdot Y = 1$ より $X\cdot Y = -\frac12$。$Y = \begin{pmatrix} p \\ q \end{pmatrix}$ とすると $p = -\frac12$，$q = \pm\frac{\sqrt3}{2}$（$X$ と $Y$ のなす角は $120^\circ$）。</p>
+      <p>$A\begin{pmatrix} 1 & p \\ 0 & q \end{pmatrix} = (Y\ \ Z) = \begin{pmatrix} p & -1 - p \\ q & -q \end{pmatrix}$ より</p>
+      $$A = \begin{pmatrix} p & -1 - p \\ q & -q \end{pmatrix}\cdot\frac1q\begin{pmatrix} q & -p \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} p & \frac{-p^2 - p - 1}{q} \\ q & -p - 1 \end{pmatrix}$$
+      <p>$p = -\frac12$ を代入すると $-p^2 - p - 1 = -\frac34$ なので</p>
+      $$A = \begin{pmatrix} -\frac12 & -\frac{\sqrt3}{2} \\ \frac{\sqrt3}{2} & -\frac12 \end{pmatrix}\ \left(q = \tfrac{\sqrt3}{2}\right),\qquad A = \begin{pmatrix} -\frac12 & \frac{\sqrt3}{2} \\ -\frac{\sqrt3}{2} & -\frac12 \end{pmatrix}\ \left(q = -\tfrac{\sqrt3}{2}\right)$$
+      <p>（それぞれ $\pm120^\circ$ の回転を表す行列。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$Y = (\cos\theta,\ \sin\theta)$ を動かします。(3) より $Z = -X - Y$ は自動的に決まり、$A$ は $X \mapsto Y \mapsto Z \mapsto X$ をみたします。3 本とも大きさ 1 になるのは $\theta = \pm120^\circ$ のときだけです。</p>
+
+  <div class="widget">
+    <label>θ（Y の角度）：<input type="range" id="th" min="5" max="355" value="120"></label>
+    <span class="readout no-math" id="thv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>基底で見れば行列は決まる</h3>
+  <p>$X,\ Y$ が 1 次独立なら、$AX$ と $AY$ が分かれば行列 $A$ は完全に決まります。本問は $AX = Y$，$AY = Z$ で $A$ が $Z$ 次第で決まり、残りの条件 $AZ = X$ が $Z$ を縛る、という構造です。実は (3) までは大きさ 1 の条件を (2) でしか使っておらず、<b>$X,\ Y$ が 1 次独立なら必ず $X + Y + Z = \vec 0$</b> になります（下の魔改造）。</p>
+  <p>大きさ 1 の 3 つのベクトルの和が $\vec 0$ ⇔ 正三角形の向き ⇔ 互いに $120^\circ$。こうして $A$ が $120^\circ$ 回転だと分かります。</p>
+  <p>chopin 先生は「関係式の使い方の難しい発想寄りの難問」「(1) は背理法を使います」「(2) $X$ と $Y$ が 1 次独立であることを説明すれば OK」「(4) (3) の式を使うと、$X,\ Y,\ Z$ のそれぞれのなす角が $120^\circ$ であることが分かります」とコメントしています。</p>
+  <div class="point">1 次独立な 2 ベクトルの行き先で行列は決まる。$\vec a + \vec b + \vec c = \vec 0$ かつ大きさが等しい ⇒ 互いに $120^\circ$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の $A$（$120^\circ$ 回転）について，$A^3 = E$ を示し，$A^{2009}$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$A$ は $\pm120^\circ$ 回転なので $A^3$ は $\pm360^\circ$ 回転で $E$。（あるいは $A^3X = X$，$A^3Y = Y$ と $X,\ Y$ の独立性から。）$2009 = 3\cdot669 + 2$ より $A^{2009} = A^2$ で、これは $\mp120^\circ$ 回転。$q = \frac{\sqrt3}{2}$ の $A$ なら $A^{2009} = \begin{pmatrix} -\frac12 & \frac{\sqrt3}{2} \\ -\frac{\sqrt3}{2} & -\frac12 \end{pmatrix}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>大きさの条件を外して，$X = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$，$Y = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$ とする。2 次の正方行列 $A$ とベクトル $Z$ が $AX = Y$，$AY = Z$，$AZ = X$ をみたすとき，$Z$ と $A$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2009　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$X,\ Y$ は 1 次独立なので本問 (3) と同じ議論で $Z = -X - Y = \begin{pmatrix} -1 \\ -1 \end{pmatrix}$。$A$ の第 1 列は $AX = Y$，第 2 列は $AY = Z$ なので</p>
+    $$A = \begin{pmatrix} 0 & -1 \\ 1 & -1 \end{pmatrix}$$
+    <p>（確認：$AZ = \begin{pmatrix} 1 \\ 0 \end{pmatrix} = X$。回転ではないが $A^3 = E$。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -2.1, xmax: 2.1, ymin: -2.1, ymax: 2.1, equal: true });
+  const f = (v) => (Math.abs(v) < 5e-4 ? "0" : v.toFixed(3));
+  function draw() {
+    const th = +$("th").value; $("thv").textContent = ` ${th}°`;
+    const r = th * Math.PI / 180, X = [1, 0], Y = [Math.cos(r), Math.sin(r)], Z = [-1 - Y[0], -Y[1]];
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    P.circle(0, 0, 1, "#ccc", 1.2);
+    const arrow = (v, col, lab) => { P.line([[0, 0], v], col, 2.4); P.dot(v[0], v[1], col, 4, lab, 6, -6); };
+    arrow(X, "#8a1538", "X"); arrow(Y, "#1c7ed6", "Y"); arrow(Z, "#2f9e44", "Z");
+    const p = Y[0], q = Y[1];
+    if (Math.abs(q) < 1e-9) { $("info").innerHTML = '<span class="ng">Y = −X（(1) より不可能）</span>'; return; }
+    const A = [[p, (-p * p - p - 1) / q], [q, -p - 1]];
+    const nz = Math.hypot(Z[0], Z[1]);
+    const ok = Math.abs(nz - 1) < 5e-3;
+    $("info").innerHTML = `Y = (${f(Y[0])}, ${f(Y[1])})<br>Z = −X − Y = (${f(Z[0])}, ${f(Z[1])})<br>|Z| = ${nz.toFixed(4)}<br>A = [[${f(A[0][0])}, ${f(A[0][1])}], [${f(A[1][0])}, ${f(A[1][1])}]]<br>` +
+      (ok ? '<span class="ok">|X| = |Y| = |Z| = 1（120° 回転）</span>' : '<span class="ng">|Z| ≠ 1</span>');
+  }
+  $("th").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

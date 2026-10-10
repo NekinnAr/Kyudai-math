@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2004年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2004-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$n$ を 3 以上の自然数とする。スイッチを入れると等確率で赤色または青色に輝く電球が横一列に $n$ 個並んでいる。これらの $n$ 個の電球のスイッチを同時に入れたあと，左から電球の色を見ていき，色の変化の回数を調べる。</p>
+    <ol>
+      <li>(1)　赤青…青，赤赤青…青，……のように左端が赤色で色の変化がちょうど 1 回起きる確率を求めよ。</li>
+      <li>(2)　色の変化が少なくとも 2 回起きる確率を求めよ。</li>
+      <li>(3)　色の変化がちょうど $m$ 回（$0 \le m \le n - 1$）起きる確率を求めよ。</li>
+      <li>(4)　色の変化の回数の期待値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2004 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>色の並び（$2^n$ 通り）は「左端の色」と「$n - 1$ 個の隙間のうちどこで色が変わるか」で決まります。変化の回数が $m$ 回の並びは $2\binom{n-1}{m}$ 通り。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>全事象は $2^n$ 通りで同様に確からしい。色の並びは、左端の色（2 通り）と、隣り合う電球の間 $n - 1$ か所のうち色が変わる場所の集合で 1 対 1 に決まる。</p>
+
+      <h3>(1)</h3>
+      <p>左端が赤で、変化する場所を $n - 1$ か所から 1 つ選ぶので $n - 1$ 通り。確率は $\dfrac{n - 1}{2^n}$。</p>
+
+      <h3>(2)</h3>
+      <p>変化 0 回は 2 通り、1 回は $2(n - 1)$ 通り。余事象より</p>
+      $$1 - \frac{2 + 2(n - 1)}{2^n} = 1 - \frac{n}{2^{n-1}}$$
+
+      <h3>(3)</h3>
+      <p>左端の色 2 通り × 変化する場所の選び方 $\binom{n-1}{m}$ 通りなので</p>
+      $$\frac{2\binom{n-1}{m}}{2^n} = \frac{\binom{n-1}{m}}{2^{n-1}}$$
+
+      <h3>(4)</h3>
+      $$E = \sum_{m=0}^{n-1}m\cdot\frac{\binom{n-1}{m}}{2^{n-1}} = \frac{1}{2^{n-1}}\sum_{m=1}^{n-1}(n - 1)\binom{n-2}{m-1} = \frac{(n - 1)2^{n-2}}{2^{n-1}} = \frac{n - 1}{2}$$
+      <p>（$m\binom{n-1}{m} = (n - 1)\binom{n-2}{m-1}$ を用いた。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>ボタンで電球を点灯します。下の棒グラフは変化回数の確率分布（二項分布）で、赤い線が期待値 $\frac{n-1}2$。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="3" max="16" value="8"></label>
+    <span class="readout no-math" id="nv"></span>
+    <button id="go">点灯する</button>
+    <button id="many">1000 回点灯</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="400" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>変化回数は二項分布 $B\left(n - 1,\ \frac12\right)$</h3>
+  <p>左端の色が決まれば、各隙間で「色が変わるか」は独立に確率 $\frac12$ で起こります。したがって変化の回数は二項分布 $B\left(n - 1,\ \frac12\right)$ に従い、期待値 $\frac{n-1}2$ は「隙間 1 か所あたり $\frac12$ 回 × $n - 1$ か所」と期待値の線形性から一瞬で出ます。chopin 先生の言う「仕切りを入れる」見方は、まさにこの対応です。</p>
+  <p>chopin 先生は「(1) 色が変化する場所が何通りあるかを考えればよいでしょう」「(2) 色が一切変化しないか 1 回だけ変化する場合を考えたほうが早いです」「(3) $n$ 個の電球の間にある $n - 1$ 個の隙間に $m$ 個の仕切りを入れる場合の数を考えることと同じになります。入った所を境にして色を切り替えることにすればよいからです」「(4) 公式通りの期待値計算です。少し手間は必要ですが」とコメントしています。</p>
+  <div class="point">並びを「最初の値＋変化の場所」で表す全単射。期待値は指示確率変数の和（線形性）でも。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>硬貨を 5 回投げるとき，表裏が切り替わる回数がちょうど 2 回である確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問 (3) で $n = 5$，$m = 2$：$\dfrac{\binom42}{2^4} = \dfrac{6}{16} = \dfrac38$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，色の変化の回数が偶数である確率を求めよ。また，その確率が「左端と右端の電球の色が同じである確率」に等しい理由を説明せよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2004　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\displaystyle\sum_{m:\text{偶数}}\binom{n-1}{m} = 2^{n-2}$ なので確率は $\dfrac{2^{n-2}}{2^{n-1}} = \dfrac12$。色は変化のたびに入れ替わるので、変化回数が偶数 ⇔ 右端の色が左端と同じ。両端の色は独立に等確率なので、同じになる確率は $\frac12$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  let bulbs = null, hist = null, trials = 0;
+  const binom = (n, k) => { let r = 1; for (let i = 0; i < k; i++) r = r * (n - i) / (i + 1); return r; };
+  const light = (n) => Array.from({ length: n }, () => (Math.random() < 0.5 ? 1 : 0));
+  const changes = (b) => b.reduce((s, v, i) => s + (i > 0 && v !== b[i - 1] ? 1 : 0), 0);
+  function reset() { const n = +$("n").value; bulbs = light(n); hist = new Array(n).fill(0); trials = 0; draw(); }
+  function draw() {
+    const n = +$("n").value; $("nv").textContent = ` n = ${n}`;
+    const cv = $("cv"), g = cv.getContext("2d"); g.clearRect(0, 0, cv.width, cv.height);
+    // 電球
+    const r = Math.min(12, 180 / n);
+    bulbs.forEach((v, i) => { g.fillStyle = v ? "#e03131" : "#1c7ed6"; g.beginPath(); g.arc(20 + r + i * (2 * r + 4), 26, r, 0, 7); g.fill(); });
+    // 分布
+    const x0 = 30, y0 = 240, W = 360, H = 160, bw = W / n;
+    let pmax = 0; for (let m = 0; m < n; m++) pmax = Math.max(pmax, binom(n - 1, m) / 2 ** (n - 1));
+    for (let m = 0; m < n; m++) {
+      const p = binom(n - 1, m) / 2 ** (n - 1), h = p / pmax * H;
+      g.fillStyle = "rgba(138,21,56,.55)"; g.fillRect(x0 + m * bw + 2, y0 - h, bw - 4, h);
+      if (trials) { const q = hist[m] / trials, hq = q / pmax * H; g.strokeStyle = "#222"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x0 + m * bw + 2, y0 - hq); g.lineTo(x0 + m * bw + bw - 2, y0 - hq); g.stroke(); }
+      g.fillStyle = "#555"; g.font = "11px sans-serif"; g.textAlign = "center"; g.fillText(m, x0 + m * bw + bw / 2, y0 + 13);
+    }
+    const ex = x0 + ((n - 1) / 2 + 0.5) * bw; g.strokeStyle = "#c92a2a"; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(ex, y0); g.lineTo(ex, y0 - H - 10); g.stroke(); g.setLineDash([]);
+    const mean = trials ? hist.reduce((s, c, m) => s + c * m, 0) / trials : null;
+    $("info").innerHTML = `今回の変化回数：${changes(bulbs)}<br>期待値 (n−1)/2 = ${(n - 1) / 2}<br>試行 ${trials} 回` + (trials ? `<br>平均 = ${mean.toFixed(3)}<br>（黒線＝実験の相対度数）` : "") + `<br>P(2回以上) = ${(1 - n / 2 ** (n - 1)).toFixed(4)}`;
+  }
+  $("go").addEventListener("click", () => { const n = +$("n").value; bulbs = light(n); hist[changes(bulbs)]++; trials++; draw(); });
+  $("many").addEventListener("click", () => { const n = +$("n").value; for (let i = 0; i < 1000; i++) { bulbs = light(n); hist[changes(bulbs)]++; trials++; } draw(); });
+  $("n").addEventListener("input", reset);
+  reset();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

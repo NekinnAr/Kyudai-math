@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2013年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2013-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>実数 $x,\ y,\ t$ に対して，行列</p>
+    $$A = \begin{pmatrix} x & y \\ -t - x & -x \end{pmatrix},\qquad B = \begin{pmatrix} 5 & 4 \\ -6 & -5 \end{pmatrix}$$
+    <p>を考える。$(AB)^2$ が対角行列，すなわち $\begin{pmatrix} \alpha & 0 \\ 0 & \beta \end{pmatrix}$ の形の行列であるとする。</p>
+    <ol>
+      <li>(1)　命題「$3x - 3y - 2t \ne 0 \Longrightarrow A = tB$」を証明せよ。</li>
+    </ol>
+    <p>以下 (2)，(3)，(4) では，さらに $A^2 \ne E$ かつ $A^4 = E$ であるとする。ただし，$E$ は単位行列を表す。</p>
+    <ol>
+      <li>(2)　$3x - 3y - 2t = 0$ を示せ。</li>
+      <li>(3)　$x$ と $y$ をそれぞれ $t$ の式で表せ。</li>
+      <li>(4)　$x,\ y,\ t$ が整数のとき，行列 $A$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2013 九州大学 前期 理系 第5問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$2 \times 2$ 行列 $M = \begin{pmatrix} p & q \\ r & s \end{pmatrix}$ の 2 乗の非対角成分は $q(p + s)$，$r(p + s)$。$AB$ のトレースが $2(3x - 3y - 2t)$ になるのが謎の式の正体。$A$ はトレース 0 なので $A^2 = kE$（ケーリー・ハミルトン）。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$AB = \begin{pmatrix} 5x - 6y & 4x - 5y \\ x - 5t & x - 4t \end{pmatrix}$$
+      <p>$M = \begin{pmatrix} p & q \\ r & s \end{pmatrix}$ に対し $M^2 = \begin{pmatrix} p^2 + qr & q(p + s) \\ r(p + s) & s^2 + qr \end{pmatrix}$。$AB$ のトレースは $p + s = 6x - 6y - 4t = 2(3x - 3y - 2t)$ なので、$(AB)^2$ が対角行列である条件は</p>
+      $$(4x - 5y)(3x - 3y - 2t) = 0,\qquad (x - 5t)(3x - 3y - 2t) = 0$$
+      <p>$3x - 3y - 2t \ne 0$ なら $x = 5t$，$4x = 5y$ より $y = 4t$。$A = \begin{pmatrix} 5t & 4t \\ -6t & -5t \end{pmatrix} = tB$。</p>
+
+      <h3>(2)</h3>
+      <p>$3x - 3y - 2t \ne 0$ と仮定すると (1) より $A = tB$。$B^2 = E$ なので $A^2 = t^2E$，$A^4 = t^4E = E$ より $t^4 = 1$，$t$ は実数なので $t^2 = 1$。すると $A^2 = E$ となり $A^2 \ne E$ に矛盾。よって $3x - 3y - 2t = 0$。</p>
+
+      <h3>(3)</h3>
+      <p>$A$ のトレースは $0$、行列式は $-x^2 + y(t + x)$。ケーリー・ハミルトンの定理より $A^2 = kE$，$k = x^2 - xy - ty$。$A^4 = k^2E = E$ より $k = \pm1$、$A^2 \ne E$ より $k = -1$：</p>
+      $$x^2 - xy - ty = -1$$
+      <p>(2) より $y = x - \frac{2t}{3}$。代入すると $x^2 - x^2 + \frac{2tx}{3} - tx + \frac{2t^2}{3} = -1$，すなわち $tx = 2t^2 + 3$。$t = 0$ だと $0 = 3$ で不適なので $t \ne 0$。</p>
+      $$x = 2t + \frac3t,\qquad y = \frac{4t}{3} + \frac3t$$
+
+      <h3>(4)</h3>
+      <p>$x$ が整数 $\Rightarrow$ $\frac3t$ が整数 $\Rightarrow t \in \{\pm1,\ \pm3\}$。$y$ が整数 $\Rightarrow \frac{4t}{3}$ が整数 $\Rightarrow 3 \mid t$。よって $t = \pm3$。</p>
+      <ul>
+        <li>$t = 3$：$x = 7$，$y = 5$</li>
+        <li>$t = -3$：$x = -7$，$y = -5$</li>
+      </ul>
+      $$A = \begin{pmatrix} 7 & 5 \\ -10 & -7 \end{pmatrix},\ \begin{pmatrix} -7 & -5 \\ 10 & 7 \end{pmatrix}$$
+      <p>（確認：$A^2 = (49 - 50)E = -E$，$A^4 = E$。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと、(3) の式で決まる $x,\ y$ と行列 $A$、$A^2$，$(AB)^2$ が計算されます。$t = \pm3$ のときだけ成分がすべて整数になります。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="-60" max="60" value="30"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="no-math" id="info" style="margin-top:8px;line-height:2"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>$A^2 = -E$ となる行列 ＝ 90° 回転の仲間</h3>
+  <p>$A^2 = -E$ をみたす行列は、適当な座標変換で 90° 回転 $\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ に移る行列で、複素数の $i$ に相当します。$A^4 = E$，$A^2 \ne E$ という条件は「4 回で元に戻るが 2 回では戻らない」ということです。</p>
+  <p>chopin 先生は「いきなりでてくる $3x - 3y - 2t$ という式に戸惑いますが、この正体は計算をしているうちに分かります」「(2) (1) の結果から、ケーリー・ハミルトンの定理を使うと $A^2 = t^2E$ となり…矛盾」「(4) $x,\ y$ が整数になるためには、$t$ は 3 の倍数であり、かつ 3 の約数でないといけない」とコメントしています。</p>
+  <div class="point">$2\times2$ 行列の 2 乗の非対角成分は「非対角成分 × トレース」。トレース 0 の行列は $A^2 = -(\det A)E$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$A = \begin{pmatrix} a & b \\ c & -a \end{pmatrix}$ に対して $A^2 = (a^2 + bc)E$ を示せ。また，成分がすべて整数で $A^2 = -E$ となる $A$ の例を 1 つ挙げよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>直接計算で $A^2 = \begin{pmatrix} a^2 + bc & ab - ab \\ ca - ac & bc + a^2 \end{pmatrix} = (a^2 + bc)E$。$a^2 + bc = -1$ となればよく、例えば $a = 0,\ b = 1,\ c = -1$：$\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，(2)〜(4) の条件「$A^2 \ne E$ かつ $A^4 = E$」を「$A^2 = E$」に変えたとき，$x,\ y,\ t$ が整数となる行列 $A$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2013　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p><b>$3x - 3y - 2t \ne 0$ のとき</b>：$A = tB$，$A^2 = t^2E = E$ より $t = \pm1$。$A = \pm B$（このとき $3x - 3y - 2t = \pm1 \ne 0$ で条件と合う）。</p>
+    <p><b>$3x - 3y - 2t = 0$ のとき</b>：$A^2 = kE$ で $k = 1$。$y = x - \frac{2t}{3}$ を代入して $tx = 2t^2 - 3$，$x = 2t - \frac3t$，$y = \frac{4t}{3} - \frac3t$。整数条件から $t = \pm3$，$(x, y) = \pm(5,\ 3)$。</p>
+    $$A = \pm\begin{pmatrix} 5 & 4 \\ -6 & -5 \end{pmatrix},\quad \pm\begin{pmatrix} 5 & 3 \\ -8 & -5 \end{pmatrix}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const mul = (P, Q) => [[P[0][0] * Q[0][0] + P[0][1] * Q[1][0], P[0][0] * Q[0][1] + P[0][1] * Q[1][1]], [P[1][0] * Q[0][0] + P[1][1] * Q[1][0], P[1][0] * Q[0][1] + P[1][1] * Q[1][1]]];
+  const f = (v) => (Math.abs(v - Math.round(v)) < 1e-9 ? String(Math.round(v)) : v.toFixed(3));
+  const show = (M) => `<table class="simple" style="display:inline-table;vertical-align:middle;width:auto;min-width:0;margin:2px 6px"><tr><td>${f(M[0][0])}</td><td>${f(M[0][1])}</td></tr><tr><td>${f(M[1][0])}</td><td>${f(M[1][1])}</td></tr></table>`;
+  const B = [[5, 4], [-6, -5]];
+  function draw() {
+    let t = $("t").value / 10; if (Math.abs(t) < 0.05) t = 0.1;
+    const x = 2 * t + 3 / t, y = 4 * t / 3 + 3 / t;
+    const A = [[x, y], [-t - x, -x]], A2 = mul(A, A), AB = mul(A, B), AB2 = mul(AB, AB);
+    const intOK = [x, y, t].every((v) => Math.abs(v - Math.round(v)) < 1e-9);
+    $("tv").textContent = ` t = ${t.toFixed(1)}`;
+    $("info").innerHTML = `x = 2t + 3/t = ${f(x)}，y = 4t/3 + 3/t = ${f(y)}，3x − 3y − 2t = ${f(3 * x - 3 * y - 2 * t)}<br>` +
+      `A = ${show(A)}　A² = ${show(A2)}　(AB)² = ${show(AB2)}<br>` + (intOK ? '<span class="ok">x, y, t がすべて整数！</span>' : '<span style="color:#888">整数ではない</span>');
+  }
+  $("t").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

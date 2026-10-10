@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2011年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2011-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>数列 $a_1,\ a_2,\ \cdots,\ a_n,\ \cdots$ は</p>
+    $$a_{n+1} = \frac{2a_n}{1 - {a_n}^2}\qquad n = 1,\ 2,\ 3,\ \cdots$$
+    <p>をみたしているとする。このとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a_1 = \dfrac{1}{\sqrt3}$ とするとき，一般項 $a_n$ を求めよ。</li>
+      <li>(2)　$\tan\dfrac{\pi}{12}$ の値を求めよ。</li>
+      <li>(3)　$a_1 = \tan\dfrac{\pi}{20}$ とするとき，
+        $$a_{n+k} = a_n\qquad n = 3,\ 4,\ 5,\ \cdots$$
+        をみたす最小の自然数 $k$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2011 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>漸化式は $\tan$ の 2 倍角の公式 $\tan2\theta = \dfrac{2\tan\theta}{1 - \tan^2\theta}$ そのもの。$a_1 = \tan\theta$ なら $a_n = \tan(2^{n-1}\theta)$ です。(1)(2) はこれに気付かせるための誘導です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a_2 = \dfrac{2/\sqrt3}{1 - 1/3} = \sqrt3$，$a_3 = \dfrac{2\sqrt3}{1 - 3} = -\sqrt3$，$a_4 = \dfrac{-2\sqrt3}{1 - 3} = \sqrt3$，…。$a_n = \pm\sqrt3$ なら $a_{n+1} = \dfrac{\pm2\sqrt3}{-2} = \mp\sqrt3$ なので、帰納的に</p>
+      $$a_1 = \frac{1}{\sqrt3},\qquad a_n = (-1)^n\sqrt3\quad(n \ge 2)$$
+
+      <h3>(2)</h3>
+      $$\tan\frac{\pi}{12} = \tan\left(\frac\pi3 - \frac\pi4\right) = \frac{\sqrt3 - 1}{1 + \sqrt3} = \frac{(\sqrt3 - 1)^2}{2} = 2 - \sqrt3$$
+
+      <h3>(3)</h3>
+      <p>$\theta_n = \dfrac{2^{n-1}\pi}{20}$ とおく。$a_n = \tan\theta_n$ であることを数学的帰納法で示す。$n = 1$ は成立。$a_n = \tan\theta_n$ とすると、$\theta_n$ は $\frac{\pi}{20}$ の整数倍で、$2^{n-1}$ は 5 の倍数でないので $\theta_n \ne \frac\pi4 + \frac{m\pi}{2}$（$m$ は整数）。よって $\tan^2\theta_n \ne 1$ で</p>
+      $$a_{n+1} = \frac{2\tan\theta_n}{1 - \tan^2\theta_n} = \tan2\theta_n = \tan\theta_{n+1}$$
+      <p>（同じ理由で $\theta_n \ne \frac\pi2 + m\pi$ なので $\tan\theta_n$ は定義される。）</p>
+      <p>$\tan$ は周期 $\pi$ なので、$\theta_n$ を $\pi$ で割った余り、つまり $2^{n-1}$ を 20 で割った余りを見ればよい：</p>
+      $$2^{n-1} \bmod 20:\quad 1,\ 2,\ 4,\ 8,\ 16,\ 12,\ 4,\ 8,\ 16,\ 12,\ \cdots$$
+      <p>$n \ge 3$ では $4,\ 8,\ 16,\ 12$ の周期 4 で繰り返す（$2^{n+3} - 2^{n-1} = 15\cdot2^{n-1}$ は $n \ge 3$ で 20 の倍数）。したがって $a_{n+4} = a_n$（$n \ge 3$）。</p>
+      <p>また $\frac{4\pi}{20},\ \frac{8\pi}{20},\ \frac{16\pi}{20},\ \frac{12\pi}{20}$ は $0$ と $\pi$ の間の相異なる角で $\frac\pi2$ でもないので、$\tan$ の値は互いに異なり、$k = 1,\ 2,\ 3$ では $a_{3+k} \ne a_3$。よって求める最小の $k$ は</p>
+      $$k = 4$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a_1 = \tan\dfrac{\pi}{d}$ として $d$ を選ぶと、角 $\theta_n = 2^{n-1}\cdot\dfrac{\pi}{d}$ の動径（$\pi$ で割った余りを上半円上に表示）と、漸化式で計算した $a_n$ が表示されます。$d = 20$ では $n \ge 3$ で 4 つの角をぐるぐる回ります。</p>
+
+  <div class="widget">
+    <label>d：<input type="range" id="d" min="3" max="40" value="20"></label>
+    <span class="readout no-math" id="dv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="200"></canvas>
+      <div class="no-math" id="info" style="min-width:240px;line-height:1.7;font-size:.92em"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>漸化式の「正体」を見抜く</h3>
+  <p>$\dfrac{2x}{1 - x^2}$ は $\tan$ の 2 倍角，$\dfrac{x + c}{1 - cx}$ は $\tan$ の加法定理，$2x^2 - 1$ は $\cos$ の 2 倍角…というように、三角関数の公式と同じ形の漸化式は<b>三角関数で置換</b>すると一般項が書けます。</p>
+  <p>(3) は「2 を掛け続けたときの、20 で割った余り」の周期の問題に帰着します。$20 = 4 \cdot 5$ で、4 の倍数になってから（$n \ge 3$）は「5 で割った余り」$2^m \bmod 5$ の周期 4 がそのまま現れます。$n = 1,\ 2$ が周期に入らないのは、$1,\ 2$ がまだ 4 の倍数でないからです。</p>
+  <p>chopin 先生は「勘のいいひとは、漸化式の形を見ただけで何かが思い浮かぶでしょう」「(2) は、『気づいてくれ！！』という九大の心の叫びです」「$a_n$ の漸化式は、$\tan$ の 2 倍角の公式その物になっています。この事実に気付いてほしいが故の (1)(2) だった」「$n \ge 3$ で 4 周期になっていることが分かる」とコメントしています。</p>
+  <div class="point">見慣れない漸化式は三角関数の公式と見比べる。$\tan$ の値の周期は「角を $\pi$ で割った余り」の周期 ＝ 整数の余りの問題。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の漸化式で $a_1 = 2 - \sqrt3$ とするとき，一般項 $a_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(2) より $a_1 = \tan\frac{\pi}{12}$ なので $a_n = \tan\frac{2^{n-1}\pi}{12}$。角は $\frac{\pi}{12},\ \frac\pi6,\ \frac\pi3,\ \frac{2\pi}{3},\ \frac{4\pi}{3} \equiv \frac\pi3,\ \ldots$ となり</p>
+    $$a_1 = 2 - \sqrt3,\quad a_2 = \frac{1}{\sqrt3},\quad a_n = (-1)^{n+1}\sqrt3\ \ (n \ge 3)$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の漸化式で $a_1 = \tan\dfrac{\pi}{9}$ とするとき，すべての自然数 $n$ に対して $a_{n+k} = a_n$ をみたす最小の自然数 $k$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2011　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a_n = \tan\frac{2^{n-1}\pi}{9}$（$\frac{2^{n-1}}{9}$ は既約分数の分母が奇数なので $\frac14 + \frac m2$ や $\frac12 + m$ の形にはならず、2 倍角の公式が使える）。$2^{n-1} \bmod 9$ は $1,\ 2,\ 4,\ 8,\ 7,\ 5,\ 1,\ \ldots$ と<b>最初から</b>周期 6（$2^6 = 64 \equiv 1 \pmod 9$）。角 $20^\circ,\ 40^\circ,\ 80^\circ,\ 160^\circ,\ 140^\circ,\ 100^\circ$ の $\tan$ は互いに異なるので $k = 6$。</p>
+    <p>（9 は 2 と互いに素なので、本問の 20 と違い「最初の数項だけ周期から外れる」ことが起きません。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -1.25, xmax: 1.25, ymin: -0.15, ymax: 1.2, equal: true });
+  const cols = ["#8a1538", "#e8590c", "#f59f00", "#2f9e44", "#1c7ed6", "#7048e8", "#c2255c", "#495057"];
+  function draw() {
+    const d = +$("d").value; $("dv").textContent = ` a₁ = tan(π/${d})`;
+    P.clear();
+    P.line([[-1.2, 0], [1.2, 0]], "#999", 1);
+    const arc = []; for (let i = 0; i <= 90; i++) { const t = Math.PI * i / 90; arc.push([Math.cos(t), Math.sin(t)]); } P.line(arc, "#bbb", 1.2);
+    let a = Math.tan(Math.PI / d), m = 1 % d, rows = "", broken = false;
+    const seen = [];
+    for (let n = 1; n <= 12; n++) {
+      const th = Math.PI * m / d, c = cols[(n - 1) % cols.length];
+      seen.push(m);
+      if (n <= 8) { P.line([[0, 0], [Math.cos(th), Math.sin(th)]], c, n >= 3 ? 2 : 1.2, n >= 3 ? [] : [4, 3]); P.dot(Math.cos(th), Math.sin(th), c, 3.5, String(n), 4, -4); }
+      rows += `n=${n}：θ = ${m}π/${d}，a = ${broken ? "定義されない" : (Math.abs(a) > 1e6 ? "±∞" : a.toFixed(5))}<br>`;
+      if (2 * m === d || 4 * m === d || 4 * m === 3 * d) broken = true; // tan が ∞ または a=±1 → 次が定義されない
+      if (!broken) a = 2 * a / (1 - a * a);
+      m = (2 * m) % d;
+    }
+    // n>=3 での周期
+    let per = null;
+    for (let k = 1; k <= 8 && per === null; k++) { let ok = true; for (let i = 2; i + k < seen.length; i++) if (seen[i] !== seen[i + k]) ok = false; if (ok) per = k; }
+    $("info").innerHTML = rows + (broken ? '<span class="ng">途中で分母が 0 になる</span>' : `<b>n ≥ 3 での周期：${per ?? "?"}</b>`);
+  }
+  $("d").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

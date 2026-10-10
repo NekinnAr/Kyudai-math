@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2013年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2013-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a \gt 1$ とし，2 つの曲線</p>
+    $$y = \sqrt x\quad(x \ge 0),\qquad y = \frac{a^3}{x}\quad(x \gt 0)$$
+    <p>を順に $C_1,\ C_2$ とする。また，$C_1$ と $C_2$ の交点 $\mathrm{P}$ における $C_1$ の接線を $l_1$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　曲線 $C_1$ と $y$ 軸および直線 $l_1$ で囲まれた部分の面積を $a$ を用いて表せ。</li>
+      <li>(2)　点 $\mathrm{P}$ における $C_2$ の接線と直線 $l_1$ のなす角を $\theta(a)$ とする $\left(0 \lt \theta(a) \lt \dfrac\pi2\right)$。このとき，$\displaystyle\lim_{a\to\infty}a\sin\theta(a)$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2013 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>交点は $\mathrm{P}(a^2,\ a)$。(1) は接線が上にあるので「接線 − 曲線」を積分。(2) は 2 直線の傾きから $\tan$ の加法定理で $\tan\theta$ を求め、$\sin\theta \approx \tan\theta$ の感覚で極限をとる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$\sqrt x = \frac{a^3}{x} \iff x^{\frac32} = a^3 \iff x = a^2$。$\mathrm{P}(a^2,\ a)$。</p>
+      <h3>(1)</h3>
+      <p>$(\sqrt x)' = \frac{1}{2\sqrt x}$ より $l_1$ の傾きは $\frac1{2a}$，$l_1：y = \frac{x}{2a} + \frac a2$。$C_1$ は上に凸なので $l_1$ は $C_1$ の上側にある。</p>
+      $$\int_0^{a^2}\left(\frac{x}{2a} + \frac a2 - \sqrt x\right)dx = \frac{a^3}{4} + \frac{a^3}{2} - \frac23a^3 = \frac{a^3}{12}$$
+
+      <h3>(2)</h3>
+      <p>$C_2$ の接線の傾きは $-\frac{a^3}{x^2}\Big|_{x=a^2} = -\frac1a$。$l_1$ の傾き $m_1 = \frac1{2a}$，$C_2$ の接線の傾き $m_2 = -\frac1a$ より</p>
+      $$\tan\theta(a) = \left|\frac{m_1 - m_2}{1 + m_1m_2}\right| = \frac{\frac{3}{2a}}{1 - \frac{1}{2a^2}} = \frac{3a}{2a^2 - 1}$$
+      <p>（$a \gt 1$ で分母正。）$\sin\theta = \dfrac{\tan\theta}{\sqrt{1 + \tan^2\theta}}$ より</p>
+      $$a\sin\theta(a) = \frac{a\tan\theta}{\sqrt{1 + \tan^2\theta}} = \frac{\frac{3a^2}{2a^2 - 1}}{\sqrt{1 + \frac{9a^2}{(2a^2 - 1)^2}}} \longrightarrow \frac{3/2}{1} = \frac32\quad(a \to \infty)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かすと交点 P と 2 本の接線が動きます。$a$ が大きくなると 2 本の接線はほぼ水平になり、なす角 $\theta$ は 0 に近づきますが、$a\sin\theta$ は $\frac32$ に近づきます。（縦横の縮尺は同じで、$a$ に合わせて全体を縮小表示。）</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="105" max="1000" value="150"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>なす角の極限と $\sin\theta \sim \tan\theta \sim \theta$</h3>
+  <p>$\theta \to 0$ のとき $\sin\theta,\ \tan\theta,\ \theta$ はどれも同じ速さで 0 に近づきます。$\tan\theta \approx \frac{3}{2a}$ なので $a\sin\theta \to \frac32$。傾きの差 $m_1 - m_2 = \frac{3}{2a}$ がそのまま答えの $\frac32$ を決めています。</p>
+  <p>(1) は $C_1$ を $x = y^2$ と見て $y$ で積分すると、$\displaystyle\int_0^{\frac a2}y^2dy + \int_{\frac a2}^{a}(y - a)^2dy = \frac{a^3}{24} + \frac{a^3}{24}$ と、同じ面積の 2 つの部分に分かれることがわかります（接線は $y$ 軸と $y = \frac a2$ で交わる）。</p>
+  <p>chopin 先生は「(1) $L_1$ の式を求めてグラフに描くことで、面積を計算できます」「(2) $L_1$ と $L_2$（P での $C_2$ の接線）の傾きから、tan の加法定理を使って $\tan\theta$ が計算できます」とコメントしています。</p>
+  <div class="point">2 直線のなす角は $\tan\theta = \left|\frac{m_1 - m_2}{1 + m_1m_2}\right|$。極限は $\sin\theta = \frac{\tan\theta}{\sqrt{1 + \tan^2\theta}}$ で $\tan$ に直す。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y = \log x$ 上の点 $(e,\ 1)$ における接線と，曲線 $y = \log x$ および $x$ 軸で囲まれた部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>接線は $y = \frac xe$（原点を通る）。接線と $x$ 軸と $x = e$ でできる三角形 $\frac e2$ から $\int_1^e\log x\,dx = 1$ を引いて $\dfrac e2 - 1$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $C_2$ を $y = \dfrac{a^{2n+1}}{x^n}$（$n$ は自然数）に変える。$C_1$ と $C_2$ の交点 P における $C_2$ の接線と $l_1$ のなす角を $\theta_n(a)$ とするとき，$\displaystyle\lim_{a\to\infty}a\sin\theta_n(a)$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2013　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\sqrt x = \frac{a^{2n+1}}{x^n} \iff x^{n + \frac12} = a^{2n+1}$ より交点は同じ $\mathrm{P}(a^2,\ a)$。$C_2$ の傾きは $-\frac{na^{2n+1}}{x^{n+1}}\Big|_{x=a^2} = -\frac na$。</p>
+    $$\tan\theta_n = \frac{\frac1{2a} + \frac na}{1 - \frac{n}{2a^2}} = \frac{(2n + 1)a}{2a^2 - n}$$
+    <p>（$a$ が十分大きいとき。）$a\sin\theta_n \to \dfrac{2n + 1}{2}$。$n = 1$ が本問の $\frac32$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  function draw() {
+    const a = $("a").value / 100;
+    $("av").textContent = ` ${a.toFixed(2)}`;
+    const X = 1.7 * a * a;
+    const P = Fig.plane($("cv"), { xmin: -0.05 * X, xmax: X, ymin: -0.05 * X, ymax: X * 260 / 380, equal: true });
+    const c1 = (x) => Math.sqrt(x), c2 = (x) => a ** 3 / x, l1 = (x) => x / (2 * a) + a / 2, l2 = (x) => -(x - a * a) / a + a;
+    P.clear().axes();
+    const reg = []; for (let i = 0; i <= 80; i++) { const x = a * a * i / 80; reg.push([x, c1(x)]); } for (let i = 80; i >= 0; i--) { const x = a * a * i / 80; reg.push([x, l1(x)]); }
+    P.fill(reg, "rgba(138,21,56,.3)");
+    P.fn(c1, 0, X, "#8a1538", 2.2).fn(c2, a ** 3 / (X * 0.6), X, "#1c7ed6", 2.2);
+    P.fn(l1, -0.05 * X, X, "rgba(138,21,56,.8)", 1.3, 2, [5, 3]).fn(l2, Math.max(0, a * a - 0.5 * X), Math.min(X, a * a + 0.5 * X), "rgba(28,126,214,.8)", 1.3, 2, [5, 3]);
+    P.dot(a * a, a, "#e8590c", 4.5, "P(a², a)");
+    const t = 3 * a / (2 * a * a - 1), th = Math.atan(t);
+    $("info").innerHTML = `面積 a³/12 = ${(a ** 3 / 12).toFixed(3)}<br>l₁ の傾き 1/(2a) = ${(1 / (2 * a)).toFixed(4)}<br>C₂ の接線の傾き −1/a = ${(-1 / a).toFixed(4)}<br>tanθ = 3a/(2a²−1) = ${t.toFixed(4)}<br>θ = ${(th * 180 / Math.PI).toFixed(2)}°<br><b>a sinθ = ${(a * Math.sin(th)).toFixed(4)}</b> → 1.5`;
+  }
+  $("a").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

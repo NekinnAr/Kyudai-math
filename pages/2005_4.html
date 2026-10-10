@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2005年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2005-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>実数 $x$ に対して，$[x]$ は $x$ を超えない最大の整数を表す。例えば，$\left[\dfrac32\right] = 1$，$[2] = 2$ である。このとき，$0 &lt; \theta &lt; \pi$ として次の問いに答えよ。ただし，必要なら $\sin\alpha = \dfrac{1}{2\sqrt2}$ となる角 $\alpha\ \left(0 &lt; \alpha &lt; \dfrac\pi2\right)$ を用いてよい。</p>
+    <ol>
+      <li>(1)　不等式 $\log_2\left[\dfrac52 + \cos\theta\right] \le 1$ を満たす $\theta$ の範囲を求めよ。</li>
+      <li>(2)　不等式 $\left[\dfrac32 + \log_2\sin\theta\right] \ge 1$ を満たす $\theta$ の範囲を求めよ。</li>
+      <li>(3)　不等式 $\log_2\left[\dfrac52 + \cos\theta\right] \le \left[\dfrac32 + \log_2\sin\theta\right]$ を満たす $\theta$ の範囲を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2005 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>ガウス記号の中身の範囲を先に調べると、とりうる整数値が数個に絞れます。$\left[\frac52 + \cos\theta\right] \in \{1, 2, 3\}$，$\left[\frac32 + \log_2\sin\theta\right] \le 1$。あとは値ごとの場合分けです。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$-1 &lt; \cos\theta &lt; 1$ より $\frac32 &lt; \frac52 + \cos\theta &lt; \frac72$ なので、$N = \left[\frac52 + \cos\theta\right]$ は $1,\ 2,\ 3$ のいずれか。$\log_2N \le 1 \iff N \le 2 \iff \frac52 + \cos\theta &lt; 3 \iff \cos\theta &lt; \frac12$。</p>
+      $$\frac\pi3 &lt; \theta &lt; \pi$$
+
+      <h3>(2)</h3>
+      <p>$[X] \ge 1 \iff X \ge 1$ なので $\frac32 + \log_2\sin\theta \ge 1$，$\log_2\sin\theta \ge -\frac12$，$\sin\theta \ge \frac1{\sqrt2}$。</p>
+      $$\frac\pi4 \le \theta \le \frac{3\pi}4$$
+
+      <h3>(3)</h3>
+      <p>左辺 $L = \log_2N$ は</p>
+      <ul>
+        <li>$0 &lt; \theta \le \frac\pi3$（$\cos\theta \ge \frac12$）：$N = 3$，$L = \log_23 &gt; 1$</li>
+        <li>$\frac\pi3 &lt; \theta \le \frac{2\pi}3$（$-\frac12 \le \cos\theta &lt; \frac12$）：$N = 2$，$L = 1$</li>
+        <li>$\frac{2\pi}3 &lt; \theta &lt; \pi$（$\cos\theta &lt; -\frac12$）：$N = 1$，$L = 0$</li>
+      </ul>
+      <p>右辺 $R = \left[\frac32 + \log_2\sin\theta\right]$ は $\sin\theta \le 1$ より $R \le 1$。また</p>
+      <ul>
+        <li>$R = 1 \iff \sin\theta \ge \frac1{\sqrt2}$（(2)）</li>
+        <li>$R \ge 0 \iff \frac32 + \log_2\sin\theta \ge 0 \iff \sin\theta \ge 2^{-\frac32} = \frac1{2\sqrt2} \iff \alpha \le \theta \le \pi - \alpha$</li>
+      </ul>
+      <p>場合ごとに：</p>
+      <ul>
+        <li>$0 &lt; \theta \le \frac\pi3$：$L &gt; 1 \ge R$ で不適。</li>
+        <li>$\frac\pi3 &lt; \theta \le \frac{2\pi}3$：$R \ge 1$ が必要で、(2) よりこの区間はすべて $\frac\pi4 \le \theta \le \frac{3\pi}4$ に含まれるので、すべて適する。</li>
+        <li>$\frac{2\pi}3 &lt; \theta &lt; \pi$：$R \ge 0$ が必要で $\theta \le \pi - \alpha$。ここで $\sin\alpha = \frac1{2\sqrt2} &lt; \frac{\sqrt3}2 = \sin\frac\pi3$ より $\alpha &lt; \frac\pi3$，すなわち $\pi - \alpha &gt; \frac{2\pi}3$。よって $\frac{2\pi}3 &lt; \theta \le \pi - \alpha$。</li>
+      </ul>
+      $$\frac\pi3 &lt; \theta \le \pi - \alpha$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>黒が (3) の左辺，青が右辺の階段関数です（横軸は $\theta$）。黒が青以下になる区間（緑）が答えです。</p>
+
+  <div class="widget">
+    <label>θ：<input type="range" id="th" min="1" max="313" value="150"></label>
+    <span class="readout no-math" id="thv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>ガウス記号は「値の候補を絞る」</h3>
+  <p>ガウス記号 $[x]$ を含む方程式・不等式では、$[x]$ が整数であることと、中身の範囲から整数の候補を有限個に絞るのが基本戦略です。本問は三角関数と対数が組み合わさっていて見た目は複雑ですが、左辺は 3 段、右辺も実質 3 段（$1$，$0$，$-1$ 以下）の階段なので、図にすれば一目瞭然。$\alpha$ は $\sin\alpha = \frac1{2\sqrt2} \approx 0.354$ で、約 $20.7°$ です。</p>
+  <p>chopin 先生は「ガウス記号のついた部分は整数であり、その中身の値には範囲があるので、自ずとガウス記号の整数の取りうる値に限りが出てきます」「(1)〜(3) とも、それを念頭に解いていきます。(3) ではいくつか場合があるので、個別に調べます」とコメントしています。</p>
+  <div class="point">$[X] = n \iff n \le X &lt; n + 1$。中身の範囲 → 整数の候補 → 場合分け。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$0 &lt; \theta &lt; \pi$ のとき，$[2 + \sin\theta] = 2$ を満たす $\theta$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$0 &lt; \sin\theta \le 1$ より $2 &lt; 2 + \sin\theta \le 3$。値が 3 になるのは $\sin\theta = 1$ のときだけなので、$\theta \ne \dfrac\pi2$（$0 &lt; \theta &lt; \frac\pi2,\ \frac\pi2 &lt; \theta &lt; \pi$）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$0 &lt; \theta &lt; \pi$ のとき，$[2\cos\theta] + [2\sin\theta] = 1$ を満たす $\theta$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2005　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$[2\cos\theta]$ は $\theta$ が $0,\ \frac\pi3,\ \frac\pi2,\ \frac{2\pi}3$ を境に $1,\ 0,\ -1,\ -2$ と変わり（境目の値に注意）、$[2\sin\theta]$ は $\frac\pi6,\ \frac\pi2,\ \frac{5\pi}6$ を境に $0,\ 1,\ 2,\ 1,\ 0$ と変わる。区間ごとに和を調べると、和が 1 になるのは</p>
+    $$0 &lt; \theta &lt; \frac\pi6,\qquad \frac\pi3 &lt; \theta &lt; \frac\pi2$$
+    <p>（$\theta = \frac\pi3$ では $1 + 1 = 2$，$\theta = \frac\pi2$ では $0 + 2 = 2$。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const PI = Math.PI, al = Math.asin(1 / (2 * Math.SQRT2));
+  const L = (t) => Math.log2(Math.floor(2.5 + Math.cos(t) + 1e-12));
+  const R = (t) => Math.floor(1.5 + Math.log2(Math.sin(t)) + 1e-12);
+  function draw() {
+    const th = $("th").value / 100;
+    $("thv").textContent = ` θ = ${th.toFixed(2)}（${(th * 180 / PI).toFixed(1)}°）`;
+    const P = Fig.plane($("cv"), { xmin: -0.15, xmax: PI + 0.1, ymin: -2.3, ymax: 2.1 });
+    P.clear();
+    P.fill([[PI / 3, -2.3], [PI - al, -2.3], [PI - al, 2.1], [PI / 3, 2.1]], "rgba(47,158,68,.13)");
+    P.axes("θ", "");
+    // 階段は点列で描く（不連続点で線がつながらないよう分割）
+    const seg = (f, col) => { let cur = []; let prev = null; for (let i = 1; i < 1000; i++) { const t = PI * i / 1000, v = Math.max(f(t), -2.2); if (prev !== null && v !== prev) { P.line(cur, col, 2.2); cur = []; } cur.push([t, v]); prev = v; } P.line(cur, col, 2.2); };
+    seg(R, "#1c7ed6"); seg(L, "#222");
+    P.line([[th, -2.3], [th, 2.1]], "#c92a2a", 1, [3, 3]);
+    P.text("π/3", PI / 3 - 0.1, -2.15).text("π−α", PI - al - 0.15, -2.15).text("π/4", PI / 4 - 0.1, 1.95).text("3π/4", 3 * PI / 4 - 0.15, 1.95);
+    const l = L(th), r = R(th);
+    $("info").innerHTML = `[5/2 + cosθ] = ${Math.floor(2.5 + Math.cos(th) + 1e-12)}<br>左辺 = log₂ = ${l.toFixed(3)}<br>3/2 + log₂sinθ = ${(1.5 + Math.log2(Math.sin(th))).toFixed(3)}<br>右辺 = ${r}<br>` +
+      (l <= r ? '<span class="ok">成り立つ</span>' : '<span class="ng">成り立たない</span>') + `<br>α ≈ ${(al * 180 / PI).toFixed(1)}°`;
+  }
+  $("th").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2010年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2010-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>実数を成分とする 2 次正方行列 $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ を考える。平面上の点 $P(x,\ y)$ に対し，点 $Q(X,\ Y)$ を $\begin{pmatrix} X \\ Y \end{pmatrix} = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix}$ により定める。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$P$ が放物線 $y = x^2$ 全体の上を動くとき，$Q$ が放物線 $9X = 2Y^2$ 全体の上を動くという。このとき，行列 $A$ を求めよ。</li>
+      <li>(2)　$P$ が放物線 $y = x^2$ の全体の上を動くとき，$Q$ は常に円 $X^2 + (Y - 1)^2 = 1$ の上にあるという。このとき，行列 $A$ を求めよ。</li>
+      <li>(3)　$P$ が放物線 $y = x^2$ 全体の上を動くとき，$Q$ がある直線 $L$ <u>全体</u> の上を動くための $a,\ b,\ c,\ d$ についての条件を求めよ。また，その条件が成り立っているとき，直線 $L$ の方程式を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2010 九州大学 前期 理系 第5問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$P(t,\ t^2)$ とおくと $X = at + bt^2$，$Y = ct + dt^2$。条件式に代入して <b>$t$ についての恒等式</b>にします。「全体の上を動く」は、像が曲線の一部だけにならないことの確認が必要です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>すべての実数 $t$ で $9(at + bt^2) = 2(ct + dt^2)^2$，すなわち</p>
+      $$2d^2t^4 + 4cdt^3 + (2c^2 - 9b)t^2 - 9at = 0$$
+      <p>が恒等式なので $d = 0$，$a = 0$，$b = \dfrac{2c^2}{9}$。このとき $Q\left(\dfrac{2c^2}{9}t^2,\ ct\right)$。$c = 0$ だと $Q$ は原点のみで放物線全体を動かない。$c \ne 0$ なら $Y = ct$ はすべての実数を動き、$Q$ は放物線全体を動く。</p>
+      $$A = \begin{pmatrix} 0 & \frac{2c^2}{9} \\ c & 0 \end{pmatrix}\quad(c \ne 0\ \text{の実数})$$
+
+      <h3>(2)</h3>
+      <p>すべての $t$ で $(at + bt^2)^2 + (ct + dt^2)^2 - 2(ct + dt^2) = 0$：</p>
+      $$(b^2 + d^2)t^4 + 2(ab + cd)t^3 + (a^2 + c^2 - 2d)t^2 - 2ct = 0$$
+      <p>$t^4$ の係数から $b = d = 0$，$t$ の係数から $c = 0$，$t^2$ の係数から $a = 0$。</p>
+      $$A = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$$
+      <p>（$Q$ はつねに原点で、確かに円 $X^2 + (Y - 1)^2 = 1$ 上にある。）</p>
+
+      <h3>(3)</h3>
+      <p>直線 $L$ を $pX + qY = r$（$(p,\ q) \ne (0,\ 0)$）とする。すべての $t$ で</p>
+      $$(pb + qd)t^2 + (pa + qc)t - r = 0$$
+      <p>より $r = 0$，$pa + qc = 0$，$pb + qd = 0$。つまり $L$ は原点を通り、$\vec u = (a,\ c)$，$\vec v = (b,\ d)$ はともに $L$ に平行（零ベクトルも含む）。$L$ の方向の単位ベクトルを $\vec e$ として $\vec u = \alpha\vec e$，$\vec v = \beta\vec e$ と書くと $\overrightarrow{OQ} = (\alpha t + \beta t^2)\vec e$。</p>
+      <p>$\beta \ne 0$ なら $\alpha t + \beta t^2$ は 2 次関数で最大値または最小値をもち、$Q$ は $L$ 全体を動けない。$\beta = 0$，$\alpha \ne 0$ なら $\alpha t$ はすべての実数をとり、$L$ 全体を動く。$\alpha = \beta = 0$ なら $Q$ は原点のみ。よって条件は</p>
+      $$b = d = 0\ \text{かつ}\ (a,\ c) \ne (0,\ 0)$$
+      <p>このとき $Q = t(a,\ c)$ で、直線 $L$ は</p>
+      $$L:\ cx - ay = 0$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>成分を動かすと、放物線 $y = x^2$（灰）の像（赤，$-3 \le t \le 3$）が描かれます。プリセットで (1)〜(3) の行列を試せます。(3) で $b$ や $d$ を少しでも $0$ から動かすと、像が直線上で「折り返す」（半直線になる）か、曲がってしまいます。</p>
+
+  <div class="widget">
+    <button id="p1">(1) c = 3</button> <button id="p3">(3) の例</button> <button id="p4">b ≠ 0 で列が平行</button>
+    <div style="margin-top:6px">
+      <label>a：<input type="range" id="a" min="-30" max="30" value="0"></label><span class="readout no-math" id="av"></span>
+      <label>b：<input type="range" id="b" min="-30" max="30" value="20"></label><span class="readout no-math" id="bv"></span><br>
+      <label>c：<input type="range" id="c" min="-30" max="30" value="30"></label><span class="readout no-math" id="cv_"></span>
+      <label>d：<input type="range" id="d" min="-30" max="30" value="0"></label><span class="readout no-math" id="dv"></span>
+    </div>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「全体」に下線が引かれている理由</h3>
+  <p>(3) で単に「$Q$ がある直線上にある」なら、条件は「2 つの列ベクトルが平行」つまり $ad - bc = 0$ だけです（下の魔改造）。しかし像が<b>直線全体</b>になるには、直線上の座標 $\alpha t + \beta t^2$ がすべての実数をとる必要があり、2 次の項が消えていなければなりません。下線はこの違いに気付けるかを試しています。</p>
+  <p>(2) は「答えが零行列」という意外な結末。$\det A \ne 0$ の行列は放物線を放物線に（一般に 2 次曲線を同じ種類の 2 次曲線に）移すので、円に移ることはありえず、像は 1 点に潰すしかない、という見方もできます。</p>
+  <p>chopin 先生は「$X = at + bt^2,\ Y = ct + dt^2$ となるので、…それらが $t$ の恒等式になるための $a,\ b,\ c,\ d$ の条件を求めましょう」「2 次式ということは、最大値ないし最小値が必ず存在するので、X と Y はすべての実数を動けません」「直線には、$Y = pX + q$ とかけるタイプと、このようにかけない $X = r$ の 2 タイプがあることにも要注意です」とコメントしています。</p>
+  <div class="point">曲線上の点はパラメータで表し、条件を<b>恒等式</b>に。「全体を動く」と「上にある」は別物 ── 値域まで確認する。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>行列 $\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ によって放物線 $y = x^2$ が移る曲線の方程式を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$P(t,\ t^2)$ の像は $X = t + t^2$，$Y = t^2$。$t = X - Y$ なので $Y = (X - Y)^2$。（逆行列で $x = X - Y$，$y = Y$ を $y = x^2$ に代入しても同じ。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$P$ が放物線 $y = x^2$ 全体の上を動くとき，$Q$ が<b>ある直線の上にある</b>（直線全体を動かなくてもよい）ための $a,\ b,\ c,\ d$ の条件を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2010　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問 (3) の議論から、ある直線 $pX + qY = r$ 上にある $\iff$ $(a,\ c)$ と $(b,\ d)$ がともに $(p,\ q)$ に垂直 $\iff$ 2 つの列ベクトルが平行（零ベクトルを含む）$\iff ad - bc = 0$。</p>
+    <p>（$A = O$ なら $Q$ は原点で、原点を通る直線上にある。$ad - bc \ne 0$ なら $A$ は逆行列をもち、逆行列は直線を直線に移すので、もし像が直線上にあれば放物線も直線上にあることになり矛盾。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -6, xmax: 6, ymin: -6, ymax: 6, equal: true });
+  const set = (a, b, c, d) => { $("a").value = a; $("b").value = b; $("c").value = c; $("d").value = d; draw(); };
+  $("p1").addEventListener("click", () => set(0, 20, 30, 0));
+  $("p3").addEventListener("click", () => set(10, 0, 20, 0));
+  $("p4").addEventListener("click", () => set(10, 5, 20, 10));
+  function draw() {
+    const a = $("a").value / 10, b = $("b").value / 10, c = $("c").value / 10, d = $("d").value / 10;
+    $("av").textContent = ` ${a.toFixed(1)}`; $("bv").textContent = ` ${b.toFixed(1)}`; $("cv_").textContent = ` ${c.toFixed(1)}`; $("dv").textContent = ` ${d.toFixed(1)}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.fn((x) => x * x, -2.5, 2.5, "#bbb", 1.6);
+    const img = []; for (let i = 0; i <= 400; i++) { const t = -3 + 6 * i / 400; img.push([a * t + b * t * t, c * t + d * t * t]); }
+    P.line(img, "#8a1538", 2.4);
+    for (const t of [-1, 1]) P.dot(a * t + b * t * t, c * t + d * t * t, "#8a1538", 3, `t=${t}`, 4, -4);
+    const det = a * d - b * c;
+    let msg;
+    if (Math.abs(a) + Math.abs(b) + Math.abs(c) + Math.abs(d) < 1e-9) msg = "A = O：原点に潰れる";
+    else if (Math.abs(det) > 1e-9) msg = "det ≠ 0：放物線に移る";
+    else if (Math.abs(b) < 1e-9 && Math.abs(d) < 1e-9) msg = `<span class="ok">直線 ${c.toFixed(1)}x − ${a.toFixed(1)}y = 0 の全体</span>`;
+    else msg = '<span class="ng">直線上だが半直線（全体ではない）</span>';
+    const is1 = Math.abs(a) < 1e-9 && Math.abs(d) < 1e-9 && Math.abs(c) > 1e-9 && Math.abs(b - 2 * c * c / 9) < 1e-9;
+    if (is1) P.param((s) => 2 * s * s / 9, (s) => s, -6, 6, "#2f9e44", 1.2, 200, [5, 4]);
+    $("info").innerHTML = `det A = ${det.toFixed(2)}<br>${msg}` + (is1 ? '<br><span class="ok">9X = 2Y² 全体（緑の破線）</span>' : "");
+  }
+  ["a", "b", "c", "d"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

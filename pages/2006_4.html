@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2006年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2006-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>関数 $f(x) = \left|\left|\sin x - \dfrac12\right| - \dfrac12\right|$ を考える。ただし，$-\pi \le x \le \pi$ とする。さらに，$0 \le a \le \dfrac\pi2$ に対して，$F(a) = \displaystyle\int_0^a f(x)f\left(x - \frac\pi2\right)dx$ とする。このとき次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(x) = 0$ となる $x$ を求めよ。</li>
+      <li>(2)　関数 $y = f(x)$ のグラフの概形を描け。</li>
+      <li>(3)　$F(a)$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2006 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>二重の絶対値は内側から外します。$\sin x \ge \frac12$ なら $f = 1 - \sin x$，$\sin x &lt; \frac12$ なら $f = |\sin x|$。(3) では $0 \le x \le \frac\pi2$ のとき $f\left(x - \frac\pi2\right) = \cos x$ となり、$a$ と $\frac\pi6$ の大小で場合分けです。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f(x) = 0 \iff \left|\sin x - \frac12\right| = \frac12 \iff \sin x = 1$ または $\sin x = 0$。$-\pi \le x \le \pi$ より</p>
+      $$x = -\pi,\ 0,\ \frac\pi2,\ \pi$$
+
+      <h3>(2)</h3>
+      <p>$\sin x \ge \frac12$（$\frac\pi6 \le x \le \frac{5\pi}6$）のとき $0 \le \sin x - \frac12 \le \frac12$ なので $f(x) = \frac12 - \left(\sin x - \frac12\right) = 1 - \sin x$。</p>
+      <p>$\sin x &lt; \frac12$ のとき $f(x) = \left|\frac12 - \sin x - \frac12\right| = |\sin x|$。まとめると</p>
+      $$f(x) = \begin{cases} -\sin x & (-\pi \le x \le 0) \\ \sin x & \left(0 \le x \le \frac\pi6,\ \frac{5\pi}6 \le x \le \pi\right) \\ 1 - \sin x & \left(\frac\pi6 \le x \le \frac{5\pi}6\right) \end{cases}$$
+      <p>グラフは、$[-\pi,\ 0]$ で高さ 1 のアーチ、$[0,\ \pi]$ では高さ $\frac12$ の山が 2 つ（$x = \frac\pi6,\ \frac{5\pi}6$ で尖り、$x = \frac\pi2$ で 0）となる（下の図解の黒い曲線）。</p>
+
+      <h3>(3)</h3>
+      <p>$0 \le x \le \frac\pi2$ のとき $-\frac\pi2 \le x - \frac\pi2 \le 0$ なので $f\left(x - \frac\pi2\right) = -\sin\left(x - \frac\pi2\right) = \cos x$。</p>
+      <p><b>$0 \le a \le \frac\pi6$ のとき</b></p>
+      $$F(a) = \int_0^a\sin x\cos x\,dx = \frac12\sin^2a$$
+      <p><b>$\frac\pi6 \le a \le \frac\pi2$ のとき</b>　$F\left(\frac\pi6\right) = \frac18$ なので</p>
+      $$F(a) = \frac18 + \int_{\pi/6}^{a}(1 - \sin x)\cos x\,dx = \frac18 + \left[\sin x - \frac12\sin^2x\right]_{\pi/6}^{a} = \sin a - \frac12\sin^2a - \frac14$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>黒が $y = f(x)$，青の破線が $y = f\left(x - \frac\pi2\right)$（右に $\frac\pi2$ ずらしたもの），赤が積 $f(x)f\left(x - \frac\pi2\right)$ です。$a$ を動かすと塗られた面積が $F(a)$。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="0" max="157" value="100"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="460" height="240"></canvas>
+      <div class="no-math" id="info" style="min-width:170px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>絶対値の入れ子は「内側から」</h3>
+  <p>$||u| - c|$ のような入れ子の絶対値は、内側の符号で場合分けしてから外側を見るのが鉄則です。ここでは $\left|\sin x - \frac12\right|$ が $0$ から $\frac32$ まで動き、それから $\frac12$ を引いて折り返すので、「$\sin x$ が $\frac12$ を越える部分だけ逆さに折り返される」形になります。(3) は $f$ を $\frac\pi2$ ずらすと $\sin$ が $\cos$ に変わり、$\sin x\cos x$ の積分（$\sin^2$ の微分形）に持ち込めます。</p>
+  <p>chopin 先生は「(1) $\sin x - \frac12$ が $\frac12$ か $-\frac12$ になっていればよいです」「(2) $x$ の値による場合分けが当然発生することになります」「(3) $f\left(x - \frac\pi2\right)$ がどの形の関数になるかを考えないといけません。その形は $a$ の値によって変わりますので場合分けです」とコメントしています。</p>
+  <div class="point">入れ子の絶対値は内側から。$\int\sin x\cos x\,dx = \frac12\sin^2x$，$\int\cos x\,dx = \sin x$ の組合せ。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の $f(x)$ について，$\displaystyle\int_{-\pi}^{\pi}f(x)\,dx$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\int_{-\pi}^0(-\sin x)dx = 2$，$\int_0^{\pi/6}\sin x\,dx = \int_{5\pi/6}^{\pi}\sin x\,dx = 1 - \frac{\sqrt3}2$，$\int_{\pi/6}^{5\pi/6}(1 - \sin x)dx = \frac{2\pi}3 - \sqrt3$。合計 $4 - 2\sqrt3 + \dfrac{2\pi}3$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $f(x)$（$-\pi \le x \le \pi$）について，方程式 $f(x) = k$ の実数解の個数を，定数 $k$ の値によって分類せよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2006　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(2) のグラフと直線 $y = k$ の交点を数える。$k &lt; 0$：0 個，$k = 0$：4 個，$0 &lt; k &lt; \frac12$：6 個，$k = \frac12$：4 個，$\frac12 &lt; k &lt; 1$：2 個，$k = 1$：1 個，$k &gt; 1$：0 個。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const PI = Math.PI;
+  const f = (x) => Math.abs(Math.abs(Math.sin(x) - 0.5) - 0.5);
+  const h = (x) => f(x) * f(x - PI / 2);
+  const Fa = (a) => (a <= PI / 6 ? Math.sin(a) ** 2 / 2 : Math.sin(a) - Math.sin(a) ** 2 / 2 - 0.25);
+  function draw() {
+    const a = Math.min($("a").value / 100, PI / 2);
+    $("av").textContent = ` a = ${a.toFixed(2)}`;
+    const P = Fig.plane($("cv"), { xmin: -PI - 0.2, xmax: PI + 0.2, ymin: -0.25, ymax: 1.15 });
+    P.clear();
+    [-PI, -PI / 2, PI / 6, PI / 2, 5 * PI / 6, PI].forEach((x) => P.line([[x, -0.25], [x, 1.15]], "#eee", 1));
+    P.axes();
+    const reg = [[0, 0]]; for (let i = 0; i <= 100; i++) { const x = a * i / 100; reg.push([x, h(x)]); } reg.push([a, 0]);
+    P.fill(reg, "rgba(201,42,42,.3)");
+    P.fn(f, -PI, PI, "#222", 2, 800);
+    P.fn((x) => f(x - PI / 2), -PI / 2, PI, "#1c7ed6", 1.4, 800, [5, 3]);
+    P.fn(h, 0, PI / 2, "#c92a2a", 1.6, 400);
+    P.line([[a, -0.25], [a, 1.15]], "#c92a2a", 1, [2, 3]);
+    P.text("−π", -PI - 0.1, -0.15).text("π/6", PI / 6 - 0.15, -0.15).text("π/2", PI / 2 - 0.1, -0.15).text("5π/6", 5 * PI / 6 - 0.2, -0.15).text("π", PI - 0.05, -0.15);
+    let num = 0; const N = 2000; for (let i = 0; i < N; i++) { const x = a * (i + 0.5) / N; num += h(x) * a / N; }
+    $("info").innerHTML = `${a <= PI / 6 ? "a ≤ π/6：½ sin²a" : "a ≥ π/6：sin a − ½sin²a − ¼"}<br>F(a) = ${Fa(a).toFixed(5)}<br>数値積分 = ${num.toFixed(5)}<br>F(π/2) = 1/4`;
+  }
+  $("a").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2006年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2006-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 つの数列 $\{a_n\}$，$\{b_n\}$ は，$a_1 = b_1 = 1$ および，関係式</p>
+    $$a_{n+1} = 2a_nb_n,\qquad b_{n+1} = 2{a_n}^2 + {b_n}^2$$
+    <p>をみたすものとする。</p>
+    <ol>
+      <li>(1)　$n \ge 3$ のとき，$a_n$ は 3 で割り切れるが，$b_n$ は 3 で割り切れないことを示せ。</li>
+      <li>(2)　$n \ge 2$ のとき，$a_n$ と $b_n$ は互いに素であることを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2006 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は 3 で割った余りの帰納法。平方数を 3 で割った余りは 0 か 1。(2) は帰納法＋背理法で、$a_{n+1}$，$b_{n+1}$ が素数 $g$ を公約数にもつと仮定して矛盾を導きます。$b_n$ が常に奇数であることも使います。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a_2 = 2$，$b_2 = 3$，$a_3 = 12$，$b_3 = 17$。$n = 3$ では $a_3 = 12$ は 3 の倍数，$b_3 = 17$ は 3 の倍数でない。</p>
+      <p>$n = k\ (\ge 3)$ で成り立つとすると、$a_{k+1} = 2a_kb_k$ は 3 の倍数。また $b_k$ は 3 の倍数でないので ${b_k}^2 \equiv 1 \pmod 3$，$a_k \equiv 0$ より</p>
+      $$b_{k+1} = 2{a_k}^2 + {b_k}^2 \equiv 0 + 1 = 1 \pmod 3$$
+      <p>で 3 の倍数でない。帰納法により $n \ge 3$ で成り立つ。</p>
+
+      <h3>(2)</h3>
+      <p>まず $b_1 = 1$ は奇数で、$b_{n+1} = 2{a_n}^2 + {b_n}^2 \equiv {b_n}^2 \pmod 2$ なので $b_n$ はすべて奇数。</p>
+      <p>$n = 2$：$a_2 = 2$，$b_2 = 3$ は互いに素。$n = k\ (\ge 2)$ で $a_k$，$b_k$ が互いに素とし、$a_{k+1}$，$b_{k+1}$ が共通の素因数 $g$ をもつと仮定する。</p>
+      <ul>
+        <li>$b_{k+1}$ は奇数なので $g \ne 2$。</li>
+        <li>$g \mid a_{k+1} = 2a_kb_k$，$g \ne 2$ より $g \mid a_k$ または $g \mid b_k$。</li>
+        <li>$g \mid a_k$ のとき：$g \mid b_{k+1} - 2{a_k}^2 = {b_k}^2$ より $g \mid b_k$。$a_k$，$b_k$ が互いに素なことに矛盾。</li>
+        <li>$g \mid b_k$ のとき：$g \mid b_{k+1} - {b_k}^2 = 2{a_k}^2$，$g \ne 2$ より $g \mid a_k$。同じく矛盾。</li>
+      </ul>
+      <p>よって $a_{k+1}$，$b_{k+1}$ は互いに素。帰納法により $n \ge 2$ で成り立つ。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>BigInt で $a_n$，$b_n$ を正確に計算します。桁数が毎回ほぼ 2 倍になるので、$n = 10$ で数百桁。3 で割った余りと最大公約数、そして不思議な量 $b_n^2 - 2a_n^2$ も表示します。</p>
+
+  <div class="widget">
+    <label>n の上限：<input type="range" id="N" min="2" max="10" value="6"></label>
+    <span class="readout no-math" id="Nv"></span>
+    <div class="no-math" id="info" style="margin-top:8px;overflow-x:auto"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>正体は $(1 + \sqrt2)^{2^{n-1}}$</h3>
+  <p>漸化式をよく見ると</p>
+  $$b_{n+1} + \sqrt2\,a_{n+1} = {b_n}^2 + 2{a_n}^2 + 2\sqrt2\,a_nb_n = (b_n + \sqrt2\,a_n)^2$$
+  <p>となっていて、$b_n + \sqrt2\,a_n = (1 + \sqrt2)^{2^{n-1}}$ です。同様に $b_n - \sqrt2\,a_n = (1 - \sqrt2)^{2^{n-1}}$ なので、かけ合わせると $n \ge 2$ で</p>
+  $${b_n}^2 - 2{a_n}^2 = (-1)^{2^{n-1}} = 1$$
+  <p>これはペル方程式 $x^2 - 2y^2 = 1$ の解で、$b_n/a_n$ は $\sqrt2$ の非常に良い近似（ニュートン法と同じ 2 乗収束）になっています。この式があれば $a_n$ と $b_n$ の公約数は 1 を割り切るので、(2) は一瞬で示せます。</p>
+  <p>chopin 先生は「(1) 平方数を 3 で割った余りが 0 か 1 になることに注目して考えます」「(2) 数学的帰納法と背理法のセットで考えます。$a_k$ と $b_k$ が互いに素だと仮定すると、もし $a_{k+1}$ と $b_{k+1}$ に公約数 $g$ があった時に矛盾する、という流れです。公約数 $g$ は、素数としても一般性を失わず、素数とした方が見通しが良くなります」とコメントしています。</p>
+  <div class="point">「互いに素」の帰納法：共通の<strong>素因数</strong> $g$ を仮定して矛盾。$x^2 - 2y^2 = 1$ の形が見えれば一発。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の数列について，$n \ge 2$ のとき ${b_n}^2 - 2{a_n}^2 = 1$ であることを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>${b_{n+1}}^2 - 2{a_{n+1}}^2 = (2{a_n}^2 + {b_n}^2)^2 - 8{a_n}^2{b_n}^2 = ({b_n}^2 - 2{a_n}^2)^2$。$n = 2$ で $9 - 8 = 1$ なので、以後ずっと 1。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の数列について，$\displaystyle\lim_{n\to\infty}\frac{b_n}{a_n}$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2006　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>上の類題より $\left(\dfrac{b_n}{a_n}\right)^2 = 2 + \dfrac1{{a_n}^2}$（$n \ge 2$）。$a_n$ は正の整数で $a_{n+1} = 2a_nb_n \ge 2a_n$ より $a_n \to \infty$。$\dfrac{b_n}{a_n} &gt; 0$ なので極限は $\sqrt2$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const gcd = (x, y) => { while (y) { [x, y] = [y, x % y]; } return x; };
+  const short = (v) => { const s = v.toString(); return s.length > 18 ? s.slice(0, 8) + "…" + s.slice(-6) + `（${s.length}桁）` : s; };
+  function draw() {
+    const N = +$("N").value; $("Nv").textContent = ` ${N}`;
+    let a = 1n, b = 1n;
+    let h = '<table class="simple" style="width:auto;min-width:0"><tr><th>n</th><th>a<sub>n</sub></th><th>b<sub>n</sub></th><th>a mod 3</th><th>b mod 3</th><th>gcd</th><th>b²−2a²</th><th>b/a</th></tr>';
+    for (let n = 1; n <= N; n++) {
+      const ratio = n <= 7 ? (Number(b) / Number(a)).toFixed(12) : "1.414213562373…";
+      h += `<tr><td>${n}</td><td>${short(a)}</td><td>${short(b)}</td><td>${a % 3n}</td><td>${b % 3n}</td><td>${gcd(a, b)}</td><td>${b * b - 2n * a * a}</td><td>${ratio}</td></tr>`;
+      [a, b] = [2n * a * b, 2n * a * a + b * b];
+    }
+    h += "</table>√2 = 1.414213562373…";
+    $("info").innerHTML = h;
+  }
+  $("N").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

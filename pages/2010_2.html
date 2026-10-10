@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2010年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2010-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>次のような競技を考える。競技者がサイコロを振る。もし，出た目が気に入ればその目を得点とする。そうでなければ，もう 1 回サイコロを振って，2 つの目の合計を得点とすることができる。ただし，合計が 7 以上になった場合は得点は 0 点とする。この取り決めによって，2 回目を振ると得点が下がることもあることに注意しよう。次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　競技者が常にサイコロを 2 回振るとすると，得点の期待値はいくらか。</li>
+      <li>(2)　競技者が最初の目が 6 のときだけ 2 回目を振らないとすると，得点の期待値はいくらか。</li>
+      <li>(3)　得点の期待値を最大にするためには，競技者は最初の目がどの範囲にあるときに 2 回目を振るとよいか。</li>
+    </ol>
+  </div>
+  <p class="source">（2010 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>最初の目 $x$ ごとに「振らない：得点 $x$」と「振る：得点の条件付き期待値」を比べれば、目ごとに独立に最善の行動が決まります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>2 つの目の合計が $s\ (2 \le s \le 6)$ となる目の出方は $s - 1$ 通り（全 36 通り）。7 以上は 0 点。</p>
+      $$E_1 = \frac{2\cdot1 + 3\cdot2 + 4\cdot3 + 5\cdot4 + 6\cdot5}{36} = \frac{70}{36} = \frac{35}{18}$$
+
+      <h3>(2)</h3>
+      <p>最初が 6 のとき、2 回振ると必ず合計 7 以上で 0 点だった。振らなければ 6 点なので、(1) より確率 $\frac16$ で 6 点増える。</p>
+      $$E_2 = \frac{35}{18} + \frac16\cdot6 = \frac{53}{18}$$
+
+      <h3>(3)</h3>
+      <p>最初の目が $x$ のとき、2 回目を振ったときの得点の期待値は（2 回目が $y \le 6 - x$ のときだけ $x + y$ 点）</p>
+      $$g(x) = \frac16\sum_{y=1}^{6-x}(x + y)$$
+      <table class="simple" style="width:auto;min-width:0">
+        <tr><th>$x$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+        <tr><th>振る $g(x)$</th><td>$\frac{20}{6}$</td><td>$\frac{18}{6}$</td><td>$\frac{15}{6}$</td><td>$\frac{11}{6}$</td><td>$1$</td><td>$0$</td></tr>
+        <tr><th>振らない</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+      </table>
+      <p>$g(x) > x$ となるのは $x = 1,\ 2$ のときだけ。最初の目ごとに大きい方を選ぶのが最善なので、<b>最初の目が 1 または 2 のときに 2 回目を振る</b>のがよい。このときの期待値は</p>
+      $$\frac16\left(\frac{20}{6} + 3 + 3 + 4 + 5 + 6\right) = \frac{73}{18}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>「最初の目が $k$ 以下なら 2 回目を振る」という作戦の $k$ を変えると、期待値（厳密値）が表示されます。シミュレーションで確かめることもできます。</p>
+
+  <div class="widget">
+    <label>k（この目以下なら振る）：<input type="range" id="k" min="0" max="6" value="2"></label>
+    <span class="readout no-math" id="kv"></span>
+    <button id="sim">10 万回シミュレーション</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="230"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「その場その場で期待値が大きい方」を選ぶ</h3>
+  <p>ゲームの最適戦略は、各局面で「止める」「続ける」の期待値を比べて大きい方を選ぶことで得られます（最適停止問題）。本問は 1 段階だけなので、最初の目ごとの比較表を作れば終わりです。</p>
+  <p>(3) の作戦は「境界値（しきい値）より小さければ振る」という形になっています。$g(x)$ が $x$ について減少、$x$ は増加なので、両者が逆転する点がちょうど 1 か所あるからです。振り直しを何回も許すゲームでも、同じように後ろから順に比べていけば最適戦略が求まります。</p>
+  <p>chopin 先生は「(1) 得点と確率の対応表を書いてしまいましょう」「(2) (1) の時と比べて、得点が 6 になる確率だけが 1/6 増えます」「(3) …2 回目を振らない範囲を広げていくと、その分確率が変化するので、逐一期待値を計算しなおしていきます」とコメントしています。</p>
+  <div class="point">選択のある期待値の最大化は、<b>局面ごとに「続けた場合の期待値」と「止めた場合の値」を比較</b>。全体の期待値はその和。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>サイコロを 1 回振り，出た目が気に入らなければ 1 回だけ振り直すことができ，最後に出た目を得点とする。得点の期待値を最大にする作戦と，そのときの期待値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>振り直したときの期待値は $\frac72$。最初の目 $x$ が $\frac72$ より小さい（$x \le 3$）なら振り直す。期待値は $\frac12\cdot\frac72 + \frac16(4 + 5 + 6) = \frac74 + \frac52 = \frac{17}{4}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の取り決めで「合計が 7 以上で 0 点」を「合計が 8 以上で 0 点」に変えたとき，(3) と同じ問いに答えよ。また，そのときの期待値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2010　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>振った場合の期待値 $g(x) = \frac16\sum_{y=1}^{7-x}(x + y)$：$x = 1,\ 2,\ 3,\ 4$ で $\frac{27}{6},\ \frac{25}{6},\ \frac{22}{6},\ \frac{18}{6}$。$g(x) > x$ は $x \le 3$。最初の目が <b>1，2，3 のとき</b>振る。</p>
+    $$E = \frac16\left(\frac{27 + 25 + 22}{6} + 4 + 5 + 6\right) = \frac{41}{9}$$
+    <p>（0 点になりにくくなった分、リスクを取る範囲が 1 つ広がります。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: 0.3, xmax: 6.7, ymin: -0.4, ymax: 6.5 });
+  const g6 = (x) => { let s = 0; for (let y = 1; y <= 6 - x; y++) s += x + y; return s; }; // 6 倍した値
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  let sim = null;
+  function exact(k) { let num = 0; for (let x = 1; x <= 6; x++) num += x <= k ? g6(x) : 6 * x; return num; } // /36
+  function draw() {
+    const k = +$("k").value; $("kv").textContent = ` k = ${k}`;
+    P.clear().grid(1, "#f3f3f3").axes("", "");
+    for (let x = 1; x <= 6; x++) {
+      const roll = g6(x) / 6, stay = x, use = x <= k;
+      P.fill([[x - 0.35, 0], [x, 0], [x, stay], [x - 0.35, stay]], use ? "rgba(150,150,150,.35)" : "rgba(138,21,56,.65)");
+      P.fill([[x, 0], [x + 0.35, 0], [x + 0.35, roll], [x, roll]], use ? "rgba(28,126,214,.65)" : "rgba(150,150,150,.35)");
+    }
+    const n = exact(k), g = gcd(n, 36);
+    let s = `<span style="color:#8a1538">■ 振らない得点 x</span><br><span style="color:#1c7ed6">■ 振ったときの期待値 g(x)</span><br>（濃い方が選んだ行動）<br>期待値 = <b>${n / g}/${36 / g}</b> ≈ ${(n / 36).toFixed(4)}`;
+    if (sim && sim.k === k) s += `<br>実験値 ≈ ${sim.v.toFixed(4)}`;
+    if (k === 2) s += '<br><span class="ok">最大（73/18）</span>';
+    $("info").innerHTML = s;
+  }
+  $("sim").addEventListener("click", () => {
+    const k = +$("k").value, N = 100000; let tot = 0;
+    for (let i = 0; i < N; i++) { const x = 1 + Math.floor(Math.random() * 6); if (x <= k) { const s = x + 1 + Math.floor(Math.random() * 6); tot += s <= 6 ? s : 0; } else tot += x; }
+    sim = { k, v: tot / N }; draw();
+  });
+  $("k").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

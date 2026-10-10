@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2013年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2013-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>一辺の長さが 1 の正方形 $\mathrm{OABC}$ を底面とし，点 $\mathrm{P}$ を頂点とする四角錐 $\mathrm{POABC}$ がある。ただし，点 $\mathrm{P}$ は内積に関する条件 $\overrightarrow{\mathrm{OA}}\cdot\overrightarrow{\mathrm{OP}} = \dfrac14$，および $\overrightarrow{\mathrm{OC}}\cdot\overrightarrow{\mathrm{OP}} = \dfrac12$ をみたす。辺 $\mathrm{AP}$ を $2 : 1$ に内分する点を $\mathrm{M}$ とし，辺 $\mathrm{CP}$ の中点を $\mathrm{N}$ とする。さらに，点 $\mathrm{P}$ と直線 $\mathrm{BC}$ 上の点 $\mathrm{Q}$ を通る直線 $\mathrm{PQ}$ は，平面 $\mathrm{OMN}$ に垂直であるとする。このとき，長さの比 $\mathrm{BQ} : \mathrm{QC}$，および線分 $\mathrm{OP}$ の長さを求めよ。</p>
+  </div>
+  <p class="source">（2013 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>座標を入れるのが速い。$\mathrm{O}$ を原点、$\mathrm{A}(1, 0, 0)$，$\mathrm{C}(0, 1, 0)$ とすると、内積の条件から $\mathrm{P}\left(\frac14,\ \frac12,\ h\right)$。「平面 OMN に垂直」$\iff$「$\overrightarrow{\mathrm{OM}},\ \overrightarrow{\mathrm{ON}}$ の両方に垂直」。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$\mathrm{O}(0,0,0)$，$\mathrm{A}(1,0,0)$，$\mathrm{B}(1,1,0)$，$\mathrm{C}(0,1,0)$ とし、$\mathrm{P}(p_1,\ p_2,\ h)$（$h \gt 0$）とおく。$\overrightarrow{\mathrm{OA}}\cdot\overrightarrow{\mathrm{OP}} = p_1 = \frac14$，$\overrightarrow{\mathrm{OC}}\cdot\overrightarrow{\mathrm{OP}} = p_2 = \frac12$。</p>
+      $$\mathrm{M} = \frac{\mathrm{A} + 2\mathrm{P}}{3} = \left(\frac12,\ \frac13,\ \frac{2h}{3}\right),\qquad \mathrm{N} = \frac{\mathrm{C} + \mathrm{P}}{2} = \left(\frac18,\ \frac34,\ \frac h2\right)$$
+      <p>Q は直線 BC 上なので $\mathrm{Q}(s,\ 1,\ 0)$ とおける。$\overrightarrow{\mathrm{PQ}} = \left(s - \frac14,\ \frac12,\ -h\right)$。</p>
+      <p>PQ が平面 OMN に垂直 $\iff \overrightarrow{\mathrm{PQ}}\cdot\overrightarrow{\mathrm{OM}} = 0$ かつ $\overrightarrow{\mathrm{PQ}}\cdot\overrightarrow{\mathrm{ON}} = 0$。$u = s - \frac14$ とおくと</p>
+      $$\frac u2 + \frac16 - \frac{2h^2}{3} = 0,\qquad \frac u8 + \frac38 - \frac{h^2}{2} = 0$$
+      <p>それぞれ 3 倍・4 倍して $\frac{3u}{2} + \frac12 = 2h^2$，$\frac u2 + \frac32 = 2h^2$。辺々引いて $u - 1 = 0$，$u = 1$。よって $s = \frac54$，$2h^2 = 2$，$h = 1$。</p>
+      <p>$\mathrm{Q}\left(\frac54,\ 1,\ 0\right)$ は辺 CB を B の側に延長した点で、$\mathrm{BQ} = \frac14$，$\mathrm{QC} = \frac54$。</p>
+      $$\mathrm{BQ} : \mathrm{QC} = 1 : 5,\qquad \mathrm{OP} = \sqrt{\frac1{16} + \frac14 + 1} = \frac{\sqrt{21}}{4}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>四角錐と平面 OMN（青）、直線 PQ（赤）を表示します。Q は辺 BC の外側（B の先）にあります。ドラッグで回転して、PQ が平面 OMN に垂直になっている様子を確かめましょう。高さ $h$ を変えると垂直でなくなります。</p>
+
+  <div class="widget">
+    <label>高さ h：<input type="range" id="h" min="30" max="200" value="100"></label>
+    <span class="readout no-math" id="hv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="400" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>座標か、ベクトルか</h3>
+  <p>chopin 先生は「与えられている内積が $\overrightarrow{\mathrm{OA}},\ \overrightarrow{\mathrm{OC}},\ \overrightarrow{\mathrm{OP}}$ となっているので、この 3 本のベクトルを基準にしてすべての点を表現する方向で考えていきましょう」「最後に求まる $\mathrm{BQ} : \mathrm{QC}$ については、Q が外分点となるので少しややこしいです。図に落として考えると分かりやすい」とコメントしています。</p>
+  <p>底面が正方形なので座標を入れると、内積の条件がそのまま P の $x,\ y$ 座標になり、計算が一気に楽になります。ベクトルで解く場合も、$\vec a\cdot\vec c = 0$，$|\vec a| = |\vec c| = 1$ を使うので本質は同じです。</p>
+  <div class="point">直線が平面に垂直 $\iff$ 平面上の 1 次独立な 2 ベクトルと垂直。底面が正方形・長方形なら<b>座標を入れる</b>のが最速。外分点になる場合は図で位置を確認。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>3 点 $\mathrm{O}(0,0,0)$，$\mathrm{M}\left(\frac12,\ \frac13,\ \frac23\right)$，$\mathrm{N}\left(\frac18,\ \frac34,\ \frac12\right)$ を通る平面に垂直なベクトルを 1 つ求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\vec n = (a,\ b,\ c)$ が $\overrightarrow{\mathrm{OM}},\ \overrightarrow{\mathrm{ON}}$ と垂直：$3a + 2b + 4c = 0$，$a + 6b + 4c = 0$。引いて $2a - 4b = 0$，$a = 2b$，$c = -2b$。$\vec n = (2,\ 1,\ -2)$。</p>
+    <p>（本問の $\overrightarrow{\mathrm{PQ}} = \left(1,\ \frac12,\ -1\right)$ はこれに平行。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，M を「辺 AP の中点」に変えたとき，$\mathrm{BQ} : \mathrm{QC}$ と線分 OP の長さを求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2013　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{M}\left(\frac58,\ \frac14,\ \frac h2\right)$。$u = s - \frac14$ として $\frac{5u}{8} + \frac18 - \frac{h^2}{2} = 0$，$\frac u8 + \frac38 - \frac{h^2}{2} = 0$。引いて $\frac u2 - \frac14 = 0$，$u = \frac12$，$s = \frac34$，$h^2 = \frac78$。</p>
+    <p>Q は辺 BC 上（内分点）で $\mathrm{BQ} : \mathrm{QC} = \frac14 : \frac34 = 1 : 3$。$\mathrm{OP} = \sqrt{\frac1{16} + \frac14 + \frac78} = \dfrac{\sqrt{19}}{4}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const v3 = Fig.v3;
+  const V = Fig.view3d($("cv"), { scale: 120, center: [0.6, 0.6, 0.4], az: -0.6, el: 0.35, onChange: () => draw() });
+  function draw() {
+    const h = $("h").value / 100;
+    $("hv").textContent = ` ${h.toFixed(2)}`;
+    const O = [0, 0, 0], A = [1, 0, 0], B = [1, 1, 0], C = [0, 1, 0], P = [0.25, 0.5, h];
+    const M = [(1 + 0.5) / 3, 1 / 3, 2 * h / 3], N = [0.125, 0.75, h / 2];
+    // PQ ⊥ OM を満たす s（h が正解でないと ON とは垂直にならない）
+    const u = (2 * h * h / 3 - 1 / 6) * 2, Q = [0.25 + u, 1, 0];
+    V.clear().axes(1.5);
+    V.poly([O, A, B, C], "#999", 1.2, [], "rgba(0,0,0,.04)", true);
+    [O, A, B, C].forEach((X) => V.poly([X, P], "#999", 1.2));
+    V.poly([O, M, N], "#1c7ed6", 1.5, [], "rgba(28,126,214,.25)", true);
+    V.poly([C, Q], "#bbb", 1, [4, 3]);
+    V.poly([P, Q], "#c92a2a", 2.2);
+    [[O, "O"], [A, "A"], [B, "B"], [C, "C"], [P, "P"]].forEach(([X, s]) => V.dot(X, "#222", 3.5, s));
+    V.dot(M, "#1c7ed6", 4, "M").dot(N, "#1c7ed6", 4, "N").dot(Q, "#c92a2a", 4, "Q");
+    const PQ = v3.sub(Q, P), d1 = v3.dot(PQ, M), d2 = v3.dot(PQ, N);
+    $("info").innerHTML = `P = (0.25, 0.5, ${h.toFixed(2)})<br>Q = (${Q[0].toFixed(3)}, 1, 0)<br>PQ·OM = ${d1.toFixed(4)}<br>PQ·ON = ${d2.toFixed(4)}` +
+      (Math.abs(d2) < 0.01 ? '<br><span class="ok">平面 OMN に垂直！</span><br>BQ : QC = 1 : 5<br>OP = √21/4 ≈ 1.146' : '<br><span class="ng">ON と垂直でない</span>');
+  }
+  $("h").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

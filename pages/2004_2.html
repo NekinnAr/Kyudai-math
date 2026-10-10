@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2004年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2004-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 次の正方行列 $A = \begin{pmatrix} a & b \\ b & a \end{pmatrix}$ に対して，次の問いに答えよ。ただし，$a$，$b$ は定数とする。</p>
+    <ol>
+      <li>(1)　$(a + b)^4$，$(a - b)^4$ を展開せよ。</li>
+      <li>(2)　$A^4$ を $(a + b)^4$，$(a - b)^4$ を用いて表せ。</li>
+      <li>(3)　自然数 $n$ に対して，$A^n$ を求めよ。</li>
+      <li>(4)　$0 &lt; a &lt; 1$ とし $b = 1 - a$ としたときの $A^n$ の $(1,\ 1)$ 成分を $x_n$ とする。極限 $\displaystyle\lim_{n\to\infty}x_n$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2004 九州大学 前期 理系 第2問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$J = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ とおくと $A = aE + bJ$，$J^2 = E$。二項展開で偶数次の項は $E$，奇数次の項は $J$ に集まるので、$\frac{(a+b)^n \pm (a-b)^n}{2}$ が現れます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$(a + b)^4 = a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4,\quad (a - b)^4 = a^4 - 4a^3b + 6a^2b^2 - 4ab^3 + b^4$$
+
+      <h3>(2)</h3>
+      <p>$J = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$ とおくと $A = aE + bJ$，$J^2 = E$ で、$E$ と $J$ は可換。二項定理より</p>
+      $$A^4 = (a^4 + 6a^2b^2 + b^4)E + (4a^3b + 4ab^3)J$$
+      <p>(1) より $a^4 + 6a^2b^2 + b^4 = \frac{(a+b)^4 + (a-b)^4}{2}$，$4a^3b + 4ab^3 = \frac{(a+b)^4 - (a-b)^4}{2}$ なので</p>
+      $$A^4 = \frac12\begin{pmatrix} (a+b)^4 + (a-b)^4 & (a+b)^4 - (a-b)^4 \\ (a+b)^4 - (a-b)^4 & (a+b)^4 + (a-b)^4 \end{pmatrix}$$
+
+      <h3>(3)</h3>
+      <p>同様に $A^n = \displaystyle\sum_{k}\binom nk a^{n-k}b^kJ^k$ で、偶数 $k$ の和が $\frac{(a+b)^n + (a-b)^n}2$，奇数 $k$ の和が $\frac{(a+b)^n - (a-b)^n}2$ なので</p>
+      $$A^n = \frac12\begin{pmatrix} (a+b)^n + (a-b)^n & (a+b)^n - (a-b)^n \\ (a+b)^n - (a-b)^n & (a+b)^n + (a-b)^n \end{pmatrix}$$
+      <p>（$n = 1$ で成立し、$A^{n+1} = A^nA$ を計算する帰納法でも示せる。）</p>
+
+      <h3>(4)</h3>
+      <p>$a + b = 1$，$a - b = 2a - 1$ で、$0 &lt; a &lt; 1$ より $|2a - 1| &lt; 1$。</p>
+      $$x_n = \frac{1 + (2a - 1)^n}{2} \to \frac12$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かして $x_n$ の様子を見ましょう。$a &lt; \frac12$ では $2a - 1 &lt; 0$ なので振動しながら、$a &gt; \frac12$ では単調に $\frac12$ へ近づきます。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="1" max="99" value="20"></label>
+    <span class="readout no-math" id="av"></span>
+    <label>n：<input type="range" id="n" min="1" max="30" value="4"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="220"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>確率行列と「混ざっていく」様子</h3>
+  <p>$b = 1 - a$ のとき $A$ は各行の和が 1 の「確率行列」で、2 つの状態を確率 $a$ で留まり $b$ で入れ替わるマルコフ連鎖を表します。$A^n \to \frac12\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$ は「十分時間が経つと、どちらの状態にいる確率も $\frac12$」ということ。固有値は $a + b = 1$ と $a - b$ で、$|a - b| &lt; 1$ が収束の条件です。</p>
+  <p>chopin 先生は「(1) は、行列関係なく、2 項定理で求まります」「(2) は計算が結構大変です。ケーリー・ハミルトンの定理で次数下げをするなど、少しでも楽をしましょう」「(3) 試しに、$A^2$ を計算すると、$A^n$ の形の予測ができるので、それを帰納法で証明します」「(4) $(a - b)^n$ の収束する条件を考えれば十分ですね」とコメントしています。</p>
+  <div class="point">$A = aE + bJ$（$J^2 = E$）と分解すれば二項定理が使える。$\frac{(a+b)^n \pm (a-b)^n}{2}$ は偶数項・奇数項の取り出し。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$ のとき，$A^n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問 (3) で $a = 1$，$b = 2$：$A^n = \dfrac12\begin{pmatrix} 3^n + (-1)^n & 3^n - (-1)^n \\ 3^n - (-1)^n & 3^n + (-1)^n \end{pmatrix}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$a \ge 0$，$b \ge 0$，$a + b = 1$ とする。$A^n$ の各成分が $n \to \infty$ で収束するための $a$ の条件と，そのときの極限の行列を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2004　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$(a - b)^n = (2a - 1)^n$ が収束する条件は $-1 &lt; 2a - 1 \le 1$，すなわち $0 &lt; a \le 1$。$0 &lt; a &lt; 1$ なら極限は $\dfrac12\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$，$a = 1$ なら $A = E$ で極限は $E$。$a = 0$ では $A = J$ で $A^n$ が $J$，$E$ を交互にとり収束しない。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  function draw() {
+    const a = $("a").value / 100, b = 1 - a, N = +$("n").value;
+    $("av").textContent = ` a = ${a.toFixed(2)}（b = ${b.toFixed(2)}）`; $("nv").textContent = ` n = ${N}`;
+    // 行列を実際に掛け算
+    let M = [[1, 0], [0, 1]]; const xs = [];
+    for (let k = 1; k <= 30; k++) { M = [[M[0][0] * a + M[0][1] * b, M[0][0] * b + M[0][1] * a], [M[1][0] * a + M[1][1] * b, M[1][0] * b + M[1][1] * a]]; xs.push(M[0][0]); if (k === N) var MN = M; }
+    const P = Fig.plane($("cv"), { xmin: -1, xmax: 31, ymin: -0.1, ymax: 1.1 });
+    P.clear().grid(5, "#f3f3f3").axes("n", "");
+    P.line([[0, 0.5], [31, 0.5]], "#2f9e44", 1.4, [5, 3]);
+    xs.forEach((x, i) => P.dot(i + 1, x, i + 1 === N ? "#c92a2a" : "#8a1538", i + 1 === N ? 5 : 2.5));
+    const f = (v) => v.toFixed(5);
+    $("info").innerHTML = `A<sup>${N}</sup> =<br>[ ${f(MN[0][0])} , ${f(MN[0][1])} ]<br>[ ${f(MN[1][0])} , ${f(MN[1][1])} ]<br>公式：(1 + (2a−1)<sup>n</sup>)/2<br>= ${f((1 + (2 * a - 1) ** N) / 2)}`;
+  }
+  ["a", "n"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

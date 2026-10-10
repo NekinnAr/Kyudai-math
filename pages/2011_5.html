@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2011年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2011-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 から 4 までの数字が 1 つずつ書かれた 4 枚のカードがある。その 4 枚のカードを横一列に並べ，以下の操作を考える。</p>
+    <p><b>操作：</b>　1 から 4 までの数字が 1 つずつ書かれた 4 個の球が入っている袋から同時に 2 個の球を取り出す。球に書かれた数字が $i$ と $j$ ならば，$i$ のカードと $j$ のカードを入れかえる。その後，2 個の球は袋に戻す。</p>
+    <p>初めにカードを左から順に 1，2，3，4 と並べ，上の操作を $n$ 回繰り返した後のカードについて，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$n = 2$ のとき，カードが左から順に 1，2，3，4 と並ぶ確率を求めよ。</li>
+      <li>(2)　$n = 2$ のとき，カードが左から順に 4，3，2，1 と並ぶ確率を求めよ。</li>
+      <li>(3)　$n = 2$ のとき，左端のカードの数字が 1 になる確率を求めよ。</li>
+      <li>(4)　$n = 3$ のとき，左端のカードの数字の期待値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2011 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>取り出す 2 個の組は $\binom42 = 6$ 通りで、どれも確率 $\frac16$。$n = 2$ なら全部で $36$ 通りを数えます。(3)(4) は「カード 1 が今どこにいるか」だけを追いかけると楽になります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>異なる 2 つの入れかえを続けて行うと必ず元とは違う並びになるので、元に戻るのは 2 回とも同じ組を取り出すとき。</p>
+      $$6 \times \frac16 \times \frac16 = \frac16$$
+
+      <h3>(2)</h3>
+      <p>4，3，2，1 は 1 と 4，2 と 3 を入れかえた並び。2 回で実現するには $\{1,\ 4\}$ と $\{2,\ 3\}$ を（順序はどちらでも）1 回ずつ取り出すしかないので</p>
+      $$2 \times \frac16 \times \frac16 = \frac{1}{18}$$
+
+      <h3>(3)</h3>
+      <p>左端のカードが 1 ⇔ カード 1 が左端にある。カード 1 は、取り出した球に 1 が含まれるとき（確率 $\frac36 = \frac12$）だけ動きます。</p>
+      <ul>
+        <li>2 回ともカード 1 が動かない：$\left(\frac12\right)^2 = \frac14$</li>
+        <li>1 回目に $\{1,\ j\}$ でカード 1 が動き（確率 $\frac12$）、2 回目にちょうど $\{1,\ j\}$ を取り出して戻る（確率 $\frac16$）：$\frac{1}{12}$</li>
+        <li>どちらか 1 回だけ動く：左端にはない</li>
+      </ul>
+      $$\frac14 + \frac{1}{12} = \frac13$$
+
+      <h3>(4)</h3>
+      <p>左端のカードの数字を $X_n$ とする。1 回の操作で、左端のカード $X_n = v$ は $v$ を含む組が出たとき（確率 $\frac12$）に他の 3 つの数字のどれかのカードと入れかわり、どの数字になるかは等確率（各 $\frac16$）。よって $u_n = P(X_n = 1)$ について</p>
+      $$u_{n+1} = \frac12u_n + \frac16(1 - u_n)$$
+      <p>$u_2 = \frac13$ より $u_3 = \frac16 + \frac{1}{18} = \frac{5}{18}$。また数字 2，3，4 は対等なので $P(X_3 = 2) = P(X_3 = 3) = P(X_3 = 4) = \frac13\left(1 - \frac{5}{18}\right) = \frac{13}{54}$。</p>
+      $$E[X_3] = 1\cdot\frac{5}{18} + (2 + 3 + 4)\cdot\frac{13}{54} = \frac{15 + 117}{54} = \frac{22}{9}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>「操作」ボタンで実際に球を 2 個取り出してカードを入れかえます。下の棒グラフは $n$ 回後の左端のカードの分布（24 通りの並びを全部追跡した厳密値）です。</p>
+
+  <div class="widget">
+    <button id="op">操作</button> <button id="reset">リセット</button>
+    <div class="no-math" id="cards" style="margin:8px 0;font-size:1.6em;letter-spacing:.3em"></div>
+    <div class="no-math" id="log" style="font-size:.9em;color:#555"></div>
+    <hr>
+    <label>n：<input type="range" id="n" min="0" max="8" value="3"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="220"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>ランダムな互換の積と「1 枚だけ追う」発想</h3>
+  <p>この操作は、数学的には「ランダムな互換（2 つだけを入れかえる置換）を次々に掛ける」ことです。並び全体（$4! = 24$ 通り）を追うのは大変ですが、(3)(4) のように<b>注目するのが 1 か所だけ</b>なら、状態は「左端のカードの数字」の 4 通り、さらに対称性で「1 か、それ以外か」の 2 通りに減ります。</p>
+  <p>漸化式 $u_{n+1} = \frac13u_n + \frac16$ を解くと $u_n = \frac14 + \frac34\left(\frac13\right)^n$。$n \to \infty$ で左端は 4 枚が等確率 $\frac14$ になり、期待値は $\frac52$ に近づきます。</p>
+  <p>chopin 先生は「(1) の状況が起きるのは、2 回とも同じ数字が入れ替わる時です」「(2) の状況が起きるのは、1 と 4 が入れ替わり、2 と 3 が入れ替わる時です」「(4) 一番左が 1, 2, 3, 4 になる確率をそれぞれ考えていきますが、1 の場合だけが特別で、2〜4 は全て等確率で起こります」とコメントしています。</p>
+  <div class="point">並べ替えの確率は「注目する 1 枚だけを追う」と状態が激減する。対等なものはまとめて扱う。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>1，2，3 のカードを左から順に並べ，1〜3 の球が入った袋から 2 個を取り出して本問と同じ操作を行う。(a) 2 回の操作の後，元の並びに戻る確率を求めよ。(b) $n$ 回の操作の後，左端のカードが 1 である確率を求めよ（$n \ge 1$）。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(a) 組は 3 通り。同じ組を 2 回取り出すときだけ戻るので $3\cdot\frac19 = \frac13$。</p>
+    <p>(b) 左端のカード $v$ は確率 $\frac23$ で動き、残り 2 つの数字に各 $\frac13$ で変わる。$u_{n+1} = \frac13u_n + \frac13(1 - u_n) = \frac13$。$n \ge 1$ で常に $\frac13$（1 回で一様になる）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の操作を $n$ 回行ったとき，左端のカードの数字の期待値 $E_n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2011　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$u_{n+1} = \frac13u_n + \frac16$，$u_0 = 1$ より $u_n - \frac14 = \frac34\left(\frac13\right)^n$。2，3，4 は対等なのでそれぞれ確率 $\frac{1 - u_n}{3}$。</p>
+    $$E_n = u_n + 9\cdot\frac{1 - u_n}{3} = 3 - 2u_n = \frac52 - \frac32\left(\frac13\right)^n$$
+    <p>（$n = 3$ で $\frac52 - \frac{1}{18} = \frac{22}{9}$，本問と一致。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const pairs = [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]];
+  const swap = (arr, [i, j]) => { const a = arr.slice(), x = a.indexOf(i), y = a.indexOf(j); [a[x], a[y]] = [a[y], a[x]]; return a; };
+  let cur = [1, 2, 3, 4], hist = [];
+  function showCards() {
+    $("cards").innerHTML = cur.map((v, i) => `<span style="display:inline-block;border:2px solid ${i === 0 ? "#8a1538" : "#999"};border-radius:6px;padding:2px 10px;margin-right:4px;background:#fff">${v}</span>`).join("");
+    $("log").textContent = hist.length ? `${hist.length} 回目まで：` + hist.map((p) => `{${p[0]},${p[1]}}`).join(" → ") : "まだ操作していません";
+  }
+  $("op").addEventListener("click", () => { const p = pairs[Math.floor(Math.random() * 6)]; cur = swap(cur, p); hist.push(p); showCards(); });
+  $("reset").addEventListener("click", () => { cur = [1, 2, 3, 4]; hist = []; showCards(); });
+  showCards();
+
+  const P = Fig.plane($("cv"), { xmin: 0.3, xmax: 4.7, ymin: -0.1, ymax: 1.05 });
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  function draw() {
+    const n = +$("n").value; $("nv").textContent = ` ${n} 回`;
+    // 並びごとの「場合の数」（全 6^n 通り）
+    let d = new Map([["1234", 1]]);
+    for (let s = 0; s < n; s++) {
+      const nd = new Map();
+      for (const [k, c] of d) for (const p of pairs) { const b = swap(k.split("").map(Number), p).join(""); nd.set(b, (nd.get(b) || 0) + c); }
+      d = nd;
+    }
+    const tot = 6 ** n, cnt = [0, 0, 0, 0, 0];
+    for (const [k, c] of d) cnt[+k[0]] += c;
+    P.clear().grid(0.25, "#f3f3f3");
+    P.line([[0.3, 0], [4.7, 0]], "#333", 1.2);
+    P.line([[0.3, 0.25], [4.7, 0.25]], "#2f9e44", 1.2, [4, 3]);
+    let s = "", E = 0;
+    for (let v = 1; v <= 4; v++) {
+      const pr = cnt[v] / tot; E += v * pr;
+      P.fill([[v - 0.3, 0], [v + 0.3, 0], [v + 0.3, pr], [v - 0.3, pr]], v === 1 ? "rgba(138,21,56,.6)" : "rgba(28,126,214,.5)");
+      P.text(String(v), v - 0.05, -0.06, "#333");
+      const g = gcd(cnt[v], tot);
+      s += `左端 ${v}：${cnt[v] / g}/${tot / g} ≈ ${pr.toFixed(4)}<br>`;
+    }
+    s += `期待値 = ${E.toFixed(5)}<br><span style="color:#888">5/2 − (3/2)(1/3)ⁿ = ${(2.5 - 1.5 / 3 ** n).toFixed(5)}</span>`;
+    if (n === 2) s += `<br>1234 の確率：${(d.get("1234") || 0)}/36，4321 の確率：${(d.get("4321") || 0)}/36`;
+    $("info").innerHTML = s;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2012年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2012-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>いくつかの玉が入った箱 A と箱 B があるとき，次の試行 T を考える。</p>
+    <p><b>（試行 T）</b>　箱 A から 2 個の玉を取り出して箱 B に入れ，その後，箱 B から 2 個の玉を取り出して箱 A に入れる。</p>
+    <p>最初に箱 A に黒玉が 3 個，箱 B に白玉が 2 個入っているとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　試行 T を 1 回行ったときに，箱 A に黒玉が $n$ 個入っている確率 $p_n$ $(n = 1,\ 2,\ 3)$ を求めて既約分数で表せ。</li>
+      <li>(2)　試行 T を 2 回行ったときに，箱 A に黒玉が $n$ 個入っている確率 $q_n$ $(n = 1,\ 2,\ 3)$ を求めて既約分数で表せ。</li>
+      <li>(3)　試行 T を 3 回行ったときに，箱 A の中がすべて黒玉になっている確率を求めて既約分数で表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2012 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>試行の前後で A は 3 個，B は 2 個のままです。白玉は全部で 2 個なので A の黒玉は必ず 1 個以上。状態は「A の黒玉の数 $k = 1,\ 2,\ 3$」の 3 通りで、まず 1 回の試行での推移確率を全部求めておきます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>推移確率</h3>
+      <p>A の黒玉が $k$ 個のとき、A は黒 $k$・白 $3 - k$，B は黒 $3 - k$・白 $k - 1$。A から 2 個を B へ移すと B は 4 個になり、そこから 2 個を戻します（戻す 2 個の選び方は $\binom42 = 6$ 通り）。</p>
+      <p><b>$k = 3$</b>（A：黒 3，B：白 2）：A から黒 2 個が B へ → B は黒 2 白 2。戻すのが黒黒 $\frac16$，黒白 $\frac46$，白白 $\frac16$。</p>
+      $$3 \to 3:\ \frac16,\qquad 3 \to 2:\ \frac23,\qquad 3 \to 1:\ \frac16$$
+      <p><b>$k = 2$</b>（A：黒 2 白 1，B：黒 1 白 1）</p>
+      <ul>
+        <li>黒黒を移す（確率 $\frac13$）：A に白 1 が残り、B は黒 3 白 1。黒黒を戻す $\frac36$ → $k = 2$，黒白 $\frac36$ → $k = 1$。</li>
+        <li>黒白を移す（確率 $\frac23$）：A に黒 1 が残り、B は黒 2 白 2。黒黒 $\frac16$ → 3，黒白 $\frac46$ → 2，白白 $\frac16$ → 1。</li>
+      </ul>
+      $$2 \to 3:\ \frac19,\qquad 2 \to 2:\ \frac16 + \frac49 = \frac{11}{18},\qquad 2 \to 1:\ \frac16 + \frac19 = \frac{5}{18}$$
+      <p><b>$k = 1$</b>（A：黒 1 白 2，B：黒 2）</p>
+      <ul>
+        <li>黒白を移す（確率 $\frac23$）：A に白 1 が残り、B は黒 3 白 1。黒黒 $\frac12$ → 2，黒白 $\frac12$ → 1。</li>
+        <li>白白を移す（確率 $\frac13$）：A に黒 1 が残り、B は黒 2 白 2。黒黒 $\frac16$ → 3，黒白 $\frac46$ → 2，白白 $\frac16$ → 1。</li>
+      </ul>
+      $$1 \to 3:\ \frac{1}{18},\qquad 1 \to 2:\ \frac13 + \frac29 = \frac59,\qquad 1 \to 1:\ \frac13 + \frac{1}{18} = \frac{7}{18}$$
+
+      <h3>(1)</h3>
+      <p>最初は $k = 3$ なので</p>
+      $$p_1 = \frac16,\qquad p_2 = \frac23,\qquad p_3 = \frac16$$
+
+      <h3>(2)</h3>
+      $$q_3 = \frac16\cdot\frac{1}{18} + \frac23\cdot\frac19 + \frac16\cdot\frac16 = \frac{1 + 8 + 3}{108} = \frac19$$
+      $$q_2 = \frac16\cdot\frac59 + \frac23\cdot\frac{11}{18} + \frac16\cdot\frac23 = \frac{5 + 22 + 6}{54} = \frac{11}{18}$$
+      $$q_1 = 1 - q_2 - q_3 = \frac{5}{18}$$
+
+      <h3>(3)</h3>
+      $$\frac{5}{18}\cdot\frac{1}{18} + \frac{11}{18}\cdot\frac19 + \frac19\cdot\frac16 = \frac{5 + 22 + 6}{324} = \frac{33}{324} = \frac{11}{108}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>試行の回数を変えると、A の黒玉の個数の分布（厳密な分数）が棒グラフで表示されます。「シミュレーション」ボタンでは実際にランダムに玉を動かして、相対度数と比べます。</p>
+
+  <div class="widget">
+    <label>試行回数：<input type="range" id="t" min="0" max="10" value="1"></label>
+    <span class="readout no-math" id="tv"></span>
+    <button id="sim">シミュレーション（2 万回）</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>推移図を 1 回作れば、あとは掛け算</h3>
+  <p>状態が少数（ここでは 3 つ）に限られる確率の問題は、「1 回の試行で状態がどう移るか」を図や表にまとめるのが定石です。いったん推移確率が出れば、(1)〜(3) は同じ計算の繰り返しです（マルコフ連鎖）。</p>
+  <p>試行を繰り返すと分布は $\left(\frac{3}{10},\ \frac{6}{10},\ \frac{1}{10}\right)$ に近づきます。これは「5 個の玉から 3 個をでたらめに選んで A に入れた」ときの分布（超幾何分布）と同じで、十分かき混ぜると初期状態の影響が消えることを表しています。A がすべて黒になる確率の極限 $\frac{1}{10} = \frac{1}{\binom53}$ もこれで説明できます。</p>
+  <p>chopin 先生は「T を一回行うと、A の中に入っている黒の個数がどのように変化するかを図にまとめておきましょう。この図から漸化式を立てることができます」「(1)-(3) はすべて、この漸化式を使って解くことができます」とコメントしています。</p>
+  <div class="point">状態が少ない確率問題は<b>推移図（推移確率の表）</b>を最初に作る。行の和が $1$ になることで検算できる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>箱 A に黒玉が 2 個，箱 B に白玉が 1 個入っている。「A から 1 個取り出して B に入れ，その後 B から 1 個取り出して A に入れる」という試行を $n$ 回行ったとき，A の中がすべて黒玉である確率 $r_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>A が黒 2 のとき：黒を B へ移し（B は黒 1 白 1）、黒を戻せば黒 2 のまま（$\frac12$）。A が黒 1 白 1（B は黒 1）のとき：白を移して（$\frac12$）黒を戻せば（$\frac12$）黒 2 になる。よって</p>
+    $$r_{n+1} = \frac12 r_n + \frac14(1 - r_n) = \frac14 r_n + \frac14$$
+    <p>$r_0 = 1$ より $r_n - \frac13 = \left(\frac14\right)^n\cdot\frac23$，$r_n = \dfrac13 + \dfrac23\left(\dfrac14\right)^n$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，試行 T を $n$ 回行ったときに箱 A の中がすべて黒玉になっている確率 $r_n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2012　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$n$ 回後に黒が 1 個・3 個である確率を $s_n,\ r_n$ とする。推移確率から（2 個の確率は $1 - s_n - r_n$）</p>
+    $$s_{n+1} = \frac{5 + 2s_n - 2r_n}{18},\qquad r_{n+1} = \frac{2 - s_n + r_n}{18}$$
+    <p>これより $s_{n+1} + 2r_{n+1} = \dfrac{9}{18} = \dfrac12$，すなわち $n \ge 1$ で $s_n = \dfrac12 - 2r_n$。代入すると $n \ge 1$ で</p>
+    $$r_{n+1} = \frac16 r_n + \frac{1}{12}$$
+    <p>$r_1 = \frac16$ から $r_n - \frac{1}{10} = \left(\frac16\right)^{n-1}\left(\frac16 - \frac1{10}\right)$，よって</p>
+    $$r_n = \frac{1}{10} + \frac25\left(\frac16\right)^n \quad (n \ge 1)$$
+    <p>（$n = 2,\ 3$ で $\frac19,\ \frac{11}{108}$ となり本問と一致。$n \to \infty$ で $\frac{1}{10}$。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: 0.3, xmax: 3.7, ymin: -0.08, ymax: 1.05 });
+  // 有理数（BigInt）
+  const g = (a, b) => { a = a < 0n ? -a : a; while (b) { [a, b] = [b, a % b]; } return a; };
+  const R = (n, d) => { const k = g(n, d) || 1n; return [n / k, d / k]; };
+  const add = (x, y) => R(x[0] * y[1] + y[0] * x[1], x[1] * y[1]);
+  const mul = (x, y) => R(x[0] * y[0], x[1] * y[1]);
+  // M[k][m] : k → m
+  const M = { 1: { 1: [7n, 18n], 2: [5n, 9n], 3: [1n, 18n] }, 2: { 1: [5n, 18n], 2: [11n, 18n], 3: [1n, 9n] }, 3: { 1: [1n, 6n], 2: [2n, 3n], 3: [1n, 6n] } };
+  let simRes = null;
+  function dist(t) {
+    let d = { 1: [0n, 1n], 2: [0n, 1n], 3: [1n, 1n] };
+    for (let i = 0; i < t; i++) {
+      const nd = { 1: [0n, 1n], 2: [0n, 1n], 3: [0n, 1n] };
+      for (const k of [1, 2, 3]) for (const m of [1, 2, 3]) nd[m] = add(nd[m], mul(d[k], M[k][m]));
+      d = nd;
+    }
+    return d;
+  }
+  function step(A, B) { // A, B: 配列（'b'/'w'）
+    const take = (arr, c) => { const out = []; for (let i = 0; i < c; i++) out.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]); return out; };
+    B.push(...take(A, 2)); A.push(...take(B, 2));
+  }
+  function draw() {
+    const t = +$("t").value; $("tv").textContent = ` ${t} 回`;
+    const d = dist(t);
+    P.clear().grid(0.25, "#f3f3f3");
+    P.line([[0.3, 0], [3.7, 0]], "#333", 1.2);
+    const lim = { 1: 0.3, 2: 0.6, 3: 0.1 };
+    let s = "";
+    for (const k of [1, 2, 3]) {
+      const v = Number(d[k][0]) / Number(d[k][1]);
+      P.fill([[k - 0.3, 0], [k + 0.3, 0], [k + 0.3, v], [k - 0.3, v]], "rgba(138,21,56,.55)");
+      P.line([[k - 0.38, lim[k]], [k + 0.38, lim[k]]], "#2f9e44", 1.4, [4, 3]);
+      if (simRes && simRes.t === t) P.dot(k, simRes.f[k], "#1c7ed6", 4.5);
+      P.text(`黒${k}個`, k - 0.22, -0.05, "#333");
+      s += `黒 ${k} 個：${d[k][0]}/${d[k][1]} ≈ ${v.toFixed(5)}` + (simRes && simRes.t === t ? `　<span style="color:#1c7ed6">（実験 ${simRes.f[k].toFixed(4)}）</span>` : "") + "<br>";
+    }
+    s += `<span style="color:#2f9e44">破線：極限の分布 (3/10, 6/10, 1/10)</span>`;
+    if (t >= 1) s += `<br>(1/10)(1 + 4/6ⁿ) = ${(0.1 * (1 + 4 / 6 ** t)).toFixed(5)}`;
+    $("info").innerHTML = s;
+  }
+  $("sim").addEventListener("click", () => {
+    const t = +$("t").value, N = 20000, c = { 1: 0, 2: 0, 3: 0 };
+    for (let i = 0; i < N; i++) {
+      const A = ["b", "b", "b"], B = ["w", "w"];
+      for (let j = 0; j < t; j++) step(A, B);
+      c[A.filter((x) => x === "b").length]++;
+    }
+    simRes = { t, f: { 1: c[1] / N, 2: c[2] / N, 3: c[3] / N } };
+    draw();
+  });
+  $("t").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

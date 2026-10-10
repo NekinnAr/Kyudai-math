@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2010年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2010-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$xy$ 平面上に曲線 $y = \dfrac{1}{x^2}$ を描き，この曲線の第 1 象限内の部分を $C_1$，第 2 象限内の部分を $C_2$ と呼ぶ。$C_1$ 上の点 $P_1\left(a,\ \dfrac{1}{a^2}\right)$ から $C_2$ に向けて接線を引き，$C_2$ との接点を $Q_1$ とする。次に点 $Q_1$ から $C_1$ に向けて接線を引き，$C_1$ との接点を $P_2$ とする。次に点 $P_2$ から $C_2$ に向けて接線を引き，接点を $Q_2$ とする。以下同様に続けて，$C_1$ 上の点列 $P_n$ と $C_2$ 上の点列 $Q_n$ を定める。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　点 $Q_1$ の座標を求めよ。</li>
+      <li>(2)　三角形 $P_1Q_1P_2$ の面積 $S_1$ を求めよ。</li>
+      <li>(3)　三角形 $P_nQ_nP_{n+1}$ $(n = 1,\ 2,\ 3,\ \cdots)$ の面積 $S_n$ を求めよ。</li>
+      <li>(4)　級数 $\displaystyle\sum_{n=1}^{\infty}S_n$ の和を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2010 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>「接点を文字でおき、その接線が与えられた点を通る」と立式するのが接線の基本。すると「接点の $x$ 座標の絶対値は、出発点の 2 倍」という規則が見つかり、あとは等比数列です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$Q_1\left(-b,\ \dfrac{1}{b^2}\right)$（$b > 0$）とおく。$y' = -\dfrac{2}{x^3}$ より $Q_1$ における接線は</p>
+      $$y = \frac{2}{b^3}(x + b) + \frac{1}{b^2}$$
+      <p>これが $P_1$ を通るので $\dfrac{1}{a^2} = \dfrac{2a + 3b}{b^3}$，すなわち $b^3 - 3a^2b - 2a^3 = 0$。</p>
+      $$(b - 2a)(b + a)^2 = 0 \quad\therefore\ b = 2a$$
+      $$Q_1\left(-2a,\ \frac{1}{4a^2}\right)$$
+      <p>（曲線は $y$ 軸対称なので、一般に「$x$ 座標の絶対値が $s$ の点から反対側の枝へ引いた接線の接点は、$x$ 座標の絶対値が $2s$」。）</p>
+
+      <h3>(2)</h3>
+      <p>同じ規則で $P_2\left(4a,\ \dfrac{1}{16a^2}\right)$。$\overrightarrow{P_1Q_1} = \left(-3a,\ -\dfrac{3}{4a^2}\right)$，$\overrightarrow{P_1P_2} = \left(3a,\ -\dfrac{15}{16a^2}\right)$ より</p>
+      $$S_1 = \frac12\left|(-3a)\left(-\frac{15}{16a^2}\right) - 3a\left(-\frac{3}{4a^2}\right)\right| = \frac12\left(\frac{45}{16a} + \frac{36}{16a}\right) = \frac{81}{32a}$$
+
+      <h3>(3)</h3>
+      <p>規則から $P_n\left(4^{n-1}a,\ \dfrac{1}{16^{n-1}a^2}\right)$，$Q_n\left(-2\cdot4^{n-1}a,\ \dfrac{1}{4\cdot16^{n-1}a^2}\right)$。これは $P_1,\ Q_1,\ P_2$ の座標の $a$ を $4^{n-1}a$ に置き換えたものなので</p>
+      $$S_n = \frac{81}{32\cdot4^{n-1}a} = \frac{81}{8a}\left(\frac14\right)^n$$
+
+      <h3>(4)</h3>
+      <p>公比 $\frac14$ の無限等比級数なので収束して</p>
+      $$\sum_{n=1}^{\infty}S_n = \frac{81}{32a}\cdot\frac{1}{1 - \frac14} = \frac{27}{8a}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かすと点列と三角形 $P_nQ_nP_{n+1}$ が描かれます。$x$ 方向に 4 倍、$y$ 方向に $\frac{1}{16}$ 倍ずつ広がっていくので、面積は $\frac14$ 倍ずつ小さくなります。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="20" max="100" value="40"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>曲線を自分自身に移す変換</h3>
+  <p>変換 $\Phi:\ (x,\ y) \mapsto \left(-2x,\ \dfrac{y}{4}\right)$ は曲線 $y = \frac{1}{x^2}$ を自分自身に移し（$\frac{1}{(-2x)^2} = \frac14\cdot\frac{1}{x^2}$）、接線を接線に移します。だから $\Phi(P_n) = Q_n$，$\Phi(Q_n) = P_{n+1}$ となり、点列は「同じ形がどんどん縮尺を変えて繰り返す」自己相似な構造になります。$\Phi$ は面積を $2 \times \frac14 = \frac12$ 倍するので、$\Phi$ を 2 回使えば $S_{n+1} = \frac14S_n$ です。</p>
+  <p>chopin 先生は「(1) $Q_1$ の座標を $(-b,\ 1/b^2)$ として、$Q_1$ での接線が $P_1$ を通るとして $b$ を求めていきます」「(3) (1), (2) から、$P_n,\ Q_n$ の座標を一般的に $n$ の式で書くことができます」「(4) $S_n$ は等比数列なので、等比級数の極限を考えればよいです」とコメントしています。</p>
+  <div class="point">曲線外の点から引く接線は<b>接点を文字でおく</b>。$b^3 - 3a^2b - 2a^3 = 0$ のように重解 $b = -a$ を含む 3 次式は $(b + a)^2$ でくくれる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y = \dfrac1x$（$x > 0$）上の点 $(t,\ \frac1t)$ における接線と，$x$ 軸，$y$ 軸で囲まれる三角形の面積は $t$ によらず一定であることを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>接線 $y = -\frac{1}{t^2}(x - t) + \frac1t = -\frac{x}{t^2} + \frac2t$。切片は $x = 2t$，$y = \frac2t$ なので面積は $\frac12\cdot2t\cdot\frac2t = 2$（一定）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，三角形 $Q_nP_{n+1}Q_{n+1}$ の面積を $T_n$ とする。$T_n$ を求め，$\displaystyle\sum_{n=1}^{\infty}(S_n + T_n)$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2010　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>上の変換 $\Phi$ は $P_n \to Q_n$，$Q_n \to P_{n+1}$，$P_{n+1} \to Q_{n+1}$ と移し、面積を $\frac12$ 倍するので $T_n = \frac12S_n = \dfrac{81}{64\cdot4^{n-1}a}$。（直接計算でも $T_1 = \frac{81}{64a}$。）</p>
+    $$\sum_{n=1}^{\infty}(S_n + T_n) = \frac32\cdot\frac{27}{8a} = \frac{81}{16a}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -9, xmax: 9, ymin: -0.4, ymax: 7 });
+  const cols = ["rgba(138,21,56,.45)", "rgba(232,89,12,.45)", "rgba(47,158,68,.45)"];
+  function draw() {
+    const a = $("a").value / 100; $("av").textContent = ` a = ${a.toFixed(2)}`;
+    const f = (x) => 1 / (x * x);
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.fn((x) => (f(x) > 7.5 ? NaN : f(x)), 0.01, 9, "#333", 1.8, 600);
+    P.fn((x) => (f(x) > 7.5 ? NaN : f(x)), -9, -0.01, "#333", 1.8, 600);
+    const pts = []; let x = a;
+    for (let i = 0; i < 7; i++) { pts.push([x, f(x)]); x *= -2; }
+    // 接線（P_n→Q_n は Q_n での接線）
+    for (let i = 1; i < pts.length; i++) {
+      const [qx, qy] = pts[i], m = -2 / qx ** 3;
+      P.line([[pts[i - 1][0], pts[i - 1][1]], [qx, qy]], "#1c7ed6", 1, [4, 3]);
+    }
+    let s = "", sum = 0;
+    for (let n = 0; n + 2 < pts.length; n += 2) {
+      const [A, B, C] = [pts[n], pts[n + 1], pts[n + 2]];
+      P.fill([A, B, C], cols[(n / 2) % 3]);
+      const S = Math.abs((B[0] - A[0]) * (C[1] - A[1]) - (C[0] - A[0]) * (B[1] - A[1])) / 2;
+      sum += S; s += `S${n / 2 + 1} = ${S.toFixed(5)}<br>`;
+    }
+    pts.forEach(([px, py], i) => { if (Math.abs(px) < 9 && py < 7) P.dot(px, py, "#222", 3.5, (i % 2 ? "Q" : "P") + (Math.floor(i / 2) + 1), 4, -6); });
+    $("info").innerHTML = s + `部分和 = ${sum.toFixed(5)}<br>27/(8a) = ${(27 / (8 * a)).toFixed(5)}<br>S₂/S₁ = 1/4`;
+  }
+  $("a").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

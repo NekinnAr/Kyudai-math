@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2007年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2007-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 個のさいころを 3 回投げる試行において，1 回目に出る目を $a$，2 回目に出る目を $b$，3 回目に出る目を $c$ とする。なお，さいころは 1 から 6 までの目が等確率で出るものとする。</p>
+    <ol>
+      <li>(1)　2 次方程式 $ax^2 + bx + c = 0$ が異なる 2 つの実数解をもつために $a$，$c$ が満たすべき条件を考える。積 $ac$ のとりうる値の範囲を求めよ。また，$ac$ のとりうる各値に対して，そのような $a$，$c$ の組の個数を求めよ。</li>
+      <li>(2)　2 次方程式 $ax^2 + bx + c = 0$ が異なる 2 つの有理数を解にもつ確率を求めよ。ただし，自然数 $n$ が平方数でないとき，$\sqrt{n}$ は無理数であることを用いてよい。</li>
+    </ol>
+  </div>
+  <p class="source">（2007 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>判別式 $D = b^2 - 4ac &gt; 0$ と $b \le 6$ から $ac \le 8$。有理数解 ⇔ $\sqrt D$ が有理数 ⇔ $D$ が平方数。$b^2 - D = 4ac$ を $(b - k)(b + k) = 4ac$ と因数分解すると、各 $ac$ について調べる $b$ がすぐ絞れます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>異なる 2 実数解をもつ条件は $b^2 - 4ac &gt; 0$。$b \le 6$ なので、そのような $b$ が存在するためには $4ac &lt; 36$，すなわち $ac \le 8$ が必要で、逆に $ac \le 8$ なら $b = 6$ で $36 &gt; 32 \ge 4ac$ となり十分。$ac$ はさいころの目の積なので $7$ にはならない。よって $ac$ のとりうる値は</p>
+      $$ac = 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 8$$
+      <p>それぞれの $(a,\ c)$ の組の個数は</p>
+      <table class="simple" style="width:auto;min-width:0">
+        <tr><th>$ac$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>8</td></tr>
+        <tr><th>組数</th><td>1</td><td>2</td><td>2</td><td>3</td><td>2</td><td>4</td><td>2</td></tr>
+      </table>
+      <p>（例：$ac = 4$ は $(1,4),(2,2),(4,1)$，$ac = 6$ は $(1,6),(2,3),(3,2),(6,1)$，$ac = 8$ は $(2,4),(4,2)$。）</p>
+
+      <h3>(2)</h3>
+      <p>係数は整数なので、解 $\dfrac{-b \pm \sqrt{D}}{2a}$ が異なる有理数 ⇔ $D = b^2 - 4ac$ が正の平方数 $k^2$（$k \ge 1$）。このとき $(b - k)(b + k) = 4ac$ で、$b - k$ と $b + k$ は偶奇が一致するので両方偶数、かつ $0 &lt; b - k &lt; b + k \le 2b - 1 \le 11$。各 $ac$ について：</p>
+      <ul>
+        <li>$ac = 1$：$4 = 2\cdot2$ は $k = 0$ になり不適。</li>
+        <li>$ac = 2$：$8 = 2\cdot4$ → $b = 3$。</li>
+        <li>$ac = 3$：$12 = 2\cdot6$ → $b = 4$。</li>
+        <li>$ac = 4$：$16 = 2\cdot8$ → $b = 5$（$4\cdot4$ は $k = 0$ で不適）。</li>
+        <li>$ac = 5$：$20 = 2\cdot10$ → $b = 6$。</li>
+        <li>$ac = 6$：$24 = 4\cdot6$ → $b = 5$（$2\cdot12$ は $b = 7$ で不適）。</li>
+        <li>$ac = 8$：$32 = 4\cdot8$ → $b = 6$（$2\cdot16$ は $b = 9$ で不適）。</li>
+      </ul>
+      <p>いずれも $b$ は 1 通りなので、(1) の組数を足して $2 + 2 + 3 + 2 + 4 + 2 = 15$ 通り。求める確率は</p>
+      $$\frac{15}{6^3} = \frac{5}{72}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$b$ を選ぶと、$6\times6$ のマス（縦 $a$，横 $c$）が色分けされます。薄い色＝異なる 2 実数解，濃い色＝異なる 2 有理数解。</p>
+
+  <div class="widget">
+    <label>b：<input type="range" id="b" min="1" max="6" value="5"></label>
+    <span class="readout no-math" id="bv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="290"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>判別式と平方数</h3>
+  <p>(1) で $ac \le 8$ と組数を整理しておくと、(2) は「$b^2 - 4ac$ が平方数になる $b$」を $ac$ ごとに探すだけになります。全 216 通りを書き出すのは大変ですが、$ac$ で分類すれば 7 ケース。積の差の形 $(b - k)(b + k)$ にすると候補が一瞬で絞れます。</p>
+  <p>chopin 先生は「(1) 判別式を考えればよいでしょう」「(2) 判別式がポイントになります。(1) の後半部分が利用できます」とコメントしています。</p>
+  <div class="point">整数係数 2 次方程式の解が有理数 ⇔ 判別式が平方数。$b^2 - k^2 = (b - k)(b + k)$ は偶奇がそろう。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>さいころを 2 回投げ，出た目を順に $a$，$b$ とする。2 次方程式 $x^2 + ax + b = 0$ が実数解をもつ確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a^2 \ge 4b$。$a = 1$：0 個，$a = 2$：$b = 1$ の 1 個，$a = 3$：2 個，$a = 4$：4 個，$a = 5, 6$：各 6 個。計 19 個で $\dfrac{19}{36}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の試行で，2 次方程式 $ax^2 + bx + c = 0$ が異なる 2 つの<strong>整数</strong>を解にもつ確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2007　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(2) の 15 通りのうち解が整数になるものを調べる（解と係数の関係から解は負，$a$ は $b$，$c$ の公約数が必要）。$(a,b,c) = (1,3,2),(1,4,3),(1,5,4),(1,5,6),(1,6,5),(2,6,4)$ の 6 通りで，確率は $\dfrac{6}{216} = \dfrac1{36}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const isSq = (n) => { const k = Math.round(Math.sqrt(n)); return k * k === n; };
+  let totR = 0, totQ = 0;
+  for (let a = 1; a <= 6; a++) for (let b = 1; b <= 6; b++) for (let c = 1; c <= 6; c++) { const D = b * b - 4 * a * c; if (D > 0) { totR++; if (isSq(D)) totQ++; } }
+  function draw() {
+    const b = +$("b").value; $("bv").textContent = ` b = ${b}`;
+    const cv = $("cv"), g = cv.getContext("2d"), s = 40, o = 30;
+    g.clearRect(0, 0, cv.width, cv.height);
+    g.font = "13px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
+    let nR = 0, nQ = 0, list = [];
+    for (let a = 1; a <= 6; a++) for (let c = 1; c <= 6; c++) {
+      const D = b * b - 4 * a * c, x = o + (c - 1) * s, y = o + (a - 1) * s;
+      let col = "#f1f3f5";
+      if (D > 0) { nR++; col = "rgba(138,21,56,.25)"; if (isSq(D)) { nQ++; col = "#8a1538"; list.push(`(${a},${b},${c})`); } }
+      g.fillStyle = col; g.fillRect(x + 1, y + 1, s - 2, s - 2);
+      g.fillStyle = D > 0 && isSq(D) ? "#fff" : "#555"; g.fillText(a * c, x + s / 2, y + s / 2);
+    }
+    g.fillStyle = "#333";
+    for (let i = 1; i <= 6; i++) { g.fillText(i, o + (i - 0.5) * s, o - 12); g.fillText(i, o - 14, o + (i - 0.5) * s); }
+    g.fillText("c", o + 6 * s + 14, o - 12); g.fillText("a", o - 14, o + 6 * s + 12);
+    $("info").innerHTML = `マスの数字は ac<br>b = ${b} のとき<br>異なる 2 実数解：${nR} 通り<br>うち有理数解：${nQ} 通り<br>${list.join(" ") || "—"}<hr>全体（216 通り）<br>異なる 2 実数解：${totR} 通り<br>有理数解：${totQ} 通り → ${totQ}/216 = 5/72`;
+  }
+  $("b").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

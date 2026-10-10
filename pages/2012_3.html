@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2012年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2012-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>実数 $a$ と自然数 $n$ に対して，$x$ の方程式</p>
+    $$a(x^2 + |x + 1| + n - 1) = \sqrt{n}\,(x + 1)$$
+    <p>を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　この方程式が実数解を持つような $a$ の範囲を，$n$ を用いて表せ。</li>
+      <li>(2)　この方程式が，すべての自然数 $n$ に対して実数解を持つような $a$ の範囲を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2012 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$a$ を分離して「$y = f(x)$ と $y = a$ の共有点」の問題にします。$u = x + 1$ と置き換えると絶対値が $|u|$ になり、$u \ge 0$ と $u < 0$ の場合分けで、それぞれ相加・相乗平均が使える形になります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x^2 \ge 0$，$|x + 1| \ge 0$ で、両方が同時に $0$ になることはないので $x^2 + |x + 1| + n - 1 > 0$。よって方程式は</p>
+      $$a = f(x) = \frac{\sqrt n\,(x + 1)}{x^2 + |x + 1| + n - 1}$$
+      <p>と同値で、求める範囲は $f(x)$ の値域です。$u = x + 1$ とおくと $x^2 = u^2 - 2u + 1$ より</p>
+      $$f = \frac{\sqrt n\,u}{u^2 - 2u + |u| + n}$$
+      <p><b>$u > 0$ のとき</b>：$f = \dfrac{\sqrt n\,u}{u^2 - u + n} = \dfrac{\sqrt n}{u + \frac{n}{u} - 1}$。相加・相乗平均より $u + \dfrac nu \ge 2\sqrt n$（等号は $u = \sqrt n$）なので $0 < f \le \dfrac{\sqrt n}{2\sqrt n - 1}$。また $u \to +0$ で $f \to 0$。</p>
+      <p><b>$u = 0$ のとき</b>：$f = 0$。</p>
+      <p><b>$u < 0$ のとき</b>：$f = \dfrac{\sqrt n\,u}{u^2 - 3u + n} = \dfrac{\sqrt n}{u + \frac nu - 3}$。$u < 0$ では $u + \dfrac nu \le -2\sqrt n$（等号は $u = -\sqrt n$）なので分母 $\le -2\sqrt n - 3 < 0$，よって $-\dfrac{\sqrt n}{2\sqrt n + 3} \le f < 0$。</p>
+      <p>$f$ は連続なので、値域は最小値から最大値までのすべての値です。</p>
+      $$-\frac{\sqrt n}{2\sqrt n + 3} \le a \le \frac{\sqrt n}{2\sqrt n - 1}$$
+
+      <h3>(2)</h3>
+      <p>(1) の範囲を $L_n \le a \le U_n$ とおくと</p>
+      $$U_n = \frac{1}{2 - \frac{1}{\sqrt n}},\qquad L_n = -\frac{1}{2 + \frac{3}{\sqrt n}}$$
+      <p>$U_n$ は $n$ について単調減少で $U_n > \dfrac12$，$U_n \to \dfrac12$。よって「すべての $n$ で $a \le U_n$」$\iff a \le \dfrac12$。</p>
+      <p>$L_n$ も $n$ について単調減少（$2 + \frac{3}{\sqrt n}$ が減少するので $\frac{1}{2 + 3/\sqrt n}$ は増加）なので最大値は $L_1 = -\dfrac15$。よって「すべての $n$ で $a \ge L_n$」$\iff a \ge -\dfrac15$。</p>
+      $$-\frac15 \le a \le \frac12$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を変えると $y = f(x)$ のグラフが変わります。$y = a$（緑）と共有点を持つかどうかで、実数解の有無が分かります。右側には $n = 1, 2, \ldots$ と増やしたときの範囲の共通部分を表示します。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="60" value="1"></label>
+    <span class="readout no-math" id="nv"></span>
+    <label>a：<input type="range" id="a" min="-60" max="110" value="50"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>文字定数は分離する</h3>
+  <p>「方程式が実数解を持つ $a$ の範囲」は、$a = f(x)$ と変形できれば $f(x)$ の値域を求める問題になります。本問は分母が正であることを確認してから割る、というひと手間が必要です。</p>
+  <p>さらに、$\dfrac{u}{u^2 + bu + n}$ 型は分子・分母を $u$ で割ると $\dfrac{1}{u + \frac nu + b}$ となり、<b>微分しなくても相加・相乗平均で最大・最小が出せます</b>。$u = x + 1$ の置き換えで絶対値の中身が単純になるのも効いています。</p>
+  <p>(2) は「すべての $n$ について」なので範囲の<b>共通部分</b>。上端は $\frac12$ に近づくが届かない、下端は $n = 1$ のときが一番きつい、という非対称な結果になります。</p>
+  <p>chopin 先生は「絶対値の処理が煩雑な難問」「$f(x) = \sqrt n(x + 1)/(x^2 + |x + 1| + n - 1)$ とおいて、$y = f(x)$ と $y = a$ の交点の個数を考える方法です。視覚的にわかりやすく解くことができます」「(2) は、(1) で求めた $a$ の範囲について、$n$ を動かしたときの共通部分を調べればよい。その際、$a$ の最小値と最大値がどのように変化するかを調べておく必要があります」とコメントしています。</p>
+  <div class="point">定数分離 → 値域。$\dfrac{u}{u^2 + bu + c}$ は $u$ で割って相加・相乗平均。「すべての $n$」は共通部分、「ある $n$」は和集合。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$x$ の方程式 $a(x^2 + 1) = x$ が実数解を持つような実数 $a$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a = \dfrac{x}{x^2 + 1}$ の値域を求める。$x > 0$ で $\dfrac{1}{x + 1/x} \le \dfrac12$（$x = 1$），$x < 0$ で $\ge -\dfrac12$（$x = -1$），$x = 0$ で $0$。連続なので $-\dfrac12 \le a \le \dfrac12$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の方程式が，<b>少なくとも 1 つの</b>自然数 $n$ に対して実数解を持つような $a$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2012　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>今度は (1) の範囲の<b>和集合</b>。$U_n$ は減少なので最大は $U_1 = 1$。$L_n$ は減少して $-\frac12$ に近づくが、$L_n > -\frac12$ なので $-\frac12$ には届かない。</p>
+    $$-\frac12 < a \le 1$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -14, xmax: 12, ymin: -0.7, ymax: 1.15 });
+  function draw() {
+    const n = +$("n").value, a = $("a").value / 100, r = Math.sqrt(n);
+    $("nv").textContent = ` n = ${n}`; $("av").textContent = ` a = ${a.toFixed(2)}`;
+    const f = (x) => r * (x + 1) / (x * x + Math.abs(x + 1) + n - 1);
+    const U = r / (2 * r - 1), L = -r / (2 * r + 3);
+    P.clear().grid(2, "#f3f3f3").axes();
+    P.line([[-14, U], [12, U]], "#e8590c", 1, [4, 4]).line([[-14, L], [12, L]], "#1c7ed6", 1, [4, 4]);
+    P.line([[-14, 0.5], [12, 0.5]], "#bbb", 1, [2, 3]).line([[-14, -0.5], [12, -0.5]], "#bbb", 1, [2, 3]);
+    P.fn(f, -14, 12, "#8a1538", 2.2, 600);
+    P.line([[-14, a], [12, a]], "#2f9e44", 2);
+    P.dot(r - 1, U, "#e8590c", 3.5).dot(-r - 1, L, "#1c7ed6", 3.5);
+    const ok = a >= L - 1e-9 && a <= U + 1e-9;
+    let lo = -Infinity, hi = Infinity;
+    for (let m = 1; m <= n; m++) { const s = Math.sqrt(m); lo = Math.max(lo, -s / (2 * s + 3)); hi = Math.min(hi, s / (2 * s - 1)); }
+    $("info").innerHTML = `最大値 √n/(2√n−1) = ${U.toFixed(4)}<br>（x = √n − 1 = ${(r - 1).toFixed(3)}）<br>最小値 −√n/(2√n+3) = ${L.toFixed(4)}<br>（x = −√n − 1 = ${(-r - 1).toFixed(3)}）<br>` +
+      (ok ? '<span class="ok">y = a と共有点あり（実数解あり）</span>' : '<span class="ng">共有点なし</span>') +
+      `<hr>n = 1〜${n} すべてで解をもつ a：<br>${lo.toFixed(4)} ≤ a ≤ ${hi.toFixed(4)}<br><span style="color:#888">n → ∞ で −1/5 ≤ a ≤ 1/2</span>`;
+  }
+  ["n", "a"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2009年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2009-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$k$ は 2 以上の自然数とする。「1」と書かれたカードが 1 枚，「2」と書かれたカードが 2 枚，…，「$k$」と書かれたカードが $k$ 枚ある。そのうちの偶数が書かれたカードの枚数を $M$，奇数が書かれたカードの枚数を $N$ で表す。この $(M + N)$ 枚のカードをよくきって 1 枚を取り出し，そこに書かれた数を記録してもとに戻すという操作を $n$ 回繰り返す。記録された $n$ 個の数の和が偶数となる確率を $p_n$ とする。次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$p_1$ と $p_2$ を $M,\ N$ で表せ。</li>
+      <li>(2)　$p_{n+1}$ を $p_n,\ M,\ N$ で表せ。</li>
+      <li>(3)　$\dfrac{M - N}{M + N}$ を $k$ で表せ。</li>
+      <li>(4)　$p_n$ を $n$ と $k$ で表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2009 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>偶数を引く確率 $\frac{M}{M+N}$，奇数を引く確率 $\frac{N}{M+N}$。和の偶奇は「偶数を引けば変わらず、奇数を引けば反転」なので、2 状態の漸化式になります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>1 回なら偶数を引けばよい。2 回なら 2 回の偶奇が一致すればよい。</p>
+      $$p_1 = \frac{M}{M + N},\qquad p_2 = \frac{M^2 + N^2}{(M + N)^2}$$
+
+      <h3>(2)</h3>
+      <p>$n$ 回目までの和が偶数で偶数を引くか、奇数で奇数を引くか。</p>
+      $$p_{n+1} = \frac{M}{M + N}p_n + \frac{N}{M + N}(1 - p_n)$$
+
+      <h3>(3)</h3>
+      <p>$M + N = 1 + 2 + \cdots + k = \dfrac{k(k + 1)}{2}$。$M - N = -1 + 2 - 3 + 4 - \cdots + (-1)^kk$ は、2 項ずつ組にすると各組が $1$ なので</p>
+      <ul>
+        <li>$k$ が偶数：$M - N = \dfrac k2$，$\dfrac{M - N}{M + N} = \dfrac{1}{k + 1}$</li>
+        <li>$k$ が奇数：$M - N = \dfrac{k - 1}{2} - k = -\dfrac{k + 1}{2}$，$\dfrac{M - N}{M + N} = -\dfrac1k$</li>
+      </ul>
+
+      <h3>(4)</h3>
+      <p>$r = \dfrac{M - N}{M + N}$ とおくと (2) は $p_{n+1} = rp_n + \dfrac{N}{M + N}$。$\dfrac12 = \dfrac r2 + \dfrac{N}{M + N}$ なので</p>
+      $$p_{n+1} - \frac12 = r\left(p_n - \frac12\right),\qquad p_1 - \frac12 = \frac{M - N}{2(M + N)} = \frac r2$$
+      $$\therefore\ p_n = \frac12 + \frac12r^n$$
+      $$p_n = \begin{cases} \dfrac12\left\{1 + \left(\dfrac{1}{k + 1}\right)^n\right\} & (k\ \text{が偶数}) \\[10pt] \dfrac12\left\{1 + \left(-\dfrac1k\right)^n\right\} & (k\ \text{が奇数}) \end{cases}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$k$ を選ぶと $M,\ N$ と $p_n$（$n = 1 \sim 10$）が表示されます。$k$ が奇数だと $r < 0$ なので、$p_n$ は $\frac12$ の上下を交互に振動しながら近づきます。</p>
+
+  <div class="widget">
+    <label>k：<input type="range" id="k" min="2" max="12" value="3"></label>
+    <span class="readout no-math" id="kv"></span>
+    <button id="sim">シミュレーション（n=1〜10，各 2 万回）</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>偶奇の確率は「$\frac12 + \frac12(\text{偏り})^n$」</h3>
+  <p>1 回で偶数が出る確率を $q$ とすると、$n$ 回の和が偶数になる確率は $\dfrac{1 + (2q - 1)^n}{2}$。これは $\{q + (1 - q)\}^n$ と $\{q - (1 - q)\}^n$ を足して 2 で割ると、二項展開で奇数を偶数回引く項だけが残ることからも導けます（偶数番目の項の和を取り出すテクニック）。</p>
+  <p>偏り $2q - 1 = r$ は $|r| < 1$ なので、$n$ が大きくなると $p_n \to \frac12$。どんなに偏ったカードでも、回数を重ねれば和の偶奇は五分五分に近づきます。</p>
+  <p>chopin 先生は「(1) $n = 1$ のときはずばり偶数を引く確率、$n = 2$ の時は 2 回の偶奇が一致する確率となります」「(2) 奇数⇒奇数、または偶数⇒偶数と引けばよいので、これで漸化式が立ちます」「(3) $M + N$ はカードの総数なので $\frac12k(k + 1)$ で確定しますが、$k$ の偶奇によって $M$ と $N$ の枚数の式が変化します」とコメントしています。</p>
+  <div class="point">2 状態の確率漸化式 $p_{n+1} = rp_n + c$ は、極限値（不動点）$\alpha$ を引いて等比数列に。偶奇の問題の不動点はたいてい $\frac12$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>「2」と書かれたカード 1 枚と「1」と書かれたカード 2 枚から，1 枚引いて記録し戻す操作を $n$ 回行う。記録した数の和が偶数となる確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>偶数を引く確率 $q = \frac13$，$r = 2q - 1 = -\frac13$。$p_n = \dfrac12\left\{1 + \left(-\dfrac13\right)^n\right\}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で $k = 3$ とする（カードは「1」が 1 枚，「2」が 2 枚，「3」が 3 枚）。記録された $n$ 個の数の和が 3 の倍数となる確率 $q_n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2009　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>3 で割った余りが 0，1，2 のカードを引く確率は $\frac12,\ \frac16,\ \frac13$。$\omega = \cos\frac{2\pi}{3} + i\sin\frac{2\pi}{3}$ を使うと、和の余りが 0 の確率は</p>
+    $$q_n = \frac13\left\{1 + \varphi(\omega)^n + \varphi(\omega^2)^n\right\},\qquad \varphi(z) = \frac12 + \frac16z + \frac13z^2$$
+    <p>（$1 + \omega^m + \omega^{2m}$ は $m$ が 3 の倍数のとき 3，それ以外 0 になることを利用）。$\varphi(\omega) = \frac14 - \frac{\sqrt3}{12}i = \frac{1}{2\sqrt3}\left(\cos\frac\pi6 - i\sin\frac\pi6\right)$，$\varphi(\omega^2)$ はその共役なので</p>
+    $$q_n = \frac13 + \frac23\left(\frac{1}{2\sqrt3}\right)^n\cos\frac{n\pi}{6}$$
+    <p>（$q_1 = \frac12$，$q_2 = \frac{13}{36}$，$q_3 = \frac13$ と直接計算に一致。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.3, xmax: 10.7, ymin: 0.2, ymax: 0.85 });
+  let sim = null;
+  function MN(k) { let M = 0, N = 0; for (let j = 1; j <= k; j++) (j % 2 ? (N += j) : (M += j)); return [M, N]; }
+  function draw() {
+    const k = +$("k").value, [M, N] = MN(k), r = (M - N) / (M + N);
+    $("kv").textContent = ` k = ${k}`;
+    P.clear().grid(1, "#f3f3f3");
+    P.line([[-0.3, 0.5], [10.7, 0.5]], "#2f9e44", 1.2, [5, 4]);
+    P.line([[0, 0.2], [0, 0.85]], "#999", 1);
+    const pts = []; for (let n = 1; n <= 10; n++) pts.push([n, 0.5 + 0.5 * r ** n]);
+    P.line(pts, "rgba(138,21,56,.4)", 1.2);
+    pts.forEach(([n, p]) => P.dot(n, p, "#8a1538", 3.5));
+    if (sim && sim.k === k) sim.v.forEach((p, i) => P.dot(i + 1, p, "#1c7ed6", 2.5));
+    P.text("0.5", -0.25, 0.51, "#2f9e44");
+    const rs = k % 2 === 0 ? `1/${k + 1}` : `−1/${k}`;
+    $("info").innerHTML = `M（偶数）= ${M}，N（奇数）= ${N}<br>r = (M−N)/(M+N) = ${rs}<br>p₁ = ${(0.5 + 0.5 * r).toFixed(5)}<br>p₂ = ${(0.5 + 0.5 * r * r).toFixed(5)}<br>p₃ = ${(0.5 + 0.5 * r ** 3).toFixed(5)}<br><span style="color:#888">p_n = (1 + rⁿ)/2</span>` + (sim && sim.k === k ? '<br><span style="color:#1c7ed6">● 実験値</span>' : "");
+  }
+  $("sim").addEventListener("click", () => {
+    const k = +$("k").value, cards = []; for (let j = 1; j <= k; j++) for (let c = 0; c < j; c++) cards.push(j);
+    const v = [];
+    for (let n = 1; n <= 10; n++) { let e = 0; for (let i = 0; i < 20000; i++) { let s = 0; for (let j = 0; j < n; j++) s += cards[Math.floor(Math.random() * cards.length)]; if (s % 2 === 0) e++; } v.push(e / 20000); }
+    sim = { k, v }; draw();
+  });
+  $("k").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

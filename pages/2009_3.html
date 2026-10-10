@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2009年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2009-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>曲線 $C_1:\ y = \dfrac{x^2}{2}$ の点 $P\left(a,\ \dfrac{a^2}{2}\right)$ における法線と点 $Q\left(b,\ \dfrac{b^2}{2}\right)$ における法線の交点を $R$ とする。ただし，$b \ne a$ とする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$b$ が $a$ に限りなく近づくとき，$R$ はある点 $A$ に限りなく近づく。$A$ の座標を $a$ で表せ。</li>
+      <li>(2)　点 $P$ が曲線 $C_1$ 上を動くとき，(1) で求めた点 $A$ が描く軌跡を $C_2$ とする。曲線 $C_1$ と軌跡 $C_2$ の概形を描き，$C_1$ と $C_2$ の交点の座標を求めよ。</li>
+      <li>(3)　曲線 $C_1$ と軌跡 $C_2$ で囲まれた部分の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2009 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>法線を「$x + a y = \cdots$」の形で書くと、$a = 0$（法線が $y$ 軸）の場合も含めて 1 本の式で扱えます。2 本の法線を連立して $b \to a$ とすれば $A$ が求まります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$y' = x$ より $P$ における接線の方向ベクトルは $(1,\ a)$。法線は $P$ を通りこれに垂直なので</p>
+      $$(x - a) + a\left(y - \frac{a^2}{2}\right) = 0 \iff x + ay = a + \frac{a^3}{2}$$
+      <p>$Q$ における法線 $x + by = b + \frac{b^3}{2}$ と辺々引くと $(a - b)y = (a - b) + \dfrac{a^3 - b^3}{2}$。$a \ne b$ で割って</p>
+      $$y = 1 + \frac{a^2 + ab + b^2}{2},\qquad x = a + \frac{a^3}{2} - ay = -\frac{ab(a + b)}{2}$$
+      <p>$b \to a$ とすると</p>
+      $$A\left(-a^3,\ 1 + \frac32a^2\right)$$
+
+      <h3>(2)</h3>
+      <p>$X = -a^3$，$Y = 1 + \frac32a^2$ から $a$ を消去すると、$a^2 = (a^3)^{2/3} = |X|^{2/3}$ より</p>
+      $$C_2:\ y = 1 + \frac32|x|^{\frac23}$$
+      <p>（$y$ 軸対称で、$(0,\ 1)$ で尖った曲線。$x = 0$ で微分できない。）</p>
+      <p>交点：$A$ が $C_1$ 上にある条件は $1 + \frac32a^2 = \frac{a^6}{2}$，すなわち $u = a^2$ として $u^3 - 3u - 2 = 0$，$(u - 2)(u + 1)^2 = 0$。$u \ge 0$ より $u = 2$，$a = \pm\sqrt2$。</p>
+      $$\text{交点 } (2\sqrt2,\ 4),\ (-2\sqrt2,\ 4)$$
+
+      <h3>(3)</h3>
+      <p>$|x| < 2\sqrt2$ では $C_2$ が上側（$x = 0$ で $1 > 0$）。$y$ 軸対称なので</p>
+      $$S = 2\int_0^{2\sqrt2}\left(1 + \frac32x^{\frac23} - \frac{x^2}{2}\right)dx = 2\left[x + \frac{9}{10}x^{\frac53} - \frac{x^3}{6}\right]_0^{2\sqrt2}$$
+      <p>$(2\sqrt2)^{\frac53} = 2^{\frac52} = 4\sqrt2$，$(2\sqrt2)^3 = 16\sqrt2$ より</p>
+      $$S = 2\left(2\sqrt2 + \frac{18\sqrt2}{5} - \frac{8\sqrt2}{3}\right) = \frac{88\sqrt2}{15}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$P,\ Q$ における法線（青・橙）の交点 $R$ が、$b \to a$ で $C_2$（緑）上の点 $A$ に近づく様子を見られます。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="-200" max="200" value="80"></label>
+    <span class="readout no-math" id="av"></span>
+    <label>b − a：<input type="range" id="h" min="-100" max="100" value="60"></label>
+    <span class="readout no-math" id="hv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>曲率中心と縮閉線</h3>
+  <p>近くの 2 点での法線の交点の極限 $A$ は、点 $P$ における<b>曲率中心</b>です。$P$ のまわりで曲線に最もよく接する円（曲率円）の中心で、$|PA|$ がその半径（曲率半径）。曲率中心の軌跡 $C_2$ を<b>縮閉線</b>と呼びます。放物線の縮閉線は $y - 1 = \frac32|x|^{2/3}$ のような「半立方放物線」になり、頂点の真上で尖ります。</p>
+  <p>$C_1$ と $C_2$ を一緒に描くと、chopin 先生いわく「2 曲線の概形は、どことなくマツダのロゴっぽくなります笑」。</p>
+  <p>chopin 先生はほかに「(1) 方針自体は、法線の式をそれぞれ求めて連立させるというシンプルなものですが、$a,\ b$ がそれぞれ 0 になるか否かで場合分けが発生します」「(3) 素直に積分計算をして面積を求めましょう」とコメントしています。</p>
+  <div class="point">法線は「接線の方向ベクトルとの内積 $= 0$」で書くと傾きが不要で場合分けが減る。近い 2 点の法線の交点の極限 ＝ 曲率中心。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>放物線 $y = x^2$ 上の点 $(a,\ a^2)$（$a \ne 0$）における法線と $y$ 軸の交点を $B$ とする。$a \to 0$ のとき $B$ が近づく点を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>法線 $(x - a) + 2a(y - a^2) = 0$ に $x = 0$ を代入して $y = a^2 + \frac12$。$a \to 0$ で $B \to \left(0,\ \frac12\right)$。（頂点での曲率中心。曲率半径は $\frac12$。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の点 $P$ と $A$ について，距離 $PA$ を $a$ で表し，その最小値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2009　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$\overrightarrow{PA} = \left(-a^3 - a,\ 1 + a^2\right) = (1 + a^2)(-a,\ 1)$$
+    <p>より $PA = (1 + a^2)\sqrt{1 + a^2} = (1 + a^2)^{\frac32}$。最小値は $a = 0$ のとき $1$。</p>
+    <p>（これは放物線 $y = \frac{x^2}{2}$ の曲率半径 $\dfrac{(1 + y'^2)^{3/2}}{|y''|}$ そのもの。頂点で最も曲がっている。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -4.5, xmax: 4.5, ymin: -0.8, ymax: 7.5, equal: true });
+  function draw() {
+    const a = $("a").value / 100; let h = $("h").value / 100; if (Math.abs(h) < 0.005) h = 0.005;
+    const b = a + h;
+    $("av").textContent = ` a = ${a.toFixed(2)}`; $("hv").textContent = ` b − a = ${h.toFixed(2)}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    const r23 = Math.cbrt(8); // 2√2 の範囲
+    const reg = []; const X0 = 2 * Math.SQRT2;
+    for (let i = 0; i <= 100; i++) { const x = -X0 + 2 * X0 * i / 100; reg.push([x, 1 + 1.5 * Math.cbrt(x * x)]); }
+    for (let i = 100; i >= 0; i--) { const x = -X0 + 2 * X0 * i / 100; reg.push([x, x * x / 2]); }
+    P.fill(reg, "rgba(47,158,68,.12)");
+    P.fn((x) => x * x / 2, -4.5, 4.5, "#333", 2);
+    P.fn((x) => 1 + 1.5 * Math.cbrt(x * x), -4.5, 4.5, "#2f9e44", 2);
+    // 法線 x + a y = a + a^3/2 を描く（パラメータ表示）
+    const normal = (c, col) => { const p0 = [c, c * c / 2], d = [-c, 1], L = 12 / Math.hypot(d[0], d[1]); P.line([[p0[0] - d[0] * L, p0[1] - d[1] * L], [p0[0] + d[0] * L, p0[1] + d[1] * L]], col, 1.3); };
+    normal(a, "#1c7ed6"); normal(b, "#e8590c");
+    const Ry = 1 + (a * a + a * b + b * b) / 2, Rx = -a * b * (a + b) / 2;
+    const Ax = -(a ** 3), Ay = 1 + 1.5 * a * a;
+    P.dot(a, a * a / 2, "#1c7ed6", 4, "P", 6, 12).dot(b, b * b / 2, "#e8590c", 4, "Q", 6, 12);
+    P.dot(Rx, Ry, "#c92a2a", 4.5, "R", 6, -6).dot(Ax, Ay, "#2f9e44", 4, "A", -16, -6);
+    P.dot(X0, 4, "#222", 3).dot(-X0, 4, "#222", 3);
+    $("info").innerHTML = `R = (${Rx.toFixed(3)}, ${Ry.toFixed(3)})<br>A = (−a³, 1 + 3a²/2)<br>　= (${Ax.toFixed(3)}, ${Ay.toFixed(3)})<br>|RA| = ${Math.hypot(Rx - Ax, Ry - Ay).toFixed(4)}<br>PA（曲率半径）= ${((1 + a * a) ** 1.5).toFixed(4)}<br>面積（緑）= 88√2/15 ≈ ${(88 * Math.SQRT2 / 15).toFixed(4)}`;
+  }
+  ["a", "h"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

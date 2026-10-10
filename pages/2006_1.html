@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2006年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2006-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>次の問いに答えよ。ただし，$\displaystyle\lim_{x\to\infty}\frac{\log x}{x} = 0$ であること，また，$e$ は自然対数の底で，$e &lt; 3$ であることを用いてよい。</p>
+    <ol>
+      <li>(1)　自然数 $n$ に対して，方程式 $\dfrac{\log x}{x} = \dfrac{1}{3n}$ は $x &gt; 0$ の範囲にちょうど 2 つの実数解をもつことを示せ。</li>
+      <li>(2)　(1) の実数解を $\alpha_n$，$\beta_n$（$\alpha_n &lt; \beta_n$）とするとき，$1 &lt; \alpha_n &lt; e^{\frac1n}$，$ne &lt; \beta_n$ が成り立つことを示せ。また，$\displaystyle\lim_{n\to\infty}\alpha_n$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2006 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f(x) = \frac{\log x}{x}$ は $x = e$ で極大値 $\frac1e$。$\frac1{3n} \le \frac13 &lt; \frac1e$ なので 2 交点。(2) は $f$ の単調性を使い、$f(e^{1/n})$，$f(ne)$ と $\frac1{3n}$ の大小を比べるだけです。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f(x) = \dfrac{\log x}{x}$ とおくと $f'(x) = \dfrac{1 - \log x}{x^2}$。$f$ は $0 &lt; x \le e$ で増加，$x \ge e$ で減少し、極大値 $f(e) = \dfrac1e$。また</p>
+      $$\lim_{x\to+0}f(x) = -\infty,\qquad \lim_{x\to\infty}f(x) = 0,\qquad x &gt; 1 \text{ で } f(x) &gt; 0$$
+      <p>$e &lt; 3$ より $0 &lt; \dfrac1{3n} \le \dfrac13 &lt; \dfrac1e$。よって $y = \frac1{3n}$ は $0 &lt; x &lt; e$ と $x &gt; e$ でそれぞれちょうど 1 回ずつ $y = f(x)$ と交わり（中間値の定理と単調性）、実数解はちょうど 2 つ。</p>
+
+      <h3>(2)</h3>
+      <p>(1) より $\alpha_n &lt; e &lt; \beta_n$。$f$ は $(0,\ e]$ で増加で、</p>
+      $$f(1) = 0 &lt; \frac1{3n},\qquad f\left(e^{\frac1n}\right) = \frac{1/n}{e^{1/n}} = \frac{1}{ne^{1/n}} &gt; \frac1{3n}\quad(e^{\frac1n} \le e &lt; 3)$$
+      <p>$1 &lt; e^{\frac1n} \le e$ なので $1 &lt; \alpha_n &lt; e^{\frac1n}$。</p>
+      <p>また $f$ は $[e,\ \infty)$ で減少で、$ne \ge e$ かつ</p>
+      $$f(ne) = \frac{1 + \log n}{ne}$$
+      <p>ここで $3(1 + \log n) \ge 3 &gt; e$ なので $\dfrac{1 + \log n}{ne} &gt; \dfrac{1}{3n}$，すなわち $f(ne) &gt; \dfrac1{3n} = f(\beta_n)$。</p>
+      <p>よって $ne &lt; \beta_n$。</p>
+      <p>最後に $e^{\frac1n} \to 1$ なので、はさみうちの原理より</p>
+      $$\lim_{n\to\infty}\alpha_n = 1$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を大きくすると直線 $y = \frac1{3n}$ が下がり、$\alpha_n$ は 1 に、$\beta_n$ は右へどんどん遠ざかります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="20" value="2"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>$\frac{\log x}{x}$ のグラフは入試の常連</h3>
+  <p>$\frac{\log x}{x}$ は「$x^y = y^x$」「$e^\pi$ と $\pi^e$ の比較」などでもおなじみの関数です。極大値 $\frac1e$ と、$x \to \infty$ で $0$ に近づくことさえ押さえれば、解の個数はグラフで一目瞭然。(2) は解を具体的な値ではさむ「評価」の練習で、はさむ値 $e^{\frac1n}$，$ne$ は $f$ に代入すると計算がきれいになるように選ばれています。</p>
+  <p>chopin 先生は「(1) $f(x) = \frac{\log x}{x}$ の増減を調べて、$\frac1{3n}$ が極大値より小さいことを示しましょう」「(2) $f(x)$ のグラフを書けば、$\alpha_n$ と $\beta_n$ の配置がわかります。あとは、$f(e^{\frac1n})$ と $f(ne)$ の値と $\frac1{3n}$ との大小関係を調べれば OK です」とコメントしています。</p>
+  <div class="point">方程式の解の評価：単調な区間で、候補の値を $f$ に代入して大小比較。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>方程式 $\dfrac{\log x}{x} = k$ が異なる 2 つの正の実数解をもつような定数 $k$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問 (1) のグラフより、$y = k$ が 2 回交わるのは $0 &lt; k &lt; \dfrac1e$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $\alpha_n$ について，$\displaystyle\lim_{n\to\infty}n(\alpha_n - 1)$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2006　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\dfrac{\log\alpha_n}{\alpha_n} = \dfrac1{3n}$ より $n\log\alpha_n = \dfrac{\alpha_n}3 \to \dfrac13$。$\alpha_n \to 1$ なので $\dfrac{\alpha_n - 1}{\log\alpha_n} \to 1$（$\lim_{t\to1}\frac{\log t}{t - 1} = 1$）。よって $n(\alpha_n - 1) = n\log\alpha_n\cdot\dfrac{\alpha_n - 1}{\log\alpha_n} \to \dfrac13$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const f = (x) => Math.log(x) / x;
+  const bis = (lo, hi, k, inc) => { for (let i = 0; i < 80; i++) { const m = (lo + hi) / 2; ((f(m) < k) === inc) ? (lo = m) : (hi = m); } return (lo + hi) / 2; };
+  function draw() {
+    const n = +$("n").value, k = 1 / (3 * n);
+    $("nv").textContent = ` n = ${n}`;
+    const al = bis(1, Math.E, k, true), be = bis(Math.E, 1e6, k, false);
+    const X = be * 1.12;
+    const P = Fig.plane($("cv"), { xmin: -X * 0.04, xmax: X, ymin: -0.15, ymax: 0.45 });
+    P.clear().axes();
+    P.fn(f, 0.6, X, "#333", 2, 800);
+    P.line([[0, k], [X, k]], "#1c7ed6", 1.4);
+    P.line([[Math.E, -0.15], [Math.E, 0.45]], "#ccc", 1, [3, 3]);
+    P.line([[n * Math.E, -0.15], [n * Math.E, 0.45]], "#2f9e44", 1, [4, 3]);
+    P.dot(al, k, "#c92a2a", 4, "α", -4, -8).dot(be, k, "#c92a2a", 4, "β", 4, -8);
+    P.text("ne", n * Math.E + X * 0.01, -0.1, "#2f9e44");
+    $("info").innerHTML = `1/(3n) = ${k.toFixed(4)}<br>α<sub>n</sub> = ${al.toFixed(5)}<br>e<sup>1/n</sup> = ${Math.exp(1 / n).toFixed(5)}<br>β<sub>n</sub> = ${be.toFixed(3)}<br>ne = ${(n * Math.E).toFixed(3)}<br>n(α<sub>n</sub>−1) = ${(n * (al - 1)).toFixed(4)}`;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

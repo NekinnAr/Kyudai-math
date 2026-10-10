@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2011年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2011-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>空間内の 4 点 $O(0,\ 0,\ 0)$，$A(0,\ 2,\ 3)$，$B(1,\ 0,\ 3)$，$C(1,\ 2,\ 0)$ を考える。このとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　4 点 $O,\ A,\ B,\ C$ を通る球面の中心 $D$ の座標を求めよ。</li>
+      <li>(2)　3 点 $A,\ B,\ C$ を通る平面に点 $D$ から垂線を引き，交点を $F$ とする。線分 $DF$ の長さを求めよ。</li>
+      <li>(3)　四面体 $ABCD$ の体積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2011 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>原点を通る球面は $x^2 + y^2 + z^2 + px + qy + rz = 0$ とおけます。平面 $ABC$ の方程式を求めれば、(2) は点と平面の距離の公式、(3) は「底面 $\triangle ABC$ × 高さ $DF$」です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>球面を $x^2 + y^2 + z^2 + px + qy + rz = 0$（$O$ を通る）とおく。$A,\ B,\ C$ を代入して</p>
+      $$13 + 2q + 3r = 0,\qquad 10 + p + 3r = 0,\qquad 5 + p + 2q = 0$$
+      <p>第 2 式 − 第 3 式より $5 + 3r - 2q = 0$。第 1 式と足して $18 + 6r = 0$，$r = -3$，$q = -2$，$p = -1$。</p>
+      $$x^2 + y^2 + z^2 - x - 2y - 3z = 0 \iff \left(x - \tfrac12\right)^2 + (y - 1)^2 + \left(z - \tfrac32\right)^2 = \frac{14}{4}$$
+      $$D\left(\frac12,\ 1,\ \frac32\right)\qquad（\text{半径 } \tfrac{\sqrt{14}}{2}）$$
+
+      <h3>(2)</h3>
+      <p>$\overrightarrow{AB} = (1,\ -2,\ 0)$，$\overrightarrow{AC} = (1,\ 0,\ -3)$ の両方に垂直なベクトルとして $\vec n = (6,\ 3,\ 2)$（$6 - 6 + 0 = 0$，$6 + 0 - 6 = 0$ で確認）。平面 $ABC$ は $A$ を通るので</p>
+      $$6x + 3y + 2z = 12$$
+      $$DF = \frac{|6\cdot\frac12 + 3\cdot1 + 2\cdot\frac32 - 12|}{\sqrt{36 + 9 + 4}} = \frac{|9 - 12|}{7} = \frac37$$
+
+      <h3>(3)</h3>
+      <p>$|\overrightarrow{AB}|^2 = 5$，$|\overrightarrow{AC}|^2 = 10$，$\overrightarrow{AB}\cdot\overrightarrow{AC} = 1$ より</p>
+      $$\triangle ABC = \frac12\sqrt{5\cdot10 - 1^2} = \frac72$$
+      $$V = \frac13\cdot\frac72\cdot\frac37 = \frac12$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>ドラッグで回転できます。四面体 $OABC$（灰），外接球の中心 $D$，平面 $ABC$ への垂線の足 $F$（赤）。$F$ は $\triangle ABC$ の外心になっています。</p>
+
+  <div class="widget">
+    <label><input type="checkbox" id="sph" checked> 外接球の大円を表示</label>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>外接球の中心から面への垂線の足は外心</h3>
+  <p>$D$ は $A,\ B,\ C$ から等距離なので、$DF \perp$ 平面 $ABC$ のとき三平方の定理から $FA = FB = FC$。つまり <b>$F$ は $\triangle ABC$ の外心</b>で、$\triangle ABC$ の外接円の半径を $\rho$ とすると $\rho^2 + DF^2 = (\text{球の半径})^2$ が成り立ちます。本問では $\rho^2 = \frac{14}{4} - \frac{9}{49} = \frac{325}{98}$。</p>
+  <p>また、四面体の体積は 3 つの辺ベクトルの成分から $\frac16|\det|$ で一気に計算することもできます（検算用に便利）。$\overrightarrow{DA},\ \overrightarrow{DB},\ \overrightarrow{DC}$ でやると確かに $\frac12$ になります。</p>
+  <p>chopin 先生は「(1) 球面の式を立てて、4 つの式からなる連立方程式を解くことになります。時間はかかりますが、ミスなく解きたいところです」「(2) A, B, C を通る平面の式を出すのが最も確実な方法でしょう」「(3) (2) で高さが求まったので、あとは底面 △ABC の面積が分かってしまえばお終いです」とコメントしています。</p>
+  <div class="point">原点を通る球面は定数項なしでおく。点と平面の距離 $\dfrac{|ax_0 + by_0 + cz_0 - d|}{\sqrt{a^2 + b^2 + c^2}}$。三角形の面積は $\frac12\sqrt{|\vec a|^2|\vec b|^2 - (\vec a\cdot\vec b)^2}$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の 4 点について，四面体 $OABC$ の体積と，点 $O$ と平面 $ABC$ の距離を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$O$ と平面 $6x + 3y + 2z = 12$ の距離は $\dfrac{12}{7}$。体積は $\dfrac13\cdot\dfrac72\cdot\dfrac{12}{7} = 2$。（行列式でも $\frac16\left|\det\begin{pmatrix} 0 & 2 & 3 \\ 1 & 0 & 3 \\ 1 & 2 & 0 \end{pmatrix}\right| = \frac{12}{6} = 2$。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の球面上を点 $P$ が動くとき，四面体 $ABCP$ の体積の最大値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2011　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>底面 $\triangle ABC = \frac72$ は一定なので、$P$ と平面 $ABC$ の距離を最大にすればよい。$D$ は平面から $\frac37$ の距離にあり、球の半径は $\frac{\sqrt{14}}{2}$ なので、平面から最も遠い球面上の点までの距離は $\frac37 + \frac{\sqrt{14}}{2}$（直線 $FD$ を $D$ の先へ延ばした点）。</p>
+    $$V_{\max} = \frac13\cdot\frac72\left(\frac37 + \frac{\sqrt{14}}{2}\right) = \frac12 + \frac{7\sqrt{14}}{12}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const v3 = Fig.v3;
+  const V = Fig.view3d($("cv"), { scale: 70, center: [0.5, 1, 1.5], az: -0.7, el: 0.35, onChange: () => draw() });
+  const O = [0, 0, 0], A = [0, 2, 3], B = [1, 0, 3], C = [1, 2, 0], D = [0.5, 1, 1.5];
+  const n = [6, 3, 2], F = v3.add(D, v3.mul(n, 3 / 49));
+  const R = Math.sqrt(14) / 2;
+  function draw() {
+    V.clear().axes(3);
+    if ($("sph").checked) {
+      V.circle(D, [1, 0, 0], [0, 1, 0], R, "rgba(28,126,214,.35)", 1);
+      V.circle(D, [1, 0, 0], [0, 0, 1], R, "rgba(28,126,214,.35)", 1);
+      V.circle(D, [0, 1, 0], [0, 0, 1], R, "rgba(28,126,214,.35)", 1);
+    }
+    V.poly([A, B, C], "#8a1538", 1.6, [], "rgba(138,21,56,.15)", true);
+    [A, B, C].forEach((X) => V.poly([O, X], "#999", 1.2, [4, 3]));
+    [A, B, C].forEach((X) => V.poly([D, X], "#e8590c", 1.2));
+    V.poly([D, F], "#c92a2a", 2.4);
+    [[O, "O"], [A, "A"], [B, "B"], [C, "C"]].forEach(([X, s]) => V.dot(X, "#222", 3.5, s));
+    V.dot(D, "#1c7ed6", 4, "D").dot(F, "#c92a2a", 4, "F");
+    const d = (X, Y) => v3.len(v3.sub(X, Y)).toFixed(4);
+    $("info").innerHTML = `D = (1/2, 1, 3/2)<br>DO = DA = DB = DC = ${d(D, O)}<br>F = (85/98, 58/49, 159/98)<br>DF = ${d(D, F)}（3/7 ≈ 0.4286）<br>FA = ${d(F, A)}，FB = ${d(F, B)}，FC = ${d(F, C)}<br><span class="ok">FA = FB = FC → F は外心</span><br>V(ABCD) = 1/2`;
+  }
+  $("sph").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

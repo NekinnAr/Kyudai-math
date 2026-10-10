@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2006年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2006-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$\triangle OAB$ において，辺 $OB$ の中点を $M$，辺 $AB$ を $\alpha : 1 - \alpha$ に内分する点を $P$ とする。ただし，$0 &lt; \alpha &lt; 1$ とする。線分 $OP$ と $AM$ の交点を $Q$ とし，$Q$ を通り，線分 $AM$ に垂直な直線が，辺 $OA$ またはその延長と交わる点を $R$ とする。$\overrightarrow{OA} = \vec{a}$，$\overrightarrow{OB} = \vec{b}$ として，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　ベクトル $\overrightarrow{OP}$ と $\overrightarrow{OQ}$ を $\vec{a}$，$\vec{b}$ および $\alpha$ を用いて表せ。</li>
+      <li>(2)　$|\vec{a}| = 2$，$|\vec{b}| = 3$，$\angle AOB = \theta$ で $\cos\theta = \dfrac16$ とする。このとき，ベクトル $\overrightarrow{OR}$ を $\vec{a}$ と $\alpha$ を用いて表せ。</li>
+      <li>(3)　(2) の条件のもとで，点 $R$ が辺 $OA$ の中点であるときの $\alpha$ の値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2006 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>交点 $Q$ は「$OP$ 上」「$AM$ 上」の 2 通りに表して係数比較。$\overrightarrow{OR} = r\vec{a}$ とおき、$\overrightarrow{QR}\cdot\overrightarrow{AM} = 0$ を解きます。内積 $\vec a\cdot\vec b = 1$ が効きます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\overrightarrow{OP} = (1 - \alpha)\vec{a} + \alpha\vec{b}$$
+      <p>$Q$ は $OP$ 上なので $\overrightarrow{OQ} = t\{(1 - \alpha)\vec{a} + \alpha\vec{b}\}$，$AM$ 上なので $\overrightarrow{OQ} = (1 - s)\vec{a} + \dfrac s2\vec{b}$。$\vec a$，$\vec b$ は 1 次独立なので</p>
+      $$t(1 - \alpha) = 1 - s,\qquad t\alpha = \frac s2$$
+      <p>$s = 2t\alpha$ を代入して $t(1 + \alpha) = 1$。よって</p>
+      $$\overrightarrow{OQ} = \frac{(1 - \alpha)\vec{a} + \alpha\vec{b}}{1 + \alpha}$$
+
+      <h3>(2)</h3>
+      <p>$\vec a\cdot\vec b = 2\cdot3\cdot\frac16 = 1$。$\overrightarrow{AM} = \frac12\vec b - \vec a$ で</p>
+      $$\vec a\cdot\overrightarrow{AM} = \frac12 - 4 = -\frac72,\qquad \vec b\cdot\overrightarrow{AM} = \frac92 - 1 = \frac72$$
+      <p>$\overrightarrow{OR} = r\vec a$ とおくと、$\overrightarrow{QR}\cdot\overrightarrow{AM} = 0$ より $r\,\vec a\cdot\overrightarrow{AM} = \overrightarrow{OQ}\cdot\overrightarrow{AM}$。</p>
+      $$-\frac72r = \frac{(1 - \alpha)\left(-\frac72\right) + \alpha\cdot\frac72}{1 + \alpha} = \frac72\cdot\frac{2\alpha - 1}{1 + \alpha}$$
+      $$\therefore\ \overrightarrow{OR} = \frac{1 - 2\alpha}{1 + \alpha}\vec a$$
+
+      <h3>(3)</h3>
+      <p>$\dfrac{1 - 2\alpha}{1 + \alpha} = \dfrac12$ より $2 - 4\alpha = 1 + \alpha$，$\alpha = \dfrac15$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>(2) の条件どおりの三角形です。$\alpha$ を動かすと $P$，$Q$，$R$ が動きます。$\alpha &gt; \frac12$ では $R$ は $O$ を越えて延長上に出ます。</p>
+
+  <div class="widget">
+    <label>α：<input type="range" id="al" min="1" max="99" value="20"></label>
+    <span class="readout no-math" id="alv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>交点ベクトルの定番＋垂直条件</h3>
+  <p>(1) は「2 直線の交点は 2 通りに表して係数比較」という超定番（メネラウスの定理でも出せます）。(2) で垂直条件を内積で処理しますが、$\vec a\cdot\overrightarrow{AM}$ と $\vec b\cdot\overrightarrow{AM}$ が $\mp\frac72$ と符号違いで同じ大きさになるため、式が非常に簡単になります。実は $(\vec a + \vec b)\cdot\overrightarrow{AM} = 0$、つまり $AM$ は $\vec a + \vec b$（平行四辺形の対角線）と垂直という、数値の選び方の妙があります。</p>
+  <p>chopin 先生は「(1) は典型問題です。$Q$ については $OP$ 上にあり、かつ $AM$ 上にあるという条件から求めます」「(2) $\overrightarrow{OR}$ は $\vec a$ の定数倍です。これと $QR \perp AM$ という条件から $\overrightarrow{OR}$ を求めます」「(3) (2) ができれば瞬殺です」とコメントしています。</p>
+  <div class="point">交点は 2 通りに表して係数比較。直線上の点は「実数倍」でおいて内積＝0。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問で $\alpha = \dfrac12$ のとき，$AQ : QM$ と $OQ : QP$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$t = \dfrac1{1 + \alpha} = \dfrac23$，$s = 2t\alpha = \dfrac23$。よって $OQ : QP = 2 : 1$，$AQ : QM = 2 : 1$。$P$，$M$ がともに辺の中点なので、$Q$ は $\triangle OAB$ の重心です。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (2) の条件のもとで，点 $R$ が辺 $OA$ 上（両端を含む）にあるような $\alpha$ の範囲を求めよ。また，$R = O$ となるときの $\alpha$ の値を求め，そのとき $OQ \perp AM$ であることを確かめよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2006　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$0 \le \dfrac{1 - 2\alpha}{1 + \alpha} \le 1$。右側は $\alpha &gt; 0$ で常に成立、左側から $\alpha \le \dfrac12$。よって $0 &lt; \alpha \le \dfrac12$。$R = O$ は $\alpha = \dfrac12$ で、このとき $\overrightarrow{OQ} = \frac13(\vec a + \vec b)$。$(\vec a + \vec b)\cdot\overrightarrow{AM} = -\frac72 + \frac72 = 0$ なので確かに $OQ \perp AM$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const c = 1 / 6, s = Math.sqrt(1 - c * c);
+  const O = [0, 0], A = [2, 0], B = [3 * c, 3 * s], M = [B[0] / 2, B[1] / 2];
+  function draw() {
+    const al = $("al").value / 100;
+    $("alv").textContent = ` α = ${al.toFixed(2)}`;
+    const Pp = [(1 - al) * A[0] + al * B[0], (1 - al) * A[1] + al * B[1]];
+    const t = 1 / (1 + al), Q = [t * Pp[0], t * Pp[1]];
+    const d = [M[0] - A[0], M[1] - A[1]];
+    // R = (x, 0) with (R - Q)·d = 0
+    const rx = (Q[0] * d[0] + Q[1] * d[1]) / d[0], R = [rx, 0];
+    const r = (1 - 2 * al) / (1 + al);
+    const P = Fig.plane($("cv"), { xmin: -1.6, xmax: 2.6, ymin: -0.9, ymax: 3.3, equal: true });
+    P.clear().grid(1, "#f3f3f3");
+    P.line([[-1.6, 0], [2.6, 0]], "#ddd", 1);
+    P.fill([O, A, B], "rgba(138,21,56,.06)");
+    P.line([O, A, B, O], "#333", 1.8);
+    P.line([O, Pp], "#1c7ed6", 1.4); P.line([A, M], "#1c7ed6", 1.4);
+    P.line([Q, R], "#c92a2a", 1.6, [5, 3]);
+    [[O, "O", -14, 14], [A, "A", 6, 14], [B, "B", 6, -4], [M, "M", -16, 0], [Pp, "P", 6, -4], [Q, "Q", 6, 14]].forEach(([X, l, dx, dy]) => P.dot(X[0], X[1], "#222", 3.5, l, dx, dy));
+    P.dot(R[0], R[1], "#c92a2a", 4.5, "R", 0, 16);
+    $("info").innerHTML = `OR = r·a<br>公式 r = (1−2α)/(1+α) = ${r.toFixed(4)}<br>図から測った r = ${(rx / 2).toFixed(4)}` + (Math.abs(al - 0.2) < 6e-3 ? '<br><span class="ok">R は OA の中点！ α = 1/5</span>' : "") + (al > 0.5 ? '<br>R は O を越えて延長上' : "");
+  }
+  $("al").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

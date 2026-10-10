@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2010年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2010-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>中心 $(0,\ a)$，半径 $a$ の円を $xy$ 平面上の $x$ 軸の上を $x$ の正の方向に滑らないように転がす。このとき円上の定点 $P$ が原点 $(0,\ 0)$ を出発するとする。次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　円が角 $t$ だけ回転したとき，点 $P$ の座標を求めよ。</li>
+      <li>(2)　$t$ が $0$ から $2\pi$ まで動いて円が一回転したときの点 $P$ の描く曲線を $C$ とする。曲線 $C$ と $x$ 軸とで囲まれる部分の面積を求めよ。</li>
+      <li>(3)　(2) の曲線 $C$ の長さを求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2010 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>サイクロイドそのものです。「滑らない」＝「転がった距離 $=$ 接していた弧の長さ $at$」。中心の位置と、中心から見た $P$ の向きに分けてベクトルで表します。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>滑らないので、角 $t$ だけ回転したとき円は弧の長さ $at$ だけ進み、中心は $M(at,\ a)$。$P$ は最初真下にあり、時計回りに $t$ 回転するので、$\overrightarrow{MP} = (-a\sin t,\ -a\cos t)$。</p>
+      $$P\big(a(t - \sin t),\ a(1 - \cos t)\big)$$
+
+      <h3>(2)</h3>
+      <p>$x = a(t - \sin t)$ は $t$ について増加（$\frac{dx}{dt} = a(1 - \cos t) \ge 0$），$y \ge 0$ なので</p>
+      $$S = \int_0^{2\pi a}y\,dx = \int_0^{2\pi}a(1 - \cos t)\cdot a(1 - \cos t)\,dt = a^2\int_0^{2\pi}\left(1 - 2\cos t + \frac{1 + \cos2t}{2}\right)dt = 3\pi a^2$$
+
+      <h3>(3)</h3>
+      $$\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2 = a^2\{(1 - \cos t)^2 + \sin^2t\} = 2a^2(1 - \cos t) = 4a^2\sin^2\frac t2$$
+      <p>$0 \le t \le 2\pi$ で $\sin\frac t2 \ge 0$ なので</p>
+      $$L = \int_0^{2\pi}2a\sin\frac t2\,dt = \Big[-4a\cos\frac t2\Big]_0^{2\pi} = 8a$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと円が転がり、点 $P$ がサイクロイドを描きます。「点の位置 $r$」を $a$ より小さくすると、円の内側の点が描く曲線（トロコイド，下の魔改造）になります。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="0" max="628" value="200"></label>
+    <span class="readout no-math" id="tv"></span>
+    <label>点の位置 r / a：<input type="range" id="r" min="0" max="100" value="100"></label>
+    <span class="readout no-math" id="rv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="200"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>サイクロイドの 2 つの美しい数字</h3>
+  <p>サイクロイド 1 アーチの下の面積は、転がる円の面積のちょうど <b>3 倍</b>（$3\pi a^2$），長さは円の直径のちょうど <b>4 倍</b>（$8a$）。円周率が消えて整数倍になる長さの結果は、17 世紀にレンが示した有名な事実です。</p>
+  <p>サイクロイドは「最速降下曲線」（2 点間を重力だけで最も早く滑り降りる曲線）や「等時曲線」（どこから離しても底に着くまでの時間が同じ）としても知られています。</p>
+  <p>chopin 先生は「サイクロイドについての問題です。教科書レベルの問題なので、落とせません」「(1) 円の進んだ距離と、消費した円弧の長さが等しいことを利用します」「(2), (3) ともに、面積、長さの公式に当てはめて積分計算するだけです」とコメントしています。</p>
+  <div class="point">転がる円の点は「中心の位置 ＋ 中心から点へのベクトル（回転）」。$1 - \cos t = 2\sin^2\frac t2$ でルートが外れる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の曲線 $C$ と $x$ 軸とで囲まれる部分を $x$ 軸のまわりに 1 回転してできる立体の体積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$V = \pi\int_0^{2\pi a}y^2\,dx = \pi a^3\int_0^{2\pi}(1 - \cos t)^3\,dt$$
+    <p>$(1 - \cos t)^3 = 1 - 3\cos t + 3\cos^2t - \cos^3t$ で、$\cos t,\ \cos^3t$ の積分は $0$，$\int_0^{2\pi}\cos^2t\,dt = \pi$。よって $V = \pi a^3(2\pi + 3\pi) = 5\pi^2a^3$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の円の中心から距離 $r$（$0 < r < a$）の位置にある円板上の定点 $P$ が，最初 $(0,\ a - r)$ にあるとする。円が一回転する間に $P$ が描く曲線と，$x$ 軸，直線 $x = 0$，$x = 2\pi a$ で囲まれる部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2010　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>同様に $P(at - r\sin t,\ a - r\cos t)$。$\frac{dx}{dt} = a - r\cos t > 0$，$y > 0$ なので</p>
+    $$S = \int_0^{2\pi}(a - r\cos t)^2\,dt = 2\pi a^2 + \pi r^2$$
+    <p>$r = a$ とすると本問の $3\pi a^2$ に一致。「長方形 $2\pi a \times a$ ＋ 半径 $r$ の円」という見事な形です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const a = 1;
+  const P = Fig.plane($("cv"), { xmin: -0.4, xmax: 6.9, ymin: -0.3, ymax: 2.4, equal: true });
+  function draw() {
+    const t = $("t").value / 100, r = $("r").value / 100 * a;
+    $("tv").textContent = ` t = ${t.toFixed(2)}`; $("rv").textContent = ` ${(r / a).toFixed(2)}`;
+    const X = (s) => a * s - r * Math.sin(s), Y = (s) => a - r * Math.cos(s);
+    P.clear().grid(1, "#f3f3f3").axes();
+    const full = []; for (let i = 0; i <= 200; i++) { const s = 2 * Math.PI * i / 200; full.push([X(s), Y(s)]); }
+    const reg = full.slice(); reg.push([2 * Math.PI * a, 0], [0, 0]);
+    P.fill(reg, "rgba(138,21,56,.12)");
+    P.line(full, "#bbb", 1.2, [4, 3]);
+    const tr = []; for (let i = 0; i <= 200; i++) { const s = t * i / 200; tr.push([X(s), Y(s)]); }
+    P.line(tr, "#8a1538", 2.4);
+    P.circle(a * t, a, a, "#1c7ed6", 1.6);
+    P.line([[a * t, a], [X(t), Y(t)]], "#1c7ed6", 1.4);
+    P.line([[0, 0], [a * t, 0]], "#2f9e44", 3);
+    P.dot(a * t, a, "#1c7ed6", 3).dot(X(t), Y(t), "#c92a2a", 4.5, "P", 6, -6);
+    let L = 0; for (let i = 0; i < 2000; i++) { const s1 = t * i / 2000, s2 = t * (i + 1) / 2000; L += Math.hypot(X(s2) - X(s1), Y(s2) - Y(s1)); }
+    $("info").innerHTML = `（a = 1）<br>P = (${X(t).toFixed(3)}, ${Y(t).toFixed(3)})<br><span style="color:#2f9e44">進んだ距離 at = ${t.toFixed(3)}</span><br>ここまでの曲線の長さ ≈ ${L.toFixed(4)}<br>` +
+      (r === a ? `1 周の面積 3πa² ≈ ${(3 * Math.PI).toFixed(4)}<br>1 周の長さ 8a = 8` : `1 周の面積 2πa² + πr² ≈ ${(2 * Math.PI + Math.PI * r * r).toFixed(4)}`);
+  }
+  ["t", "r"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

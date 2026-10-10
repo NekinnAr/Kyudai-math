@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2014年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2014-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　任意の自然数 $a$ に対し，$a^2$ を 3 で割った余りは 0 か 1 であることを証明せよ。</li>
+      <li>(2)　自然数 $a,\ b,\ c$ が $a^2 + b^2 = 3c^2$ を満たすと仮定すると，$a,\ b,\ c$ はすべて 3 で割り切れなければならないことを証明せよ。</li>
+      <li>(3)　$a^2 + b^2 = 3c^2$ を満たす自然数 $a,\ b,\ c$ は存在しないことを証明せよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2014 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>平方数を 3 で割った余りは 0 か 1。和が 3 の倍数になるのは両方 0 のときだけ。(3) は (2) を繰り返す<b>無限降下法</b>（最小性による背理法）。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a = 3n,\ 3n \pm 1$（$n$ は整数）と表せる。$a^2 = 9n^2$，$9n^2 \pm 6n + 1 = 3(3n^2 \pm 2n) + 1$ より、余りは 0 か 1。</p>
+
+      <h3>(2)</h3>
+      <p>右辺は 3 の倍数なので $a^2 + b^2 \equiv 0 \pmod 3$。(1) より $a^2,\ b^2$ の余りは 0 か 1 なので、和の余りは $0 + 0 = 0$，$0 + 1 = 1$，$1 + 1 = 2$ のいずれか。0 になるのは $a^2 \equiv b^2 \equiv 0$ のときだけで、3 は素数だから $3 \mid a$，$3 \mid b$。</p>
+      <p>$a = 3a'$，$b = 3b'$ とおくと $9(a'^2 + b'^2) = 3c^2$，すなわち $c^2 = 3(a'^2 + b'^2)$。よって $3 \mid c^2$ で、$3 \mid c$。</p>
+
+      <h3>(3)</h3>
+      <p>解が存在すると仮定し、その中で $c$ が最小のものを $(a,\ b,\ c)$ とする。(2) より $a = 3a'$，$b = 3b'$，$c = 3c'$（$a',\ b',\ c'$ は自然数）と書けて、代入すると</p>
+      $$9a'^2 + 9b'^2 = 27c'^2 \iff a'^2 + b'^2 = 3c'^2$$
+      <p>$(a',\ b',\ c')$ も解で、$c' = \frac c3 \lt c$。これは $c$ の最小性に矛盾する。よって自然数解は存在しない。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>左は $a,\ b$ を 3 で割った余りごとの $a^2 + b^2$ の余りの表、右は $a^2 + b^2 = kc^2$ の自然数解を $c \le 50$ の範囲で探した結果です。$k$ を変えて比べてみましょう。</p>
+
+  <div class="widget">
+    <label>k：<select id="k"><option>2</option><option selected>3</option><option>5</option><option>6</option><option>7</option><option>10</option><option>11</option><option>13</option></select></label>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <div class="no-math" id="tbl"></div>
+      <div class="no-math" id="res" style="min-width:240px;line-height:1.7"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>無限降下法と円上の有理点</h3>
+  <p>「解があれば、もっと小さい解がつくれる」→「自然数は無限に小さくできない」→ 矛盾、という論法を<b>無限降下法</b>といい、フェルマーが $x^4 + y^4 = z^4$ の解なしを示すのに使ったことで有名です。</p>
+  <p>$a^2 + b^2 = 3c^2$ を $c^2$ で割ると $\left(\frac ac\right)^2 + \left(\frac bc\right)^2 = 3$。つまり本問は「円 $x^2 + y^2 = 3$ 上には有理点が 1 つもない」ことと同じです。一方 $x^2 + y^2 = 2$ には $(1,\ 1)$，$\left(\frac15,\ \frac75\right)$ などの有理点が無数にあります。一般に自然数 $k$ について、$x^2 + y^2 = k$ が有理点をもつのは「$k$ を素因数分解したとき、4 で割って 3 余る素数がすべて偶数乗で現れる」ときに限られます（$k = 3,\ 6,\ 7,\ 11$ は解なし、$k = 2,\ 5,\ 10,\ 13$ は解あり。図解で確かめられます）。</p>
+  <p>chopin 先生は「(2) 左辺を 3 で割った余りがどうなるかを調べます」「(3) この議論を繰り返すと、$a,\ b,\ c$ はすべて 3 で何回でも割り切れる自然数ということになってしまい矛盾です。このような証明方法は『無限降下法』と呼ばれています」とコメントしています。</p>
+  <div class="point">平方数の余り：mod 3 で $\{0, 1\}$，mod 4 で $\{0, 1\}$，mod 8 で $\{0, 1, 4\}$。「解なし」の証明は<b>余りで絞る</b>か<b>最小の解を考えて背理法</b>。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$x^2 - 3y^2 = 2$ を満たす整数 $x,\ y$ は存在しないことを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>両辺を 3 で割った余りを比べると $x^2 \equiv 2 \pmod 3$。しかし平方数の余りは 0 か 1 なので矛盾。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$a^2 + b^2 = 7c^2$ を満たす自然数 $a,\ b,\ c$ は存在しないことを証明せよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2014　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>平方数を 7 で割った余りは $0^2,\ 1^2,\ \cdots,\ 6^2$ より $\{0,\ 1,\ 2,\ 4\}$。2 つの和が $0 \pmod 7$ になるのは $0 + 0$ だけ（$1 + 6$，$2 + 5$，$4 + 3$ は 6, 5, 3 が平方剰余でないので不可）。</p>
+    <p>よって $7 \mid a$，$7 \mid b$。$a = 7a'$，$b = 7b'$ とすると $c^2 = 7(a'^2 + b'^2)$ で $7 \mid c$。$c = 7c'$ とすると $a'^2 + b'^2 = 7c'^2$ となり、本問 (3) と同様に $c$ の最小性に矛盾。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  function draw() {
+    const k = +$("k").value;
+    let h = `<table class="simple"><tr><th>a＼b<br>(mod 3)</th><th>0</th><th>1</th><th>2</th></tr>`;
+    for (let a = 0; a < 3; a++) { h += `<tr><th>${a}</th>`; for (let b = 0; b < 3; b++) { const v = (a * a + b * b) % 3; h += `<td style="${v === 0 ? "background:#fff3bf;font-weight:bold" : ""}">${v}</td>`; } h += "</tr>"; }
+    h += "</table><p style='font-size:.9em;color:#666'>a² + b² ≡ 0 (mod 3) は a ≡ b ≡ 0 のときだけ</p>";
+    $("tbl").innerHTML = h;
+    const sols = [];
+    for (let c = 1; c <= 50; c++) { const T = k * c * c; for (let a = 1; a * a <= T / 2; a++) { const b2 = T - a * a, b = Math.round(Math.sqrt(b2)); if (b * b === b2) sols.push(`(${a}, ${b}, ${c})`); } }
+    $("res").innerHTML = `a² + b² = ${k}c²（a ≤ b，c ≤ 50）<br>解の個数：<b>${sols.length}</b><br>` + (sols.length ? sols.slice(0, 12).join(", ") + (sols.length > 12 ? " …" : "") : '<span class="ng">解なし</span>');
+  }
+  $("k").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

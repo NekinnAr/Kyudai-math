@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2004年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2004-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$n = 0,\ 1,\ 2,\ \cdots$ に対して $I_n = \dfrac{(-1)^n}{n!}\displaystyle\int_0^2x^ne^xdx$ とおく。ただし，$0! = 1$ とする。</p>
+    <ol>
+      <li>(1)　$I_0$ の値を求め，$n = 1,\ 2,\ \cdots$ のとき $I_n$ と $I_{n-1}$ の関係式を求めよ。また，これらを用いて $I_3$ の値を求めよ。</li>
+      <li>(2)　$0 \le x \le 2$ に対して $e^x \le e^2$ であることを利用して，次の不等式を示せ。
+        $$\frac1{n!}\int_0^2x^ne^xdx \le 2e^2\left(\frac23\right)^{n-1}\quad(n = 1,\ 2,\ \cdots)$$</li>
+      <li>(3)　極限 $\displaystyle\lim_{n\to\infty}\sum_{k=0}^{n}\frac{(-1)^k2^k}{k!}$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2004 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>部分積分で $I_n - I_{n-1} = \dfrac{(-2)^ne^2}{n!}$。これを足し合わせると $\displaystyle\sum_{k=0}^n\frac{(-2)^k}{k!} = \frac{I_n + 1}{e^2}$ となり、(2) で $I_n \to 0$ を示せば答えは $e^{-2}$。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$I_0 = \displaystyle\int_0^2e^xdx = e^2 - 1$。$n \ge 1$ のとき部分積分により</p>
+      $$\int_0^2x^ne^xdx = \Big[x^ne^x\Big]_0^2 - n\int_0^2x^{n-1}e^xdx = 2^ne^2 - n\int_0^2x^{n-1}e^xdx$$
+      <p>両辺に $\dfrac{(-1)^n}{n!}$ をかけて</p>
+      $$I_n = \frac{(-2)^ne^2}{n!} + I_{n-1}$$
+      <p>よって $I_3 = I_0 + e^2\left(-2 + \dfrac42 - \dfrac86\right) = e^2 - 1 - \dfrac43e^2 = -\dfrac{e^2}{3} - 1$。</p>
+
+      <h3>(2)</h3>
+      $$\frac1{n!}\int_0^2x^ne^xdx \le \frac{e^2}{n!}\int_0^2x^ndx = \frac{2^{n+1}e^2}{(n+1)!}$$
+      <p>したがって $\dfrac{2^{n+1}}{(n+1)!} \le 2\left(\dfrac23\right)^{n-1}$，すなわち $2\cdot3^{n-1} \le (n+1)!$ を示せばよい。$n = 1$ で $2 \le 2$。$n$ で成り立てば $(n+2)! = (n+2)(n+1)! \ge 3\cdot2\cdot3^{n-1} = 2\cdot3^n$ で $n + 1$ でも成立。帰納法により示された。</p>
+
+      <h3>(3)</h3>
+      <p>(1) の関係式を $n = 1$ から $n$ まで足して</p>
+      $$I_n = I_0 + e^2\sum_{k=1}^n\frac{(-2)^k}{k!} = e^2\sum_{k=0}^n\frac{(-2)^k}{k!} - 1\quad\therefore\ \sum_{k=0}^n\frac{(-1)^k2^k}{k!} = \frac{I_n + 1}{e^2}$$
+      <p>(2) より $|I_n| \le 2e^2\left(\frac23\right)^{n-1} \to 0$ なので</p>
+      $$\lim_{n\to\infty}\sum_{k=0}^n\frac{(-1)^k2^k}{k!} = \frac1{e^2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>部分和 $\sum_{k=0}^n\frac{(-2)^k}{k!}$ を点で表示します。上下に振動しながら $e^{-2} \approx 0.1353$（緑の線）に収束します。灰色の帯は (2) の評価から分かる誤差の範囲 $\pm 2(2/3)^{n-1}$。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="20" value="8"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="240"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>テイラー展開を高校範囲で</h3>
+  <p>大学で学ぶテイラー展開 $e^x = \sum_{k=0}^\infty\frac{x^k}{k!}$ に $x = -2$ を代入すれば (3) の答えは即 $e^{-2}$ です。本問はこれを「積分の漸化式 ＋ はさみうち」で高校範囲だけで証明させる構成で、$I_n$ はテイラー展開の剰余項（積分形）そのもの。同じ手法は $\sum\frac1{k!} = e$ や $\sum\frac{(-1)^{k-1}}k = \log2$ の証明でもおなじみです。</p>
+  <p>chopin 先生は「(1) $I_0$ は単なる計算問題、漸化式も部分積分で容易に求まります。この時点で、(3) の片鱗が見えます」「(2) $e^x \le e^2$ を使って積分を計算しますが、これだけでは目標の不等式に到達できないので、もう一段階大小関係を調べる必要があります。具体的には、階乗と指数関数の比較です」「(3) の結果は、指数関数 $e^x$ のテイラー展開を使うと容易に求まりますが、この問題はテイラー展開を使わず高校範囲で級数を計算しています」とコメントしています。</p>
+  <div class="point">積分の漸化式を足し合わせて級数を作り、剰余（積分）を評価して $0$ に。階乗は指数関数より速く増える。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\displaystyle\int_0^1xe^xdx$ および $\displaystyle\int_0^1x^2e^xdx$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>部分積分で $\int_0^1xe^xdx = e - (e - 1) = 1$，$\int_0^1x^2e^xdx = e - 2\cdot1 = e - 2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の積分区間を $[0,\ 2]$ から $[0,\ 1]$ に変えて同様に考えることで，$\displaystyle\lim_{n\to\infty}\sum_{k=0}^{n}\frac{(-1)^k}{k!}$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2004　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$J_n = \dfrac{(-1)^n}{n!}\displaystyle\int_0^1x^ne^xdx$ とおくと、部分積分で $J_n = \dfrac{(-1)^ne}{n!} + J_{n-1}$，$J_0 = e - 1$。よって $\displaystyle\sum_{k=0}^n\frac{(-1)^k}{k!} = \frac{J_n + 1}{e}$。$|J_n| \le \dfrac{e}{n!}\int_0^1x^ndx = \dfrac{e}{(n+1)!} \to 0$ なので、極限は $\dfrac1e$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const L = Math.exp(-2);
+  function draw() {
+    const N = +$("n").value; $("nv").textContent = ` n = ${N}`;
+    const P = Fig.plane($("cv"), { xmin: -0.8, xmax: 20.8, ymin: -1.6, ymax: 1.6 });
+    P.clear().grid(5, "#f3f3f3").axes("n", "");
+    const band = []; for (let k = 1; k <= 20; k++) band.push([k, L + 2 * (2 / 3) ** (k - 1)]); for (let k = 20; k >= 1; k--) band.push([k, L - 2 * (2 / 3) ** (k - 1)]);
+    P.fill(band, "rgba(0,0,0,.06)");
+    P.line([[0, L], [20.8, L]], "#2f9e44", 1.4, [5, 3]);
+    let s = 0, t = 1, cur = 0; const pts = [];
+    for (let k = 0; k <= 20; k++) { if (k > 0) t *= -2 / k; s += t; pts.push([k, s]); if (k === N) cur = s; }
+    P.line(pts.slice(0, N + 1).map(([k, v]) => [k, Math.max(-1.6, Math.min(1.6, v))]), "#ccc", 1);
+    pts.forEach(([k, v], i) => { if (i <= N && Math.abs(v) < 1.6) P.dot(k, v, i === N ? "#c92a2a" : "#8a1538", i === N ? 5 : 3); });
+    $("info").innerHTML = `部分和 (n = ${N}) = ${cur.toFixed(8)}<br>e⁻² = ${L.toFixed(8)}<br>差 = ${(cur - L).toExponential(3)}<br>I<sub>n</sub>/e² = ${(cur - L).toExponential(3)}<br>評価 2(2/3)<sup>n−1</sup> = ${(2 * (2 / 3) ** (N - 1)).toExponential(3)}`;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

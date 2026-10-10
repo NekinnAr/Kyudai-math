@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2008年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2008-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a > 0$ に対して，$f(x) = a + \log x\ (x > 0)$，$g(x) = \sqrt{x - 1}\ (x \ge 1)$ とおく。2 曲線 $y = f(x)$，$y = g(x)$ が，ある点 $P$ を共有し，その点で共通の接線 $l$ を持つとする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a$ の値，点 $P$ の座標，および接線 $l$ の方程式を求めよ。</li>
+      <li>(2)　2 曲線は点 $P$ 以外の共有点を持たないことを示せ。</li>
+      <li>(3)　2 曲線と $x$ 軸で囲まれた部分の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2008 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>「接する」⇔「$f(p) = g(p)$ かつ $f'(p) = g'(p)$」。(2) は差 $h = f - g$ の単調性、(3) は $y$ 軸方向に積分すると逆関数が簡単なので楽です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$P$ の $x$ 座標を $p\ (> 1)$ とする（$x = 1$ では $g$ は微分できない）。$f'(x) = \dfrac1x$，$g'(x) = \dfrac{1}{2\sqrt{x - 1}}$ より</p>
+      $$\frac1p = \frac{1}{2\sqrt{p - 1}} \iff p = 2\sqrt{p - 1} \iff p^2 - 4p + 4 = 0 \iff p = 2$$
+      <p>$f(2) = g(2)$ より $a + \log2 = 1$，$a = 1 - \log2$（$> 0$ をみたす）。</p>
+      $$a = 1 - \log2,\qquad P(2,\ 1),\qquad l:\ y = \frac12x$$
+
+      <h3>(2)</h3>
+      <p>$h(x) = f(x) - g(x) = 1 - \log2 + \log x - \sqrt{x - 1}\ (x \ge 1)$ とおく。$x > 1$ で</p>
+      $$h'(x) = \frac1x - \frac{1}{2\sqrt{x - 1}} = \frac{2\sqrt{x - 1} - x}{2x\sqrt{x - 1}} = -\frac{(\sqrt{x - 1} - 1)^2}{2x\sqrt{x - 1}} \le 0$$
+      <p>（$x = (\sqrt{x - 1})^2 + 1$ を使った。）等号は $x = 2$ のみなので $h$ は狭義単調減少で、$h(x) = 0$ の解は $x = 2$ だけ。よって共有点は $P$ のみ。</p>
+
+      <h3>(3)</h3>
+      <p>$h$ は減少で $h(2) = 0$ なので $1 \le x \le 2$ で $f \ge g$。$f(x) = 0 \iff x = \frac2e$，$g(x) = 0 \iff x = 1$。図形は $0 \le y \le 1$ の範囲で、左端が $y = f(x)$，右端が $y = g(x)$。それぞれ $x$ について解くと $x = 2e^{y - 1}$，$x = y^2 + 1$ なので</p>
+      $$S = \int_0^1\left\{(y^2 + 1) - 2e^{y - 1}\right\}dy = \frac43 - 2\left(1 - \frac1e\right) = \frac2e - \frac23$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かすと $y = f(x)$ が上下に平行移動します。どの $a > 0$ でも共有点はちょうど 1 つ（$h$ が単調減少だから）ですが、その点で<b>接する</b>のは $a = 1 - \log2 \approx 0.307$ のときだけです。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="5" max="80" value="31"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="280"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>接する ⇔ 差が重解をもつ</h3>
+  <p>2 曲線が接することは、差 $h(x) = f(x) - g(x)$ が $h(p) = h'(p) = 0$ をみたすこと、つまり $x = p$ が「重解」になることです。本問の $h'$ が $-(\sqrt{x - 1} - 1)^2$ という完全平方を含むのは、まさにこの重解の痕跡です。</p>
+  <p>(3) では $x$ で積分すると、$x$ の区間が $\left[\frac2e,\ 1\right]$ と $[1,\ 2]$ に分かれて面倒ですが、$y$ で積分すれば 1 本の式で済みます。$\log$ と $\sqrt{}$ の逆関数が $e^y$ と $y^2$ で簡単なのもポイント。</p>
+  <p>chopin 先生は「(1) P の $x$ 座標を $p$ とすると、$f(p) = g(p)$ と $f'(p) = g'(p)$ が同時に成り立ちます」「(2) $h(x) = f(x) - g(x) = 0$ の解が 1 個しかないことを証明することになります」「(3) 定石通りの面積計算です」とコメントしています。</p>
+  <div class="point">2 曲線が接する ⇔ $f(p) = g(p)$，$f'(p) = g'(p)$。面積は $x$ と $y$ のどちらで積分すると楽かを考える。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>2 曲線 $y = \log x$ と $y = kx^2$（$k > 0$）が接するような $k$ の値と，接点の座標を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>接点の $x$ 座標を $p$ とすると $\log p = kp^2$，$\frac1p = 2kp$。後者から $kp^2 = \frac12$，よって $\log p = \frac12$，$p = \sqrt e$，$k = \dfrac{1}{2e}$。接点 $\left(\sqrt e,\ \frac12\right)$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) の図形を $x$ 軸のまわりに 1 回転してできる立体の体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2008　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$V = \pi\int_{2/e}^{2}\{f(x)\}^2dx - \pi\int_1^2(x - 1)\,dx$$
+    <p>$f(x) = \log\frac{ex}{2}$ なので $w = \frac{ex}{2}$ と置換すると $\displaystyle\int_{2/e}^{2}f^2\,dx = \frac2e\int_1^e(\log w)^2dw = \frac2e\Big[w(\log w)^2 - 2w\log w + 2w\Big]_1^e = \frac2e(e - 2) = 2 - \frac4e$。</p>
+    $$V = \pi\left(2 - \frac4e - \frac12\right) = \pi\left(\frac32 - \frac4e\right)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.3, xmax: 4.2, ymin: -0.8, ymax: 2.2, equal: true });
+  const a0 = 1 - Math.log(2);
+  function draw() {
+    const a = $("a").value / 100; $("av").textContent = ` a = ${a.toFixed(2)}`;
+    const f = (x) => a + Math.log(x), g = (x) => Math.sqrt(x - 1);
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    if (Math.abs(a - a0) < 6e-3) {
+      const reg = []; for (let i = 0; i <= 100; i++) { const y = i / 100; reg.push([y * y + 1, y]); } for (let i = 100; i >= 0; i--) { const y = i / 100; reg.push([2 * Math.exp(y - 1), y]); }
+      P.fill(reg, "rgba(138,21,56,.35)");
+      P.fn((x) => x / 2, -0.3, 4.2, "#2f9e44", 1.2, 50, [5, 4]);
+      P.dot(2, 1, "#222", 4, "P", 4, -8);
+    }
+    P.fn(f, 0.02, 4.2, "#8a1538", 2.2, 500);
+    P.fn(g, 1, 4.2, "#1c7ed6", 2.2, 500);
+    // 共有点の数（h の符号変化）
+    let cnt = 0, prev = f(1) - g(1);
+    for (let i = 1; i <= 4000; i++) { const x = 1 + 6 * i / 4000, h = f(x) - g(x); if (prev * h < 0) cnt++; prev = h; }
+    const tangent = Math.abs(a - a0) < 6e-3;
+    $("info").innerHTML = `<span style="color:#8a1538">y = a + log x</span><br><span style="color:#1c7ed6">y = √(x−1)</span><br>` +
+      (tangent ? `<span class="ok">a = 1 − log 2：P(2, 1) で接する</span><br>面積 2/e − 2/3 ≈ ${(2 / Math.E - 2 / 3).toFixed(4)}` : `共有点：${cnt} 個（交わるが接しない）<br><span style="color:#888">a = 1 − log 2 ≈ ${a0.toFixed(3)} で接する</span>`);
+  }
+  $("a").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

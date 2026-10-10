@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2005年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2005-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$t$ を実数とするとき，2 次方程式 $z^2 + tz + t = 0$ について，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　この 2 次方程式が異なる 2 つの虚数解をもつような $t$ の範囲と，そのときの虚数解をすべて求めよ。</li>
+      <li>(2)　(1) の虚数解のうち，その虚部が正のものを $z(t)$ で表す。$t$ が (1) で求めた範囲を動くとき，複素数平面上で点 $z(t)$ が描く図形 $C$ を求め，図示せよ。</li>
+      <li>(3)　複素数平面上で，点 $z$ が (2) の図形 $C$ 上を動くとき，$w = \dfrac{iz}{z + 1}$ で表される点 $w$ が描く図形を求め，図示せよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2005 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(2) は $z = x + yi$ とおいて $t$ を消去すると円 $(x + 1)^2 + y^2 = 1$ の上半分。(3) は $z + 1 = \cos\theta + i\sin\theta$ とおけば $w$ が直接計算でき、別の半円になります。端点が含まれるかどうかに注意。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>判別式 $t^2 - 4t &lt; 0$ より $0 &lt; t &lt; 4$。このとき</p>
+      $$z = \frac{-t \pm \sqrt{4t - t^2}\,i}{2}$$
+
+      <h3>(2)</h3>
+      <p>$z(t) = x + yi$ とすると $x = -\dfrac t2$，$y = \dfrac{\sqrt{4t - t^2}}{2} &gt; 0$。$t = -2x$ を代入して</p>
+      $$y^2 = \frac{-8x - 4x^2}{4} = -2x - x^2\quad\therefore\ (x + 1)^2 + y^2 = 1$$
+      <p>$0 &lt; t &lt; 4$ より $-2 &lt; x &lt; 0$，$y &gt; 0$。よって $C$ は<b>点 $-1$ を中心とする半径 1 の円の $y &gt; 0$ の部分</b>（両端 $0$，$-2$ を除く上半円）。</p>
+
+      <h3>(3)</h3>
+      <p>$C$ 上の点は $z + 1 = \cos\theta + i\sin\theta\ (0 &lt; \theta &lt; \pi)$ と表せる。</p>
+      $$w = \frac{i(z + 1 - 1)}{z + 1} = i\left(1 - \frac{1}{\cos\theta + i\sin\theta}\right) = i\{1 - (\cos\theta - i\sin\theta)\} = -\sin\theta + i(1 - \cos\theta)$$
+      <p>$w = u + vi$ とすると $u = -\sin\theta$，$v - 1 = -\cos\theta$ なので $u^2 + (v - 1)^2 = 1$。$0 &lt; \theta &lt; \pi$ より $u = -\sin\theta &lt; 0$ で、逆に $u &lt; 0$ を満たす円周上の点はすべて現れる。よって $w$ の描く図形は<b>点 $i$ を中心とする半径 1 の円の $u &lt; 0$ の部分</b>（両端 $0$，$2i$ を除く左半円）。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと、左の $z$ 平面で 2 つの虚数解（赤が $z(t)$）が、右の $w$ 平面で対応する $w$ が動きます。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="1" max="399" value="150"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="240" height="240"></canvas>
+      <canvas id="cv2" class="fig" width="240" height="240"></canvas>
+      <div class="no-math" id="info" style="min-width:170px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>1 次分数変換は円を円に移す</h3>
+  <p>$w = \frac{az + b}{cz + d}$ の形の変換（1 次分数変換・メビウス変換）は「円または直線」を「円または直線」に移します。ここでは $w = i\left(1 - \frac1{z + 1}\right)$ と分解すると、平行移動 → 反転 $\frac1{z+1}$ → 平行移動・回転の組合せ。$|z + 1| = 1$ の円は反転 $\frac1{z+1}$ で単位円（向き逆）に移り、それを $1$ から引いて $i$ 倍（90° 回転）したものが答えです。</p>
+  <p>chopin 先生は「(1) は教科書レベルでしょう。判別式 $&lt; 0$ です」「(2) $z$ の実部を $x$、虚部を $y$ として $t$ を消去しましょう」「(3) (2) の結果から、$z = (\cos\theta - 1) + i\sin\theta$ と書くことができますので、最終的に $\theta$ が消えるように計算をしましょう。$w$ の実部と虚部のとりうる値の範囲には注意です」とコメントしています。</p>
+  <div class="point">軌跡は「パラメータ消去」＋「範囲の確認」。円上の点は $\cos\theta + i\sin\theta$ で表すと計算が楽。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>点 $z$ が円 $|z + 1| = 1$ 上の原点以外の部分を動くとき，$w = \dfrac1z$ の描く図形を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$|z + 1|^2 = 1$ より $z\bar z + z + \bar z = 0$。$z = \frac1w$ を代入し $w\bar w$ をかけると $1 + \bar w + w = 0$，すなわち $\mathrm{Re}\,w = -\dfrac12$。直線 $\mathrm{Re}\,w = -\frac12$ 全体。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) の変換を $w = \dfrac{z}{z + 1}$ に変えたとき，点 $z$ が $C$ 上を動くときの $w$ の描く図形を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2005　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$w = 1 - \dfrac1{z + 1} = 1 - \cos\theta + i\sin\theta\ (0 &lt; \theta &lt; \pi)$。$|w - 1| = 1$ で虚部 $\sin\theta &gt; 0$。点 $1$ を中心とする半径 1 の円の上半分（両端 $0$，$2$ を除く）。本問の答えを $-i$ 倍（$-90°$ 回転）したものになっています。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const C = Fig.C;
+  function draw() {
+    const t = $("t").value / 100; $("tv").textContent = ` t = ${t.toFixed(2)}`;
+    const y = Math.sqrt(4 * t - t * t) / 2, z = [-t / 2, y], zb = [-t / 2, -y];
+    const w = C.div(C.mul([0, 1], z), C.add(z, [1, 0]));
+    const P = Fig.plane($("cv"), { xmin: -2.4, xmax: 0.8, ymin: -1.5, ymax: 1.5, equal: true });
+    P.clear().grid(1, "#f3f3f3").axes("Re", "Im");
+    P.circle(-1, 0, 1, "#ddd", 1, [3, 3]);
+    const up = []; for (let i = 0; i <= 90; i++) { const th = Math.PI * i / 90; up.push([-1 + Math.cos(th), Math.sin(th)]); }
+    P.line(up, "#8a1538", 2);
+    P.ring(0, 0, "#8a1538", 4).ring(-2, 0, "#8a1538", 4);
+    P.dot(z[0], z[1], "#c92a2a", 5, "z(t)", 6, -6).dot(zb[0], zb[1], "#999", 4);
+    const Q = Fig.plane($("cv2"), { xmin: -1.6, xmax: 1.6, ymin: -0.5, ymax: 2.5, equal: true });
+    Q.clear().grid(1, "#f3f3f3").axes("Re", "Im");
+    Q.circle(0, 1, 1, "#ddd", 1, [3, 3]);
+    const lf = []; for (let i = 0; i <= 90; i++) { const th = Math.PI * i / 90; lf.push([-Math.sin(th), 1 - Math.cos(th)]); }
+    Q.line(lf, "#1c7ed6", 2);
+    Q.ring(0, 0, "#1c7ed6", 4).ring(0, 2, "#1c7ed6", 4);
+    Q.dot(w[0], w[1], "#c92a2a", 5, "w", 6, -6);
+    $("info").innerHTML = `z(t) = ${C.fmt(z)}<br>|z + 1| = ${C.abs(C.add(z, [1, 0])).toFixed(4)}<br>w = ${C.fmt(w)}<br>|w − i| = ${C.abs(C.sub(w, [0, 1])).toFixed(4)}`;
+  }
+  $("t").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

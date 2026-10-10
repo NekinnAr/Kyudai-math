@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2005年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2005-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>実数 $t$ が $t \ge 0$ の範囲を動くとき，$xy$ 平面上で点 $P(t^2,\ e^{-t})$ が描く曲線を $C$ とする。$a$ を正の実数とし，曲線 $C$ と $x$ 軸，$y$ 軸，および直線 $x = a^2$ で囲まれる部分の面積を $S(a)$ とする。このとき次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　面積 $S(a)$ を求めよ。</li>
+      <li>(2)　$a &gt; 0$ の範囲で関数 $S(a)$ の増減，凹凸を調べ，そのグラフの概形を描け。ただし，$\displaystyle\lim_{a\to\infty}ae^{-a} = 0$ であることを用いてよい。</li>
+      <li>(3)　$S(a) = 1.35$ となる $a$ が $2 &lt; a &lt; 3$ の範囲に存在することを示せ。ただし，必要なら $2.5 &lt; e &lt; 3$ であることを用いてよい。</li>
+    </ol>
+  </div>
+  <p class="source">（2005 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>媒介変数表示の面積は置換積分 $\int y\,dx = \int y\frac{dx}{dt}dt$。$S(a) = 2\int_0^a te^{-t}dt$ となり部分積分で終わり。(3) は中間値の定理で、$S(2)$，$S(3)$ と $1.35$ の大小を $2.5 &lt; e &lt; 3$ だけで判定します。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x = t^2$ は $t \ge 0$ で増加し、$x: 0 \to a^2$ に $t: 0 \to a$ が対応。$y = e^{-t} &gt; 0$，$dx = 2t\,dt$ より</p>
+      $$S(a) = \int_0^{a^2}y\,dx = \int_0^a e^{-t}\cdot2t\,dt = 2\Big[-(t + 1)e^{-t}\Big]_0^a = 2 - 2(a + 1)e^{-a}$$
+
+      <h3>(2)</h3>
+      $$S'(a) = 2ae^{-a} &gt; 0,\qquad S''(a) = 2(1 - a)e^{-a}$$
+      <p>$S(a)$ は単調増加。$0 &lt; a &lt; 1$ で下に凸，$a &gt; 1$ で上に凸，変曲点は $\left(1,\ 2 - \frac4e\right)$。また $\lim_{a\to+0}S(a) = 0$，$\lim_{a\to\infty}S(a) = 2 - 2\lim(ae^{-a} + e^{-a}) = 2$ で、直線 $S = 2$ が漸近線（下の図解参照）。</p>
+
+      <h3>(3)</h3>
+      <p>$S(2) = 2 - \dfrac6{e^2}$，$S(3) = 2 - \dfrac8{e^3}$。</p>
+      <ul>
+        <li>$e &lt; 3$ より $e^2 &lt; 9$，$\dfrac6{e^2} &gt; \dfrac69 = \dfrac23 &gt; 0.65$。よって $S(2) &lt; 2 - 0.65 = 1.35$。</li>
+        <li>$e &gt; 2.5$ より $e^3 &gt; 15.625 &gt; 8 \div 0.65\ (\approx 12.3)$，すなわち $\dfrac8{e^3} &lt; 0.65$。よって $S(3) &gt; 1.35$。</li>
+      </ul>
+      <p>$S(a)$ は連続なので、中間値の定理より $S(a) = 1.35$ となる $a$ が $2 &lt; a &lt; 3$ に存在する（(2) より単調なのでただ 1 つ）。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>左が曲線 $C$ と面積 $S(a)$（$x$ 軸方向に $a^2$ まで），右が $S(a)$ のグラフです。$S = 1.35$ の線（オレンジ）と交わる $a$ は約 $2.33$。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="5" max="400" value="150"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="200"></canvas>
+      <canvas id="cv2" class="fig" width="260" height="200"></canvas>
+      <div class="no-math" id="info" style="min-width:160px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>$C$ の正体は $y = e^{-\sqrt x}$</h3>
+  <p>$t = \sqrt x$ と消去すると $C$ は $y = e^{-\sqrt x}$。$\int e^{-\sqrt x}dx$ を直接計算するより、媒介変数のまま置換積分する方が楽です。$S(a) \to 2$ は $\int_0^\infty e^{-\sqrt x}dx = 2\int_0^\infty te^{-t}dt = 2\cdot1! = 2$（ガンマ関数 $\Gamma(2) = 1$）に対応します。(3) は電卓なしで $e$ の評価だけを使う、九大らしい「数値評価」の小問です。</p>
+  <p>chopin 先生は「(1), (2) ともに教科書レベルの処理です」「(3) $S(a)$ は単調増加なので、$S(2) &lt; 1.35 &lt; S(3)$ を証明します。幸い、与えられているネイピア数の評価式が $2.5 &lt; e &lt; 3$ と手計算しやすい値になっているので、電卓なしで何とかなります」とコメントしています。</p>
+  <div class="point">媒介変数の面積は $\int y\frac{dx}{dt}dt$。「解の存在」は中間値の定理、端点の値は与えられた評価で。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の曲線 $C$ を $y = f(x)$ の形で表し，$\displaystyle\lim_{a\to\infty}S(a)$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$t = \sqrt x$ より $y = e^{-\sqrt x}\ (x \ge 0)$。(2) より $\lim S(a) = 2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の曲線 $C$ と $x$ 軸，$y$ 軸，直線 $x = a^2$ で囲まれる部分を $x$ 軸のまわりに 1 回転してできる立体の体積 $V(a)$ と，$\displaystyle\lim_{a\to\infty}V(a)$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2005　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$V(a) = \pi\int_0^a e^{-2t}\cdot2t\,dt = 2\pi\Big[-\left(\tfrac t2 + \tfrac14\right)e^{-2t}\Big]_0^a = \frac\pi2\left\{1 - (2a + 1)e^{-2a}\right\}$$
+    <p>$a \to \infty$ で $V(a) \to \dfrac\pi2$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const S = (a) => 2 - 2 * (a + 1) * Math.exp(-a);
+  let root = 2, hi = 3; for (let i = 0; i < 60; i++) { const m = (root + hi) / 2; S(m) < 1.35 ? (root = m) : (hi = m); }
+  function draw() {
+    const a = $("a").value / 100; $("av").textContent = ` a = ${a.toFixed(2)}`;
+    const P = Fig.plane($("cv"), { xmin: -0.5, xmax: 16.5, ymin: -0.12, ymax: 1.12 });
+    P.clear().axes();
+    const reg = [[0, 0]]; for (let i = 0; i <= 120; i++) { const t = a * i / 120; reg.push([t * t, Math.exp(-t)]); } reg.push([a * a, 0]);
+    P.fill(reg, "rgba(138,21,56,.3)");
+    P.fn((x) => Math.exp(-Math.sqrt(x)), 0, 16.5, "#222", 2);
+    P.line([[a * a, 0], [a * a, 1.1]], "#c92a2a", 1, [3, 3]);
+    P.text("x = a²", Math.min(a * a, 13) + 0.2, 1.0, "#c92a2a");
+    const Q = Fig.plane($("cv2"), { xmin: -0.2, xmax: 4.2, ymin: -0.15, ymax: 2.2 });
+    Q.clear().grid(1, "#f3f3f3").axes("a", "S");
+    Q.line([[0, 2], [4.2, 2]], "#aaa", 1, [4, 3]);
+    Q.line([[0, 1.35], [4.2, 1.35]], "#e67700", 1, [4, 3]);
+    Q.fn(S, 0, 4.2, "#8a1538", 2);
+    Q.dot(1, S(1), "#2f9e44", 4, "変曲点", 6, 14);
+    Q.dot(a, S(a), "#c92a2a", 4.5);
+    $("info").innerHTML = `S(a) = ${S(a).toFixed(5)}<br>S(2) = ${S(2).toFixed(4)}<br>S(3) = ${S(3).toFixed(4)}<br>S(a) = 1.35 ⇔ a ≈ ${root.toFixed(4)}`;
+  }
+  $("a").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

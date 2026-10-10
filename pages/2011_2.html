@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2011年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2011-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a$ を正の定数とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　関数 $f(x) = (x^2 + 2x + 2 - a^2)e^{-x}$ の極大値および極小値を求めよ。</li>
+      <li>(2)　$x \ge 3$ のとき，不等式 $x^3e^{-x} \le 27e^{-3}$ が成り立つことを示せ。さらに，極限値 $\displaystyle\lim_{x\to\infty}x^2e^{-x}$ を求めよ。</li>
+      <li>(3)　$k$ を定数とする。$y = x^2 + 2x + 2$ のグラフと $y = ke^x + a^2$ のグラフが異なる 3 点で交わるための必要十分条件を，$a$ と $k$ を用いて表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2011 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(3) は連立すると $(x^2 + 2x + 2 - a^2)e^{-x} = k$，つまり $y = f(x)$ と $y = k$ の共有点の問題です。$x \to \infty$ で $f(x) \to 0$（(2) の極限）なので、$k > 0$ が必要になるのがポイント。極小値の符号で場合分けします。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$f'(x) = \{(2x + 2) - (x^2 + 2x + 2 - a^2)\}e^{-x} = (a^2 - x^2)e^{-x} = -(x + a)(x - a)e^{-x}$$
+      <p>$f$ は $x < -a$ で減少，$-a < x < a$ で増加，$x > a$ で減少。</p>
+      $$\text{極大値 } f(a) = 2(a + 1)e^{-a},\qquad \text{極小値 } f(-a) = 2(1 - a)e^{a}$$
+
+      <h3>(2)</h3>
+      <p>$g(x) = x^3e^{-x}$ とおくと $g'(x) = x^2(3 - x)e^{-x} \le 0$（$x \ge 3$）なので $g$ は $x \ge 3$ で減少し、$g(x) \le g(3) = 27e^{-3}$。</p>
+      <p>よって $x \ge 3$ で $0 < x^2e^{-x} \le \dfrac{27e^{-3}}{x}$。右辺 $\to 0$ なので、はさみうちの原理より</p>
+      $$\lim_{x\to\infty}x^2e^{-x} = 0$$
+
+      <h3>(3)</h3>
+      <p>$x^2 + 2x + 2 = ke^x + a^2 \iff f(x) = k$。共有点の個数は $y = f(x)$ と $y = k$ の共有点の個数に等しい。</p>
+      <p>(2) より $x \to \infty$ で $f(x) = (x^2 e^{-x})\left(1 + \frac2x + \frac{2 - a^2}{x^2}\right) \to 0$，また $x \to -\infty$ で $f(x) \to \infty$。$x > a$ では $f(x) > 0$（$x^2 + 2x + 2 - a^2 = (x + 1)^2 + 1 - a^2 > (a + 1)^2 - a^2 > 0$）。</p>
+      <p>したがって $f$ のとる値は</p>
+      <ul>
+        <li>$x < -a$：$f(-a) < f(x)$ の範囲を 1 回ずつ</li>
+        <li>$-a \le x \le a$：$f(-a) \le f(x) \le f(a)$ を 1 回ずつ</li>
+        <li>$x > a$：$0 < f(x) < f(a)$ を 1 回ずつ</li>
+      </ul>
+      <p>3 点で交わるのは、3 つの区間すべてで解をもつとき、すなわち $f(-a) < k < f(a)$ かつ $k > 0$ のとき。</p>
+      <ul>
+        <li>$0 < a \le 1$ のとき（極小値 $\ge 0$）：$2(1 - a)e^{a} < k < 2(1 + a)e^{-a}$</li>
+        <li>$a > 1$ のとき（極小値 $< 0$）：$0 < k < 2(1 + a)e^{-a}$</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ と $k$ を動かすと、$y = f(x)$（赤）と $y = k$（緑）の共有点の個数が表示されます。$a > 1$ で $k \le 0$ にすると、右側の山すそ（$x \to \infty$ で $0$ に近づく部分）と交わらなくなる様子が分かります。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="10" max="250" value="70"></label>
+    <span class="readout no-math" id="av"></span>
+    <label>k：<input type="range" id="k" min="-150" max="350" value="140"></label>
+    <span class="readout no-math" id="kv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>漸近線が見えるかどうか</h3>
+  <p>$e^{-x}$ を含む関数のグラフは、$x \to \infty$ で $x$ 軸に漸近することが多く、「極大値より小さい $k$ なら必ず右側で交わる」わけではありません。<b>$y = 0$ が漸近線</b>なので、$k \le 0$ では右側で交わらない。これを見落とすと $a > 1$ の答えを $f(-a) < k < f(a)$ と書いてしまいます。</p>
+  <p>(2) の不等式 $x^3e^{-x} \le 27e^{-3}$ は、$\displaystyle\lim_{x\to\infty}x^2e^{-x} = 0$ を<b>はさみうちで示すための誘導</b>。「$x^3e^{-x}$ が有界 ⇒ $x^2e^{-x} = \frac{x^3e^{-x}}{x} \to 0$」という、1 次分だけ余裕を持たせる典型手法です。</p>
+  <p>chopin 先生は「(1) は素直に微分して増減を調べます」「(2) $x^2e^{-x}$ の極限は、先に示した不等式を使ってはさみうちの定理です」「(3) は、2 つの式を連立すると、$f(x) = k$ となり、(1) がつかえる格好になります。…極小値が 0 になるかプラスになるかマイナスになるかで場合分けが発生することになります」とコメントしています。</p>
+  <div class="point">文字定数は分離して $f(x) = k$ に。グラフをかくときは極値だけでなく<b>両端の極限（漸近線）</b>も必ず確認。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$x$ の方程式 $x^2e^{-x} = k$ の異なる実数解の個数を，定数 $k$ の値によって分類せよ。ただし $\displaystyle\lim_{x\to\infty}x^2e^{-x} = 0$ は用いてよい。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$h(x) = x^2e^{-x}$，$h'(x) = x(2 - x)e^{-x}$。極小 $h(0) = 0$，極大 $h(2) = 4e^{-2}$，$x \to -\infty$ で $\infty$，$x \to \infty$ で $0$。</p>
+    <p>$k < 0$：0 個，$k = 0$：1 個，$0 < k < 4e^{-2}$：3 個，$k = 4e^{-2}$：2 個，$k > 4e^{-2}$：1 個。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) で，2 つのグラフが<b>ちょうど 2 点</b>で共有点をもつ（接する場合を含む）ための必要十分条件を，$a$ と $k$ を用いて表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2011　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$M = 2(1 + a)e^{-a}$，$m = 2(1 - a)e^{a}$ とし、上の 3 区間ごとの値域で数えます。$k = M$ のときはどの $a$ でも 2 個（$x = a$ と $x < -a$ の 1 点）。それ以外では</p>
+    <ul>
+      <li>$0 < a < 1$（$m > 0$）：$k = m$ のとき、$x = -a$ と $x > a$ の 1 点で 2 個。</li>
+      <li>$a = 1$（$m = 0$）：$k = 0$ は $x = -1$ の 1 個なので、追加なし。</li>
+      <li>$a > 1$（$m < 0$）：$m < k \le 0$ のとき、$x < -a$ と $-a < x < a$ に 1 個ずつで 2 個。</li>
+    </ul>
+    <p>まとめて：$k = 2(1 + a)e^{-a}$，または $\{0 < a < 1$ かつ $k = 2(1 - a)e^a\}$，または $\{a > 1$ かつ $2(1 - a)e^a < k \le 0\}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -5, xmax: 9, ymin: -2, ymax: 4 });
+  function draw() {
+    const a = $("a").value / 100, k = $("k").value / 100;
+    $("av").textContent = ` a = ${a.toFixed(2)}`; $("kv").textContent = ` k = ${k.toFixed(2)}`;
+    const f = (x) => (x * x + 2 * x + 2 - a * a) * Math.exp(-x);
+    const M = f(a), m = f(-a);
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.fn((x) => { const v = f(x); return v > 6 || v < -4 ? NaN : v; }, -5, 9, "#8a1538", 2.2, 700);
+    P.line([[-5, k], [9, k]], "#2f9e44", 2);
+    P.dot(a, M, "#e8590c", 3.5, "極大", 6, -6);
+    if (m > -2) P.dot(-a, m, "#1c7ed6", 3.5, "極小", 6, 14);
+    // 個数（区間ごとの値域から）
+    const eps = 1e-9;
+    let c = 0;
+    if (k > m + eps) c++;                       // x < -a
+    if (k >= m - eps && k <= M + eps) c++;      // [-a, a]
+    if (k > eps && k < M - eps) c++;            // x > a
+    $("info").innerHTML = `極大値 2(a+1)e^(−a) = ${M.toFixed(4)}<br>極小値 2(1−a)e^a = ${m.toFixed(4)}<br>共有点の個数：<b>${c}</b> 個<br>` +
+      (c === 3 ? '<span class="ok">異なる 3 点で交わる</span>' : '<span class="ng">3 点ではない</span>') +
+      `<br><span style="color:#888">条件：${a <= 1 ? `${m.toFixed(3)} < k < ${M.toFixed(3)}` : `0 < k < ${M.toFixed(3)}`}</span>`;
+  }
+  ["a", "k"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

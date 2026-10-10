@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2008年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2008-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$f(x) = \dfrac{e^x}{e^x + 1}$ とおく。ただし，$e$ は自然対数の底とする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$y = f(x)$ の増減，凹凸，漸近線を調べ，グラフをかけ。</li>
+      <li>(2)　$f(x)$ の逆関数 $f^{-1}(x)$ を求めよ。</li>
+      <li>(3)　$\displaystyle\lim_{n\to\infty}n\left\{f^{-1}\left(\frac{1}{n + 2}\right) - f^{-1}\left(\frac{1}{n + 1}\right)\right\}$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2008 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f$ はシグモイド（ロジスティック）関数と呼ばれる S 字型の関数です。逆関数は $\log\dfrac{x}{1 - x}$。(3) は代入すると $\log$ の差がきれいに $\log\frac{n}{n + 1}$ になり、$e$ の定義に帰着します。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$f'(x) = \frac{e^x(e^x + 1) - e^x\cdot e^x}{(e^x + 1)^2} = \frac{e^x}{(e^x + 1)^2} > 0$$
+      $$f''(x) = \frac{e^x(e^x + 1)^2 - e^x\cdot2(e^x + 1)e^x}{(e^x + 1)^4} = \frac{e^x(1 - e^x)}{(e^x + 1)^3}$$
+      <p>よって $f$ はつねに増加。$x < 0$ で下に凸，$x > 0$ で上に凸で、変曲点は $\left(0,\ \frac12\right)$。</p>
+      <p>$x \to -\infty$ で $e^x \to 0$ より $f(x) \to 0$；$x \to \infty$ で $f(x) = \dfrac{1}{1 + e^{-x}} \to 1$。漸近線は $y = 0$ と $y = 1$。グラフは $(0,\ \frac12)$ を中心に点対称な S 字型（下の図）。</p>
+
+      <h3>(2)</h3>
+      <p>$f$ の値域は $0 < y < 1$。$y = \dfrac{e^x}{e^x + 1}$ を $x$ について解くと $e^x = \dfrac{y}{1 - y}$，$x = \log\dfrac{y}{1 - y}$。</p>
+      $$f^{-1}(x) = \log\frac{x}{1 - x}\quad(0 < x < 1)$$
+
+      <h3>(3)</h3>
+      $$f^{-1}\left(\frac{1}{n + 2}\right) = \log\frac{1/(n + 2)}{(n + 1)/(n + 2)} = -\log(n + 1),\qquad f^{-1}\left(\frac{1}{n + 1}\right) = -\log n$$
+      <p>よって</p>
+      $$n\{\cdots\} = n\log\frac{n}{n + 1} = -\log\left(1 + \frac1n\right)^n \to -\log e = -1$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$y = f(x)$（赤）と逆関数 $y = f^{-1}(x)$（青）は直線 $y = x$ に関して対称です。$n$ を動かすと (3) の値が $-1$ に近づく様子が分かります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="200" value="5"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>シグモイド関数とロジット関数</h3>
+  <p>$f(x) = \dfrac{1}{1 + e^{-x}}$ はシグモイド関数と呼ばれ、人口増加のモデル（ロジスティック曲線）や、機械学習（ニューラルネットワークの活性化関数、ロジスティック回帰）で大活躍する関数です。その逆関数 $\log\dfrac{x}{1 - x}$ はロジット関数と呼ばれ、確率 $x$ を「オッズの対数」に変換します。</p>
+  <p>$f'(x) = f(x)\{1 - f(x)\}$ が成り立つのも重要な性質で、微分方程式 $y' = y(1 - y)$ の解になっています。</p>
+  <p>chopin 先生は「(1) は教科書レベルの問題です。$f'(x)$ と $f''(x)$ を計算しましょう」「(2) $y = f(x)$ を $x =$ の形に変形してあげましょう」「(3) ネイピア数 $e$ の定義式を最後に使うことになります」とコメントしています。</p>
+  <div class="point">$\displaystyle\lim_{n\to\infty}\left(1 + \frac1n\right)^n = e$。逆関数は「$x$ について解いて文字を入れかえる」、定義域（元の関数の値域）も忘れずに。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の $f(x)$ について，$f(x) + f(-x) = 1$ を示し，$\displaystyle\int_{-1}^{1}f(x)\,dx$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f(-x) = \dfrac{e^{-x}}{e^{-x} + 1} = \dfrac{1}{1 + e^x}$ より $f(x) + f(-x) = 1$。$\displaystyle\int_{-1}^{1}f(x)\,dx = \int_0^1\{f(x) + f(-x)\}dx = 1$。（グラフが $(0,\ \frac12)$ に関して点対称であることの式表現。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\displaystyle\lim_{n\to\infty}n^2\left\{f^{-1}\left(\frac{1}{n + 1}\right) - f^{-1}\left(\frac{1}{n + 2}\right) - \frac1n\right\}$ を求めよ。ただし，$x > 0$ で $x - \dfrac{x^2}{2} < \log(1 + x) < x - \dfrac{x^2}{2} + \dfrac{x^3}{3}$ が成り立つことは用いてよい。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2008　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問より中括弧の前 2 項の差は $\log\left(1 + \frac1n\right)$。与えられた不等式で $x = \frac1n$ とすると</p>
+    $$-\frac12 < n^2\left\{\log\left(1 + \frac1n\right) - \frac1n\right\} < -\frac12 + \frac{1}{3n}$$
+    <p>はさみうちの原理より、極限値は $-\dfrac12$。（本問の $-1$ は「1 次の近似」、こちらは「2 次の近似」を見ています。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -4, xmax: 4, ymin: -4, ymax: 4, equal: true });
+  const f = (x) => 1 / (1 + Math.exp(-x)), finv = (x) => Math.log(x / (1 - x));
+  function draw() {
+    const n = +$("n").value; $("nv").textContent = ` n = ${n}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.line([[-4, -4], [4, 4]], "#bbb", 1, [4, 3]);
+    P.line([[-4, 1], [4, 1]], "rgba(138,21,56,.4)", 1, [3, 3]);
+    P.line([[1, -4], [1, 4]], "rgba(28,126,214,.4)", 1, [3, 3]);
+    P.fn(f, -4, 4, "#8a1538", 2.2);
+    P.fn(finv, 0.0005, 0.9995, "#1c7ed6", 2.2, 800);
+    P.dot(0, 0.5, "#8a1538", 3.5, "変曲点", 6, -6);
+    const x1 = 1 / (n + 2), x2 = 1 / (n + 1);
+    P.dot(x1, finv(x1), "#e8590c", 3.5).dot(x2, finv(x2), "#2f9e44", 3.5);
+    const val = n * (finv(x1) - finv(x2));
+    $("info").innerHTML = `<span style="color:#8a1538">y = eˣ/(eˣ+1)</span><br><span style="color:#1c7ed6">y = log(x/(1−x))</span><br>f⁻¹(1/(n+2)) = −log(n+1) = ${finv(x1).toFixed(4)}<br>f⁻¹(1/(n+1)) = −log n = ${finv(x2).toFixed(4)}<br>n × 差 = <b>${val.toFixed(5)}</b><br><span style="color:#888">→ −1</span>`;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

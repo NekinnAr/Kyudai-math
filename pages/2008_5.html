@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2008年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2008-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>いくつかの半径 3 の円を，半径 2 の円 $Q$ に外接し，かつ，互いに交わらないように配置する。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　半径 3 の円の 1 つを $R$ とする。円 $Q$ の中心を端点とし，円 $R$ に接する 2 本の半直線のなす角を $\theta$ とおく。ただし，$0 < \theta < \pi$ とする。このとき，$\sin\theta$ を求めよ。</li>
+      <li>(2)　$\dfrac\pi3 < \theta < \dfrac\pi2$ を示せ。</li>
+      <li>(3)　配置できる半径 3 の円の最大個数を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2008 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>中心間の距離は $2 + 3 = 5$ なので $\sin\frac\theta2 = \frac35$。(3) で (2) の評価を使うと「4 個か 5 個」までしか絞れないのが罠で、$\theta$ と $\frac{2\pi}{5}$ の大小を $\cos\frac{2\pi}{5} = \frac{\sqrt5 - 1}{4}$ を使って比べる必要があります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$Q$ の中心を $O$，$R$ の中心を $C$ とすると $OC = 5$。$O$ から $R$ への接線と接点 $T$ について $\triangle OCT$ は $\angle T = 90^\circ$，$CT = 3$ の直角三角形で、$\angle COT = \frac\theta2$。</p>
+      $$\sin\frac\theta2 = \frac35,\quad \cos\frac\theta2 = \frac45,\qquad \sin\theta = 2\cdot\frac35\cdot\frac45 = \frac{24}{25}$$
+
+      <h3>(2)</h3>
+      <p>$\sin\frac\theta2 = \frac35 < \frac{1}{\sqrt2}$ で $0 < \frac\theta2 < \frac\pi2$ より $\frac\theta2 < \frac\pi4$，$\theta < \frac\pi2$。</p>
+      <p>$0 < \theta < \frac\pi2$ で $\sin$ は増加し、$\left(\frac{24}{25}\right)^2 = \frac{576}{625} > \frac34$ より $\sin\theta > \sin\frac\pi3$。よって $\frac\pi3 < \theta < \frac\pi2$。</p>
+
+      <h3>(3)</h3>
+      <p>半径 3 の 2 円の中心 $C_1,\ C_2$ はともに $O$ から距離 5。$\angle C_1OC_2 = \varphi$ とすると $C_1C_2 = 10\sin\frac\varphi2$ で、2 円が交わらない $\iff C_1C_2 > 6 \iff \sin\frac\varphi2 > \frac35 \iff \varphi > \theta$。したがって $n$ 個配置できる $\iff$ 隣り合う中心の角がすべて $\theta$ より大きくとれる $\iff n\theta < 2\pi$。</p>
+      <p>(2) からは $4 < \frac{2\pi}{\theta} < 6$ しか分からないので、$\theta$ と $\frac{2\pi}{5}$ を比べる。</p>
+      <p>$\alpha = \frac\pi5$ とすると $3\alpha = \pi - 2\alpha$ より $\cos3\alpha = -\cos2\alpha$。$c = \cos\alpha$ として $4c^3 - 3c = -(2c^2 - 1)$，$(c + 1)(4c^2 - 2c - 1) = 0$。$c > 0$ より $c = \frac{1 + \sqrt5}{4}$，</p>
+      $$\cos\frac{2\pi}{5} = 2c^2 - 1 = \frac{\sqrt5 - 1}{4}$$
+      <p>一方 $\cos\theta = 1 - 2\sin^2\frac\theta2 = \frac{7}{25}$。$\frac{\sqrt5 - 1}{4} - \frac{7}{25} = \frac{25\sqrt5 - 53}{100}$ で、$(25\sqrt5)^2 = 3125 > 2809 = 53^2$ より正。よって $\cos\frac{2\pi}{5} > \cos\theta$，すなわち $\theta > \frac{2\pi}{5}$。</p>
+      <p>$5\theta > 2\pi$ なので 5 個は配置できない。$4\theta < 2\pi$（$\theta < \frac\pi2$）なので、中心を $O$ のまわりに $90^\circ$ ずつ並べれば 4 個は配置できる。最大個数は</p>
+      $$4\ \text{個}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>外側の円の半径 $r$ を変えると、角 $\theta = 2\arcsin\frac{r}{2 + r}$ と並べられる最大個数が変わります。$r = 3$ では $\theta \approx 73.7^\circ$ で、$72^\circ$（5 個並ぶ限界）をわずかに超えるため 4 個しか置けません。</p>
+
+  <div class="widget">
+    <label>外側の円の半径 r：<input type="range" id="r" min="30" max="500" value="300"></label>
+    <span class="readout no-math" id="rv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「あと 1.7°」の攻防</h3>
+  <p>$\theta = 2\arcsin\frac35 \approx 73.74^\circ$ に対し、5 個並べるのに必要なのは $\theta \le 72^\circ$。差はわずか $1.7^\circ$ ほどで、(2) の誘導 $60^\circ < \theta < 90^\circ$ では到底判定できません。誘導に乗れば解けると思わせておいて最後に精密な評価を要求する、chopin 先生いわく「壮絶な罠」です。</p>
+  <p>$\cos\frac\pi5 = \frac{1 + \sqrt5}{4}$（黄金比の半分）は正五角形に関係する頻出の値で、「$3\alpha = \pi - 2\alpha$」から 3 次方程式を作る導き方は覚えておく価値があります。</p>
+  <p>chopin 先生は「少々意地悪な問題だと思いました」「(2) を使えば瞬殺と思いきや、(2) の評価が実はガバガバで評価がうまくできないという、壮絶な罠だったわけです！ 謀ったな九大め・・・」「次点の候補として $2\pi/5$ と $\theta$ の大小関係を比べてみましょう。…$\alpha = \pi/5$ とおいて、$\cos2\alpha + \cos3\alpha = 0$ になるという性質を使って調べる方法です」とコメントしています。</p>
+  <div class="point">円を並べる問題は「中心角」に翻訳。$\cos\frac\pi5 = \frac{1 + \sqrt5}{4}$，$\cos\frac{2\pi}{5} = \frac{\sqrt5 - 1}{4}$。誘導の評価が粗いときは自分で次の候補と比べる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>半径 1 の円 $Q$ に外接する半径 $r$ の円 $R$ について，$Q$ の中心から $R$ に引いた 2 本の接線のなす角が $\frac\pi2$ となるような $r$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\sin\frac\pi4 = \dfrac{r}{1 + r}$ より $r = \dfrac{\sqrt2}{2}(1 + r)$，$r = \dfrac{\sqrt2}{2 - \sqrt2} = \sqrt2 + 1$。（このとき 4 個がちょうど互いに接して一周する。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>いくつかの半径 1 の円を，半径 2 の円に外接し，かつ，互いに交わらないように配置する。配置できる円の最大個数を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2008　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>同様に $\sin\frac\theta2 = \frac13$。$\frac\theta2$ を $\frac\pi{10} = 18^\circ$，$\frac\pi9 = 20^\circ$ と比べる。</p>
+    <p>$\sin18^\circ = \cos72^\circ = \frac{\sqrt5 - 1}{4} < \frac13$（$3\sqrt5 < 7$）より $\frac\theta2 > 18^\circ$，$10\theta > 2\pi$。</p>
+    <p>$x = \sin20^\circ$ は $3x - 4x^3 = \sin60^\circ = \frac{\sqrt3}{2}$ をみたす。$3x - 4x^3$ は $0 \le x \le \frac12$ で増加し、$x = \frac13$ での値 $\frac{23}{27} < \frac{\sqrt3}{2}$（$\left(\frac{46}{27}\right)^2 = \frac{2116}{729} < 3$）なので $\sin20^\circ > \frac13$，$\frac\theta2 < 20^\circ$，$9\theta < 2\pi$。</p>
+    <p>よって最大 <b>9 個</b>。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv");
+  function draw() {
+    const r = $("r").value / 100; $("rv").textContent = ` r = ${r.toFixed(2)}`;
+    const L = 2 + 2 * r + 0.5;
+    const P = Fig.plane(cv, { xmin: -L, xmax: L, ymin: -L, ymax: L, equal: true });
+    const th = 2 * Math.asin(r / (2 + r)), n = Math.floor(2 * Math.PI / th - 1e-12);
+    P.clear().grid(1, "#f5f5f5");
+    P.circle(0, 0, 2, "#8a1538", 2);
+    for (let i = 0; i < n; i++) {
+      const ph = 2 * Math.PI * i / n, c = [(2 + r) * Math.cos(ph), (2 + r) * Math.sin(ph)];
+      P.circle(c[0], c[1], r, "#1c7ed6", 1.6);
+    }
+    // 1 つ目の円の接線
+    const t1 = th / 2, len = (2 + r) * Math.cos(t1) * 1.15;
+    P.line([[0, 0], [len * Math.cos(t1), len * Math.sin(t1)]], "#e8590c", 1.2, [4, 3]);
+    P.line([[0, 0], [len * Math.cos(-t1), len * Math.sin(-t1)]], "#e8590c", 1.2, [4, 3]);
+    P.dot(0, 0, "#222", 3);
+    const deg = th * 180 / Math.PI;
+    $("info").innerHTML = `sin(θ/2) = r/(2+r) = ${(r / (2 + r)).toFixed(4)}<br>θ ≈ ${deg.toFixed(2)}°<br>360°/θ ≈ ${(360 / deg).toFixed(3)}<br>最大個数：<b>${n}</b> 個` +
+      (Math.abs(r - 3) < 1e-9 ? `<br><span class="ok">r = 3：θ ≈ 73.74° > 72° → 4 個</span>` : "");
+  }
+  $("r").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

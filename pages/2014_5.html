@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2014年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2014-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 以上の自然数 $n$ に対して，関数 $f_n(x)$ を</p>
+    $$f_n(x) = (x - 1)(2x - 1)\cdots(nx - 1)$$
+    <p>と定義する。$k = 1,\ 2,\ \cdots,\ n - 1$ に対して，$f_n(x)$ が区間 $\dfrac{1}{k + 1} \lt x \lt \dfrac1k$ でただ 1 つの極値をとることを証明せよ。</p>
+  </div>
+  <p class="source">（2014 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f_n(x) = 0$ の解は $x = 1,\ \frac12,\ \cdots,\ \frac1n$ の $n$ 個。隣り合う解の間に<b>ロルの定理（平均値の定理）</b>で $f_n'(x) = 0$ の解が少なくとも 1 つ。$f_n'$ は $n - 1$ 次式なので、解はちょうど $n - 1$ 個で、各区間に 1 つずつ。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p><b>存在。</b>$f_n(x)$ は $n$ 次の多項式で、$f_n\left(\frac1k\right) = 0$（$k = 1,\ \cdots,\ n$）。$k = 1,\ \cdots,\ n - 1$ に対し、$f_n$ は区間 $\left[\frac1{k+1},\ \frac1k\right]$ で連続・微分可能で両端の値が等しい（ともに 0）ので、平均値の定理（ロルの定理）より</p>
+      $$f_n'(c_k) = 0,\qquad \frac1{k + 1} \lt c_k \lt \frac1k$$
+      <p>をみたす $c_k$ が存在する。区間は互いに重ならないので、$c_1,\ \cdots,\ c_{n-1}$ は相異なる。</p>
+
+      <p><b>ただ 1 つ。</b>$f_n'(x)$ は $n - 1$ 次式（最高次の係数 $n \cdot n! \ne 0$）なので、$f_n'(x) = 0$ の実数解は高々 $n - 1$ 個。すでに $n - 1$ 個の相異なる解 $c_1,\ \cdots,\ c_{n-1}$ があるので、これらがすべてで、各区間 $\left(\frac1{k+1},\ \frac1k\right)$ には $c_k$ のただ 1 つ。</p>
+
+      <p><b>極値になる。</b>$f_n'(x)$ は $n - 1$ 個の相異なる 1 次因数の積として</p>
+      $$f_n'(x) = n\cdot n!\,(x - c_1)(x - c_2)\cdots(x - c_{n-1})$$
+      <p>と表され、$x = c_k$ の前後で $x - c_k$ だけが符号を変えるので、$f_n'(x)$ の符号が変わる。よって $f_n(x)$ は $x = c_k$ で極値をとる。</p>
+      <p>以上より、各区間 $\frac{1}{k+1} \lt x \lt \frac1k$ で $f_n(x)$ はただ 1 つの極値をとる。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を変えると $f_n(x)$ のグラフ（縦は最大値で正規化）が描かれます。$x = \frac1k$ の零点（黒）の間に、極値（オレンジ）がちょうど 1 つずつあります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="2" max="8" value="4"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="440" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「当たり前」を証明する</h3>
+  <p>「相異なる $n$ 個の実数解をもつ $n$ 次関数は、隣り合う解の間にちょうど 1 つ極値をもつ」は、グラフを思い浮かべると当たり前に見えます。しかし「ただ 1 つ」を言うには、<b>個数を数える</b>（ロルの定理で下から $n - 1$ 個、次数で上から $n - 1$ 個）という論法が必要です。</p>
+  <p>この議論を繰り返すと、「$n$ 次多項式が $n$ 個の実数解をもてば、その導関数も（高階導関数も）すべて実数解のみをもつ」ことがわかります。</p>
+  <p>chopin 先生は「一見当たり前のように思えるがゆえに、証明が難しい」「平均値の定理を使って、$\frac1{k+1}$ と $\frac1k$ の間に少なくとも一つは『傾き 0』になるポイントがある」「$f_n'(x)$ は $n - 1$ 次式なので、実数解は多くて $n - 1$ 個となる」と解説しています。</p>
+  <div class="point">「ただ 1 つ」の証明は、<b>少なくとも</b>（存在：中間値・ロル）と<b>高々</b>（単調性・次数）の 2 段階。極値の判定は「導関数の符号変化」まで確認する。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$f(x) = (x - 1)(x - 2)(x - 3)$ が極値をとる $x$ を求め，それぞれが区間 $1 \lt x \lt 2$，$2 \lt x \lt 3$ にあることを確かめよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f(x) = x^3 - 6x^2 + 11x - 6$，$f'(x) = 3x^2 - 12x + 11 = 0$ より $x = 2 \pm \frac{1}{\sqrt3}$。$\frac1{\sqrt3} \approx 0.577$ なので $1.42$ と $2.58$ で、それぞれ $(1,\ 2)$，$(2,\ 3)$ にある。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $f_n(x)$ が区間 $\dfrac12 \lt x \lt 1$ で極値をとる $x$ を $\alpha_n$ とする。$1 - \alpha_n \lt \dfrac{1}{n - 1}$ を示し，$\displaystyle\lim_{n\to\infty}\alpha_n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2014　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f_n(\alpha_n) \ne 0$ なので、対数微分 $\dfrac{f_n'(x)}{f_n(x)} = \displaystyle\sum_{k=1}^{n}\frac{k}{kx - 1}$ が $x = \alpha_n$ で 0：</p>
+    $$\frac{1}{1 - \alpha_n} = \sum_{k=2}^{n}\frac{k}{k\alpha_n - 1}$$
+    <p>$\frac12 \lt \alpha_n \lt 1$ より $k \ge 2$ で $0 \lt k\alpha_n - 1 \lt k$、よって各項 $\frac{k}{k\alpha_n - 1} \gt 1$。右辺 $\gt n - 1$ なので $1 - \alpha_n \lt \frac1{n - 1}$。</p>
+    <p>はさみうちで $\displaystyle\lim_{n\to\infty}\alpha_n = 1$。（$n$ が大きいと、$x = 1$ 付近の極値は零点 $x = 1$ にどんどん近づく。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.05, xmax: 1.12, ymin: -1.25, ymax: 1.25 });
+  function draw() {
+    const n = +$("n").value;
+    const f = (x) => { let p = 1; for (let k = 1; k <= n; k++) p *= k * x - 1; return p; };
+    const df = (x) => { let s = 0; for (let k = 1; k <= n; k++) s += k / (k * x - 1); return s; }; // f'/f
+    // 各区間の極値を二分法で
+    const ext = [];
+    for (let k = 1; k < n; k++) {
+      let lo = 1 / (k + 1) + 1e-9, hi = 1 / k - 1e-9;
+      for (let t = 0; t < 80; t++) { const m = (lo + hi) / 2; if (df(m) > 0) lo = m; else hi = m; }
+      const c = (lo + hi) / 2; ext.push([c, f(c)]);
+    }
+    const M = Math.max(...ext.map((e) => Math.abs(e[1])), Math.abs(f(1.08)) / 3, 1e-12);
+    P.clear().grid(0.25, "#f3f3f3").axes();
+    P.fn((x) => Math.max(-1.25, Math.min(1.25, f(x) / M)), 0.0, 1.1, "#8a1538", 2.2, 600);
+    for (let k = 1; k <= n; k++) P.dot(1 / k, 0, "#222", 3.5, k <= 3 ? `1/${k}` : "", -6, 16);
+    ext.forEach(([c, v]) => P.dot(c, v / M, "#e8590c", 4.5));
+    $("nv").textContent = ` n = ${n}`;
+    $("info").innerHTML = "極値をとる x：<br>" + ext.map(([c], i) => `(1/${i + 2}, 1/${i + 1}) に ${c.toFixed(4)}`).join("<br>");
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

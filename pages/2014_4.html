@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2014年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2014-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>A さんは 5 円硬貨を 3 枚，B さんは 5 円硬貨を 1 枚と 10 円硬貨を 1 枚持っている。2 人は自分が持っている硬貨すべてを一度に投げる。それぞれが投げた硬貨のうち表が出た硬貨の合計金額が多い方を勝ちとする。勝者は相手の裏が出た硬貨をすべてもらう。なお，表が出た硬貨の合計金額が同じときは引き分けとし，硬貨のやりとりは行わない。このゲームについて，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　A さんが B さんに勝つ確率 $p$，および引き分けとなる確率 $q$ をそれぞれ求めよ。</li>
+      <li>(2)　ゲーム終了後に A さんが持っている硬貨の合計金額の期待値 $E$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2014 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>A の表の金額は 0, 5, 10, 15 円が $\frac18,\ \frac38,\ \frac38,\ \frac18$、B の表の金額は 0, 5, 10, 15 円がそれぞれ $\frac14$。<b>4 × 4 の表</b>をつくれば一目瞭然。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>A の表の合計を $X$，B の表の合計を $Y$ とする。</p>
+      <table class="simple">
+        <tr><th>$X$</th><td>0</td><td>5</td><td>10</td><td>15</td></tr>
+        <tr><th>確率</th><td>$\frac18$</td><td>$\frac38$</td><td>$\frac38$</td><td>$\frac18$</td></tr>
+        <tr><th>A の裏の金額</th><td>15</td><td>10</td><td>5</td><td>0</td></tr>
+      </table>
+      <table class="simple">
+        <tr><th>$Y$</th><td>0（両方裏）</td><td>5（5 円だけ表）</td><td>10（10 円だけ表）</td><td>15（両方表）</td></tr>
+        <tr><th>確率</th><td>$\frac14$</td><td>$\frac14$</td><td>$\frac14$</td><td>$\frac14$</td></tr>
+        <tr><th>B の裏の金額</th><td>15</td><td>10</td><td>5</td><td>0</td></tr>
+      </table>
+
+      <h3>(1)</h3>
+      $$p = P(X \gt Y) = \frac38\cdot\frac14 + \frac38\cdot\frac24 + \frac18\cdot\frac34 = \frac{3 + 6 + 3}{32} = \frac38$$
+      $$q = P(X = Y) = \left(\frac18 + \frac38 + \frac38 + \frac18\right)\cdot\frac14 = \frac14$$
+
+      <h3>(2)</h3>
+      <p>A の最初の所持金は 15 円。A が勝つと B の裏の金額をもらい、負けると自分の裏の金額を失う。</p>
+      <ul>
+        <li>得る金額の期待値：$X = 5$ で $Y = 0$：$15$；$X = 10$ で $Y = 0,\ 5$：$15,\ 10$；$X = 15$ で $Y = 0,\ 5,\ 10$：$15,\ 10,\ 5$。
+          $$\frac3{32}\cdot15 + \frac3{32}(15 + 10) + \frac1{32}(15 + 10 + 5) = \frac{45 + 75 + 30}{32} = \frac{150}{32}$$</li>
+        <li>失う金額の期待値：$X = 0$ で $Y = 5,\ 10,\ 15$：$15$ ずつ；$X = 5$ で $Y = 10,\ 15$：$10$ ずつ；$X = 10$ で $Y = 15$：$5$。
+          $$\frac1{32}\cdot15\cdot3 + \frac3{32}\cdot10\cdot2 + \frac3{32}\cdot5 = \frac{45 + 60 + 15}{32} = \frac{120}{32}$$</li>
+      </ul>
+      $$E = 15 + \frac{150 - 120}{32} = 15 + \frac{15}{16} = \frac{255}{16}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>16 通り（重み付き）の結果表です。各マスに A の増減額が表示されます（緑：A の勝ち、赤：B の勝ち、灰：引き分け）。シミュレーションで期待値 $\frac{255}{16} = 15.9375$ を確かめられます。</p>
+
+  <div class="widget">
+    <label>ルール：<select id="rule"><option value="0">裏の硬貨だけもらう（本問）</option><option value="1">相手の硬貨をすべてもらう（魔改造）</option></select></label>
+    <button id="sim">100000 回シミュレーション</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <div class="no-math" id="tbl"></div>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>勝率が同じでも期待値は偏る</h3>
+  <p>A が勝つ確率も B が勝つ確率も $\frac38$ で同じなのに、期待値は A が $\frac{15}{16}$ 円得をします。これは「勝者は相手の<b>裏の</b>硬貨をもらう」というルールのせいで、B が負けるときは B の裏が多い（たくさん取られる）、A が負けるときは A の表もそこそこある（あまり取られない）という非対称があるからです。</p>
+  <p>chopin 先生は「(1) A と B それぞれについて得点表を作ってしまいましょう」「(2) も、A が何円もらうか（失うか）をまとめてしまうのがよいでしょう」とコメントしています。</p>
+  <div class="point">2 人の独立な試行は<b>2 次元の表</b>にまとめる。期待値は「増減額 × 確率」の総和を最初の金額に足す。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>A さん，B さんがともに 10 円硬貨を 2 枚ずつ持ち，本問と同じゲームを行う。A さんが勝つ確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>表の枚数は 0, 1, 2 枚が $\frac14,\ \frac12,\ \frac14$。引き分けは $\frac1{16} + \frac14 + \frac1{16} = \frac38$。対称性から A の勝つ確率は $\frac12\left(1 - \frac38\right) = \dfrac5{16}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問のルールを「勝者は相手の硬貨を（表裏に関係なく）すべてもらう」に変えたとき，ゲーム終了後に A さんが持っている硬貨の合計金額の期待値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2014　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>A が勝てば 30 円、負ければ 0 円、引き分けなら 15 円。B が勝つ確率は $1 - \frac38 - \frac14 = \frac38$。</p>
+    $$30\cdot\frac38 + 15\cdot\frac14 + 0\cdot\frac38 = 15$$
+    <p>このルールなら公平（期待値は最初の 15 円のまま）。本問の A の得は「裏だけもらう」ルールによるものとわかる。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const PX = [1 / 8, 3 / 8, 3 / 8, 1 / 8], PY = [1 / 4, 1 / 4, 1 / 4, 1 / 4];
+  const delta = (rule, i, j) => { // i: A の表 5i 円, j: B の表 5j 円
+    if (i === j) return 0;
+    if (i > j) return rule ? 15 : 15 - 5 * j;
+    return rule ? -15 : -(15 - 5 * i);
+  };
+  function draw(extra) {
+    const rule = +$("rule").value;
+    let h = `<table class="simple"><tr><th>A＼B</th>${[0, 5, 10, 15].map((v) => `<th>B 表 ${v}円<br>(1/4)</th>`).join("")}</tr>`, E = 15;
+    for (let i = 0; i < 4; i++) {
+      h += `<tr><th>A 表 ${5 * i}円<br>(${["1/8", "3/8", "3/8", "1/8"][i]})</th>`;
+      for (let j = 0; j < 4; j++) { const d = delta(rule, i, j); E += PX[i] * PY[j] * d; h += `<td style="background:${d > 0 ? "#d3f9d8" : d < 0 ? "#ffe3e3" : "#f1f3f5"}">${d > 0 ? "+" : ""}${d}</td>`; }
+      h += "</tr>";
+    }
+    $("tbl").innerHTML = h + "</table>";
+    $("info").innerHTML = `A の勝つ確率 p = 3/8<br>引き分け q = 1/4<br>B の勝つ確率 = 3/8<br>期待値 E = ${E.toFixed(4)}${rule ? "（= 15）" : "（= 255/16）"}` + (extra ? `<hr>${extra}` : "");
+  }
+  $("sim").onclick = () => {
+    const rule = +$("rule").value; let s = 0; const N = 100000;
+    for (let t = 0; t < N; t++) {
+      let i = 0; for (let k = 0; k < 3; k++) if (Math.random() < 0.5) i++;
+      const j = (Math.random() < 0.5 ? 1 : 0) + (Math.random() < 0.5 ? 2 : 0);
+      s += 15 + delta(rule, i, j);
+    }
+    draw(`シミュレーション平均：${(s / N).toFixed(4)}`);
+  };
+  $("rule").addEventListener("input", () => draw());
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{YEAR}}年 九大理系数学 第{{NUM}}問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<!--
+  ▼ 記事テンプレート
+  - data-id は "年-問題番号"。タイトル・分野タグ・難易度は assets/js/data.js の PROBLEMS から自動表示されます。
+  - 数式は $...$（インライン）／ $$...$$（ディスプレイ）で書けます（KaTeX）。
+    HTML 内で不等号を書くときは \lt \gt か &lt; &gt; を使ってください。
+  - 不要なセクションは丸ごと削除して構いません。
+  - 書き終えたら data.js の該当問題に published: true を付けると一覧表から公開されます。
+-->
+<body data-root=".." data-id="{{ID}}">
+<main class="article">
+  <div id="article-head"></div>
+
+  <!-- ===== 問題 ===== -->
+  <div class="problem">
+    <p>（ここに問題文）</p>
+    <ol>
+      <li>(1)　…</li>
+      <li>(2)　…</li>
+    </ol>
+  </div>
+  <p class="source">（{{YEAR}} 九州大学 前期 理系 第{{NUM}}問）</p>
+
+  <!-- ===== 解答例 ===== -->
+  <h2>解答例</h2>
+  <p>（方針を一言で）</p>
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>…</p>
+      <h3>(2)</h3>
+      <p>…</p>
+    </div>
+  </details>
+
+  <!-- ===== 動く図解（任意） =====
+       Desmos を使う場合の例：
+       <iframe src="https://www.desmos.com/calculator/xxxxxxxx?embed" width="100%" height="420" style="border:1px solid #ddd;border-radius:8px"></iframe>
+  -->
+  <h2>動く図解</h2>
+  <div class="widget">…</div>
+
+  <!-- ===== 問題の背景 ===== -->
+  <h2>問題の背景</h2>
+  <p>…</p>
+  <div class="point">ポイント：…</div>
+
+  <!-- ===== 類題紹介 ===== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>…</p>
+  </div>
+  <p class="source">（<span class="src-kyudai">九大 20XX</span>）</p>
+
+  <div class="ruidai">
+    <p>…</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 {{YEAR}}　魔改造</span>）</p>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2009年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2009-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面に 3 点 $O(0,\ 0)$，$A(2,\ 6)$，$B(3,\ 4)$ をとり，点 $O$ から直線 $AB$ に垂線 $OC$ を下ろす。また，実数 $s$ と $t$ に対し，点 $P$ を $\overrightarrow{OP} = s\overrightarrow{OA} + t\overrightarrow{OB}$ で定める。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　点 $C$ の座標を求め，$|\overrightarrow{CP}|^2$ を $s$ と $t$ を用いて表せ。</li>
+      <li>(2)　$s$ を定数として，$t$ を $t \ge 0$ の範囲で動かすとき，$|\overrightarrow{CP}|^2$ の最小値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2009 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$|\overrightarrow{CP}|^2$ は $t$ の 2 次関数。軸 $t = \frac{4 - 6s}{5}$ が定義域 $t \ge 0$ に入るかどうかで場合分けします（軸と定義域の位置関係）。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\overrightarrow{AB} = (1,\ -2)$。$C$ は直線 $AB$ 上なので $\overrightarrow{OC} = (2 + u,\ 6 - 2u)$ とおけて、$\overrightarrow{OC} \perp \overrightarrow{AB}$ より</p>
+      $$(2 + u) - 2(6 - 2u) = 0 \quad\therefore\ u = 2,\quad C(4,\ 2)$$
+      <p>$\overrightarrow{OP} = (2s + 3t,\ 6s + 4t)$ より $\overrightarrow{CP} = (2s + 3t - 4,\ 6s + 4t - 2)$。</p>
+      $$|\overrightarrow{CP}|^2 = (2s + 3t - 4)^2 + (6s + 4t - 2)^2 = 40s^2 + 60st + 25t^2 - 40s - 40t + 20$$
+
+      <h3>(2)</h3>
+      <p>$t$ について平方完成すると</p>
+      $$|\overrightarrow{CP}|^2 = (5t + 6s - 4)^2 + 4(s + 1)^2$$
+      <p>$t$ の 2 次関数としての軸は $t = \dfrac{4 - 6s}{5}$。</p>
+      <ul>
+        <li>$\dfrac{4 - 6s}{5} \ge 0$，すなわち $s \le \dfrac23$ のとき：軸で最小、最小値 $4(s + 1)^2$。</li>
+        <li>$s > \dfrac23$ のとき：$t \ge 0$ で増加なので $t = 0$ で最小、最小値 $40s^2 - 40s + 20$。</li>
+      </ul>
+      $$\min|\overrightarrow{CP}|^2 = \begin{cases} 4(s + 1)^2 & \left(s \le \frac23\right) \\[4pt] 40s^2 - 40s + 20 & \left(s > \frac23\right) \end{cases}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$s$ を固定すると、$P$ は点 $s\overrightarrow{OA}$ から $\overrightarrow{OB}$ 方向に伸びる半直線（緑）上を動きます。$C$ から半直線への最短距離が最小値。垂線の足が半直線からはみ出す（$s > \frac23$）と、端点 $t = 0$ が最も近くなります。</p>
+
+  <div class="widget">
+    <label>s：<input type="range" id="s" min="-150" max="150" value="30"></label>
+    <span class="readout no-math" id="sv"></span>
+    <label>t：<input type="range" id="t" min="0" max="200" value="60"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>平方完成の 2 つの項の意味</h3>
+  <p>$|\overrightarrow{CP}|^2 = (5t + 6s - 4)^2 + 4(s + 1)^2$ の 2 つの項は、図形的には「$\overrightarrow{CP}$ を $\overrightarrow{OB}$ 方向と、それに垂直な方向に分解したときの成分の 2 乗」です（$|\overrightarrow{OB}| = 5$）。$s$ を固定すると $P$ は $\overrightarrow{OB}$ に平行な直線上を動くので、第 2 項 $4(s + 1)^2$ は $C$ とその直線との距離の 2 乗。$t$ の範囲に制限がなければ、これが最小値です。</p>
+  <p>特に $s = -1,\ t = 2$ のとき $P = C$（$-\overrightarrow{OA} + 2\overrightarrow{OB} = (4,\ 2)$）で、確かに最小値 $0$ になります。</p>
+  <p>chopin 先生は「(1) $\overrightarrow{OC} = (1 - c)\overrightarrow{OA} + c\overrightarrow{OB}$ とおいて、$\overrightarrow{OC}$ と $\overrightarrow{AB}$ が内積 0 になるという条件を処理します」「(2) $CP^2$ は $t$ の 2 次式とみなせるので、平方完成して考えますが、$s$ の値による場合分けが必要です」とコメントしています。</p>
+  <div class="point">定義域つきの 2 次関数の最小値は「軸が定義域に入るか」で場合分け。2 変数は<b>1 文字を固定</b>して平方完成。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問で，$s,\ t$ が $s \ge 0,\ t \ge 0$ の範囲を動くとき，$|\overrightarrow{CP}|^2$ の最小値と，そのときの $s,\ t$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(2) の結果を $s \ge 0$ で最小化する。$0 \le s \le \frac23$ では $4(s + 1)^2$ は $s = 0$ で最小値 $4$。$s > \frac23$ では $40s^2 - 40s + 20 = 40\left(s - \frac12\right)^2 + 10$ は増加で、$\frac{100}{9}$ より大きい。よって最小値 $4$（$s = 0$，$t = \frac45$，$P\left(\frac{12}{5},\ \frac{16}{5}\right)$：$C$ から直線 $OB$ への垂線の足）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (2) で，$t$ の範囲を $0 \le t \le 1$ に変えたとき，$|\overrightarrow{CP}|^2$ の最小値を $s$ で表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2009　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>軸 $t = \frac{4 - 6s}{5}$ が $[0,\ 1]$ に入るのは $-\frac16 \le s \le \frac23$。</p>
+    $$\min = \begin{cases} 40s^2 + 20s + 5 & \left(s < -\frac16\right)\ \ (t = 1) \\[4pt] 4(s + 1)^2 & \left(-\frac16 \le s \le \frac23\right) \\[4pt] 40s^2 - 40s + 20 & \left(s > \frac23\right)\ \ (t = 0) \end{cases}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -4, xmax: 9, ymin: -6, ymax: 12, equal: true });
+  function draw() {
+    const s = $("s").value / 100, t = $("t").value / 100;
+    $("sv").textContent = ` s = ${s.toFixed(2)}`; $("tv").textContent = ` t = ${t.toFixed(2)}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.line([[2 - 5, 6 + 10], [2 + 6, 6 - 12]], "#bbb", 1.2, [4, 3]); // 直線 AB
+    P.line([[0, 0], [4, 2]], "#999", 1, [3, 3]);
+    const S0 = [2 * s, 6 * s];
+    P.line([S0, [S0[0] + 3 * 3, S0[1] + 4 * 3]], "#2f9e44", 2);
+    const Pp = [2 * s + 3 * t, 6 * s + 4 * t];
+    P.line([[4, 2], Pp], "#8a1538", 2);
+    const t0 = Math.max(0, (4 - 6 * s) / 5), M = [2 * s + 3 * t0, 6 * s + 4 * t0];
+    P.line([[4, 2], M], "#e8590c", 1.2, [4, 3]);
+    P.dot(0, 0, "#222", 3, "O", -12, 12).dot(2, 6, "#222", 3.5, "A", 6, -4).dot(3, 4, "#222", 3.5, "B", 6, -4).dot(4, 2, "#1c7ed6", 4, "C", 6, 12);
+    P.dot(S0[0], S0[1], "#2f9e44", 3, "t=0", -30, 12).dot(M[0], M[1], "#e8590c", 3.5).dot(Pp[0], Pp[1], "#8a1538", 4, "P", 6, -6);
+    const f = (tt) => 40 * s * s + 60 * s * tt + 25 * tt * tt - 40 * s - 40 * tt + 20;
+    const mn = s <= 2 / 3 ? 4 * (s + 1) ** 2 : 40 * s * s - 40 * s + 20;
+    $("info").innerHTML = `|CP|² = ${f(t).toFixed(4)}<br>軸 t = (4 − 6s)/5 = ${((4 - 6 * s) / 5).toFixed(3)}<br>最小値（t ≥ 0）= ${mn.toFixed(4)}<br>（t = ${t0.toFixed(3)}，${s <= 2 / 3 ? "4(s+1)²" : "40s² − 40s + 20"}）`;
+  }
+  ["s", "t"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

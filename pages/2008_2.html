@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2008年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2008-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 から 10 までの番号が 1 つずつ書かれた 10 枚のカードがある。$k$ を 2 から 9 までの整数の 1 つとする。よくきった 10 枚のカードから 1 枚を抜き取り，そのカードの番号が $k$ より大きいなら，抜き取ったカードの番号を得点とする。抜き取ったカードの番号が $k$ 以下なら，そのカードを戻さずに，残りの 9 枚の中から 1 枚を抜き取り，2 回目に抜き取ったカードの番号を得点とする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　得点が 1 である確率と 10 である確率をそれぞれ求めよ。</li>
+      <li>(2)　2 以上 9 以下の整数 $n$ に対して，得点が $n$ である確率を求めよ。</li>
+      <li>(3)　得点の期待値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2008 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>得点 $n$ になるのは「1 回目に $n$ を引いて $n > k$」か「1 回目に $n$ 以外の $k$ 以下を引き、2 回目に $n$」。$n \le k$ か $n > k$ かで 1 回目の候補の数が変わります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p><b>得点 1</b>：1 は $k$ 以下なので 1 回目に引いても得点にならない。1 回目に $2 \sim k$ のどれか（$k - 1$ 枚）を引き、2 回目に 1 を引く。</p>
+      $$\frac{k - 1}{10}\cdot\frac19 = \frac{k - 1}{90}$$
+      <p><b>得点 10</b>：1 回目に 10 を引く，または 1 回目に $1 \sim k$（$k$ 枚）を引き 2 回目に 10。</p>
+      $$\frac1{10} + \frac{k}{10}\cdot\frac19 = \frac{k + 9}{90}$$
+
+      <h3>(2)</h3>
+      <ul>
+        <li>$n \le k$ のとき：1 回目に $n$ 以外の $k$ 以下（$k - 1$ 枚）→ 2 回目に $n$：$\dfrac{k - 1}{90}$</li>
+        <li>$n > k$ のとき：1 回目に $n$，または 1 回目に $k$ 以下（$k$ 枚）→ 2 回目に $n$：$\dfrac{k + 9}{90}$</li>
+      </ul>
+      <p>（(1) の結果もこの式に含まれる。）</p>
+
+      <h3>(3)</h3>
+      $$E = \frac{k - 1}{90}\sum_{n=1}^{k}n + \frac{k + 9}{90}\sum_{n=k+1}^{10}n = \frac{1}{90}\left\{(k - 1)\frac{k(k + 1)}{2} + (k + 9)\left(55 - \frac{k(k + 1)}{2}\right)\right\}$$
+      <p>中括弧の中は $55(k + 9) - 5k(k + 1) = -5k^2 + 50k + 495$ なので</p>
+      $$E = \frac{-k^2 + 10k + 99}{18}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$k$ を変えると得点の分布（棒グラフ）と期待値が変わります。$k$ 以下の得点は確率 $\frac{k - 1}{90}$，$k$ より大きい得点は $\frac{k + 9}{90}$ で、2 段の階段になります。</p>
+
+  <div class="widget">
+    <label>k：<input type="range" id="k" min="2" max="9" value="5"></label>
+    <span class="readout no-math" id="kv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="240"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>引き直しのしきい値をいくつにするか</h3>
+  <p>このゲームは「$k$ 以下なら引き直す」という作戦の良し悪しを比べる問題とみることができます。期待値 $E(k) = \dfrac{-k^2 + 10k + 99}{18} = \dfrac{124 - (k - 5)^2}{18}$ は $k = 5$ で最大 $\frac{62}{9} \approx 6.89$。引き直さない（$k = 0$ 相当）ときの期待値 $5.5$ より 1.4 点ほど得になります。</p>
+  <p>2 回目は「引いたカード以外の 9 枚から」なので、1 回目に引いた小さい番号が除かれる分だけ、2 回目の期待値は 5.5 より少し大きくなります。この「戻さない」効果で、$n \le k$ と $n > k$ の確率に差が出ます。</p>
+  <p>chopin 先生は「(1) 得点が 1 になる時は、1 回目に $k$ 以下を引いて 2 回目に 1 を引く場合です。また、得点が 10 になるときは、1 回目に 10 を引くか、$k$ 以下⇒10 と引く場合です」「(2) 考え方は (1) と同じです。$n$ が $k$ 以下になるか、$k$ よりも大きいかで場合分けして考えましょう」「(3) (2) を使って Σ 計算を実行するのみです」とコメントしています。</p>
+  <div class="point">確率は「最後の結果」から逆算して場合分け。非復元抽出では「すでに引いたもの」が候補から外れることに注意。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>1，2，3 の番号のカードが 1 枚ずつある。1 枚引き，番号が 1 ならそのカードを戻さずにもう 1 枚引いてその番号を得点とし，2 以上ならその番号を得点とする。得点の期待値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>1 回目が 1（確率 $\frac13$）なら 2 回目は 2 か 3 で期待値 $\frac52$。$E = \frac13\cdot\frac52 + \frac13\cdot2 + \frac13\cdot3 = \frac52$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，得点の期待値を最大にする $k$ と，そのときの期待値を求めよ。また，引き直さない場合と比べてどれだけ大きいか。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2008　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$E(k) = \dfrac{124 - (k - 5)^2}{18}$ より $k = 5$ で最大値 $\dfrac{124}{18} = \dfrac{62}{9}$。引き直さないときの期待値は $\frac{11}{2}$ なので、$\frac{62}{9} - \frac{11}{2} = \frac{25}{18}$ だけ大きい。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: 0.2, xmax: 10.8, ymin: -0.025, ymax: 0.23 });
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  const fr = (n, d) => { const g = gcd(n, d); return `${n / g}/${d / g}`; };
+  function draw() {
+    const k = +$("k").value; $("kv").textContent = ` k = ${k}`;
+    P.clear().grid(1, "#f3f3f3");
+    P.line([[0.2, 0], [10.8, 0]], "#333", 1.2);
+    P.line([[0.2, 0.1], [10.8, 0.1]], "#bbb", 1, [3, 3]);
+    let E = 0;
+    for (let n = 1; n <= 10; n++) {
+      const p = (n <= k ? k - 1 : k + 9) / 90; E += n * p;
+      P.fill([[n - 0.35, 0], [n + 0.35, 0], [n + 0.35, p], [n - 0.35, p]], n <= k ? "rgba(28,126,214,.55)" : "rgba(138,21,56,.6)");
+      P.text(String(n), n - 0.12, -0.016, "#333");
+    }
+    $("info").innerHTML = `<span style="color:#1c7ed6">n ≤ k：${fr(k - 1, 90)}</span><br><span style="color:#8a1538">n > k：${fr(k + 9, 90)}</span><br>期待値 = (−k² + 10k + 99)/18<br>　= <b>${fr(-k * k + 10 * k + 99, 18)}</b> ≈ ${E.toFixed(4)}` + (k === 5 ? '<br><span class="ok">最大！</span>' : "") + `<br><span style="color:#888">点線：確率 0.1（引き直さない場合）</span>`;
+  }
+  $("k").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

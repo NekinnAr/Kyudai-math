@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2010年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2010-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>三角形 $ABC$ の 3 辺の長さを $a = BC$，$b = CA$，$c = AB$ とする。実数 $t \ge 0$ を与えたとき，$A$ を始点とし $B$ を通る半直線上に $AP = tc$ となるように点 $P$ をとる。次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$CP^2$ を $a,\ b,\ c,\ t$ を用いて表せ。</li>
+      <li>(2)　点 $P$ が $CP = a$ を満たすとき，$t$ を求めよ。</li>
+      <li>(3)　(2) の条件を満たす点 $P$ が辺 $AB$ 上にちょうど 2 つあるとき，$\angle A$ と $\angle B$ に関する条件を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2010 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$\triangle APC$ で余弦定理、$\cos A$ は $\triangle ABC$ の余弦定理で $a,\ b,\ c$ に直します。(2) の 2 次方程式は $P = B$（$t = 1$）が明らかに解なので因数分解できます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\triangle APC$ で余弦定理（$t = 0$ のときも成立）：$CP^2 = b^2 + t^2c^2 - 2btc\cos A$。$\cos A = \dfrac{b^2 + c^2 - a^2}{2bc}$ を代入して</p>
+      $$CP^2 = c^2t^2 - (b^2 + c^2 - a^2)t + b^2$$
+
+      <h3>(2)</h3>
+      <p>$CP^2 = a^2$ より $c^2t^2 - (b^2 + c^2 - a^2)t + b^2 - a^2 = 0$。$t = 1$ が解なので</p>
+      $$(t - 1)\{c^2t - (b^2 - a^2)\} = 0 \quad\therefore\ t = 1,\ \frac{b^2 - a^2}{c^2}$$
+      <p>$t \ge 0$ なので</p>
+      <ul>
+        <li>$b < a$ のとき：$t = 1$</li>
+        <li>$b \ge a$ のとき：$t = 1,\ \dfrac{b^2 - a^2}{c^2}$</li>
+      </ul>
+
+      <h3>(3)</h3>
+      <p>$P$ が辺 $AB$ 上 $\iff 0 \le t \le 1$。$t = 1$（$P = B$）は常に条件をみたすので、もう 1 つの解 $t = \dfrac{b^2 - a^2}{c^2}$ が $0 \le t < 1$ をみたせばよい：</p>
+      $$0 \le b^2 - a^2 < c^2 \iff a \le b \ \text{かつ}\ b^2 < c^2 + a^2$$
+      <p>三角形では大きい辺に大きい角が対するので $a \le b \iff \angle A \le \angle B$。また余弦定理より $b^2 < c^2 + a^2 \iff \cos B > 0 \iff \angle B < 90^\circ$。</p>
+      $$\angle A \le \angle B < 90^\circ$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$AB = 1$ に固定し、$\angle A,\ \angle B$ を動かします。$C$ を中心とする半径 $a = BC$ の円（青）と半直線 $AB$ の交点が $CP = a$ の点で、1 つは必ず $B$。もう 1 つ（赤）が辺 $AB$ 上に来るのは $\angle A \le \angle B < 90^\circ$ のときです。</p>
+
+  <div class="widget">
+    <label>∠A：<input type="range" id="A" min="10" max="140" value="45"></label>
+    <span class="readout no-math" id="Av"></span>
+    <label>∠B：<input type="range" id="B" min="10" max="140" value="70"></label>
+    <span class="readout no-math" id="Bv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>二等辺三角形が隠れている</h3>
+  <p>$CP = CB = a$ となる $P\ (\ne B)$ は、$C$ から直線 $AB$ に下ろした垂線の足 $H$ に関して $B$ と対称な点です（$\triangle CPB$ が二等辺三角形）。だから $P$ が辺 $AB$ 上にあるには、$H$ が辺 $AB$ 上（$\angle B < 90^\circ$）で、しかも $P$ が $A$ を越えない（$HB \le HA$，すなわち $\angle A \le \angle B$）ことが必要十分です。計算の結果と図形的な意味がぴったり一致します。</p>
+  <p>chopin 先生は「(1) は、余弦定理を 2 回使えばよいでしょう」「(2) $b$ と $a$ の大小関係によって場合分けが発生します」「(3) (2) で求めた $t$ が $0 \le t < 1$ となる条件を求めればよいです。すると、辺の大小関係と、三平方の定理もどきの不等式が出てくるので、角度の大小関係に直せます」とコメントしています。</p>
+  <div class="point">辺の大小 ⇔ 対角の大小。$b^2 < c^2 + a^2 \iff \angle B$ が鋭角。明らかな解（ここでは $P = B$）があれば因数分解。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$a = 4,\ b = 5,\ c = 6$ の三角形 $ABC$ において，辺 $AB$ 上の点 $P\ (\ne B)$ で $CP = 4$ となるものの $AP$ の長さを求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問 (2) より $t = \dfrac{b^2 - a^2}{c^2} = \dfrac{25 - 16}{36} = \dfrac14$，$AP = tc = \dfrac32$。（$a \le b$，$b^2 = 25 < 52 = a^2 + c^2$ なので確かに辺上。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の (2) の条件を満たす点 $P$ が，<b>半直線</b> $AB$ 上（$t \ge 0$）にちょうど 2 つあるための $\angle A,\ \angle B$ の条件を求めよ。また，そのうち $B$ でない方の点が辺 $AB$ の $B$ 側の延長上にあるのはどのようなときか。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2010　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$t_2 = \dfrac{b^2 - a^2}{c^2} \ge 0$ かつ $t_2 \ne 1$：$a \le b$ かつ $b^2 \ne a^2 + c^2$，すなわち <b>$\angle A \le \angle B$ かつ $\angle B \ne 90^\circ$</b>。</p>
+    <p>$t_2 > 1 \iff b^2 > a^2 + c^2 \iff \angle B > 90^\circ$（このとき自動的に $\angle A < \angle B$）。垂線の足 $H$ が $B$ の外側に出るので、$B$ の対称点も外側に出ます。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.4, xmax: 2.6, ymin: -1.0, ymax: 1.5, equal: true });
+  function draw() {
+    let Ad = +$("A").value, Bd = +$("B").value;
+    if (Ad + Bd > 170) { Bd = 170 - Ad; $("B").value = Bd; }
+    $("Av").textContent = ` ${Ad}°`; $("Bv").textContent = ` ${Bd}°`;
+    const A = Ad * Math.PI / 180, B = Bd * Math.PI / 180, Cang = Math.PI - A - B;
+    const c = 1, b = Math.sin(B) / Math.sin(Cang), a = Math.sin(A) / Math.sin(Cang);
+    const C = [b * Math.cos(A), b * Math.sin(A)];
+    const t2 = (b * b - a * a) / (c * c);
+    P.clear().grid(0.5, "#f3f3f3");
+    P.line([[0, 0], [2.6, 0]], "#999", 1.2, [5, 4]);
+    P.circle(C[0], C[1], a, "#1c7ed6", 1.4);
+    P.line([[0, 0], [1, 0], C, [0, 0]], "#222", 1.8);
+    P.line([[C[0], C[1]], [C[0], 0]], "#aaa", 1, [3, 3]);
+    P.dot(0, 0, "#222", 3.5, "A", -14, 14).dot(1, 0, "#222", 3.5, "B", 4, 14).dot(C[0], C[1], "#222", 3.5, "C", 6, -6).dot(C[0], 0, "#999", 2.5, "H", 4, 14);
+    const onSide = t2 >= -1e-9 && t2 < 1 - 1e-9;
+    if (t2 >= -1e-9) P.dot(t2, 0, onSide ? "#c92a2a" : "#e8590c", 4.5, "P", -4, -8);
+    $("info").innerHTML = `a = BC = ${a.toFixed(3)}<br>b = CA = ${b.toFixed(3)}<br>t = (b² − a²)/c² = ${t2.toFixed(3)}<br>` +
+      (t2 < -1e-9 ? '<span class="ng">t &lt; 0（半直線上にない）</span>' : onSide ? '<span class="ok">辺 AB 上に 2 つ（B と P）</span>' : Math.abs(t2 - 1) < 1e-9 ? '<span class="ng">P = B（1 つだけ）</span>' : '<span class="ng">P は辺 AB の延長上</span>') +
+      `<br>∠A ≤ ∠B：${Ad <= Bd ? "○" : "×"}　∠B < 90°：${Bd < 90 ? "○" : "×"}`;
+  }
+  ["A", "B"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

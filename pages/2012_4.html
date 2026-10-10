@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2012年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2012-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$p$ と $q$ はともに整数であるとする。2 次方程式 $x^2 + px + q = 0$ が実数解 $\alpha,\ \beta$ を持ち，条件 $(|\alpha| - 1)(|\beta| - 1) \ne 0$ をみたしているとする。このとき，数列 $\{a_n\}$ を</p>
+    $$a_n = (\alpha^n - 1)(\beta^n - 1)\quad (n = 1,\ 2,\ \ldots)$$
+    <p>によって定義する。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a_1,\ a_2,\ a_3$ は整数であることを示せ。</li>
+      <li>(2)　$(|\alpha| - 1)(|\beta| - 1) > 0$ のとき，極限値 $\displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|$ は整数であることを示せ。</li>
+      <li>(3)　$\displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| = \frac{1 + \sqrt5}{2}$ となるとき，$p$ と $q$ の値をすべて求めよ。ただし，$\sqrt5$ が無理数であることは証明なしに用いてよい。</li>
+    </ol>
+  </div>
+  <p class="source">（2012 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>展開すると $a_n = (\alpha\beta)^n - (\alpha^n + \beta^n) + 1$。解と係数の関係 $\alpha + \beta = -p$，$\alpha\beta = q$ で整数の式になります。極限は、絶対値が $1$ より大きい解だけが「生き残る」ことに注目します。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a_n = q^n - (\alpha^n + \beta^n) + 1$。$\alpha + \beta = -p$，$\alpha\beta = q$ より</p>
+      $$\alpha^2 + \beta^2 = p^2 - 2q,\qquad \alpha^3 + \beta^3 = (\alpha + \beta)^3 - 3\alpha\beta(\alpha + \beta) = -p^3 + 3pq$$
+      $$a_1 = p + q + 1,\quad a_2 = q^2 - p^2 + 2q + 1,\quad a_3 = q^3 + p^3 - 3pq + 1$$
+      <p>いずれも整数の和・差・積なので整数。</p>
+
+      <h3>(2)</h3>
+      <p>条件より $|\alpha| \ne 1$，$|\beta| \ne 1$ なので $\alpha^n \ne 1$，$\beta^n \ne 1$，よって $a_n \ne 0$。</p>
+      $$\frac{a_{n+1}}{a_n} = \frac{\alpha^{n+1} - 1}{\alpha^n - 1}\cdot\frac{\beta^{n+1} - 1}{\beta^n - 1}$$
+      <p>ここで $|\gamma| < 1$ なら $\gamma^n \to 0$ より $\dfrac{\gamma^{n+1} - 1}{\gamma^n - 1} \to 1$，$|\gamma| > 1$ なら $\dfrac{\gamma^{n+1} - 1}{\gamma^n - 1} = \dfrac{\gamma - \gamma^{-n}}{1 - \gamma^{-n}} \to \gamma$。</p>
+      <p>$(|\alpha| - 1)(|\beta| - 1) > 0$ のとき</p>
+      <ul>
+        <li>$|\alpha| < 1$ かつ $|\beta| < 1$：極限値は $1\cdot1 = 1$。</li>
+        <li>$|\alpha| > 1$ かつ $|\beta| > 1$：極限値は $|\alpha\beta| = |q|$。</li>
+      </ul>
+      <p>いずれも整数である。</p>
+
+      <h3>(3)</h3>
+      <p>$\dfrac{1 + \sqrt5}{2}$ は整数でないので、(2) より $(|\alpha| - 1)(|\beta| - 1) < 0$。$|\alpha| < 1 < |\beta|$ としてよく、このとき上の議論から極限値は $|\beta|$。よって $\beta = \pm\dfrac{1 + \sqrt5}{2}$。</p>
+      <p><b>$\beta = \dfrac{1 + \sqrt5}{2}$ のとき</b>：$\beta^2 = \dfrac{3 + \sqrt5}{2}$ を $\beta^2 + p\beta + q = 0$ に代入して 2 倍すると</p>
+      $$(3 + p + 2q) + (1 + p)\sqrt5 = 0$$
+      <p>$p,\ q$ は整数，$\sqrt5$ は無理数なので $1 + p = 0$，$3 + p + 2q = 0$，すなわち $p = -1$，$q = -1$。このとき $\alpha = \dfrac{1 - \sqrt5}{2}$ で $|\alpha| \approx 0.618 < 1$ となり条件をみたす。</p>
+      <p><b>$\beta = -\dfrac{1 + \sqrt5}{2}$ のとき</b>：同様に $(3 - p + 2q) + (1 - p)\sqrt5 = 0$ より $p = 1$，$q = -1$。$\alpha = \dfrac{-1 + \sqrt5}{2}$ で条件をみたす。</p>
+      $$(p,\ q) = (-1,\ -1),\ (1,\ -1)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>整数 $p,\ q$ を選ぶと、解 $\alpha,\ \beta$ と $a_n$，比 $\left|a_{n+1}/a_n\right|$ の様子が表示されます。$(p,\ q) = (\pm1,\ -1)$ で黄金比 $1.618\ldots$ に収束します。</p>
+
+  <div class="widget">
+    <label>p：<input type="range" id="p" min="-6" max="6" value="-1"></label>
+    <span class="readout no-math" id="pv"></span>
+    <label>q：<input type="range" id="q" min="-6" max="6" value="-1"></label>
+    <span class="readout no-math" id="qv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="280"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「大きい方の解」が数列を支配する</h3>
+  <p>$\alpha^n$ と $\beta^n$ の和や積で作られる数列は、$n$ が大きくなると<b>絶対値の大きい方の解の $n$ 乗</b>が主役になり、比 $a_{n+1}/a_n$ はその解に近づきます。フィボナッチ数列の隣り合う項の比が黄金比に近づくのと同じ現象です。</p>
+  <p>(3) の後半は「係数が整数（有理数）の 2 次方程式が無理数解 $\dfrac{1 + \sqrt5}{2}$ を持てば、もう 1 つの解は共役な $\dfrac{1 - \sqrt5}{2}$」という事実そのもの。$\sqrt5$ が無理数であることを使って「有理部分・無理部分がそれぞれ $0$」とします。</p>
+  <p>ちなみに $\dfrac{1 + \sqrt5}{2}$ のように「1 より大きく、共役が絶対値 1 未満」の代数的整数はピゾ数と呼ばれ、その $n$ 乗は整数にどんどん近づきます（$\alpha^n + \beta^n$ が整数で $\alpha^n \to 0$ だから）。</p>
+  <p>chopin 先生は「(1) 解と係数の関係を使って $\alpha + \beta$ と $\alpha\beta$ を求めて、個別に計算します」「(2) $|\alpha| < 1$ かつ $|\beta| < 1$ のケースと、$|\alpha| > 1$ かつ $|\beta| > 1$ のケースに分かれる」「(3) $(1 + \sqrt5)/2$ は整数でないので、$(|\alpha| - 1)(|\beta| - 1) < 0$ でないといけません」「$\alpha + \beta$ と $\alpha\beta$ がともに整数になることから、…$|\alpha| = |(1 - \sqrt5)/2|$ となることがすぐにわかります」とコメントしています。</p>
+  <div class="point">$\alpha^n$ 型の極限は「$|\gamma| < 1$ なら $\gamma^n \to 0$、$|\gamma| > 1$ なら $\gamma^n$ で割る」。整数係数の方程式の無理数解は共役とペア。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$x^2 - x - 1 = 0$ の 2 解を $\alpha,\ \beta$ とし，$L_n = \alpha^n + \beta^n$ とおく。$L_{n+2} = L_{n+1} + L_n$ を示し，$L_5$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\alpha^2 = \alpha + 1$ の両辺に $\alpha^n$ を掛けて $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$。$\beta$ も同様で、足すと $L_{n+2} = L_{n+1} + L_n$。$L_1 = 1$，$L_2 = (\alpha + \beta)^2 - 2\alpha\beta = 3$ から $L_3 = 4$，$L_4 = 7$，$L_5 = 11$（リュカ数）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，$\displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right| = 1 + \sqrt2$ となるとき，$p$ と $q$ の値をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2012　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$1 + \sqrt2$ は整数でないので本問と同様に $|\alpha| < 1 < |\beta|$，$\beta = \pm(1 + \sqrt2)$。</p>
+    <p>$\beta = 1 + \sqrt2$：$\beta^2 = 3 + 2\sqrt2$ より $(3 + p + q) + (2 + p)\sqrt2 = 0$，$p = -2$，$q = -1$。</p>
+    <p>$\beta = -(1 + \sqrt2)$：$(3 - p + q) + (2 - p)\sqrt2 = 0$，$p = 2$，$q = -1$。</p>
+    <p>どちらも $|\alpha| = \sqrt2 - 1 < 1$ で条件をみたす。$(p,\ q) = (-2,\ -1),\ (2,\ -1)$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.5, xmax: 13, ymin: -0.5, ymax: 7 });
+  function draw() {
+    const p = +$("p").value, q = +$("q").value;
+    $("pv").textContent = ` p = ${p}`; $("qv").textContent = ` q = ${q}`;
+    P.clear().grid(1, "#f3f3f3").axes("n", "比");
+    const D = p * p - 4 * q;
+    if (D < 0) { $("info").innerHTML = `判別式 = ${D} < 0<br><span class="ng">実数解をもたない</span>`; return; }
+    const al = (-p - Math.sqrt(D)) / 2, be = (-p + Math.sqrt(D)) / 2;
+    const bad = Math.abs(Math.abs(al) - 1) < 1e-12 || Math.abs(Math.abs(be) - 1) < 1e-12;
+    let s = `α = ${al.toFixed(4)}，β = ${be.toFixed(4)}<br>`;
+    if (bad) { $("info").innerHTML = s + '<span class="ng">|α| または |β| が 1（条件を満たさない）</span>'; return; }
+    // a_n = q^n - S_n + 1,  S_n = α^n+β^n は整数（漸化式で計算）
+    const S = [2, -p]; for (let n = 2; n <= 13; n++) S.push(-p * S[n - 1] - q * S[n - 2]);
+    const a = (n) => q ** n - S[n] + 1;
+    const pts = []; for (let n = 1; n <= 12; n++) { const r = Math.abs(a(n + 1) / a(n)); pts.push([n, r]); }
+    const big = [al, be].filter((g) => Math.abs(g) > 1).map(Math.abs);
+    const lim = big.reduce((x, y) => x * y, 1);
+    P.line([[-0.5, lim], [13, lim]], "#2f9e44", 1.4, [5, 4]);
+    pts.forEach(([n, r]) => { if (r < 7) P.dot(n, r, "#8a1538", 3.5); });
+    const kind = (Math.abs(al) - 1) * (Math.abs(be) - 1) > 0 ? "(|α|−1)(|β|−1) > 0" : "(|α|−1)(|β|−1) < 0";
+    s += `${kind}<br>a₁, a₂, a₃, a₄ = ${a(1)}, ${a(2)}, ${a(3)}, ${a(4)}<br>|a₁₃/a₁₂| = ${pts[11][1].toFixed(6)}<br>極限値 = ${lim.toFixed(6)}` +
+      (Math.abs(lim - (1 + Math.sqrt(5)) / 2) < 1e-9 ? '<br><span class="ok">黄金比 (1+√5)/2！</span>' : Math.abs(lim - Math.round(lim)) < 1e-9 ? '<br><span style="color:#1c7ed6">整数</span>' : "");
+    $("info").innerHTML = s;
+  }
+  ["p", "q"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

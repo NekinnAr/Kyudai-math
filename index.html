@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>九大理系数学の探究</title>
+  <meta name="description" content="九州大学 前期日程 理系数学の過去問（1997〜2026）を年代別に解説・深掘りするサイト">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-root=".">
+<main class="wide">
+
+  <section class="hero">
+    <h1 id="site-title"></h1>
+    <p id="site-subtitle"></p>
+    <p>詳細は <a href="pages/about.html">こちら</a> から！</p>
+    <p class="notice" id="contact"></p>
+    <p class="countdown" id="countdown"></p>
+    <p class="notice">※ 2003年度以前は、第4問・第5問がそれぞれ (a)(b)(c) の3題から選ぶ選択問題（1年あたり計9題）になっているため、載せ方を検討中です。現在は 2004〜2026年度の問題を掲載しています。</p>
+  </section>
+
+  <details class="fold" id="bookmarks">
+    <summary>ブックマークした記事（タップで展開）</summary>
+    <div id="bookmark-list"></div>
+  </details>
+
+  <section id="table">
+    <div class="stats" id="stats"></div>
+    <div class="progress"><div id="progress-bar"></div></div>
+
+    <div class="filters" id="filters"></div>
+
+    <p class="scroll-hint">←左右にスクロールできます→</p>
+    <div class="table-wrap">
+      <table class="years">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="legend" id="legend"></p>
+  </section>
+</main>
+
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script>
+window.initPage = function (KM) {
+  const S = SITE, { $, esc, urlOf, countOf, info, isPub, allIds, cardHTML, bookmarks } = KM;
+
+  /* --- 見出し --- */
+  $("#site-title").textContent = S.title;
+  $("#site-subtitle").textContent = S.subtitle;
+  if (S.contact) $("#contact").innerHTML =
+    `★内容に関する問い合わせ・改善案・類題提供などは <a href="${esc(S.contact)}" target="_blank" rel="noopener">管理人</a> までお寄せください！★`;
+
+  /* --- カウントダウン --- */
+  const target = new Date(S.examDate).getTime();
+  const tick = () => {
+    let ms = target - Date.now();
+    if (ms <= 0) { $("#countdown").textContent = `★${S.examLabel} 開始しました。健闘を祈ります！★`; return; }
+    const d = Math.floor(ms / 864e5); ms %= 864e5;
+    const h = Math.floor(ms / 36e5); ms %= 36e5;
+    const m = Math.floor(ms / 6e4); const s = Math.floor((ms % 6e4) / 1000);
+    $("#countdown").innerHTML = `★${esc(S.examLabel)}開始まであと <span class="num">${d}日 ${h}時間 ${m}分 ${s}秒</span>★`;
+  };
+  tick(); setInterval(tick, 1000);
+
+  /* --- ブックマーク --- */
+  const bms = bookmarks.list();
+  $("#bookmark-list").innerHTML = bms.length
+    ? "<ul>" + bms.map((id) => `<li><a href="${urlOf(id)}">${id}</a>　${esc(info(id).title || "")}</li>`).join("") + "</ul>"
+    : '<p class="muted">まだブックマークはありません。</p>';
+
+  /* --- 統計 --- */
+  const ids = allIds(), pubs = ids.filter(isPub);
+  $("#stats").innerHTML =
+    `<span>収録年度 <b>${S.startYear}–${S.endYear}</b></span>
+     <span>解説済み <b>${pubs.length}</b> / ${ids.length} 問</span>
+     <span>進捗 <b>${(pubs.length / ids.length * 100).toFixed(1)}%</b></span>`;
+  $("#progress-bar").style.width = (pubs.length / ids.length * 100) + "%";
+
+  /* --- 表 --- */
+  let maxN = 0;
+  for (let y = S.startYear; y <= S.endYear; y++) maxN = Math.max(maxN, countOf(y));
+  const hasMondai = Object.values(YEARS).some((y) => y.mondai);
+  $("#thead").innerHTML = `<tr><th class="year">年度</th>${hasMondai ? '<th class="mondai-h">問題</th>' : ""}${
+    Array.from({ length: maxN }, (_, i) => `<th>${i + 1}</th>`).join("")}</tr>`;
+
+  let rows = "";
+  for (let y = S.endYear; y >= S.startYear; y--) {
+    const yi = YEARS[y] || {};
+    const cells = Array.from({ length: maxN }, (_, i) =>
+      i < countOf(y) ? `<td>${cardHTML(`${y}-${i + 1}`)}</td>` : "<td></td>").join("");
+    const mondai = yi.mondai ? `<a href="${esc(yi.mondai)}">${y}<br>問題</a>` : "";
+    rows += `<tr id="y${y}" data-year="${y}"><th class="year">${y}年${yi.note ? `<small>${esc(yi.note)}</small>` : ""}</th>
+             ${hasMondai ? `<td class="mondai">${mondai}</td>` : ""}${cells}</tr>`;
+  }
+  $("#tbody").innerHTML = rows;
+
+  /* --- 分野フィルタ --- */
+  let active = null, onlyPub = false;
+  const used = new Set(Object.values(PROBLEMS).flatMap((p) => p.topics || []));
+  const chips = ['<button class="chip active" data-t="">すべて</button>']
+    .concat(Object.keys(TOPICS).filter((t) => used.has(t)).map((t) =>
+      `<button class="chip" data-t="${esc(t)}"><span class="dot" style="background:${TOPICS[t]}"></span>${esc(t)}</button>`));
+  $("#filters").innerHTML = `<span class="muted" style="font-size:13px">分野：</span>${chips.join("")}
+    <label><input type="checkbox" id="only-pub"> 解説済みの年度のみ表示</label>`;
+
+  const apply = () => {
+    document.querySelectorAll("#tbody .card").forEach((c) => {
+      const ts = (c.dataset.topics || "").split("|");
+      c.classList.toggle("dim", !!active && !ts.includes(active));
+    });
+    document.querySelectorAll("#tbody tr").forEach((tr) => {
+      tr.classList.toggle("hidden", onlyPub && !tr.querySelector("a.card"));
+    });
+  };
+  $("#filters").addEventListener("click", (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    document.querySelectorAll(".chip").forEach((c) => c.classList.toggle("active", c === b));
+    active = b.dataset.t || null; apply();
+  });
+  $("#only-pub").addEventListener("change", (e) => { onlyPub = e.target.checked; apply(); });
+
+  /* --- 凡例 --- */
+  $("#legend").innerHTML = "難易度：" + Object.entries(DIFFICULTY).map(([k, v]) => `<b>${k}</b> ${v}`).join("　") +
+    "　／　薄く表示されている問題は準備中です。";
+};
+</script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

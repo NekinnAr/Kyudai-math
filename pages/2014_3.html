@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2014年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2014-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上の楕円</p>
+    $$\frac{(x + 2)^2}{16} + \frac{(y - 1)^2}{4} = 1 \quad\cdots\cdots ①$$
+    <p>を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　楕円①と直線 $y = x + a$ が交点をもつときの $a$ の値の範囲を求めよ。</li>
+      <li>(2)　$|x| + |y| = 1$ を満たす点 $(x,\ y)$ 全体がなす図形の概形をかけ。</li>
+      <li>(3)　点 $(x,\ y)$ が楕円①上を動くとき，$|x| + |y|$ の最大値，最小値とそれを与える $(x,\ y)$ をそれぞれ求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2014 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$|x| + |y| = k$ は 4 頂点 $(\pm k,\ 0)$，$(0,\ \pm k)$ の正方形。これを大きくしていき、楕円と<b>初めて触れる</b>ときが最小、<b>最後に離れる</b>ときが最大。最大は辺が接するとき（(1) を使う）、最小は頂点がぶつかるとき。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$u = x + 2$ とおくと $y = u + a - 2$ で、①は $u^2 + 4(u + a - 3)^2 = 16$，すなわち</p>
+      $$5u^2 + 8(a - 3)u + 4(a - 3)^2 - 16 = 0$$
+      <p>実数解をもつ条件は $\frac D4 = 16(a - 3)^2 - 5\{4(a - 3)^2 - 16\} = 80 - 4(a - 3)^2 \ge 0$。</p>
+      $$3 - 2\sqrt5 \le a \le 3 + 2\sqrt5$$
+
+      <h3>(2)</h3>
+      <p>4 点 $(1,\ 0)$，$(0,\ 1)$，$(-1,\ 0)$，$(0,\ -1)$ を頂点とする正方形（の周）。（図解参照）</p>
+
+      <h3>(3)</h3>
+      <p><b>最大値。</b>①上の点を $x = -2 + 4\cos\theta$，$y = 1 + 2\sin\theta$ と表す。$|x| + |y|$ は $x + y,\ x - y,\ -x + y,\ -x - y$ の最大のものに等しく、合成により</p>
+      <ul>
+        <li>$-x + y = 3 - 4\cos\theta + 2\sin\theta \le 3 + 2\sqrt5$</li>
+        <li>$-x - y = 1 - 4\cos\theta - 2\sin\theta \le 1 + 2\sqrt5$</li>
+        <li>$x + y \le -1 + 2\sqrt5$，$x - y \le -3 + 2\sqrt5$</li>
+      </ul>
+      <p>よって最大値は $3 + 2\sqrt5$。これは (1) で $a = 3 + 2\sqrt5$（直線 $y = x + a$ が楕円に接する）のときで、接点は重解 $u = -\frac{4(a - 3)}{5} = -\frac{8\sqrt5}{5}$ より</p>
+      $$(x,\ y) = \left(-2 - \frac{8\sqrt5}{5},\ 1 + \frac{2\sqrt5}{5}\right)$$
+      <p>（$x \lt 0 \lt y$ なのでこの点で $|x| + |y| = -x + y = 3 + 2\sqrt5$。）</p>
+
+      <p><b>最小値。</b>原点は①の内部（$\frac4{16} + \frac14 \lt 1$）。正方形 $D_k：|x| + |y| \le k$ は 4 頂点の凸包で、楕円の内部も凸なので、<b>$D_k$ が①の周および内部に含まれる $\iff$ 4 頂点が含まれる</b>。各頂点の条件は</p>
+      <ul>
+        <li>$(k,\ 0)$：$(k + 2)^2 \le 12 \iff k \le 2\sqrt3 - 2$</li>
+        <li>$(-k,\ 0)$：$k \le 2 + 2\sqrt3$</li>
+        <li>$(0,\ k)$：$(k - 1)^2 \le 3 \iff k \le 1 + \sqrt3$</li>
+        <li>$(0,\ -k)$：$(k + 1)^2 \le 3 \iff k \le \sqrt3 - 1$</li>
+      </ul>
+      <p>$k_0 = \sqrt3 - 1$ とおくと、$D_{k_0}$ は①の内部（周を含む）にある。①上の点で $|x| + |y| \lt k_0$ となるものがあれば、その点は $D_{k_0}$ の内部、したがって楕円の内部にあり、①上にあることに矛盾。よって①上で $|x| + |y| \ge \sqrt3 - 1$ で、等号は $(0,\ 1 - \sqrt3)$ で成り立つ。</p>
+      <p>最大値 $3 + 2\sqrt5$ $\left(\left(-2 - \frac{8\sqrt5}{5},\ 1 + \frac{2\sqrt5}{5}\right)\right)$，最小値 $\sqrt3 - 1$ $\left((0,\ 1 - \sqrt3)\right)$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$k$ を動かすと正方形 $|x| + |y| = k$ が拡大・縮小します。楕円と共有点をもつ $k$ の範囲が $\sqrt3 - 1 \le k \le 3 + 2\sqrt5$ です。</p>
+
+  <div class="widget">
+    <label>k：<input type="range" id="k" min="10" max="800" value="200"></label>
+    <span class="readout no-math" id="kv"></span>
+    <button id="mn">最小</button><button id="mx">最大</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>マンハッタン距離</h3>
+  <p>$|x| + |y|$ は原点からの<b>マンハッタン距離</b>（$L^1$ ノルム）で、「距離 $k$ の点全体」が正方形になります。普通の距離（円）の代わりに正方形を広げていく、という発想で解けます。</p>
+  <p>chopin 先生は「(1) は (3) のヒントになっています」「正方形のサイズを 0 から徐々に大きくしていくと、最小値は正方形の頂点が楕円と初めてぶつかるとき、最大値は正方形の辺が楕円から離れる直前」とコメントしています。</p>
+  <div class="point">$|x| + |y| = k$ は正方形、$\max(|x|,\ |y|) = k$ は軸に平行な正方形。「凸図形が凸図形に含まれる $\iff$ 頂点が含まれる」は最小値の議論で強力。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>点 $(x,\ y)$ が円 $x^2 + y^2 = 1$ 上を動くとき，$|x| + |y|$ の最大値と最小値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x = \cos\theta$，$y = \sin\theta$ とすると対称性から $0 \le \theta \le \frac\pi2$ で考えてよく、$\cos\theta + \sin\theta = \sqrt2\sin\left(\theta + \frac\pi4\right)$。最大値 $\sqrt2$（$\theta = \frac\pi4$），最小値 $1$（$\theta = 0,\ \frac\pi2$）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>点 $(x,\ y)$ が楕円①上を動くとき，$\max(|x|,\ |y|)$ の最小値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2014　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\max(|x|,\ |y|) \le k$ は 4 頂点 $(\pm k,\ \pm k)$ の正方形。本問の最小値と同じ論法で、4 頂点が楕円の内部（周を含む）に入る最大の $k$ が答え。</p>
+    <ul>
+      <li>$(k,\ -k)$：$(k + 2)^2 + 4(k + 1)^2 \le 16 \iff 5k^2 + 12k - 8 \le 0 \iff k \le \frac{-6 + 2\sqrt{19}}{5}\ (\approx 0.544)$</li>
+      <li>$(-k,\ -k)$：$5k^2 + 4k - 8 \le 0 \iff k \le \frac{-2 + 2\sqrt{11}}{5}\ (\approx 0.927)$</li>
+      <li>$(k,\ k)$，$(-k,\ k)$ はさらにゆるい条件</li>
+    </ul>
+    <p>最小値は $\dfrac{2\sqrt{19} - 6}{5}$（頂点 $(k,\ -k)$ が楕円にぶつかるとき）。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -8, xmax: 4, ymin: -4, ymax: 5, equal: true });
+  const kmin = Math.sqrt(3) - 1, kmax = 3 + 2 * Math.sqrt(5);
+  function draw() {
+    const k = $("k").value / 100;
+    $("kv").textContent = ` ${k.toFixed(3)}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    const el = []; for (let i = 0; i <= 120; i++) { const t = 2 * Math.PI * i / 120; el.push([-2 + 4 * Math.cos(t), 1 + 2 * Math.sin(t)]); }
+    P.fill(el, "rgba(138,21,56,.08)").line(el, "#8a1538", 2);
+    const meet = k >= kmin - 5e-3 && k <= kmax + 5e-3;
+    P.line([[k, 0], [0, k], [-k, 0], [0, -k], [k, 0]], meet ? "#2f9e44" : "#1c7ed6", 2);
+    if (Math.abs(k - kmin) < 0.01) P.dot(0, 1 - Math.sqrt(3), "#e8590c", 5, "(0, 1−√3)", 6, 14);
+    if (Math.abs(k - kmax) < 0.01) P.dot(-2 - 8 * Math.sqrt(5) / 5, 1 + 2 * Math.sqrt(5) / 5, "#e8590c", 5, "接点", -10, -8);
+    $("info").innerHTML = `|x| + |y| = ${k.toFixed(3)}<br>` + (meet ? '<span class="ok">楕円と共有点あり</span>' : '<span class="ng">共有点なし</span>') +
+      `<br>最小値 √3 − 1 ≈ ${kmin.toFixed(4)}<br>最大値 3 + 2√5 ≈ ${kmax.toFixed(4)}`;
+  }
+  $("k").addEventListener("input", draw);
+  $("mn").onclick = () => { $("k").value = Math.round(kmin * 100); draw(); };
+  $("mx").onclick = () => { $("k").value = Math.round(kmax * 100); draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

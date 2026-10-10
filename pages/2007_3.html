@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2007年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2007-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a$，$b$ を正の数とし，空間内の 3 点 $A(a,\ -a,\ b)$，$B(-a,\ a,\ b)$，$C(a,\ a,\ -b)$ を考える。$A$，$B$，$C$ を通る平面を $\alpha$，原点 $O$ を中心とし $A$，$B$，$C$ を通る球面を $S$ とする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　線分 $AB$ の中点を $D$ とするとき，$\overrightarrow{DC} \perp \overrightarrow{AB}$ および $\overrightarrow{DO} \perp \overrightarrow{AB}$ であることを示せ。また $\triangle ABC$ の面積を求めよ。</li>
+      <li>(2)　ベクトル $\overrightarrow{DC}$ と $\overrightarrow{DO}$ のなす角を $\theta$ とするとき，$\sin\theta$ を求めよ。また，平面 $\alpha$ に垂直で原点 $O$ を通る直線と平面 $\alpha$ との交点を $H$ とするとき，線分 $OH$ の長さを求めよ。</li>
+      <li>(3)　点 $P$ が球面 $S$ 上を動くとき，四面体 $ABCP$ の体積の最大値を求めよ。ただし，$P$ は平面 $\alpha$ 上にないものとする。</li>
+    </ol>
+  </div>
+  <p class="source">（2007 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$AB$ が $DC$ と $DO$ の両方に垂直なので、$AB$ は平面 $ODC$ に垂直。すると平面 $ODC$ は平面 $\alpha$ に垂直で、$O$ から $\alpha$ への垂線の足 $H$ は直線 $DC$ 上にあります。$OH = OD\sin\theta$ がすぐ出ます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$D(0,\ 0,\ b)$，$\overrightarrow{AB} = (-2a,\ 2a,\ 0)$，$\overrightarrow{DC} = (a,\ a,\ -2b)$，$\overrightarrow{DO} = (0,\ 0,\ -b)$。</p>
+      $$\overrightarrow{DC}\cdot\overrightarrow{AB} = -2a^2 + 2a^2 + 0 = 0,\qquad \overrightarrow{DO}\cdot\overrightarrow{AB} = 0$$
+      <p>よって $\overrightarrow{DC} \perp \overrightarrow{AB}$，$\overrightarrow{DO} \perp \overrightarrow{AB}$。$|\overrightarrow{AB}| = 2\sqrt2a$，$|\overrightarrow{DC}| = \sqrt{2a^2 + 4b^2}$ で、$DC$ は $\triangle ABC$ の高さなので</p>
+      $$\triangle ABC = \frac12\cdot 2\sqrt2a\cdot\sqrt{2a^2 + 4b^2} = 2a\sqrt{a^2 + 2b^2}$$
+
+      <h3>(2)</h3>
+      $$\cos\theta = \frac{\overrightarrow{DC}\cdot\overrightarrow{DO}}{|\overrightarrow{DC}||\overrightarrow{DO}|} = \frac{2b^2}{\sqrt{2a^2 + 4b^2}\cdot b} = \frac{\sqrt2\,b}{\sqrt{a^2 + 2b^2}}$$
+      $$\sin\theta = \sqrt{1 - \frac{2b^2}{a^2 + 2b^2}} = \frac{a}{\sqrt{a^2 + 2b^2}}$$
+      <p>(1) より $AB$ は平面 $ODC$ 上の交わる 2 直線 $DC$，$DO$ に垂直なので、$AB \perp$ 平面 $ODC$。$\alpha$ は $AB$ を含むので平面 $ODC \perp \alpha$ であり、$O$ から $\alpha$ へ下ろした垂線は平面 $ODC$ 内にあって、$H$ は直線 $DC$ 上。直角三角形 $ODH$ で</p>
+      $$OH = OD\sin\theta = \frac{ab}{\sqrt{a^2 + 2b^2}}$$
+
+      <h3>(3)</h3>
+      <p>球面 $S$ の半径は $OA = \sqrt{2a^2 + b^2}$。$P$ と平面 $\alpha$ の距離は、$P$ が直線 $OH$ 上で $O$ に関して $H$ と反対側にあるとき最大で、その値は $OH + \sqrt{2a^2 + b^2}$。よって最大値は</p>
+      $$\frac13\cdot 2a\sqrt{a^2 + 2b^2}\left(\frac{ab}{\sqrt{a^2 + 2b^2}} + \sqrt{2a^2 + b^2}\right) = \frac{2a}{3}\left(ab + \sqrt{(a^2 + 2b^2)(2a^2 + b^2)}\right)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$，$b$ を変えてみましょう（図はドラッグで回転）。赤い三角形が $\triangle ABC$，緑の点が $H$，オレンジの点が体積を最大にする $P$ です。$H$ は必ず直線 $DC$ 上にあります。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="30" max="150" value="100"></label>
+    <span class="readout no-math" id="av"></span>
+    <label>b：<input type="range" id="b" min="30" max="150" value="80"></label>
+    <span class="readout no-math" id="bv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「垂直な 2 直線」から「垂直な平面」へ</h3>
+  <p>(1) の 2 つの垂直は、(2) の「$H$ は直線 $DC$ 上」を導くための布石です。座標で $\alpha$ の方程式を立てて点と平面の距離公式を使っても解けますが（$\alpha$：$bx + by + az = ab$ となり、距離は $\frac{ab}{\sqrt{a^2 + 2b^2}}$。これはこれで検算に便利）、図形的に見れば $OH = OD\sin\theta$ の一行で済みます。(3) は「球面上の点から平面までの最大距離 $=$ 中心からの距離 $+$ 半径」という典型。</p>
+  <p>chopin 先生は「(2) $\angle ODH = \theta$ なので $OH = OD\sin\theta$ となります」「(3) $P$ と平面 $\alpha$ の距離の最大値は、$OH$ と球の半径の和であることに注意しましょう」とコメントしています。</p>
+  <div class="point">ある直線が平面内の交わる 2 直線に垂直 → その平面に垂直。球面上の点と平面の距離の最大 $=$ 中心からの距離 $+$ 半径。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問で $a = b = 1$ のとき，四面体 $ABCP$ の体積の最大値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\triangle ABC = 2\sqrt3$，$OH = \dfrac1{\sqrt3}$，半径 $\sqrt3$。最大値 $\dfrac13\cdot2\sqrt3\left(\dfrac1{\sqrt3} + \sqrt3\right) = \dfrac83$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，正の数 $a$，$b$ が $a + b = 1$ を満たしながら動くとき，四面体 $OABC$ の体積の最大値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2007　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$V = \dfrac13\cdot\triangle ABC\cdot OH = \dfrac13\cdot 2a\sqrt{a^2 + 2b^2}\cdot\dfrac{ab}{\sqrt{a^2 + 2b^2}} = \dfrac23a^2b$（行列式 $\frac16|\det(\vec{A},\vec{B},\vec{C})| = \frac16\cdot4a^2b$ でも確認できる）。$b = 1 - a$ を代入し $\dfrac23a^2(1 - a)$ を微分すると $a = \dfrac23$ で最大値 $\dfrac{8}{81}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const v3 = Fig.v3;
+  const V = Fig.view3d($("cv"), { scale: 50, az: -0.4, el: 0.3, onChange: () => draw() });
+  function draw() {
+    const a = $("a").value / 100, b = $("b").value / 100;
+    $("av").textContent = ` a = ${a.toFixed(2)}`; $("bv").textContent = ` b = ${b.toFixed(2)}`;
+    const A = [a, -a, b], B = [-a, a, b], C = [a, a, -b], O = [0, 0, 0], D = [0, 0, b];
+    const Rr = Math.sqrt(2 * a * a + b * b);
+    V.st.scale = 105 / Rr;
+    const n = v3.unit(v3.cross(v3.sub(B, A), v3.sub(C, A)));
+    const t = v3.dot(A, n), H = v3.mul(n, t), Pm = v3.mul(n, -Rr * Math.sign(t));
+    V.clear().axes(Rr * 1.15);
+    // 球面（3 つの大円）
+    V.circle(O, [1, 0, 0], [0, 1, 0], Rr, "#ccc", 1).circle(O, [1, 0, 0], [0, 0, 1], Rr, "#ccc", 1).circle(O, [0, 1, 0], [0, 0, 1], Rr, "#ccc", 1);
+    V.poly([A, B, C], "#8a1538", 2, [], "rgba(138,21,56,.18)", true);
+    V.poly([D, C], "#8a1538", 1.2, [4, 3]);
+    V.poly([O, D], "#1c7ed6", 1.4);
+    V.poly([Pm, H], "#e67700", 1.4, [4, 3]);
+    [A, B, C].forEach((X) => V.poly([Pm, X], "#e67700", 1, [2, 3]));
+    V.dot(A, "#222", 3.5, "A").dot(B, "#222", 3.5, "B").dot(C, "#222", 3.5, "C").dot(O, "#222", 3.5, "O").dot(D, "#1c7ed6", 3.5, "D");
+    V.dot(H, "#2f9e44", 4.5, "H").dot(Pm, "#e67700", 5, "P");
+    const area = 2 * a * Math.sqrt(a * a + 2 * b * b), OH = a * b / Math.sqrt(a * a + 2 * b * b);
+    const Vm = 2 * a / 3 * (a * b + Math.sqrt((a * a + 2 * b * b) * (2 * a * a + b * b)));
+    $("info").innerHTML = `△ABC = ${area.toFixed(4)}<br>sinθ = ${(a / Math.sqrt(a * a + 2 * b * b)).toFixed(4)}<br>OH = ${OH.toFixed(4)}（数値: ${Math.abs(t).toFixed(4)}）<br>半径 = ${Rr.toFixed(4)}<br>最大体積 = ${Vm.toFixed(4)}`;
+  }
+  ["a", "b"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

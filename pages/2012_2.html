@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2012年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2012-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 次の正方行列 $A,\ B$ はそれぞれ</p>
+    $$A\begin{pmatrix} -3 \\ 5 \end{pmatrix} = \begin{pmatrix} 0 \\ -1 \end{pmatrix},\quad A\begin{pmatrix} 7 \\ -9 \end{pmatrix} = \begin{pmatrix} 8 \\ -11 \end{pmatrix}$$
+    $$B\begin{pmatrix} 0 \\ -1 \end{pmatrix} = \begin{pmatrix} -5 \\ 6 \end{pmatrix},\quad B\begin{pmatrix} 8 \\ -11 \end{pmatrix} = \begin{pmatrix} -7 \\ 10 \end{pmatrix}$$
+    <p>をみたすものとする。このとき，以下の問いに答えよ。ただし，$E$ は 2 次の単位行列を表すものとする。</p>
+    <ol>
+      <li>(1)　行列 $A,\ B,\ A^2,\ B^2$ を求めよ。</li>
+      <li>(2)　$(AB)^3 = E$ であることを示せ。</li>
+      <li>(3)　行列 $A$ から始めて，$B$ と $A$ を交互に右から掛けて得られる行列
+        $$A,\ AB,\ ABA,\ ABAB,\ \cdots\cdots,$$
+        および行列 $B$ から始めて，$A$ と $B$ を交互に右から掛けて得られる行列
+        $$B,\ BA,\ BAB,\ BABA,\ \cdots\cdots$$
+        を考える。これらの行列の内で，相異なるものをすべて成分を用いて表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2012 九州大学 前期 理系 第2問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>ベクトルの関係式 2 本を横に並べると行列の等式になります。$A,\ B$ はどちらもトレース $0$・行列式 $-1$ なので、ケーリー・ハミルトンの定理から $A^2 = B^2 = E$。$C = AB$ はトレース $-1$・行列式 $1$ で $C^2 + C + E = O$。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>与式を並べて $A\begin{pmatrix} -3 & 7 \\ 5 & -9 \end{pmatrix} = \begin{pmatrix} 0 & 8 \\ -1 & -11 \end{pmatrix}$。$\begin{pmatrix} -3 & 7 \\ 5 & -9 \end{pmatrix}^{-1} = \dfrac{1}{8}\begin{pmatrix} 9 & 7 \\ 5 & 3 \end{pmatrix}$ なので</p>
+      $$A = \begin{pmatrix} 0 & 8 \\ -1 & -11 \end{pmatrix}\cdot\frac18\begin{pmatrix} 9 & 7 \\ 5 & 3 \end{pmatrix} = \begin{pmatrix} 5 & 3 \\ -8 & -5 \end{pmatrix}$$
+      <p>同様に $B\begin{pmatrix} 0 & 8 \\ -1 & -11 \end{pmatrix} = \begin{pmatrix} -5 & -7 \\ 6 & 10 \end{pmatrix}$，$\begin{pmatrix} 0 & 8 \\ -1 & -11 \end{pmatrix}^{-1} = \dfrac18\begin{pmatrix} -11 & -8 \\ 1 & 0 \end{pmatrix}$ より</p>
+      $$B = \begin{pmatrix} 6 & 5 \\ -7 & -6 \end{pmatrix}$$
+      <p>$A$ はトレース $0$，行列式 $-25 + 24 = -1$。ケーリー・ハミルトンの定理より $A^2 - 0\cdot A - E = O$，$A^2 = E$。$B$ もトレース $0$，行列式 $-36 + 35 = -1$ で $B^2 = E$。</p>
+
+      <h3>(2)</h3>
+      $$C = AB = \begin{pmatrix} 9 & 7 \\ -13 & -10 \end{pmatrix}$$
+      <p>トレース $-1$，行列式 $-90 + 91 = 1$ なので $C^2 + C + E = O$。よって</p>
+      $$C^3 - E = (C - E)(C^2 + C + E) = O \quad\therefore\ (AB)^3 = E$$
+
+      <h3>(3)</h3>
+      <p>$A$ から始める列は $A,\ C,\ CA,\ C^2,\ C^2A,\ C^3 = E$ の後 $EA = A$ に戻り、周期 6 で繰り返します。</p>
+      <p>また $A^2 = B^2 = E$ より $BA = B^{-1}A^{-1} = (AB)^{-1} = C^2$ なので $C^2A = BAA = B$。$B$ から始める列は</p>
+      $$B,\quad BA = C^2,\quad BAB = C^2B = ABAB\cdot B = ABA,\quad BABA = ABA\cdot A = AB,\quad BABAB = AB\cdot B = A,\quad BABABA = E$$
+      <p>で、やはり同じ 6 個を繰り返します。成分を計算すると</p>
+      $$CA = ABA = \begin{pmatrix} -11 & -8 \\ 15 & 11 \end{pmatrix},\qquad C^2 = -C - E = \begin{pmatrix} -10 & -7 \\ 13 & 9 \end{pmatrix}$$
+      <p>したがって相異なる行列は次の 6 個です。</p>
+      $$\begin{pmatrix} 5 & 3 \\ -8 & -5 \end{pmatrix},\ \begin{pmatrix} 6 & 5 \\ -7 & -6 \end{pmatrix},\ \begin{pmatrix} 9 & 7 \\ -13 & -10 \end{pmatrix},\ \begin{pmatrix} -10 & -7 \\ 13 & 9 \end{pmatrix},\ \begin{pmatrix} -11 & -8 \\ 15 & 11 \end{pmatrix},\ \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$$
+      <p>（順に $A,\ B,\ AB,\ BA,\ ABA = BAB,\ E$。成分を見れば互いに異なる。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>長さ $k$ を増やすと、2 つの列の $k$ 番目までが計算されます。同じ行列には同じ色が付くので、6 種類で周期的に繰り返す様子が見えます。</p>
+
+  <div class="widget">
+    <label>何個目まで：<input type="range" id="k" min="1" max="12" value="7"></label>
+    <span class="readout no-math" id="kv"></span>
+    <div class="no-math" id="info" style="margin-top:8px;line-height:2;overflow-x:auto"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>正三角形の対称性（2 面体群）</h3>
+  <p>$A^2 = B^2 = E$，$(AB)^3 = E$ という関係は、正三角形の 2 本の対称軸についての<b>折り返し</b> $A,\ B$ と、その合成である <b>120° 回転</b> $AB$ の関係とまったく同じです。正三角形を自分自身に重ねる変換は「回転 3 つ（恒等変換を含む）＋折り返し 3 つ」の 6 個なので、(3) の答えがちょうど 6 個になるのは偶然ではありません（$A,\ B,\ ABA$ が折り返し、$E,\ AB,\ BA$ が回転に対応）。</p>
+  <p>実際、$A,\ B,\ ABA$ は行列式 $-1$（向きを反転）、$AB,\ BA,\ E$ は行列式 $1$ です。</p>
+  <p>chopin 先生は「(1) A, B ともに、ベクトルの関係式を横に並べることで行列の関係式に直せます。2 乗は、行列の形からケーリーハミルトンの定理を使ったほうが手っ取り早い」「(3) (1), (2) の事実を使うと、実質、$E,\ C,\ C^2,\ A,\ CA,\ C^2A,\ B,\ \ldots$ の 12 種類を調べればよい」「あとは、これらを総当たりで確認するしかない」とコメントしています。</p>
+  <div class="point">トレース $0$ の $2\times2$ 行列は $A^2 = -(\det A)E$。$C^2 + C + E = O$ なら $C^3 = E$（$x^3 - 1 = (x - 1)(x^2 + x + 1)$ と同じ）。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の $A,\ B$ について，$A^{2012}$ と $(AB)^{2012}$ を成分で表せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$A^2 = E$ より $A^{2012} = (A^2)^{1006} = E$。$(AB)^3 = E$，$2012 = 3\cdot670 + 2$ より $(AB)^{2012} = (AB)^2 = \begin{pmatrix} -10 & -7 \\ 13 & 9 \end{pmatrix}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $A,\ B$ を，同じものを何回使ってもよいとして，任意の順序で有限個掛け合わせてできる行列（例：$AABAB$，$BBBA$ など）は全部で何種類あるか。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2012　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$A^2 = B^2 = E$ なので、同じ文字が隣り合ったら消去できます。消去を繰り返すと、どの積も $A$ と $B$ が交互に並ぶ積（または $E$）になります。それは (3) の 2 つの列のどれかなので、得られる行列は (3) の 6 個のどれかで、6 個とも実際に現れます。答えは <b>6 種類</b>。</p>
+    <p>（$\{E,\ A,\ B,\ AB,\ BA,\ ABA\}$ は掛け算で閉じていて、「群」をなしています。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const mul = (P, Q) => [[P[0][0] * Q[0][0] + P[0][1] * Q[1][0], P[0][0] * Q[0][1] + P[0][1] * Q[1][1]], [P[1][0] * Q[0][0] + P[1][1] * Q[1][0], P[1][0] * Q[0][1] + P[1][1] * Q[1][1]]];
+  const A = [[5, 3], [-8, -5]], B = [[6, 5], [-7, -6]];
+  const cols = ["#ffe3e3", "#d0ebff", "#d3f9d8", "#fff3bf", "#e5dbff", "#f1f3f5"];
+  const known = [];
+  const key = (M) => M.flat().join(",");
+  const colorOf = (M) => { let i = known.indexOf(key(M)); if (i < 0) { known.push(key(M)); i = known.length - 1; } return cols[i % cols.length]; };
+  const show = (M) => `<table class="simple" style="display:inline-table;vertical-align:middle;width:auto;min-width:0;margin:2px 4px;background:${colorOf(M)}"><tr><td>${M[0][0]}</td><td>${M[0][1]}</td></tr><tr><td>${M[1][0]}</td><td>${M[1][1]}</td></tr></table>`;
+  function seq(start, k) {
+    const out = []; let M = start === "A" ? A : B, w = start, nxt = start === "A" ? "B" : "A";
+    for (let i = 0; i < k; i++) {
+      out.push([w, M]);
+      M = mul(M, nxt === "A" ? A : B); w += nxt; nxt = nxt === "A" ? "B" : "A";
+    }
+    return out;
+  }
+  function draw() {
+    const k = +$("k").value; known.length = 0;
+    // 色を固定するため、先に A, AB, ABA, ABAB, B, E の順に登録
+    seq("A", 6).forEach(([, M]) => colorOf(M)); colorOf(B);
+    $("kv").textContent = ` k = ${k}`;
+    const row = (s) => seq(s, k).map(([w, M]) => `<div style="display:inline-block;text-align:center;margin:2px 4px"><div style="font-size:.85em">${w}</div>${show(M)}</div>`).join("");
+    const all = new Set([...seq("A", k), ...seq("B", k)].map(([, M]) => key(M)));
+    $("info").innerHTML = `<b>A から：</b><br>${row("A")}<br><b>B から：</b><br>${row("B")}<br>ここまでに現れた相異なる行列：<b>${all.size}</b> 個`;
+  }
+  $("k").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

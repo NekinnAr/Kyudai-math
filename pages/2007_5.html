@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2007年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2007-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>関数 $f(x)$ は，0 でない定数 $p$ に対して，すべての実数 $x$ で $f(x + p) = f(x)$ を満たすとき，周期関数であるといい，このような $p$ を周期という。また，正の周期の中で最小のものを基本周期という。例えば，$\sin x$ は周期関数で，その基本周期は $2\pi$ である。$m$，$n$ を正の整数とするとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　関数 $|\sin x|$ のグラフをかき，その基本周期を求めよ。</li>
+      <li>(2)　関数 $f(x) = |\sin mx|\sin nx$ について，$p$ が周期ならば $f\left(\frac p2\right) = f\left(-\frac p2\right) = 0$ であることを示せ。また，このとき $mp$ は $\pi$ の整数倍，$np$ は $2\pi$ の整数倍であることを示せ。</li>
+      <li>(3)　$m$，$n$ が互いに素であるとき，関数 $|\sin mx|\sin nx$ の基本周期を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2007 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f$ は奇関数。周期の式に $x = -\frac p2$ を代入すると $f\left(\frac p2\right) = f\left(-\frac p2\right) = -f\left(\frac p2\right)$ で $0$。これで「$\sin\frac{mp}2 = 0$ または $\sin\frac{np}2 = 0$」が分かり、どちらの場合も残りの因子について同じ議論ができます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$|\sin x|$ のグラフは $\sin x$ の負の部分を $x$ 軸で折り返したもので、高さ 1 のアーチが幅 $\pi$ ごとに並ぶ（下の図解参照）。$|\sin(x + \pi)| = |-\sin x| = |\sin x|$ なので $\pi$ は周期。$0 &lt; q &lt; \pi$ が周期なら $|\sin q| = |\sin 0| = 0$ となるが、$0 &lt; q &lt; \pi$ で $\sin q &gt; 0$ なので矛盾。基本周期は $\pi$。</p>
+
+      <h3>(2)</h3>
+      <p>$f(-x) = |\sin(-mx)|\sin(-nx) = -|\sin mx|\sin nx = -f(x)$ より $f$ は奇関数。$f(x + p) = f(x)$ に $x = -\frac p2$ を代入して</p>
+      $$f\left(\tfrac p2\right) = f\left(-\tfrac p2\right) = -f\left(\tfrac p2\right)\quad\therefore\ f\left(\tfrac p2\right) = f\left(-\tfrac p2\right) = 0$$
+      <p>よって $\sin\frac{mp}{2} = 0$ または $\sin\frac{np}{2} = 0$。</p>
+      <p><b>(i) $\sin\frac{mp}{2} = 0$ のとき</b>：$mp$ は $2\pi$ の整数倍なので特に $\pi$ の整数倍で、$|\sin(mx + mp)| = |\sin mx|$。周期の式は $|\sin mx|\{\sin(nx + np) - \sin nx\} = 0$ となる。$\sin mx \ne 0$ となる $x$（$\frac{\pi}{m}$ の整数倍以外）で $\sin(nx + np) = \sin nx$ であり、両辺は連続なのですべての $x$ で成り立つ。$x = 0$，$x = \frac{\pi}{2n}$ を代入して $\sin np = 0$，$\cos np = 1$。よって $np$ は $2\pi$ の整数倍。</p>
+      <p><b>(ii) $\sin\frac{np}{2} = 0$ のとき</b>：$np$ は $2\pi$ の整数倍で $\sin(nx + np) = \sin nx$。周期の式は $\{|\sin(mx + mp)| - |\sin mx|\}\sin nx = 0$。(i) と同様に連続性からすべての $x$ で $|\sin(mx + mp)| = |\sin mx|$。$x = 0$ として $\sin mp = 0$，すなわち $mp$ は $\pi$ の整数倍。</p>
+      <p>いずれの場合も $mp$ は $\pi$ の整数倍，$np$ は $2\pi$ の整数倍である。</p>
+
+      <h3>(3)</h3>
+      <p>正の周期 $p$ に対し、(2) より正の整数 $A$，$B$ で $mp = A\pi$，$np = 2B\pi$。$p$ を消去して $nA = 2mB$。</p>
+      <p><b>$n$ が奇数のとき</b>：$n$ と $2m$ は互いに素なので $A$ は $2m$ の倍数、$p = \frac{A\pi}{m} \ge 2\pi$。逆に $p = 2\pi$ は明らかに周期。基本周期は $2\pi$。</p>
+      <p><b>$n$ が偶数のとき</b>：$n = 2n'$ とおくと $m$ と $n'$ は互いに素で $n'A = mB$。$A$ は $m$ の倍数なので $p \ge \pi$。逆に $|\sin(mx + m\pi)| = |\sin mx|$，$\sin(nx + n\pi) = \sin nx$（$n$ 偶数）より $\pi$ は周期。基本周期は $\pi$。</p>
+      $$\text{基本周期} = \begin{cases} 2\pi & (n\text{ が奇数}) \\ \pi & (n\text{ が偶数}) \end{cases}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$m$，$n$ を変えて $y = |\sin mx|\sin nx$ のグラフを見てみましょう。赤い区間が基本周期 1 つ分です。$m$，$n$ が互いに素でないときは、最大公約数 $g$ でグラフが横に $\frac1g$ 倍に縮みます。</p>
+
+  <div class="widget">
+    <label>m：<input type="range" id="m" min="1" max="6" value="2"></label>
+    <span class="readout no-math" id="mv"></span>
+    <label>n：<input type="range" id="n" min="1" max="6" value="3"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="460" height="220"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>周期の「定義」から議論する</h3>
+  <p>「$|\sin x|$ の周期は $\pi$，$\sin 3x$ の周期は $\frac{2\pi}3$，だから最小公倍数で…」という直感はグラフの重ね合わせでは通用しますが、積になると打ち消し合いなどが起こり得るため、それだけでは基本周期の証明になりません。そこで (2) が「周期なら必ずこうなる」という必要条件を定義から引き出させ、(3) で整数問題 $nA = 2mB$ に落とし込む構成です。結局は「$|\sin mx|$ の周期 $\frac\pi m$ と $\sin nx$ の周期 $\frac{2\pi}n$ の最小公倍数」が答えになっています。</p>
+  <p>chopin 先生は「(2) $f(x + p) = f(x)$ に $x = -\frac p2$ を代入して、$f(x)$ が奇関数であることを利用しましょう」「(3) (2) より $mp = A\pi$，$np = 2B\pi$ とおくと、$nA = 2mB$ を得ます。$n$ の偶奇で場合分けし、$A$ が $m$ の倍数，$B$ が $n$ の倍数であることを利用しましょう」とコメントしています。</p>
+  <div class="point">基本周期の証明は「周期であること」＋「それより小さい周期がないこと」の 2 段構え。必要条件を定義から引き出す。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>関数 $|\sin x| + |\cos x|$ の基本周期を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f\left(x + \frac\pi2\right) = |\cos x| + |\sin x| = f(x)$ より $\frac\pi2$ は周期。$f(x)^2 = 1 + |\sin 2x|$ なので $f(x) = 1 \iff x$ は $\frac\pi2$ の整数倍。周期 $q$ に対して $f(q) = f(0) = 1$ だから $q$ は $\frac\pi2$ の整数倍で、基本周期は $\dfrac\pi2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$m$，$n$ を互いに素な正の整数とする。関数 $\sin mx\sin nx$（絶対値なし）の基本周期を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2007　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$g(x) = \sin mx\sin nx$ は偶関数で $g(0) = 0$。周期 $p$ に対し $g(p) = 0$ から（本問 (2) と同様の議論で）$mp$，$np$ はともに $\pi$ の整数倍となり、$mp = A\pi$，$np = B\pi$，$nA = mB$ より $A$ は $m$ の倍数で $p \ge \pi$。一方 $g(x + \pi) = (-1)^{m+n}g(x)$。よって $m$，$n$ がともに奇数なら $\pi$，一方が偶数なら $\pi$ は周期でなく $2\pi$（$p$ は $\pi$ の整数倍に限られるため）。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  function draw() {
+    const m = +$("m").value, n = +$("n").value;
+    $("mv").textContent = ` m = ${m}`; $("nv").textContent = ` n = ${n}`;
+    const g = gcd(m, n), n1 = n / g;
+    const T = (n1 % 2 ? 2 * Math.PI : Math.PI) / g;
+    const f = (x) => Math.abs(Math.sin(m * x)) * Math.sin(n * x);
+    const X = 4 * Math.PI;
+    const P = Fig.plane($("cv"), { xmin: -0.3, xmax: X + 0.3, ymin: -1.3, ymax: 1.3 });
+    P.clear();
+    P.fill([[0, -1.3], [T, -1.3], [T, 1.3], [0, 1.3]], "rgba(138,21,56,.12)");
+    for (let k = 1; k <= 4; k++) P.line([[k * Math.PI, -1.3], [k * Math.PI, 1.3]], "#ddd", 1, [3, 3]);
+    P.axes();
+    P.fn(f, 0, X, "#8a1538", 1.8, 1200);
+    P.text("π", Math.PI, -1.15, "#888"); P.text("2π", 2 * Math.PI, -1.15, "#888"); P.text("3π", 3 * Math.PI, -1.15, "#888"); P.text("4π", 4 * Math.PI, -1.15, "#888");
+    // 数値チェック：候補 kπ/60 の中で最小の周期
+    let num = null;
+    for (let k = 1; k <= 240 && num === null; k++) { const q = k * Math.PI / 60; let ok = true; for (let i = 0; i < 200; i++) { const x = i * 0.0731; if (Math.abs(f(x + q) - f(x)) > 1e-9) { ok = false; break; } } if (ok) num = q; }
+    const fmt = (q) => { const r = Math.round(q / Math.PI * 60); const d = gcd(r, 60); const a = r / d, b = 60 / d; return (a === 1 ? "" : a) + "π" + (b === 1 ? "" : "/" + b); };
+    $("info").innerHTML = `gcd(m, n) = ${g}<br>` + (g === 1 ? `互いに素，n は${n % 2 ? "奇数 → 2π" : "偶数 → π"}` : `m/g = ${m / g}, n/g = ${n1}<br>→ (${n1 % 2 ? "2π" : "π"}) / ${g}`) +
+      `<br>基本周期 = ${fmt(T)}<br>数値で探索：${num ? fmt(num) : "—"}`;
+  }
+  ["m", "n"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2004年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2004-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上を動く点 $P(x(t),\ y(t))$ の時刻 $t$ における座標が</p>
+    $$\begin{cases} x(t) = \cos\left(t + \dfrac\pi4\right) \\ y(t) = \cos(2t) \end{cases}\quad(0 \le t &lt; 2\pi)$$
+    <p>で与えられているとし，この点の軌跡を $C$ とする。</p>
+    <ol>
+      <li>(1)　$P$ が原点を通るときの速度ベクトルを求めよ。</li>
+      <li>(2)　$C$ が $x$ 軸，$y$ 軸に関して対称であることを示せ。</li>
+      <li>(3)　$C$ の概形を描け。</li>
+      <li>(4)　$C$ が囲む図形の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2004 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$s = t + \frac\pi4$ とおくと $x = \cos s$，$y = \cos\left(2s - \frac\pi2\right) = \sin 2s = 2\sin s\cos s$。$t$ を消去すると $y^2 = 4x^2(1 - x^2)$ で、8 の字型（リサジュー曲線）になります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x = 0$ となるのは $t + \frac\pi4 = \frac\pi2,\ \frac{3\pi}2$，すなわち $t = \frac\pi4,\ \frac{5\pi}4$ で、どちらも $y = \cos2t = 0$。速度は $(x', y') = \left(-\sin\left(t + \frac\pi4\right),\ -2\sin2t\right)$ なので</p>
+      $$t = \tfrac\pi4:\ (-1,\ -2),\qquad t = \tfrac{5\pi}4:\ (1,\ -2)$$
+
+      <h3>(2)</h3>
+      <p>$s = t + \frac\pi4$ とおくと、$s$ は長さ $2\pi$ の区間を動き、$x = \cos s$，$y = \cos\left(2s - \frac\pi2\right) = \sin2s$。周期性より $C = \{(\cos s,\ \sin2s) \mid s \text{ は実数}\}$。</p>
+      <ul>
+        <li>$s \to -s$：$(\cos s,\ -\sin2s)$ も $C$ 上 → $x$ 軸対称。</li>
+        <li>$s \to \pi + s$：$(-\cos s,\ \sin2s)$ も $C$ 上 → $y$ 軸対称。</li>
+      </ul>
+
+      <h3>(3)</h3>
+      <p>$y = 2\sin s\cos s = \pm2x\sqrt{1 - x^2}$ より $C$ は $y^2 = 4x^2(1 - x^2)$（$-1 \le x \le 1$）。第 1 象限の部分 $y = 2x\sqrt{1 - x^2}$ は $\frac{dy}{dx} = \frac{2(1 - 2x^2)}{\sqrt{1 - x^2}}$ より $x = \frac1{\sqrt2}$ で最大値 $1$，$x = 1$ で $y = 0$（接線は鉛直）。これを (2) の対称性で折り返すと、原点で交差する 8 の字型（下の図解）。原点での接線の傾きは $\pm2$。</p>
+
+      <h3>(4)</h3>
+      <p>対称性より第 1 象限の 4 倍。</p>
+      $$S = 4\int_0^1 2x\sqrt{1 - x^2}\,dx = 4\left[-\frac23(1 - x^2)^{\frac32}\right]_0^1 = \frac83$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと点 $P$ と速度ベクトル（赤い矢印）が動きます。$t = \frac\pi4 \approx 0.785$，$\frac{5\pi}4 \approx 3.927$ で原点を通ります。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="0" max="628" value="79"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>リサジュー曲線</h3>
+  <p>$x = \cos(at + \delta)$，$y = \cos bt$ の形の曲線はリサジュー曲線と呼ばれ、オシロスコープで 2 つの振動を合成すると現れます。周波数比 $1 : 2$，位相差 $\frac\pi4$ の本問は、典型的な「8 の字」。位相差を変えると放物線のような形（$\delta = 0$ のとき $y = 2x^2 - 1$）にもつぶれます。媒介変数のままでは見通しが悪いので、$t$ を消去して $x$，$y$ の関係式にするのが鍵です。</p>
+  <p>chopin 先生は「(1) $x$，$y$ を $t$ で微分したものが速度になります」「(2) パラメータ表示されたままでは考えにくいので、$t$ を消去して $x$，$y$ だけの式にしてあげると見通しが良くなります」「(3) $x$，$y$ の増減を調べればよいでしょう」「(4) 対称性から、$\frac14$ した面積を計算すればよいです」とコメントしています。</p>
+  <div class="point">媒介変数は消去して関係式に。対称性を示せば面積は一部分の何倍かで済む。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y^2 = x^2(1 - x^2)$ が囲む図形の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x$ 軸，$y$ 軸対称なので $4\displaystyle\int_0^1x\sqrt{1 - x^2}\,dx = 4\cdot\frac13 = \frac43$。（本問の曲線を縦に $\frac12$ 倍したもの。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の曲線 $C$ が囲む図形を $x$ 軸のまわりに 1 回転してできる立体の体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2004　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x$ 軸対称なので、$0 \le y \le 2|x|\sqrt{1 - x^2}$ の部分を回せばよい。</p>
+    $$V = \pi\int_{-1}^{1}4x^2(1 - x^2)\,dx = 8\pi\left(\frac13 - \frac15\right) = \frac{16\pi}{15}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const X = (t) => Math.cos(t + Math.PI / 4), Y = (t) => Math.cos(2 * t);
+  function draw() {
+    const t = $("t").value / 100; $("tv").textContent = ` t = ${t.toFixed(2)}`;
+    const P = Fig.plane($("cv"), { xmin: -1.6, xmax: 1.6, ymin: -1.5, ymax: 1.5, equal: true });
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    const reg = []; for (let i = 0; i <= 200; i++) { const s = 2 * Math.PI * i / 200; reg.push([Math.cos(s), Math.sin(2 * s)]); }
+    P.fill(reg, "rgba(138,21,56,.12)");
+    P.param(X, Y, 0, 2 * Math.PI, "#8a1538", 2, 400);
+    const p = [X(t), Y(t)], v = [-Math.sin(t + Math.PI / 4), -2 * Math.sin(2 * t)], k = 0.35;
+    P.line([p, [p[0] + k * v[0], p[1] + k * v[1]]], "#c92a2a", 2.2);
+    P.dot(p[0], p[1], "#c92a2a", 5, "P", 6, -6);
+    $("info").innerHTML = `P = (${p[0].toFixed(3)}, ${p[1].toFixed(3)})<br>速度 = (${v[0].toFixed(3)}, ${v[1].toFixed(3)})<br>y² − 4x²(1−x²) = ${(p[1] ** 2 - 4 * p[0] ** 2 * (1 - p[0] ** 2)).toFixed(6)}<br>面積 = 8/3 ≈ 2.6667`;
+  }
+  $("t").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

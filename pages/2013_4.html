@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2013年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2013-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>原点 O を中心とし，点 $\mathrm{A}(0,\ 1)$ を通る円を $S$ とする。点 $\mathrm{B}\left(\dfrac12,\ \dfrac{\sqrt3}{2}\right)$ で円 $S$ に内接する円 $T$ が，点 C で $y$ 軸に接しているとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　円 $T$ の中心 D の座標と半径を求めよ。</li>
+      <li>(2)　点 D を通り $x$ 軸に平行な直線を $l$ とする。円 $S$ の短い方の弧 $\overset{\frown}{\mathrm{AB}}$，円 $T$ の短い方の弧 $\overset{\frown}{\mathrm{BC}}$，および線分 AC で囲まれた図形を $l$ のまわりに 1 回転してできる立体の体積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2013 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>内接する 2 円の接点と 2 つの中心は一直線上にあるので、D は線分 OB 上。$y$ 軸に接する条件「D の $x$ 座標 = 半径」で決まる。(2) は $l$ からの距離で<b>ワッシャー積分</b>。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>S の半径は 1。T が B で S に内接するので、D は線分 OB 上にあり、$\mathrm{D} = d\left(\frac12,\ \frac{\sqrt3}{2}\right)$（$0 \lt d \lt 1$），T の半径は $1 - d$。T が $y$ 軸に接するので $\frac d2 = 1 - d$，$d = \frac23$。</p>
+      $$\mathrm{D}\left(\frac13,\ \frac{\sqrt3}{3}\right),\qquad \text{半径}\ \frac13$$
+      <p>（接点は $\mathrm{C}\left(0,\ \frac{\sqrt3}{3}\right)$。）</p>
+
+      <h3>(2)</h3>
+      <p>$l：y = \frac{\sqrt3}{3}$。図形は $0 \le x \le \frac12$ の範囲にあり、各 $x$ で</p>
+      <ul>
+        <li>上の境界：S の弧 $y = \sqrt{1 - x^2}$</li>
+        <li>下の境界：T の弧（上半分）$y = \frac{\sqrt3}{3} + \sqrt{\frac19 - \left(x - \frac13\right)^2}$</li>
+      </ul>
+      <p>どちらも $l$ より上にあるので、$l$ からの距離で回転体の体積を計算する。</p>
+      $$V = \pi\int_0^{\frac12}\left\{\left(\sqrt{1 - x^2} - \frac{\sqrt3}{3}\right)^2 - \left(\frac19 - \left(x - \frac13\right)^2\right)\right\}dx$$
+      <p>被積分関数を展開すると $1 - x^2 - \frac{2\sqrt3}{3}\sqrt{1 - x^2} + \frac13 - \frac19 + x^2 - \frac23x + \frac19 = \frac43 - \frac23x - \frac{2\sqrt3}{3}\sqrt{1 - x^2}$。</p>
+      <p>$\displaystyle\int_0^{\frac12}\sqrt{1 - x^2}\,dx$ は扇形（中心角 $\frac\pi6$）と三角形の和で $\frac\pi{12} + \frac{\sqrt3}{8}$。よって</p>
+      $$V = \pi\left\{\frac23 - \frac1{12} - \frac{2\sqrt3}{3}\left(\frac\pi{12} + \frac{\sqrt3}{8}\right)\right\} = \pi\left(\frac13 - \frac{\sqrt3\pi}{18}\right) = \frac\pi3 - \frac{\sqrt3\pi^2}{18}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>赤い図形を直線 $l$（破線）のまわりに回転します。$x$ を動かすと、その位置での断面（ドーナツ型の外半径・内半径）が表示されます。B の位置（角 $\varphi$）も変えられます。</p>
+
+  <div class="widget">
+    <label>断面の x：<input type="range" id="x" min="0" max="100" value="40"></label>
+    <span class="readout no-math" id="xv"></span>
+    <label>B の角 φ：<input type="range" id="ph" min="20" max="80" value="60"></label>
+    <span class="readout no-math" id="phv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>接する円の中心は一直線上</h3>
+  <p>2 円が接するとき、接点と 2 つの中心は一直線上にあります（接点での共通接線に、両方の半径が垂直だから）。この性質で D が直線 OB 上にあるとわかれば、未知数は 1 つです。</p>
+  <p>一般に B を $(\cos\varphi,\ \sin\varphi)$ にすると、$d\cos\varphi = 1 - d$ より T の半径は $\dfrac{\cos\varphi}{1 + \cos\varphi}$ になります。</p>
+  <p>chopin 先生は「(1) は、D が必ず直線 OB 上にあることに気付けると処理がかなり楽になります」「(2) は、テンプレの体積計算ですが、きちんと直線 L からの距離を使って計算しないといけません」とコメントしています。</p>
+  <div class="point">内接・外接する円の問題は「中心と接点が一直線」。$x$ 軸以外の直線のまわりの回転体は、<b>その直線からの距離</b>を半径にする。$\int\sqrt{1 - x^2}dx$ は図形の面積で求める。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>円 $x^2 + y^2 = 1$ に内接し，$x$ 軸と $y$ 軸の両方に接する円で，中心が第 1 象限にあるものの半径を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>中心 $(r,\ r)$，内接より $\sqrt2r = 1 - r$。$r = \dfrac{1}{1 + \sqrt2} = \sqrt2 - 1$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (2) の図形（弧 AB，弧 BC，線分 AC で囲まれた図形）の面積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2013　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$l$ より上で S の下にある部分（$0 \le x \le \frac12$）の面積は $\left(\frac\pi{12} + \frac{\sqrt3}{8}\right) - \frac12\cdot\frac{\sqrt3}{3} = \frac\pi{12} - \frac{\sqrt3}{24}$。</p>
+    <p>ここから、$l$ より上で T の弧の下の部分 ＝ 扇形 DBC（中心角 $\frac{2\pi}{3}$，面積 $\frac\pi{27}$）＋ 三角形 D，B，$\left(\frac12,\ \frac{\sqrt3}{3}\right)$（面積 $\frac12\cdot\frac16\cdot\frac{\sqrt3}{6} = \frac{\sqrt3}{72}$）を引く。</p>
+    $$\frac\pi{12} - \frac{\sqrt3}{24} - \frac\pi{27} - \frac{\sqrt3}{72} = \frac{5\pi}{108} - \frac{\sqrt3}{18}\ (\approx 0.049)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.25, xmax: 1.15, ymin: -0.15, ymax: 1.15, equal: true });
+  function draw() {
+    const ph = $("ph").value * Math.PI / 180, cp = Math.cos(ph), sp = Math.sin(ph);
+    const d = 1 / (1 + cp), r = 1 - d, D = [d * cp, d * sp], B = [cp, sp], Cy = D[1];
+    const xr = $("x").value / 100 * cp;
+    $("xv").textContent = ` ${xr.toFixed(3)}`; $("phv").textContent = ` ${$("ph").value}°`;
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    const up = (x) => Math.sqrt(1 - x * x), lo = (x) => D[1] + Math.sqrt(Math.max(0, r * r - (x - D[0]) ** 2));
+    const reg = []; for (let i = 0; i <= 100; i++) { const x = cp * i / 100; reg.push([x, up(x)]); } for (let i = 100; i >= 0; i--) { const x = cp * i / 100; reg.push([x, lo(x)]); }
+    P.fill(reg, "rgba(138,21,56,.45)");
+    P.circle(0, 0, 1, "#888", 1.4).circle(D[0], D[1], r, "#1c7ed6", 1.4);
+    P.line([[-0.25, D[1]], [1.15, D[1]]], "#2f9e44", 1.4, [6, 4]);
+    // 断面
+    const R1 = up(xr) - D[1], R2 = lo(xr) - D[1];
+    P.line([[xr, D[1] - R1], [xr, D[1] + R1]], "rgba(232,89,12,.5)", 1, [3, 3]);
+    P.line([[xr, lo(xr)], [xr, up(xr)]], "#e8590c", 3);
+    P.dot(0, 1, "#222", 3.5, "A", 6, -4).dot(B[0], B[1], "#222", 3.5, "B", 6, -4).dot(0, Cy, "#222", 3.5, "C", -14, 4).dot(D[0], D[1], "#1c7ed6", 3.5, "D", 4, 14).dot(0, 0, "#222", 3, "O", -12, 12);
+    P.text("l", 1.08, D[1] + 0.05, "#2f9e44");
+    const isStd = $("ph").value == 60;
+    $("info").innerHTML = `D = (${D[0].toFixed(4)}, ${D[1].toFixed(4)})<br>T の半径 = cosφ/(1+cosφ) = ${r.toFixed(4)}<br>断面 x = ${xr.toFixed(3)}：<br>外半径 ${R1.toFixed(4)}，内半径 ${R2.toFixed(4)}<br>断面積 π(R₁² − R₂²) = ${(Math.PI * (R1 * R1 - R2 * R2)).toFixed(4)}` +
+      (isStd ? `<br>体積 V = π/3 − √3π²/18 ≈ ${(Math.PI / 3 - Math.sqrt(3) * Math.PI ** 2 / 18).toFixed(4)}` : "");
+  }
+  ["x", "ph"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

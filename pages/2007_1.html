@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2007年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2007-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$f(x) = xe^x$ とおく。また $p$ を $p \ge 0$ を満たす数とし，曲線 $y = f(x)$ 上の点 $P(p,\ f(p))$ における接線の方程式を $y = g(x)$ とおく。ただし，$e$ は自然対数の底である。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$x \ge 0$ において $f(x) \ge g(x)$ が成り立つことを示せ。</li>
+      <li>(2)　$L$ を正の数とする。曲線 $y = f(x)$，接線 $y = g(x)$，および 2 直線 $x = 0$，$x = L$ で囲まれた部分の面積を $S(p)$ とするとき，$p \ge 0$ における $S(p)$ の最小値を与える $p$ の値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2007 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は「下に凸な関数のグラフは接線より上」。(2) は $\int f$ が $p$ によらないので、$\int_0^L g\,dx$ を最大にすればよく、これを $p$ で微分すると $f''(p)\left(\frac L2 - p\right)$ というきれいな形になります。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f'(x) = (x + 1)e^x$，$f''(x) = (x + 2)e^x$。$g(x) = f'(p)(x - p) + f(p)$。$h(x) = f(x) - g(x)$ とおくと</p>
+      $$h'(x) = f'(x) - f'(p),\qquad h''(x) = f''(x) > 0\ (x \ge 0)$$
+      <p>$h'$ は $x \ge 0$ で増加し $h'(p) = 0$ なので、$0 \le x < p$ で $h' < 0$，$x > p$ で $h' > 0$。$h$ は $x = p$ で最小値 $h(p) = 0$ をとるので $h(x) \ge 0$，すなわち $f(x) \ge g(x)$。</p>
+
+      <h3>(2)</h3>
+      <p>(1) より</p>
+      $$S(p) = \int_0^L f(x)\,dx - \int_0^L g(x)\,dx$$
+      <p>第 1 項は $p$ によらないので、$G(p) = \displaystyle\int_0^L g(x)\,dx$ を最大にすればよい。</p>
+      $$G(p) = \int_0^L\{f'(p)(x - p) + f(p)\}dx = L\left\{f'(p)\left(\frac L2 - p\right) + f(p)\right\}$$
+      $$G'(p) = L\left\{f''(p)\left(\frac L2 - p\right) - f'(p) + f'(p)\right\} = Lf''(p)\left(\frac L2 - p\right)$$
+      <p>$f''(p) > 0$ なので、$G$ は $0 \le p \le \frac L2$ で増加，$p \ge \frac L2$ で減少。よって $S(p)$ を最小にする $p$ は</p>
+      $$p = \frac L2$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$p$ を動かすと接線と面積 $S(p)$（赤）が変わります。右のグラフは $S(p)$ の値で、区間の真ん中 $p = \frac L2$ で最小になります。</p>
+
+  <div class="widget">
+    <label>L：<input type="range" id="L" min="40" max="200" value="150"></label>
+    <span class="readout no-math" id="Lv"></span>
+    <label>p：<input type="range" id="p" min="0" max="200" value="40"></label>
+    <span class="readout no-math" id="pv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="300"></canvas>
+      <canvas id="cv2" class="fig" width="220" height="180"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>下に凸なら「真ん中で接する」のが最善</h3>
+  <p>計算から分かるように、$f''(p) > 0$（下に凸）でありさえすれば、$f$ が何であっても答えは $p = \frac L2$ です。実は $\int_0^L g\,dx = L\cdot g\left(\frac L2\right)$（1 次関数の平均は中点での値）なので、「接線の中点での高さ $g\left(\frac L2\right)$ を最大にする」問題と同じ。下に凸な曲線の接線が直線 $x = \frac L2$ と交わる点は、接点がちょうど $x = \frac L2$ のときに最も高くなります（凸関数の接線は曲線の下にあるから）。</p>
+  <p>chopin 先生は「(1) 直接微分して調べても OK ですが、$f(x)$ が $x \ge 0$ で下に凸なことを言えれば証明できたことになります」「(2) (1) で、$f$ と $g$ の上下関係が変わらないことを示しているので、区間分けの必要もなく素直に積分計算できます」とコメントしています。</p>
+  <div class="point">凸関数のグラフは接線の上。$\int_a^b(1\text{次関数})dx = (b - a)\times(\text{中点での値})$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>放物線 $y = x^2$ 上の点 $(p,\ p^2)$ における接線と，放物線および 2 直線 $x = 0$，$x = 2$ で囲まれた部分の面積の最小値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>放物線と接線の差は $(x - p)^2$ なので $S(p) = \displaystyle\int_0^2(x - p)^2dx = \frac{(2 - p)^3 + p^3}{3} = 2p^2 - 4p + \frac83$。$p = 1$ で最小値 $\dfrac23$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $f(x) = xe^x$ について，$p$ を $-1 \le p \le 1$ の範囲で動かす。曲線 $y = f(x)$，点 $(p,\ f(p))$ における接線，2 直線 $x = -1$，$x = 1$ で囲まれた部分の面積の最小値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2007　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f''(x) = (x + 2)e^x > 0$（$x > -2$）なので $[-1,\ 1]$ でも下に凸で、本問と同じ議論から中点 $p = 0$ で最小。接線は $y = x$ なので</p>
+    $$S(0) = \int_{-1}^{1}(xe^x - x)\,dx = \Big[(x - 1)e^x\Big]_{-1}^{1} - 0 = \frac2e$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const f = (x) => x * Math.exp(x), fp = (x) => (x + 1) * Math.exp(x);
+  const F = (x) => (x - 1) * Math.exp(x); // ∫ f
+  const S = (p, L) => (F(L) - F(0)) - L * (fp(p) * (L / 2 - p) + f(p));
+  function draw() {
+    const L = $("L").value / 100; let p = $("p").value / 100;
+    $("Lv").textContent = ` L = ${L.toFixed(2)}`; $("pv").textContent = ` p = ${p.toFixed(2)}`;
+    const ymax = f(Math.max(L, p)) * 1.1 + 0.5;
+    const P = Fig.plane($("cv"), { xmin: -0.3, xmax: Math.max(L, p) + 0.3, ymin: -ymax * 0.25, ymax });
+    const g = (x) => fp(p) * (x - p) + f(p);
+    P.clear().grid(1, "#f3f3f3").axes();
+    const reg = []; for (let i = 0; i <= 100; i++) { const x = L * i / 100; reg.push([x, f(x)]); } for (let i = 100; i >= 0; i--) { const x = L * i / 100; reg.push([x, g(x)]); }
+    P.fill(reg, "rgba(138,21,56,.3)");
+    P.fn(f, -0.3, Math.max(L, p) + 0.3, "#333", 2);
+    P.fn(g, -0.3, Math.max(L, p) + 0.3, "#1c7ed6", 1.6);
+    P.line([[L, -ymax], [L, ymax]], "#aaa", 1, [4, 3]); P.line([[L / 2, -ymax], [L / 2, ymax]], "#2f9e44", 1, [2, 3]);
+    P.dot(p, f(p), "#c92a2a", 4, "P", 6, -6);
+    // S(p) のグラフ
+    const pm = 2;
+    let smax = 0, smin = Infinity; for (let i = 0; i <= 100; i++) { const v = S(pm * i / 100, L); smax = Math.max(smax, v); smin = Math.min(smin, v); }
+    const Q = Fig.plane($("cv2"), { xmin: -0.1, xmax: pm + 0.1, ymin: smin - (smax - smin) * 0.1 - 0.01, ymax: smax * 1.05 + 0.01 });
+    Q.clear().grid(0.5, "#f3f3f3").axes("p", "S");
+    Q.fn((x) => S(x, L), 0, pm, "#8a1538", 2);
+    Q.line([[L / 2, -1e3], [L / 2, 1e3]], "#2f9e44", 1, [2, 3]);
+    Q.dot(p, S(p, L), "#c92a2a", 4);
+    $("info").innerHTML = `S(p) = ${S(p, L).toFixed(5)}<br>L/2 = ${(L / 2).toFixed(2)}<br>S(L/2) = ${S(L / 2, L).toFixed(5)}` + (Math.abs(p - L / 2) < 6e-3 ? '<br><span class="ok">最小！</span>' : "");
+  }
+  ["L", "p"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

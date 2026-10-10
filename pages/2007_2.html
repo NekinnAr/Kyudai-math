@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2007年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2007-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$p$ を $0 &lt; p &lt; 1$ を満たす実数とし，</p>
+    $$A = \begin{pmatrix} 1 & 1 \\ -1 & -1 \end{pmatrix},\quad B = \begin{pmatrix} 1 & 1 \\ 0 & 1 + p \end{pmatrix},\quad C = \begin{pmatrix} 0 & -1 \\ -1 - p & 0 \end{pmatrix}$$
+    <p>とする。行列 $A_n\ (n = 1,\ 2,\ 3,\ \cdots)$ を</p>
+    $$A_1 = A,\qquad A_{n+1} = A_nB - BA_n + C$$
+    <p>で定める。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$A_2$，$A_3$ を求めよ。</li>
+      <li>(2)　$A_n = \begin{pmatrix} a_n & b_n \\ c_n & d_n \end{pmatrix}$ とし，$\Delta_n = a_nd_n - b_nc_n$ とおくとき，極限値 $\displaystyle\lim_{n\to\infty}\Delta_n$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2007 九州大学 前期 理系 第2問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) を計算すると右上の成分だけが $1 \to 1 + p \to 1 + p + p^2$ と変わっていきます。そこで $A_n = \begin{pmatrix} 1 & s_n \\ -1 & -1 \end{pmatrix}$ の形を仮定して漸化式に代入すると、$s_{n+1} = ps_n + 1$ が出てきます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>まず一般に $X = \begin{pmatrix} 1 & s \\ -1 & -1 \end{pmatrix}$ に対して計算しておく。</p>
+      $$XB = \begin{pmatrix} 1 & 1 + s + sp \\ -1 & -2 - p \end{pmatrix},\qquad BX = \begin{pmatrix} 0 & s - 1 \\ -1 - p & -1 - p \end{pmatrix}$$
+      $$XB - BX + C = \begin{pmatrix} 1 & 2 + sp \\ p & -1 \end{pmatrix} + \begin{pmatrix} 0 & -1 \\ -1 - p & 0 \end{pmatrix} = \begin{pmatrix} 1 & 1 + ps \\ -1 & -1 \end{pmatrix}$$
+      <p>$A_1 = A$ は $s = 1$ の場合なので</p>
+      $$A_2 = \begin{pmatrix} 1 & 1 + p \\ -1 & -1 \end{pmatrix},\qquad A_3 = \begin{pmatrix} 1 & 1 + p + p^2 \\ -1 & -1 \end{pmatrix}$$
+
+      <h3>(2)</h3>
+      <p>上の計算から、帰納的にすべての $n$ で $A_n = \begin{pmatrix} 1 & b_n \\ -1 & -1 \end{pmatrix}$，$b_1 = 1$，$b_{n+1} = pb_n + 1$ となる。よって</p>
+      $$b_n = 1 + p + \cdots + p^{n-1} = \frac{1 - p^n}{1 - p}$$
+      $$\Delta_n = -1 + b_n = \frac{1 - p^n}{1 - p} - 1 = \frac{p - p^n}{1 - p}$$
+      <p>$0 &lt; p &lt; 1$ より $p^n \to 0$ なので</p>
+      $$\lim_{n\to\infty}\Delta_n = \frac{p}{1 - p}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$p$ と $n$ を動かして、$A_n$ を漸化式どおりに数値計算します。$\Delta_n$ が $\frac p{1-p}$ に近づく様子を確認しましょう。</p>
+
+  <div class="widget">
+    <label>p：<input type="range" id="p" min="1" max="99" value="60"></label>
+    <span class="readout no-math" id="pv"></span>
+    <label>n：<input type="range" id="n" min="1" max="30" value="5"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="240"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>交換子 $XB - BX$</h3>
+  <p>$XB - BX$ は行列の「交換子」と呼ばれ、$X$ と $B$ が可換なら $O$ になります。見た目は複雑な漸化式ですが、$A_n$ の形を固定すると成分 1 つだけの 1 次漸化式 $b_{n+1} = pb_n + 1$ に落ちるように作られています。$p$ が「公比」として表に出るのがポイントで、極限 $\frac p{1-p}$ は等比級数 $p + p^2 + p^3 + \cdots$ そのものです。</p>
+  <p>chopin 先生は「(1) より $A_n$ の形を推定することで、数学的帰納法を使って示すことができるでしょう」とコメントしています。</p>
+  <div class="point">具体的に数項計算 → 形を推定 → 帰納法で証明。行列の漸化式でも定石は同じ。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$X = \begin{pmatrix} 1 & 1 \\ -1 & -1 \end{pmatrix}$，$E$ を単位行列とする。$X^2 = O$ を示し，$(E + X)^n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>直接計算で $X^2 = O$。$E$ と $X$ は可換なので二項展開して $X^2$ 以降は消え、$(E + X)^n = E + nX = \begin{pmatrix} 1 + n & n \\ -n & 1 - n \end{pmatrix}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で $0 &lt; p &lt; 1$ を $p &gt; 1$ に変えたとき，$\displaystyle\lim_{n\to\infty}\frac{\Delta_n}{p^n}$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2007　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$A_n$ の形と $b_n$ の漸化式は $p$ の範囲によらず成立し、$\Delta_n = \dfrac{p^n - p}{p - 1}$。よって $\dfrac{\Delta_n}{p^n} = \dfrac{1 - p^{1-n}}{p - 1} \to \dfrac1{p - 1}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const mul = (X, Y) => [[X[0][0] * Y[0][0] + X[0][1] * Y[1][0], X[0][0] * Y[0][1] + X[0][1] * Y[1][1]], [X[1][0] * Y[0][0] + X[1][1] * Y[1][0], X[1][0] * Y[0][1] + X[1][1] * Y[1][1]]];
+  const fmt = (v) => (Math.abs(v) < 1e-12 ? 0 : v).toFixed(4);
+  function draw() {
+    const p = $("p").value / 100, N = +$("n").value;
+    $("pv").textContent = ` p = ${p.toFixed(2)}`; $("nv").textContent = ` n = ${N}`;
+    const B = [[1, 1], [0, 1 + p]], C = [[0, -1], [-1 - p, 0]];
+    let X = [[1, 1], [-1, -1]]; const D = [];
+    for (let n = 1; n <= 30; n++) {
+      D.push(X[0][0] * X[1][1] - X[0][1] * X[1][0]);
+      if (n === N) var XN = X;
+      const P1 = mul(X, B), P2 = mul(B, X);
+      X = [[P1[0][0] - P2[0][0] + C[0][0], P1[0][1] - P2[0][1] + C[0][1]], [P1[1][0] - P2[1][0] + C[1][0], P1[1][1] - P2[1][1] + C[1][1]]];
+    }
+    const lim = p / (1 - p), ymax = Math.max(lim, ...D) * 1.15 + 0.1;
+    const P = Fig.plane($("cv"), { xmin: -1, xmax: 31, ymin: -ymax * 0.1, ymax });
+    P.clear().axes("n", "Δ");
+    P.line([[0, lim], [31, lim]], "#2f9e44", 1.4, [5, 3]);
+    D.forEach((d, i) => P.dot(i + 1, d, i + 1 === N ? "#c92a2a" : "#8a1538", i + 1 === N ? 5 : 2.5));
+    $("info").innerHTML = `A<sub>${N}</sub> =<br>[ ${fmt(XN[0][0])} , ${fmt(XN[0][1])} ]<br>[ ${fmt(XN[1][0])} , ${fmt(XN[1][1])} ]<br>Δ<sub>${N}</sub> = ${D[N - 1].toFixed(6)}<br>p/(1−p) = ${lim.toFixed(6)}`;
+  }
+  ["p", "n"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2008年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2008-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$\triangle OAB$ において，辺 $AB$ 上に点 $Q$ をとり，直線 $OQ$ 上に点 $P$ をとる。ただし，点 $P$ は点 $Q$ に関して点 $O$ と反対側にあるとする。3 つの三角形 $\triangle OAP$，$\triangle OBP$，$\triangle ABP$ の面積をそれぞれ $a,\ b,\ c$ とする。このとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\overrightarrow{OQ}$ を $\overrightarrow{OA},\ \overrightarrow{OB}$ および $a,\ b$ を用いて表せ。</li>
+      <li>(2)　$\overrightarrow{OP}$ を $\overrightarrow{OA},\ \overrightarrow{OB}$ および $a,\ b,\ c$ を用いて表せ。</li>
+      <li>(3)　3 辺 $OA,\ OB,\ AB$ の長さはそれぞれ 3，5，6 であるとする。点 $P$ を中心とし，3 直線 $OA,\ OB,\ AB$ に接する円が存在するとき，$\overrightarrow{OP}$ を $\overrightarrow{OA}$ と $\overrightarrow{OB}$ を用いて表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2008 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>面積比 ＝ 線分比。$\triangle OAP$ と $\triangle OBP$ は底辺 $OP$ を共有するので、面積比は $A,\ B$ から直線 $OP$ までの距離の比 $= AQ : QB$。(3) の $P$ は<b>傍心</b>で、3 つの面積がすべて半径 $r$ で表せます。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\triangle OAP$，$\triangle OBP$ は底辺 $OP$ が共通で、高さの比は $A,\ B$ から直線 $OQ$ までの距離の比、すなわち $AQ : QB$。よって $AQ : QB = a : b$。</p>
+      $$\overrightarrow{OQ} = \frac{b\overrightarrow{OA} + a\overrightarrow{OB}}{a + b}$$
+
+      <h3>(2)</h3>
+      <p>四角形 $OAPB$ の面積は $a + b = \triangle OAB + \triangle ABP$ なので $\triangle OAB = a + b - c$。$\triangle OAB$ と $\triangle PAB$ は底辺 $AB$ を共有し、高さの比は $OQ : QP$ なので $OQ : QP = (a + b - c) : c$，$OP = \dfrac{a + b}{a + b - c}OQ$。</p>
+      $$\overrightarrow{OP} = \frac{b\overrightarrow{OA} + a\overrightarrow{OB}}{a + b - c}$$
+
+      <h3>(3)</h3>
+      <p>円の半径を $r$ とすると、$P$ から 3 直線までの距離はすべて $r$ なので</p>
+      $$a = \frac12\cdot OA\cdot r = \frac32r,\qquad b = \frac12\cdot OB\cdot r = \frac52r,\qquad c = \frac12\cdot AB\cdot r = 3r$$
+      <p>$a + b - c = r$ なので、(2) より</p>
+      $$\overrightarrow{OP} = \frac{\frac52r\,\overrightarrow{OA} + \frac32r\,\overrightarrow{OB}}{r} = \frac52\overrightarrow{OA} + \frac32\overrightarrow{OB}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$OA = 3$，$OB = 5$，$AB = 6$ の三角形で、$Q$ の位置と $P$ の遠さを動かすと、面積 $a,\ b,\ c$ と (2) の式の値が比べられます。「傍心」ボタンで (3) の $P$ と傍接円を表示します。</p>
+
+  <div class="widget">
+    <label>Q の位置 AQ/AB：<input type="range" id="u" min="5" max="95" value="40"></label>
+    <span class="readout no-math" id="uv"></span>
+    <label>QP/OQ：<input type="range" id="m" min="5" max="200" value="60"></label>
+    <span class="readout no-math" id="mv"></span>
+    <button id="ex">傍心</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="330"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>傍心 ─ 五心のなかで最もマイナー？</h3>
+  <p>1 つの内角の二等分線と、残り 2 つの外角の二等分線は 1 点で交わり、その点を<b>傍心</b>、傍心を中心に 3 辺（の延長）に接する円を<b>傍接円</b>と呼びます。1 つの三角形に傍心は 3 つあります。本問の $P$ は $O$ の内角の二等分線上にある傍心です。</p>
+  <p>内心 $I$ が $\overrightarrow{OI} = \dfrac{(OB)\overrightarrow{OA} + (OA)\overrightarrow{OB}}{OA + OB + AB}$ と表せるのと同じ形で、傍心は分母の $AB$ の符号を変えた $\dfrac{(OB)\overrightarrow{OA} + (OA)\overrightarrow{OB}}{OA + OB - AB}$ になります。本問では $\dfrac{5\overrightarrow{OA} + 3\overrightarrow{OB}}{2}$。</p>
+  <p>chopin 先生は「三角形の傍接円を考える問題です。傍心は中々珍しい題材ですね」「この円の半径を $r$ とおいてよく見てみると、$\triangle OAP,\ \triangle OBP,\ \triangle ABP$ の面積の値が、$r$ で全て表現できてしまうことが分かります」「これにより、(2) の $a,\ b,\ c$ の比が分かってしまうので、$P$ の表現が求まってしまうわけです」とコメントしています。</p>
+  <div class="point">面積比 ⇔ 線分比（底辺共通なら高さの比）。円の中心から接線までの距離 ＝ 半径 を使うと、三角形の面積が半径の 1 次式になる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$OA = 3$，$OB = 5$，$AB = 6$ の $\triangle OAB$ の内心を $I$ とする。$\overrightarrow{OI}$ を $\overrightarrow{OA},\ \overrightarrow{OB}$ で表せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>内接円の半径を $\rho$ とすると $\triangle OAI = \frac32\rho$，$\triangle OBI = \frac52\rho$，$\triangle ABI = 3\rho$。$OI$ の延長と $AB$ の交点を $Q$ とすると $AQ : QB = 3 : 5$，$OI : IQ = (\frac32 + \frac52) : 3 = 4 : 3$。</p>
+    $$\overrightarrow{OI} = \frac47\cdot\frac{5\overrightarrow{OA} + 3\overrightarrow{OB}}{8} = \frac{5\overrightarrow{OA} + 3\overrightarrow{OB}}{14}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) の円の半径 $r$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2008　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(3) の計算から $\triangle OAB = a + b - c = r$。ヘロンの公式で $s = \frac{3 + 5 + 6}{2} = 7$，$\triangle OAB = \sqrt{7\cdot4\cdot2\cdot1} = 2\sqrt{14}$。よって $r = 2\sqrt{14}$。</p>
+    <p>（一般に傍接円の半径は $\dfrac{S}{s - (\text{対辺})}$。内接円の半径 $\dfrac{S}{s} = \dfrac{2\sqrt{14}}{7}$ と比べるとかなり大きい。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -3, xmax: 15, ymin: -1.5, ymax: 16, equal: true });
+  const O = [0, 0], A = [3, 0], B = [-1 / 3, Math.sqrt(224) / 3];
+  const area = (X, Y, Z) => Math.abs((Y[0] - X[0]) * (Z[1] - X[1]) - (Z[0] - X[0]) * (Y[1] - X[1])) / 2;
+  let showEx = false;
+  function draw() {
+    let u = $("u").value / 100, m = $("m").value / 100;
+    if (showEx) { u = 3 / 8; m = 1 / 0.5 - 1; } // 傍心：OQ:QP = 1:? を下で上書き
+    let Q = [A[0] + (B[0] - A[0]) * u, A[1] + (B[1] - A[1]) * u];
+    let Pp = [Q[0] * (1 + m), Q[1] * (1 + m)];
+    if (showEx) { Pp = [2.5 * A[0] + 1.5 * B[0], 2.5 * A[1] + 1.5 * B[1]]; Q = [(5 * A[0] + 3 * B[0]) / 8, (5 * A[1] + 3 * B[1]) / 8]; }
+    $("uv").textContent = showEx ? " 3/8" : ` ${u.toFixed(2)}`; $("mv").textContent = showEx ? " —" : ` ${m.toFixed(2)}`;
+    const a = area(O, A, Pp), b = area(O, B, Pp), c = area(A, B, Pp);
+    P.clear().grid(1, "#f5f5f5").axes("", "");
+    P.line([[-3, 0], [15, 0]], "#ddd", 1); P.line([[B[0] * -0.3, B[1] * -0.3], [B[0] * 3.2, B[1] * 3.2]], "#ddd", 1);
+    P.line([[A[0] - (B[0] - A[0]) * 2, A[1] - (B[1] - A[1]) * 2], [B[0] + (B[0] - A[0]) * 1, B[1] + (B[1] - A[1]) * 1]], "#ddd", 1);
+    P.fill([O, A, Pp], "rgba(138,21,56,.18)"); P.fill([O, B, Pp], "rgba(28,126,214,.18)"); P.fill([A, B, Pp], "rgba(47,158,68,.25)");
+    P.line([O, A, B, O], "#222", 1.8);
+    P.line([O, Pp], "#999", 1.2, [4, 3]);
+    if (showEx) P.circle(Pp[0], Pp[1], 2 * Math.sqrt(14), "#e8590c", 1.6);
+    P.dot(0, 0, "#222", 3.5, "O", -14, 14).dot(A[0], A[1], "#222", 3.5, "A", 4, 14).dot(B[0], B[1], "#222", 3.5, "B", -16, -4).dot(Q[0], Q[1], "#666", 3, "Q", 6, 4).dot(Pp[0], Pp[1], "#c92a2a", 4, "P", 6, -6);
+    // (2) の式で計算した OP
+    const s = a + b - c, OPf = [(b * A[0] + a * B[0]) / s, (b * A[1] + a * B[1]) / s];
+    $("info").innerHTML = `<span style="color:#8a1538">a = △OAP = ${a.toFixed(3)}</span><br><span style="color:#1c7ed6">b = △OBP = ${b.toFixed(3)}</span><br><span style="color:#2f9e44">c = △ABP = ${c.toFixed(3)}</span><br>(bOA + aOB)/(a+b−c)<br>= (${OPf[0].toFixed(3)}, ${OPf[1].toFixed(3)})<br>実際の P = (${Pp[0].toFixed(3)}, ${Pp[1].toFixed(3)})` +
+      (showEx ? `<br><span class="ok">傍心：OP = (5/2)OA + (3/2)OB<br>半径 r = 2√14 ≈ ${(2 * Math.sqrt(14)).toFixed(3)}</span>` : "");
+  }
+  $("ex").addEventListener("click", () => { showEx = !showEx; $("ex").textContent = showEx ? "傍心を解除" : "傍心"; draw(); });
+  ["u", "m"].forEach((id) => $(id).addEventListener("input", () => { showEx = false; $("ex").textContent = "傍心"; draw(); }));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

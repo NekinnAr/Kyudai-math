@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2005年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2005-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>行列 $A$ と列ベクトル $\vec a$，$\vec b$ を $A = \dfrac12\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$，$\vec a = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$，$\vec b = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$ とし，列ベクトル $\vec{p_n}\ (n = 1,\ 2,\ \cdots)$ を $\vec{p_1} = \vec a$，$\vec{p_{n+1}} = A\vec{p_n} + \vec b\ (n = 1,\ 2,\ \cdots)$ で定める。このとき次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\vec p = A\vec p + \vec b$ を満たす列ベクトル $\vec p$ を求めよ。</li>
+      <li>(2)　$\vec{q_n} = \vec{p_n} - \vec p\ (n = 1,\ 2,\ \cdots)$ とおく。$\vec{q_{n+1}}$ と $\vec{q_n}$ の間に成り立つ関係式を求めよ。</li>
+      <li>(3)　$n = 1,\ 2,\ \cdots$ に対して $A^n$ を求めよ。</li>
+      <li>(4)　$\vec{p_n}\ (n = 1,\ 2,\ \cdots)$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2005 九州大学 前期 理系 第2問）</p>
+  <p style="font-size:.9em;color:#666">※ 行列は現行課程（2015 年度入試以降）では範囲外です。当時の入試問題として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>数列の $a_{n+1} = ra_n + s$ を「特性方程式 $\alpha = r\alpha + s$ の解を引いて等比数列にする」のと全く同じ発想を、ベクトル・行列でやる問題です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\vec p = \begin{pmatrix} x \\ y \end{pmatrix}$ とすると $(E - A)\vec p = \vec b$，すなわち</p>
+      $$\frac12x - \frac12y = 0,\qquad \frac12y = 1\qquad\therefore\ \vec p = \begin{pmatrix} 2 \\ 2 \end{pmatrix}$$
+
+      <h3>(2)</h3>
+      <p>$\vec{p_{n+1}} = A\vec{p_n} + \vec b$ から $\vec p = A\vec p + \vec b$ を引いて</p>
+      $$\vec{q_{n+1}} = A\vec{q_n}$$
+
+      <h3>(3)</h3>
+      <p>$N = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$ とおくと $A = \frac12(E + N)$，$N^2 = O$。$E$ と $N$ は可換なので二項定理より $(E + N)^n = E + nN$。</p>
+      $$A^n = \frac1{2^n}\begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$$
+      <p>（帰納法でも容易に示せる。）</p>
+
+      <h3>(4)</h3>
+      <p>$\vec{q_1} = \vec a - \vec p = \begin{pmatrix} -1 \\ -2 \end{pmatrix}$。(2) より $\vec{q_n} = A^{n-1}\vec{q_1}$ なので</p>
+      $$\vec{q_n} = \frac1{2^{n-1}}\begin{pmatrix} 1 & n - 1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} -1 \\ -2 \end{pmatrix} = \frac1{2^{n-1}}\begin{pmatrix} -(2n - 1) \\ -2 \end{pmatrix}$$
+      $$\vec{p_n} = \begin{pmatrix} 2 - \dfrac{2n - 1}{2^{n-1}} \\[2mm] 2 - \dfrac{1}{2^{n-2}} \end{pmatrix}$$
+      <p>（$n = 1$ で $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$，$n = 2$ で $\begin{pmatrix} 1/2 \\ 1 \end{pmatrix}$ となり確かに合う。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>点 $P_n$ を順にプロットします。$P_n$ は不動点 $(2,\ 2)$ に吸い込まれていきます。$x$ 成分に $n$ がかかっているぶん、$x$ 方向の収束が少し遅いのが見えます。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="16" value="6"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>特性方程式の行列版</h3>
+  <p>1 次の漸化式 $\vec{p_{n+1}} = A\vec{p_n} + \vec b$ は、不動点 $\vec p$ を引くと $\vec{q_{n+1}} = A\vec{q_n}$ という「等比数列」の行列版になります。$A$ は対角化できない（固有値 $\frac12$ が重複する）タイプですが、$A = \frac12(E + N)$，$N^2 = O$ と分ければ二項定理で $A^n$ が出ます。$A^n$ の成分に $\frac{n}{2^n}$ が現れるのは、重複固有値のときの典型的な振る舞いです。</p>
+  <p>chopin 先生は「(1) は単なる計算問題です」「(2) 漸化式から (1) を引くと、$\vec b$ を消去できます」「(3) $A^n$ は、帰納法で求めてもよいし、今回の場合は 2 項定理でも求めることができます」「(4) (1)〜(3) ができていれば簡単です」とコメントしています。</p>
+  <div class="point">$x_{n+1} = Ax_n + b$ は不動点を引いて $y_{n+1} = Ay_n$。$N^2 = O$ なら $(E + N)^n = E + nN$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>数列 $\{x_n\}$ が $x_1 = 1$，$x_{n+1} = \dfrac12x_n + 1$ で定められるとき，一般項 $x_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\alpha = \frac12\alpha + 1$ より $\alpha = 2$。$x_{n+1} - 2 = \frac12(x_n - 2)$ なので $x_n = 2 - \left(\dfrac12\right)^{n-1}$。本問の $y$ 成分は $x$ 成分と無関係にこの漸化式（初項 0）に従っています。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の点 $P_n$（位置ベクトル $\vec{p_n}$）と点 $(2,\ 2)$ の距離が初めて $\dfrac1{100}$ 未満になる $n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2005　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>距離は $d_n = |\vec{q_n}| = \dfrac{\sqrt{(2n - 1)^2 + 4}}{2^{n-1}}$。$\dfrac{d_{n+1}^2}{d_n^2} = \dfrac{(2n+1)^2 + 4}{4\{(2n-1)^2 + 4\}} &lt; 1$ より単調減少。$d_{12} = \dfrac{\sqrt{533}}{2048} &gt; \dfrac{23}{2048} &gt; \dfrac1{100}$，$d_{13} = \dfrac{\sqrt{629}}{4096} &lt; \dfrac{26}{4096} &lt; \dfrac1{100}$。答えは $n = 13$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  function draw() {
+    const N = +$("n").value; $("nv").textContent = ` n = ${N}`;
+    const P = Fig.plane($("cv"), { xmin: -0.3, xmax: 2.5, ymin: -0.3, ymax: 2.5, equal: true });
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    let p = [1, 0]; const pts = [p];
+    for (let n = 1; n < N; n++) { p = [0.5 * (p[0] + p[1]), 0.5 * p[1] + 1]; pts.push(p); }
+    P.line(pts, "#bbb", 1, [3, 3]);
+    pts.forEach((q, i) => P.dot(q[0], q[1], i === N - 1 ? "#c92a2a" : "#8a1538", i === N - 1 ? 5 : 3, i < 4 ? "P" + (i + 1) : "", 6, -4));
+    P.ring(2, 2, "#2f9e44", 6);
+    const fx = 2 - (2 * N - 1) / 2 ** (N - 1), fy = 2 - 1 / 2 ** (N - 2);
+    const d = Math.hypot(p[0] - 2, p[1] - 2);
+    $("info").innerHTML = `漸化式で計算：<br>P<sub>${N}</sub> = (${p[0].toFixed(6)}, ${p[1].toFixed(6)})<br>一般項の式：<br>(${fx.toFixed(6)}, ${fy.toFixed(6)})<br>(2, 2) との距離 = ${d.toFixed(6)}` + (d < 0.01 ? '<br><span class="ok">1/100 未満</span>' : "");
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

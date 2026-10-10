@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2006年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2006-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>区間 $[a,\ b]$ が関数 $f(x)$ に関して不変であるとは，$a \le x \le b$ ならば，$a \le f(x) \le b$ が成り立つこととする。$f(x) = 4x(1 - x)$ とするとき，次の問いに答えよ。</p>
+    <ol>
+      <li>(1)　区間 $[0,\ 1]$ は関数 $f(x)$ に関して不変であることを示せ。</li>
+      <li>(2)　$0 &lt; a &lt; b &lt; 1$ とする。このとき，区間 $[a,\ b]$ は関数 $f(x)$ に関して不変ではないことを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2006 九州大学 前期 理系 第5問）</p>
+  <p style="font-size:.9em;color:#666">※ 参照した問題画像では大問番号が「6」と表記されていますが、本サイトでは第5問として掲載しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>不変だと仮定して矛盾を導きます。頂点 $x = \frac12$（$f = 1$）が区間に入るか、区間が $\frac12$ の左か右かで場合分け。右側では不動点 $x = \frac34$ が鍵で、そこでの傾き $f'\left(\frac34\right) = -2$（絶対値が 1 より大きい）が「区間が広がってしまう」原因です。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f(x) = 1 - (2x - 1)^2$。$0 \le x \le 1$ なら $0 \le (2x - 1)^2 \le 1$ なので $0 \le f(x) \le 1$。よって $[0,\ 1]$ は不変。</p>
+
+      <h3>(2)</h3>
+      <p>$[a,\ b]$ が不変であると仮定して矛盾を導く。$f(x) - x = x(3 - 4x)$ より、$0 &lt; x &lt; \frac34$ で $f(x) &gt; x$，$\frac34 &lt; x &lt; 1$ で $f(x) &lt; x$。</p>
+      <p><b>(i) $a \le \frac12 \le b$ のとき</b>：$f\left(\frac12\right) = 1 &gt; b$ となり矛盾。</p>
+      <p><b>(ii) $b &lt; \frac12$ のとき</b>：$b &lt; \frac34$ より $f(b) &gt; b$ となり矛盾。</p>
+      <p><b>(iii) $a &gt; \frac12$ のとき</b>：$b &lt; \frac34$ なら $f(b) &gt; b$，$a &gt; \frac34$ なら $f(a) &lt; a$ で矛盾するので、$a \le \frac34 \le b$。$a = \frac34 - u$，$b = \frac34 + v$（$0 \le u &lt; \frac14$，$v \ge 0$，$u + v &gt; 0$）とおくと</p>
+      $$f\left(\tfrac34 + t\right) = \tfrac34 - 2t - 4t^2$$
+      <p>より $f(a) = \frac34 + 2u - 4u^2$，$f(b) = \frac34 - 2v - 4v^2$。不変性から $f(a) \le b$，$f(b) \ge a$ なので</p>
+      $$2u - 4u^2 \le v,\qquad 2v + 4v^2 \le u$$
+      <p>第 2 式から $u \ge 2v$。$u &gt; 0$ のとき、$u &lt; \frac14$ より $2u - 4u^2 = 2u(1 - 2u) &gt; u$ なので第 1 式から $v &gt; u \ge 2v$，すなわち $v &lt; 0$ となり矛盾。$u = 0$ のときは第 2 式から $v = 0$ となり $u + v &gt; 0$ に矛盾。</p>
+      <p>以上より、$[a,\ b]$ は不変ではない。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$，$b$ を動かすと、正方形 $[a,\ b]\times[a,\ b]$ が表示されます。グラフ（赤い部分）がこの正方形からはみ出したら「不変でない」。どう動かしても、$0 &lt; a &lt; b &lt; 1$ では必ずはみ出します。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="0" max="100" value="65"></label>
+    <span class="readout no-math" id="av"></span>
+    <label>b：<input type="range" id="b" min="0" max="100" value="85"></label>
+    <span class="readout no-math" id="bv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="300" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>ロジスティック写像とカオス</h3>
+  <p>$f(x) = 4x(1 - x)$ は「ロジスティック写像」$x \mapsto rx(1 - x)$ の $r = 4$ の場合で、カオス力学系の代表例です。$x_{n+1} = f(x_n)$ を繰り返すと、$[0,\ 1]$ の中を不規則に動き回ります（$x = \sin^2\theta$ とおくと $f(x) = \sin^2 2\theta$ となり、角度の 2 倍写像そのもの）。本問 (2) は「$[0,\ 1]$ より小さい閉じこもる区間が存在しない」ことを示していて、これがカオス的に動き回る理由の一端です。不動点 $\frac34$ での傾きが $-2$ なので、近くの点ははじき出されてしまいます。</p>
+  <p>chopin 先生は「定義域と値域が一致するかを考える問題です」「(1) $f(x)$ のグラフを書けば明らかでしょう」「(2) は $a$ と $b$ の間に $f(x)$ の軸が来るか否かによる場合分けが必要で、その都度 $f(a) = a$ かつ $f(b) = b$ になるか、あるいは $f(a) = b$ かつ $f(b) = a$ になるかを考えないといけません。特に後者の検討が難しいポイントです」とコメントしています。</p>
+  <div class="point">不変区間の判定：区間上の $f$ の最大・最小が区間に収まるか。$y = x$ との上下関係（不動点）が手がかり。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$f(x) = x^2$ とする。$0 \le a &lt; b$ を満たす区間 $[a,\ b]$ で，$f(x)$ に関して不変であるものをすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f$ は $[a,\ b]$ で増加なので、条件は $a^2 \ge a$ かつ $b^2 \le b$。$b \le 1$ より $a &lt; 1$ だから $a^2 \ge a$ は $a = 0$ のみ。よって $[0,\ b]$（$0 &lt; b \le 1$）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$f(x) = 2x(1 - x)$ とする。$0 \le a &lt; b \le 1$ のとき，区間 $[a,\ b]$ が $f(x)$ に関して不変となるための $a$，$b$ の条件を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2006　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f$ の最大値は $f\left(\frac12\right) = \frac12$，不動点は $0$ と $\frac12$（そこでの傾き $0$ で、今度は引きつける）。$b &lt; \frac12$ なら $f(b) &gt; b$ で不可。$a \ge \frac12$ なら $f(b) &lt; \frac12 \le a$ で不可。$a &lt; \frac12 \le b$ なら値域は $\left[\min(f(a), f(b)),\ \frac12\right]$ で、$f(a) \ge a$ は自動的に成り立つから、条件は</p>
+    $$\frac12 \le b \le 1,\qquad a \le 2b(1 - b)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const f = (x) => 4 * x * (1 - x);
+  function draw() {
+    let a = $("a").value / 100, b = $("b").value / 100;
+    if (a > b) [a, b] = [b, a];
+    $("av").textContent = ` ${(+$("a").value / 100).toFixed(2)}`; $("bv").textContent = ` ${(+$("b").value / 100).toFixed(2)}`;
+    const P = Fig.plane($("cv"), { xmin: -0.08, xmax: 1.08, ymin: -0.08, ymax: 1.08, equal: true });
+    P.clear().grid(0.25, "#f3f3f3").axes();
+    P.fill([[a, a], [b, a], [b, b], [a, b]], "rgba(28,126,214,.12)");
+    P.line([[a, a], [b, a], [b, b], [a, b], [a, a]], "#1c7ed6", 1.2);
+    P.line([[0, 0], [1, 1]], "#aaa", 1, [4, 3]);
+    P.fn(f, 0, 1, "#999", 1.4);
+    let lo = Infinity, hi = -Infinity;
+    for (let i = 0; i <= 400; i++) { const x = a + (b - a) * i / 400, y = f(x); lo = Math.min(lo, y); hi = Math.max(hi, y); }
+    if (b > a) P.fn(f, a, b, "#c92a2a", 2.4);
+    P.dot(0.75, 0.75, "#2f9e44", 4, "3/4", 6, 14);
+    const inv = lo >= a - 1e-9 && hi <= b + 1e-9;
+    const deg = b - a < 1e-9;
+    $("info").innerHTML = `[a, b] = [${a.toFixed(2)}, ${b.toFixed(2)}]<br>f の値域 = [${lo.toFixed(3)}, ${hi.toFixed(3)}]<br>` +
+      (deg ? "a = b（区間にならない）" : inv ? '<span class="ok">不変</span>' : '<span class="ng">不変でない</span>') +
+      `<br>f(a) = ${f(a).toFixed(3)}, f(b) = ${f(b).toFixed(3)}<br>（a = 0, b = 1 のときだけ不変）`;
+  }
+  ["a", "b"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2013年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2013-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>横一列に並んだ 6 枚の硬貨に対して，以下の操作 L と操作 R を考える。</p>
+    <ul style="list-style:none">
+      <li>L：　さいころを投げて，出た目と同じ枚数だけ左端から順に硬貨の表と裏を反転する。</li>
+      <li>R：　さいころを投げて，出た目と同じ枚数だけ右端から順に硬貨の表と裏を反転する。</li>
+    </ul>
+    <p>たとえば，表表裏表裏表　と並んだ状態で操作 L を行うときに，3 の目が出た場合は，裏裏表表裏表　となる。</p>
+    <p>以下，「最初の状態」とは硬貨が 6 枚とも表であることとする。</p>
+    <ol>
+      <li>(1)　最初の状態から操作 L を 2 回続けて行うとき，表が 1 枚となる確率を求めよ。</li>
+      <li>(2)　最初の状態から L，R の順に操作を行うとき，表の枚数の期待値を求めよ。</li>
+      <li>(3)　最初の状態から L，R，L の順に操作を行うとき，すべての硬貨が表となる確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2013 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>各硬貨について「何回反転されたか」の偶奇だけが問題。L を 2 回（目 $k,\ m$）なら裏になるのは「ちょうど 1 回反転された」硬貨で $|k - m|$ 枚。L, R（目 $k,\ l$）なら表は $|k + l - 6|$ 枚。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>硬貨に左から $1,\ 2,\ \cdots,\ 6$ と番号をつける。L で目 $k$ なら $1 \sim k$ 番、R で目 $l$ なら $7 - l \sim 6$ 番が反転される。最後に表なのは偶数回反転された硬貨。</p>
+      <h3>(1)</h3>
+      <p>目を $k,\ m$ とすると、奇数回（1 回）反転されるのは $\min(k, m) \lt i \le \max(k, m)$ の $|k - m|$ 枚。表は $6 - |k - m|$ 枚。表が 1 枚 $\iff |k - m| = 5 \iff (k, m) = (1, 6),\ (6, 1)$。</p>
+      $$\frac{2}{36} = \frac1{18}$$
+
+      <h3>(2)</h3>
+      <p>目を $k,\ l$ とする。</p>
+      <ul>
+        <li>$k + l \le 6$：反転された範囲は重ならず、裏は $k + l$ 枚、表は $6 - k - l$ 枚。</li>
+        <li>$k + l \gt 6$：$k + l - 6$ 枚が 2 回反転されて表、残り $12 - k - l$ 枚が裏。表は $k + l - 6$ 枚。</li>
+      </ul>
+      <p>いずれも表の枚数は $|k + l - 6|$。和 $S = k + l$ の分布から</p>
+      <table class="simple">
+        <tr><th>$S$</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+        <tr><th>場合の数</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
+        <tr><th>$|S - 6|$</th><td>4</td><td>3</td><td>2</td><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+      </table>
+      $$E = \frac{4 + 6 + 6 + 4 + 0 + 6 + 10 + 12 + 12 + 10 + 6}{36} = \frac{76}{36} = \frac{19}{9}$$
+
+      <h3>(3)</h3>
+      <p>目を順に $k,\ l,\ m$ とする。2 回の L で奇数回反転されるのは $\min(k, m) \lt i \le \max(k, m)$ の硬貨。すべて表になるには、これが R で反転される $7 - l \le i \le 6$ と<b>ちょうど一致</b>しなければならない。R の範囲は空でない（$l \ge 1$）ので</p>
+      $$\max(k, m) = 6,\qquad \min(k, m) = 6 - l$$
+      <p>$6 - l \ge 1$ より $l = 1,\ \cdots,\ 5$ で、それぞれ $(k, m) = (6,\ 6 - l),\ (6 - l,\ 6)$ の 2 通り。計 10 通り。</p>
+      $$\frac{10}{216} = \frac{5}{108}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>操作の列とさいころの目を選ぶと、各操作後の硬貨の状態が表示されます（● 表、○ 裏）。「確率を計算」で、すべてのさいころの目を総当たりした結果が出ます。</p>
+
+  <div class="widget">
+    <label>操作：<select id="ops"><option>LL</option><option>LR</option><option selected>LRL</option><option>LRLR</option></select></label>
+    <span id="dice"></span>
+    <button id="calc">確率を計算</button>
+    <div class="no-math" id="out" style="margin-top:8px;line-height:1.9;font-size:1.05em"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>反転は「偶奇」の足し算</h3>
+  <p>表を 0、裏を 1 として、反転を「1 を足して 2 で割った余り」と考えると、操作の順番は結果に関係なく、各硬貨が何回反転されたかの偶奇だけで決まります（XOR の可換性）。そのため (3) では「L 2 回分の効果」と「R 1 回の効果」が打ち消し合う条件を考えれば済みます。</p>
+  <p>chopin 先生は「(1) 操作 L を行うとき、左端のコインは必ず裏返るので、L を 2 回行うと左端のコインが必ず表になります」「(2) L で裏返る枚数と R で裏返る枚数によって場合分け」「(3) すべてのコインが表になるとき、各コインについて裏返る回数が偶数回になります」とコメントしています。</p>
+  <div class="point">反転操作は<b>順番によらず回数の偶奇で決まる</b>。「全部表に戻る」は「反転範囲の対称差が空」と言いかえられる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>最初の状態から操作 L を 2 回続けて行うとき，表の枚数の期待値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>表は $6 - |k - m|$ 枚。$|k - m| = 0, 1, \cdots, 5$ となる場合の数は $6,\ 10,\ 8,\ 6,\ 4,\ 2$ で、$E|k - m| = \frac{10 + 16 + 18 + 16 + 10}{36} = \frac{35}{18}$。期待値は $6 - \frac{35}{18} = \dfrac{73}{18}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>最初の状態から L，R，L，R の順に操作を行うとき，すべての硬貨が表となる確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2013　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>目を $k,\ l,\ m,\ n$ とする。L 2 回で奇数回反転されるのは $(\min(k,m),\ \max(k,m)]$、R 2 回で奇数回反転されるのは $[7 - \max(l,n),\ 6 - \min(l,n)]$。この 2 つが一致すればよい。</p>
+    <ul>
+      <li>両方空：$k = m$ かつ $l = n$ で $36$ 通り。</li>
+      <li>空でない：$a = \min(k,m) \lt b = \max(k,m)$，$c = \min(l,n) \lt d = \max(l,n)$ として $a + d = 6$，$b + c = 6$。$1 \le a \lt b \le 5$ の $\binom52 = 10$ 組それぞれに $(c, d)$ が決まり、順序の入れかえで $4$ 倍。$40$ 通り。</li>
+    </ul>
+    $$\frac{76}{6^4} = \frac{19}{324}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const apply = (c, op, k) => { const d = c.slice(); for (let i = 0; i < k; i++) { const j = op === "L" ? i : 5 - i; d[j] ^= 1; } return d; };
+  const show = (c) => c.map((v) => (v ? '<span style="color:#aaa">○</span>' : '<span style="color:#8a1538">●</span>')).join(" ");
+  let vals = [6, 3, 3, 1];
+  function build() {
+    const ops = $("ops").value;
+    $("dice").innerHTML = ops.split("").map((op, i) => `<label>${i + 1}回目 ${op} の目：<select data-i="${i}">${[1, 2, 3, 4, 5, 6].map((v) => `<option ${v === vals[i] ? "selected" : ""}>${v}</option>`).join("")}</select></label>`).join(" ");
+    $("dice").querySelectorAll("select").forEach((s) => s.addEventListener("input", () => { vals[+s.dataset.i] = +s.value; draw(); }));
+    draw();
+  }
+  function draw(extra) {
+    const ops = $("ops").value;
+    let c = [0, 0, 0, 0, 0, 0], lines = [`最初：　${show(c)}`];
+    ops.split("").forEach((op, i) => { c = apply(c, op, vals[i]); lines.push(`${op}（${vals[i]}）：${show(c)}`); });
+    const heads = c.filter((v) => v === 0).length;
+    $("out").innerHTML = lines.join("<br>") + `<br>表 <b>${heads}</b> 枚` + (heads === 6 ? '　<span class="ok">すべて表！</span>' : "") + (extra ? `<hr>${extra}` : "");
+  }
+  $("calc").onclick = () => {
+    const ops = $("ops").value, n = ops.length; let all = 0, one = 0, sumH = 0, tot = 0;
+    const rec = (i, c) => { if (i === n) { tot++; const h = c.filter((v) => v === 0).length; sumH += h; if (h === 6) all++; if (h === 1) one++; return; } for (let k = 1; k <= 6; k++) rec(i + 1, apply(c, ops[i], k)); };
+    rec(0, [0, 0, 0, 0, 0, 0]);
+    const g = (a, b) => (b ? g(b, a % b) : a), fr = (a, b) => `${a / g(a, b)}/${b / g(a, b)}`;
+    draw(`${ops}（全 ${tot} 通り）<br>すべて表：${all} 通り → ${fr(all, tot)}<br>表が 1 枚：${one} 通り → ${one ? fr(one, tot) : 0}<br>表の枚数の期待値：${fr(sumH, tot)}`);
+  };
+  $("ops").addEventListener("input", build);
+  build();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

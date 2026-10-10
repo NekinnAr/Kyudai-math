@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2004年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2004-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内の三角柱 $0 \le x \le 1$，$0 \le y \le 1$，$x \ge y$，$0 \le z \le 1$ を考え，その $xy$ 平面内の面を $S$，$xz$ 平面内の面を $T$ とする。点 $A(a,\ b,\ 0)$ を $S$ 内に，点 $B(c,\ 0,\ d)$ を $T$ 内にとり，また $C(1,\ 1,\ 1)$ とする。ただし，点 $A$，$B$ は原点 $O$ とは異なるとする。</p>
+    <ol>
+      <li>(1)　ベクトル $\overrightarrow{OA}$ および $\overrightarrow{OC}$ に直交する単位ベクトルを求め，その単位ベクトルとベクトル $\overrightarrow{OB}$ の内積の絶対値を求めよ。</li>
+      <li>(2)　四面体 $OABC$ の体積を求めよ。ただし，点 $O$，$A$，$B$，$C$ は同一平面上にないとする。</li>
+      <li>(3)　点 $A$ が $S$ 内を，点 $B$ が $T$ 内を動くとする。このときの，四面体 $OABC$ の体積の最大値，および最大値を与える点 $A$，$B$ の位置をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2004 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) の内積の絶対値は、平面 $OAC$ から $B$ までの距離（高さ）です。体積は $\frac16\{bc + (a - b)d\}$ となり、$c,\ d \le 1$ と $a \le 1$ で上から押さえれば最大値 $\frac16$。等号条件を丁寧に拾うのがポイント。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$S$ 内なので $0 \le b \le a \le 1$，$A \ne O$ より $a &gt; 0$。求める単位ベクトルを $\vec e = (p,\ q,\ r)$ とすると</p>
+      $$ap + bq = 0,\qquad p + q + r = 0,\qquad p^2 + q^2 + r^2 = 1$$
+      <p>第 1，2 式より $(p,\ q,\ r) = k(b,\ -a,\ a - b)$。正規化して</p>
+      $$\vec e = \pm\frac{(b,\ -a,\ a - b)}{\sqrt{2(a^2 - ab + b^2)}}$$
+      <p>$\overrightarrow{OB} = (c,\ 0,\ d)$ との内積の絶対値は</p>
+      $$|\vec e\cdot\overrightarrow{OB}| = \frac{|bc + (a - b)d|}{\sqrt{2(a^2 - ab + b^2)}} = \frac{bc + (a - b)d}{\sqrt{2(a^2 - ab + b^2)}}$$
+      <p>（$b \ge 0$，$c \ge 0$，$a - b \ge 0$，$d \ge 0$ より絶対値は外れる。）</p>
+
+      <h3>(2)</h3>
+      <p>$\triangle OAC = \frac12\sqrt{|\overrightarrow{OA}|^2|\overrightarrow{OC}|^2 - (\overrightarrow{OA}\cdot\overrightarrow{OC})^2} = \frac12\sqrt{3(a^2 + b^2) - (a + b)^2} = \frac12\sqrt{2(a^2 - ab + b^2)}$。高さは (1) の値なので</p>
+      $$V = \frac13\cdot\triangle OAC\cdot|\vec e\cdot\overrightarrow{OB}| = \frac{bc + (a - b)d}{6}$$
+
+      <h3>(3)</h3>
+      <p>$0 \le c \le 1$，$0 \le d \le 1$，$b \ge 0$，$a - b \ge 0$ より</p>
+      $$bc + (a - b)d \le b + (a - b) = a \le 1$$
+      <p>よって $V \le \frac16$。等号は $a = 1$，$b(1 - c) = 0$，$(1 - b)(1 - d) = 0$ のとき。</p>
+      <ul>
+        <li>$b = 0$：$d = 1$。$A(1,\ 0,\ 0)$，$B(c,\ 0,\ 1)$（$0 \le c \le 1$）</li>
+        <li>$b = 1$：$c = 1$。$A(1,\ 1,\ 0)$，$B(1,\ 0,\ d)$（$0 \le d \le 1$）</li>
+        <li>$0 &lt; b &lt; 1$：$c = d = 1$。$A(1,\ b,\ 0)$，$B(1,\ 0,\ 1)$</li>
+      </ul>
+      <p>最大値は $\dfrac16$ で、それを与える $A$，$B$ は上の 3 通り（まとめると「$A$ は辺 $x = 1$ 上，$B = (1, 0, 1)$」に加えて、$A$ が端点 $(1,0,0)$ なら $B$ は辺 $z = 1$ 上，$A$ が端点 $(1,1,0)$ なら $B$ は辺 $x = 1$ 上）。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>灰色が三角柱、青い三角形が $S$，緑の正方形が $T$ です。$a, b, c, d$ を動かして四面体 $OABC$（赤）の体積を最大にしてみましょう（ドラッグで回転）。$b &gt; a$ にはできないよう制限しています。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="1" max="100" value="80"></label>
+    <label>b：<input type="range" id="b" min="0" max="100" value="30"></label>
+    <label>c：<input type="range" id="c" min="0" max="100" value="60"></label>
+    <label>d：<input type="range" id="d" min="0" max="100" value="70"></label>
+    <span class="readout no-math" id="rv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:190px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>予選決勝法と等号条件</h3>
+  <p>4 変数の最大化ですが、$V = \frac16\{bc + (a - b)d\}$ は $c$，$d$ について 1 次で係数が非負なので、まず $c = d = 1$ とするのが最善（予選）。すると $V \le \frac a6$ で、$a = 1$（決勝）。ただし「すべて求めよ」なので、係数が $0$ になって $c$ や $d$ が自由になる場合（$b = 0$ や $b = 1$）を落とさないことが大事です。体積は $\frac16|\det(\overrightarrow{OA}, \overrightarrow{OB}, \overrightarrow{OC})|$ で直接計算しても確認できます。</p>
+  <p>chopin 先生は「(1) 求める単位ベクトルを $\vec e = (p, q, r)$ とおいて $p, q, r$ を求めます」「(2) 底面を $\triangle OAC$ とすると、高さが (1) で求めた $\overrightarrow{OB}$ と $\vec e$ の内積になります」「(3) は、予選決勝法で考えていきます」とコメントしています。</p>
+  <div class="point">法線ベクトルとの内積の絶対値＝平面からの距離。多変数の最大は 1 文字ずつ固定（予選決勝法）、「すべて」なら等号条件を漏れなく。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\vec u = (1,\ 2,\ 0)$，$\vec v = (1,\ 1,\ 1)$ の両方に直交する単位ベクトルを求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$(p, q, r)$ で $p + 2q = 0$，$p + q + r = 0$ より $(p, q, r) = k(2, -1, -1)$。$\pm\dfrac{1}{\sqrt6}(2,\ -1,\ -1)$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) で四面体 $OABC$ の体積が最大となるとき，$\triangle OAC$ の面積の最小値と，そのときの点 $A$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2004　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>最大のとき $A = (1,\ b,\ 0)$（$0 \le b \le 1$ のすべてが実現可能：$B = (1, 0, 1)$ とすればよい）。$\triangle OAC = \frac12\sqrt{2(1 - b + b^2)}$ は $b = \frac12$ で最小値 $\dfrac12\sqrt{\dfrac32} = \dfrac{\sqrt6}{4}$。$A\left(1,\ \frac12,\ 0\right)$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const V = Fig.view3d($("cv"), { scale: 150, center: [0.5, 0.5, 0.5], az: -0.5, el: 0.35, onChange: () => draw() });
+  function draw() {
+    let a = $("a").value / 100, b = $("b").value / 100;
+    if (b > a) { b = a; $("b").value = Math.round(a * 100); }
+    const c = $("c").value / 100, d = $("d").value / 100;
+    $("rv").textContent = ` a=${a.toFixed(2)} b=${b.toFixed(2)} c=${c.toFixed(2)} d=${d.toFixed(2)}`;
+    const O = [0, 0, 0], A = [a, b, 0], B = [c, 0, d], C = [1, 1, 1];
+    V.clear().axes(1.3);
+    const p0 = [[0, 0, 0], [1, 0, 0], [1, 1, 0]], p1 = p0.map((q) => [q[0], q[1], 1]);
+    V.poly(p1, "#bbb", 1, [], null, true); for (let i = 0; i < 3; i++) V.poly([p0[i], p1[i]], "#bbb", 1);
+    V.poly(p0, "#1c7ed6", 1.4, [], "rgba(28,126,214,.15)", true);
+    V.poly([[0, 0, 0], [1, 0, 0], [1, 0, 1], [0, 0, 1]], "#2f9e44", 1.2, [], "rgba(47,158,68,.12)", true);
+    [[O, A], [O, B], [O, C], [A, B], [A, C], [B, C]].forEach(([P, Q]) => V.poly([P, Q], "#c92a2a", 1.8));
+    V.poly([O, A, C], null, 1, [], "rgba(201,42,42,.15)");
+    V.dot(O, "#222", 3, "O").dot(A, "#1c7ed6", 4.5, "A").dot(B, "#2f9e44", 4.5, "B").dot(C, "#222", 4, "C");
+    const vol = (b * c + (a - b) * d) / 6;
+    const det = Math.abs(a * (0 * 1 - d * 1) - b * (c * 1 - d * 1) + 0) / 6;
+    $("info").innerHTML = `V = (bc + (a−b)d)/6<br>= ${vol.toFixed(4)}<br>（行列式から ${det.toFixed(4)}）<br>最大値 1/6 ≈ 0.1667` + (vol > 1 / 6 - 1e-6 ? '<br><span class="ok">最大！</span>' : "");
+  }
+  ["a", "b", "c", "d"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
