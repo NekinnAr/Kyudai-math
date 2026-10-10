@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2026-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>関数</p>
+    $$f(x) = \int_x^{x+1}\log(4t^2 + 1)\,dt$$
+    <p>に関して，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(x)$ が極値をとるときの $x$ の値を求めよ。また，そのときの極値を求めよ。</li>
+      <li>(2)　極限 $\displaystyle\lim_{x\to\infty} x\{f(x) - f(x-1)\}$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2026 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は積分を計算せずに微分（微分積分学の基本定理）。極値の計算だけ部分積分と $\tan$ 置換が必要。(2) は $f(x) - f(x-1)$ を<b>平均値の定理</b>で $f'(c)$ に置き換えるのが鍵。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$g(t) = \log(4t^2+1)$ とおく。</p>
+      <h3>(1)</h3>
+      $$f'(x) = g(x+1) - g(x) = \log\frac{4x^2 + 8x + 5}{4x^2 + 1} = \log\left(1 + \frac{8x+4}{4x^2+1}\right)$$
+      <p>よって $f'(x)$ の符号は $8x + 4$ の符号と一致し、$x \lt -\dfrac12$ で負、$x \gt -\dfrac12$ で正。$f(x)$ は $x = -\dfrac12$ で極小値をとり、これ以外に極値はない。</p>
+      <p>$g$ は偶関数なので</p>
+      $$f\left(-\frac12\right) = \int_{-\frac12}^{\frac12} g(t)\,dt = 2\int_0^{\frac12}\log(4t^2+1)\,dt$$
+      <p>部分積分して</p>
+      $$\int_0^{\frac12}\log(4t^2+1)\,dt = \Bigl[t\log(4t^2+1)\Bigr]_0^{\frac12} - \int_0^{\frac12}\frac{8t^2}{4t^2+1}\,dt = \frac12\log2 - \int_0^{\frac12}\left(2 - \frac{2}{4t^2+1}\right)dt$$
+      <p>ここで $2t = \tan\theta$ と置換すると $dt = \dfrac{d\theta}{2\cos^2\theta}$、$t: 0 \to \dfrac12$ のとき $\theta: 0 \to \dfrac{\pi}{4}$ で</p>
+      $$\int_0^{\frac12}\frac{dt}{4t^2+1} = \int_0^{\frac{\pi}{4}}\cos^2\theta\cdot\frac{d\theta}{2\cos^2\theta} = \frac{\pi}{8}$$
+      <p>よって $\displaystyle\int_0^{\frac12}\log(4t^2+1)\,dt = \frac12\log 2 - 1 + \frac{\pi}{4}$ となり、</p>
+      $$\text{極小値}\quad f\left(-\frac12\right) = \log 2 - 2 + \frac{\pi}{2}\qquad\left(x = -\frac12\ \text{のとき}\right)$$
+
+      <h3>(2)</h3>
+      <p>$f(x)$ は微分可能なので、平均値の定理より</p>
+      $$f(x) - f(x-1) = f'(c),\qquad x - 1 \lt c \lt x$$
+      <p>をみたす $c$ が存在する。$h = \dfrac{8c+4}{4c^2+1}$ とおくと、$x \to \infty$ のとき $c \to \infty$、$h \to 0$ で</p>
+      $$x\{f(x) - f(x-1)\} = x\log(1 + h) = xh\cdot\frac{\log(1+h)}{h}$$
+      <p>$1 - \dfrac1x \lt \dfrac{c}{x} \lt 1$ より $\dfrac{c}{x} \to 1$ なので</p>
+      $$xh = \frac{8\cdot\frac{c}{x} + \frac{4}{x}}{4\left(\frac{c}{x}\right)^2 + \frac{1}{x^2}} \to \frac{8}{4} = 2,\qquad \frac{\log(1+h)}{h} \to 1$$
+      <p>（後者は $\displaystyle\lim_{h\to0}\frac{\log(1+h)}{h} = 1$）。したがって</p>
+      $$\lim_{x\to\infty} x\{f(x) - f(x-1)\} = 2$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$f(x)$ は、グラフ $y = \log(4t^2+1)$ の下で、幅 $1$ の「窓」$[x,\ x+1]$ に入る部分の面積です。窓を左右に動かして、面積が最小になる位置を確かめましょう。右のグラフは (2) の $x\{f(x) - f(x-1)\}$ が $2$ に近づく様子です。</p>
+
+  <div class="widget">
+    <label>窓の左端 x：<input type="range" id="x" min="-300" max="200" value="-50"></label>
+    <span class="readout no-math" id="xv"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="c1" class="fig" width="360" height="240"></canvas>
+      <canvas id="c2" class="fig" width="300" height="240"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>(1)：窓の位置と面積</h3>
+  <p>$f'(x) = g(x+1) - g(x) = 0$ は「窓の両端でグラフの高さが等しい」という条件です。$g$ は偶関数で $|t|$ について増加するので、窓が原点に対して左右対称な位置、つまり $[-\frac12,\ \frac12]$ のときに面積が最小になります。図解で、窓の両端の高さがそろう瞬間が最小値だと確かめられます。</p>
+
+  <h3>(2)：「差分」は「微分」の離散版</h3>
+  <p>$g$ の原始関数を $G$ とすると $f(x) = G(x+1) - G(x)$ なので</p>
+  $$f(x) - f(x-1) = G(x+1) - 2G(x) + G(x-1)$$
+  <p>これは $G$ の<b>2 階差分</b>で、刻みが十分小さければ 2 階微分 $G''(x) = g'(x)$ に近い量です。実際、刻み $1$ でも $x$ が大きければ $g$ はゆるやかに変化するので</p>
+  $$x\{f(x) - f(x-1)\} \approx x\,g'(x) = \frac{8x^2}{4x^2+1} \to 2$$
+  <p>となり、答えの $2$ が見通せます。さらに言えば、$x$ が大きいとき $g(x) = \log(4x^2+1) \approx 2\log x + \log 4$ なので、$x\,g'(x) \to 2$ の「$2$」は<b>$\log x^2$ の指数 $2$</b>そのものです。</p>
+  <div class="point">平均値の定理は「差 $\to$ 微分」の橋渡し。$f(x) - f(x-1)$ のような差の極限は、まず平均値の定理を疑うのが定石です。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問の $f(x)$ について，極限 $\displaystyle\lim_{x\to\infty}\{f(x) - 2\log x\}$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\log(4t^2+1) = \log 4 + 2\log t + \log\left(1 + \dfrac{1}{4t^2}\right)$ と分ける（$t \gt 0$）。</p>
+    <ul>
+      <li>$0 \lt \log\left(1 + \dfrac{1}{4t^2}\right) \lt \dfrac{1}{4t^2} \le \dfrac{1}{4x^2}$ より、この部分の積分は $0$ に収束。</li>
+      <li>$\log x \le \displaystyle\int_x^{x+1}\log t\,dt \le \log(x+1)$ より $0 \le 2\displaystyle\int_x^{x+1}\log t\,dt - 2\log x \le 2\log\left(1 + \frac1x\right) \to 0$。</li>
+    </ul>
+    <p>よって極限は $\log 4 = 2\log 2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$a$ を正の定数とし，$f_a(x) = \displaystyle\int_x^{x+a}\log(4t^2+1)\,dt$ とする。$f_a(x)$ が最小となる $x$ の値と，極限 $\displaystyle\lim_{x\to\infty}x\{f_a(x) - f_a(x-a)\}$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f_a'(x) = \log\dfrac{4(x+a)^2+1}{4x^2+1}$ の符号は $(x+a)^2 - x^2 = a(2x + a)$ の符号と一致するので、最小となるのは $x = -\dfrac{a}{2}$（窓が原点対称のとき）。</p>
+    <p>平均値の定理より $f_a(x) - f_a(x-a) = a f_a'(c)$（$x - a \lt c \lt x$）。$f_a'(c) = \log\left(1 + \dfrac{8ac + 4a^2}{4c^2+1}\right)$ で、本問と同様に $\dfrac{c}{x} \to 1$ から</p>
+    $$x\cdot a f_a'(c) \to a\cdot\frac{8a}{4} = 2a^2$$
+    <p>刻み $a$ の 2 階差分は「刻みの 2 乗 × 2 階微分」程度の大きさになる、ということが $a^2$ に表れています。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const g = (t) => Math.log(4 * t * t + 1);
+  const G = (t) => t * Math.log(4 * t * t + 1) - 2 * t + Math.atan(2 * t); // 原始関数
+  const f = (x) => G(x + 1) - G(x);
+  const xIn = document.getElementById("x");
+  const c1 = document.getElementById("c1").getContext("2d"), c2 = document.getElementById("c2").getContext("2d");
+  const fmin = Math.log(2) - 2 + Math.PI / 2;
+
+  function draw() {
+    const x = xIn.value / 100;
+    document.getElementById("xv").textContent = ` x = ${x.toFixed(2)}　f(x) = ${f(x).toFixed(5)}` +
+      (Math.abs(x + 0.5) < 0.005 ? `（最小！ log2 − 2 + π/2 = ${fmin.toFixed(5)}）` : "");
+    // 左：窓
+    const W = 360, H = 240, x0 = -3.5, x1 = 3.5, ymax = 4;
+    const X = (t) => (t - x0) / (x1 - x0) * W, Y = (y) => H - 24 - y / ymax * (H - 34);
+    c1.clearRect(0, 0, W, H);
+    c1.strokeStyle = "#999"; c1.lineWidth = 1; c1.beginPath(); c1.moveTo(0, Y(0)); c1.lineTo(W, Y(0)); c1.moveTo(X(0), 0); c1.lineTo(X(0), H); c1.stroke();
+    c1.fillStyle = "rgba(138,21,56,.22)"; c1.beginPath(); c1.moveTo(X(x), Y(0));
+    for (let i = 0; i <= 50; i++) { const t = x + i / 50; c1.lineTo(X(t), Y(g(t))); }
+    c1.lineTo(X(x + 1), Y(0)); c1.closePath(); c1.fill();
+    c1.strokeStyle = "#8a1538"; c1.lineWidth = 2; c1.beginPath();
+    for (let i = 0; i <= 200; i++) { const t = x0 + (x1 - x0) * i / 200; i ? c1.lineTo(X(t), Y(g(t))) : c1.moveTo(X(t), Y(g(t))); } c1.stroke();
+    // 両端の高さ
+    c1.setLineDash([3, 3]); c1.strokeStyle = "#1c7ed6";
+    [x, x + 1].forEach((t) => { c1.beginPath(); c1.moveTo(X(t), Y(0)); c1.lineTo(X(t), Y(g(t))); c1.stroke(); });
+    c1.setLineDash([]);
+    c1.fillStyle = "#666"; c1.font = "12px sans-serif"; c1.fillText("y = log(4t²+1)", 8, 14);
+    [-3, -2, -1, 1, 2, 3].forEach((k) => c1.fillText(k, X(k) - 4, Y(0) + 14));
+    c1.fillText(`g(x) = ${g(x).toFixed(3)}`, 8, 32); c1.fillText(`g(x+1) = ${g(x + 1).toFixed(3)}`, 8, 48);
+
+    // 右：x{f(x) - f(x-1)}
+    const W2 = 300, H2 = 240, pad = 30, XM = 30, ym = 2.4;
+    const XX = (v) => pad + v / XM * (W2 - pad - 10), YY = (v) => H2 - pad - v / ym * (H2 - pad - 12);
+    c2.clearRect(0, 0, W2, H2);
+    c2.strokeStyle = "#999"; c2.lineWidth = 1; c2.beginPath(); c2.moveTo(pad, YY(0)); c2.lineTo(W2 - 5, YY(0)); c2.moveTo(pad, H2 - pad); c2.lineTo(pad, 6); c2.stroke();
+    c2.setLineDash([4, 4]); c2.strokeStyle = "#1c7ed6"; c2.beginPath(); c2.moveTo(pad, YY(2)); c2.lineTo(W2 - 5, YY(2)); c2.stroke(); c2.setLineDash([]);
+    c2.strokeStyle = "#8a1538"; c2.lineWidth = 2; c2.beginPath();
+    for (let i = 0; i <= 300; i++) { const v = 0.5 + (XM - 0.5) * i / 300, y = v * (f(v) - f(v - 1)); i ? c2.lineTo(XX(v), YY(y)) : c2.moveTo(XX(v), YY(y)); }
+    c2.stroke();
+    c2.fillStyle = "#666"; c2.font = "11px sans-serif"; c2.fillText("x{f(x) − f(x−1)}", pad + 6, 14); c2.fillText("2", 16, YY(2) + 4);
+    [10, 20, 30].forEach((v) => c2.fillText(v, XX(v) - 6, H2 - pad + 14));
+    const v30 = 30 * (f(30) - f(29));
+    c2.fillText(`x = 30 で ${v30.toFixed(5)}`, XX(12), YY(1.2));
+  }
+  xIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2019年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2019-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$0$ でない 2 つの整式 $f(x),\ g(x)$ が以下の恒等式を満たすとする。</p>
+    $$f(x^2) = (x^2 + 2)g(x) + 7$$
+    $$g(x^3) = x^4f(x) - 3x^2g(x) - 6x^2 - 2$$
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(x)$ の次数と $g(x)$ の次数はともに $2$ 以下であることを示せ。</li>
+      <li>(2)　$f(x)$ と $g(x)$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2019 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f,\ g$ の次数を $m,\ n$ として両辺の次数を比べる。1 つ目の式から $2m = n + 2$。2 つ目の式は右辺の $x^4f(x)$ と $3x^2g(x)$ のどちらの次数が大きいかで場合分けが必要。(2) は特別な $x$ の値を代入して必要条件を出し、最後に十分性を確認する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f(x),\ g(x)$ の次数をそれぞれ $m,\ n$（$m,\ n \ge 0$）とする。</p>
+      <p><b>1 つ目の式</b>：右辺 $(x^2 + 2)g(x) + 7$ の次数は $n + 2\ (\ge 2)$ なので、左辺 $f(x^2)$ の次数 $2m$ と比べて $2m = n + 2$。特に $m \ge 1$ で、$n = 2m - 2$。</p>
+      <p><b>2 つ目の式</b>：左辺の次数は $3n = 6m - 6$。右辺の $x^4f(x)$ の次数は $m + 4$，$3x^2g(x)$ の次数は $n + 2 = 2m$。</p>
+      <ul>
+        <li>$m + 4 \gt 2m$（$m \le 3$）のとき：右辺の次数は $m + 4\ (\ge 5)$ なので $6m - 6 = m + 4$、$m = 2$。</li>
+        <li>$m + 4 \lt 2m$（$m \ge 5$）のとき：右辺の次数は $2m$ なので $6m - 6 = 2m$、$m = \frac32$ で不適。</li>
+        <li>$m = 4$ のとき：右辺の次数は $8$ 以下（最高次が打ち消し合う可能性がある）だが、左辺の次数は $3n = 18$ で矛盾。</li>
+      </ul>
+      <p>よって $m = 2$，$n = 2$ で、ともに $2$ 以下。</p>
+
+      <h3>(2)</h3>
+      <p>1 つ目の式に $x = 0$ を代入：$f(0) = 2g(0) + 7$。<br>
+      2 つ目の式に $x = 0$：$g(0) = -2$。よって $f(0) = 3$。<br>
+      2 つ目の式に $x = 1$：$g(1) = f(1) - 3g(1) - 8$ より $f(1) = 4g(1) + 8$。<br>
+      1 つ目の式に $x = 1$：$f(1) = 3g(1) + 7$。2 式から $g(1) = -1$，$f(1) = 4$。<br>
+      2 つ目の式に $x = -1$：$g(-1) = f(-1) - 3g(-1) - 8$ より $f(-1) = 4g(-1) + 8$。<br>
+      1 つ目の式に $x = -1$：$f(1) = 3g(-1) + 7$ より $g(-1) = -1$，$f(-1) = 4$。</p>
+      <p>$f,\ g$ は 2 次以下なので、3 点での値から決まる（ラグランジュ補間）。$f(0) = 3,\ f(\pm1) = 4$ より $f(x) = x^2 + 3$。$g(0) = -2,\ g(\pm1) = -1$ より $g(x) = x^2 - 2$。</p>
+      <p><b>十分性の確認</b>：</p>
+      $$f(x^2) = x^4 + 3,\quad (x^2 + 2)(x^2 - 2) + 7 = x^4 + 3$$
+      $$g(x^3) = x^6 - 2,\quad x^4(x^2 + 3) - 3x^2(x^2 - 2) - 6x^2 - 2 = x^6 - 2$$
+      <p>ともに恒等式として成り立つ。よって</p>
+      $$f(x) = x^2 + 3,\qquad g(x) = x^2 - 2$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$f$ の次数 $m$ を選ぶと（$n = 2m - 2$ が自動で決まります）、2 つ目の式の各項の次数が棒グラフで表示されます。左辺 $g(x^3)$ の次数（赤）と右辺の最大次数が一致するのは $m = 2$ のときだけです。</p>
+
+  <div class="widget">
+    <label>f の次数 m：<input type="range" id="m" min="1" max="8" value="3"></label>
+    <span class="readout no-math" id="mv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>次数の比較と「打ち消し合い」</h3>
+  <p>整式の恒等式では、まず<b>次数</b>を比べるのが定石です。ただし「和の次数」は、2 つの項の次数が等しいと最高次の係数が打ち消し合って下がることがあります。本問の $m = 4$ のケースがまさにそれで、chopin 先生も「2 番目の式の処理には注意が必要」「$m$ と $n$ の大小関係によって、右辺の次数が変化するのでそれぞれ検討が必要」とコメントしています。</p>
+  <h3>必要条件と十分条件</h3>
+  <p>(2) で $x = 0,\ \pm1$ を代入して得た式は、あくまで<b>必要条件</b>です。chopin 先生も「まだ必要条件であることに注意」「ちゃんと恒等式になることを確認し、十分条件でもあることを言いましょう」と強調しています。</p>
+  <div class="point">恒等式の問題：①次数を比べて形を決める（打ち消しに注意）　②特別な値の代入で必要条件　③<b>元の式に戻して十分性を確認</b>。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$f(x^2) = (x + 1)f(x)$ を満たす $0$ でない整式 $f(x)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>次数を $m$ とすると $2m = m + 1$ より $m = 1$。$f(x) = px + q\ (p \neq 0)$ とおくと $px^2 + q = px^2 + (p + q)x + q$ より $q = -p$。よって $f(x) = p(x - 1)$（$p$ は $0$ でない定数）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$f(x^2) = f(x)f(x + 1)$ を満たす 2 次式 $f(x)$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2019　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f(x) = ax^2 + bx + c\ (a \neq 0)$ とおく。$x^4$ の係数を比べて $a = a^2$ より $a = 1$。このとき $f(x)f(x + 1) = (x^2 + bx + c)\{x^2 + (b + 2)x + (1 + b + c)\}$。</p>
+    <p>$f(x^2) = x^4 + bx^2 + c$ と係数を比べる。$x^3$：$0 = 2b + 2$ より $b = -1$。$x^2$：$b = 1 + 3b + b^2 + 2c$ に $b = -1$ を代入して $c = 0$。このとき $x$ の係数・定数項も一致し、$f(x) = x^2 - x$。</p>
+    <p>確認：$f(x)f(x + 1) = x(x - 1)\cdot(x + 1)x = x^2(x^2 - 1) = f(x^2)$。（一般に $f(x) = (x^2 - x)^k$ が解になります。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  function draw() {
+    const m = +$("m").value, n = 2 * m - 2;
+    $("mv").textContent = ` m = ${m}　→　n = 2m − 2 = ${n}`;
+    const bars = [["g(x³)", 3 * n, "#c92a2a"], ["x⁴f(x)", m + 4, "#1c7ed6"], ["3x²g(x)", n + 2, "#2b8a3e"], ["6x²+2", 2, "#999"]];
+    const maxD = 45, bx = 60, bw = 70, gap = 26, base = H - 30, sc = (H - 60) / maxD;
+    c.clearRect(0, 0, W, H);
+    c.strokeStyle = "#ddd"; c.fillStyle = "#999"; c.font = "11px sans-serif";
+    for (let d = 0; d <= maxD; d += 5) { const y = base - d * sc; c.beginPath(); c.moveTo(40, y); c.lineTo(W - 10, y); c.stroke(); c.fillText(d, 18, y + 4); }
+    bars.forEach(([lab, d, col], i) => {
+      const x = bx + i * (bw + gap); c.fillStyle = col; c.globalAlpha = 0.75; c.fillRect(x, base - d * sc, bw, d * sc); c.globalAlpha = 1;
+      c.fillStyle = "#222"; c.font = "bold 13px sans-serif"; c.fillText(d, x + bw / 2 - 6, base - d * sc - 5);
+      c.font = "12px sans-serif"; c.fillText(lab, x + 6, base + 16);
+    });
+    c.fillStyle = "#666"; c.fillText("左辺", bx + 18, 16); c.fillText("右辺の各項", bx + bw + gap + 60, 16);
+    const rhs = m + 4 !== n + 2 ? Math.max(m + 4, n + 2) : null;
+    let msg = `左辺の次数 3n = ${3 * n}<br>`;
+    if (rhs === null) msg += `右辺：x⁴f と 3x²g がともに ${m + 4} 次で打ち消し合う可能性 → 右辺は ${m + 4} 次以下<br><span class="ng">✘ ${3 * n} > ${m + 4} で矛盾</span>`;
+    else msg += `右辺の次数 = ${rhs}<br>` + (rhs === 3 * n ? '<span class="ok">✔ 一致！（m = n = 2）</span>' : `<span class="ng">✘ ${3 * n} ≠ ${rhs}</span>`);
+    $("info").innerHTML = msg;
+  }
+  $("m").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

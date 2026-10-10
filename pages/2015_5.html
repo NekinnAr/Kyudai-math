@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2015年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2015-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$n$ が正の偶数のとき，$2^n - 1$ は 3 の倍数であることを示せ。</li>
+      <li>(2)　$n$ を自然数とする。$2^n + 1$ と $2^n - 1$ は互いに素であることを示せ。</li>
+      <li>(3)　$p,\ q$ を異なる素数とする。$2^{p-1} - 1 = pq^2$ を満たす $p,\ q$ の組をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2015 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1)(2) がそのまま (3) の道具。偶奇で $p,\ q$ が奇数とわかり、(1) で $q = 3$ が決まる。$p - 1 = 2m$ として $2^{2m} - 1 = (2^m - 1)(2^m + 1)$ と因数分解し、(2) の互いに素を使って振り分ける。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$n = 2m$ とすると $2^n - 1 = 4^m - 1$。$4 \equiv 1 \pmod 3$ より $4^m - 1 \equiv 0 \pmod 3$。</p>
+
+      <h3>(2)</h3>
+      <p>$d$ を 2 数の公約数とすると、$d$ は差 $(2^n + 1) - (2^n - 1) = 2$ を割り切る。$2^n - 1$ は奇数なので $d \ne 2$、よって $d = 1$。</p>
+
+      <h3>(3)</h3>
+      <p><b>$p,\ q$ は奇数。</b>$p = 2$ なら左辺 $= 1$，右辺 $= 2q^2 \ge 8$ で不適。$p \ge 3$ なら左辺は奇数なので $q \ne 2$。</p>
+      <p><b>$q = 3$。</b>$p$ は奇数なので $p - 1$ は正の偶数で、(1) より左辺は 3 の倍数。よって $p = 3$ または $q = 3$。$p = 3$ なら $3 = 3q^2$ で $q = 1$ となり不適。したがって $q = 3$，$p \ge 5$。</p>
+      <p><b>因数分解。</b>$p - 1 = 2m$（$m \ge 2$）とおくと</p>
+      $$(2^m - 1)(2^m + 1) = 9p$$
+      <p>(2) より 2 つの因数は互いに素なので、$9$ はどちらか一方にまるごと含まれる。また $2^m - 1 \ge 3$ なので、組合せは</p>
+      <ul>
+        <li>$2^m - 1 = 9,\ 2^m + 1 = p$：$2^m = 10$ で不適</li>
+        <li>$2^m - 1 = p,\ 2^m + 1 = 9$：$m = 3$，$p = 7$。$p = 2m + 1 = 7$ とも合う ✔</li>
+      </ul>
+      <p>（$2^m - 1 = 1$ や $9p$ のような分け方は $2^m - 1 \ge 3$，$2^m + 1 \gt 2^m - 1$ から起こらない。）</p>
+      <p>検算：$2^6 - 1 = 63 = 7\cdot3^2$。答は $(p,\ q) = (7,\ 3)$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>奇数の素数 $p$ について $2^{p-1} - 1 = (2^m - 1)(2^m + 1)$（$m = \frac{p-1}{2}$）を素因数分解した表です。<b>フェルマーの小定理</b>より、どの行にも必ず $p$ が現れます（緑）。$pq^2$ の形になるのは $p = 7$ だけ。</p>
+
+  <div class="widget">
+    <label>p の上限：<input type="range" id="pm" min="3" max="31" step="2" value="19"></label>
+    <span class="readout no-math" id="pv"></span>
+    <div style="overflow-x:auto;margin-top:8px"><table class="simple no-math" id="tbl"></table></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>フェルマーの小定理と「$2^{p-1} - 1$ は $p$ の倍数」</h3>
+  <p>フェルマーの小定理より、奇素数 $p$ に対して $2^{p-1} \equiv 1 \pmod p$、つまり $2^{p-1} - 1$ は常に $p$ の倍数です。本問は「割った商 $\frac{2^{p-1} - 1}{p}$ が素数の 2 乗になるのはいつか」という問題で、答えは $\frac{63}{7} = 9 = 3^2$ のみです。</p>
+  <p>ちなみに $\frac{2^{p-1}-1}{p}$ が平方数になるのも $p = 3,\ 7$ のときだけであることが知られています。</p>
+  <p>chopin 先生は「非常に誘導が丁寧ですので、うまく乗っていきましょう」「左右の偶奇を比べると、左辺は必ず奇数」「$p$ が奇数であれば (1) の結果から左辺は 3 の倍数。よって $p$ と $q$ のどっちかは 3」「$2^m - 1$ と $2^m + 1$ は (2) より互いに素なので候補が絞られます」とコメントしています。</p>
+  <div class="point">$a^{2m} - 1 = (a^m - 1)(a^m + 1)$ と分解し、<b>2 因数の最大公約数</b>（差で割り切る）を調べて素因数を振り分ける。偶奇・mod 3 で文字を絞るのが整数問題の定石。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$n$ を自然数とする。$3^n + 1$ と $3^n - 1$ の最大公約数を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>公約数は差 $2$ を割り切る。両方とも偶数なので、最大公約数は $2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$p,\ q$ を異なる素数とする。$2^{p-1} - 1 = pq$ を満たす $p,\ q$ の組をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2015　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問と同様に $p,\ q$ は奇数、左辺は 3 の倍数。$p = 3$ なら $3 = 3q$ で不適なので $q = 3$，$p \ge 5$。$p - 1 = 2m$ とすると $(2^m - 1)(2^m + 1) = 3p$ で、2 因数は互いに素。</p>
+    <ul>
+      <li>$2^m - 1 = 3,\ 2^m + 1 = p$：$m = 2$，$p = 5$（$p = 2m + 1 = 5$ ✔）</li>
+      <li>$2^m - 1 = p,\ 2^m + 1 = 3$：$m = 1$ で $p = 1$，不適</li>
+    </ul>
+    <p>答：$(p,\ q) = (5,\ 3)$（$2^4 - 1 = 15 = 5\cdot3$）。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const isPrime = (n) => { if (n < 2) return false; for (let d = 2; d * d <= n; d++) if (n % d === 0) return false; return true; };
+  function fac(n) { const f = []; for (let d = 2; d * d <= n; d++) while (n % d === 0) { f.push(d); n /= d; } if (n > 1) f.push(n); return f; }
+  function fmt(f, p) {
+    const m = {}; f.forEach((x) => (m[x] = (m[x] || 0) + 1));
+    return Object.keys(m).map(Number).sort((a, b) => a - b).map((x) => { const s = x + (m[x] > 1 ? "^" + m[x] : ""); return x === p ? `<b style="color:#2f9e44">${s}</b>` : s; }).join(" × ");
+  }
+  function draw() {
+    const pm = +$("pm").value;
+    $("pv").textContent = ` ${pm}`;
+    let h = "<tr><th>p</th><th>m</th><th>2^m − 1</th><th>2^m + 1</th><th>2^(p−1) − 1 の素因数分解</th><th>pq² 型？</th></tr>";
+    for (let p = 3; p <= pm; p += 2) {
+      if (!isPrime(p)) continue;
+      const m = (p - 1) / 2, A = 2 ** m - 1, B = 2 ** m + 1, N = A * B, f = fac(N);
+      const quo = N / p, fq = fac(quo), ok = fq.length === 2 && fq[0] === fq[1] && fq[0] !== p;
+      h += `<tr${ok ? ' style="background:#fff3bf"' : ""}><td>${p}</td><td>${m}</td><td>${fmt(fac(A), p) || "1"}</td><td>${fmt(fac(B), p)}</td><td>${N} = ${fmt(f, p)}</td><td>${ok ? '<span class="ok">✔ q = ' + fq[0] + "</span>" : "—"}</td></tr>`;
+    }
+    $("tbl").innerHTML = h;
+  }
+  $("pm").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

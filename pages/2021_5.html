@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2021年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2021-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　自然数 $n,\ k$ が $2 \le k \le n - 2$ をみたすとき，${}_n\mathrm{C}_k \gt n$ であることを示せ。</li>
+      <li>(2)　$p$ を素数とする。$k \le n$ をみたす自然数の組 $(n,\ k)$ で ${}_n\mathrm{C}_k = p$ となるものをすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2021 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は二項係数が「真ん中に向かって増える」ことを使う。(2) は $k$ を $1,\ n - 1,\ n$ と $2 \le k \le n - 2$ に分け、後者は (1) と「素数 $p \gt n$ は $n!$ を割り切らない」ことで矛盾を導く。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$2 \le k \le n - 2$ より $n \ge 4$。$0 \le j \le n - 1$ に対して</p>
+      $$\frac{{}_n\mathrm{C}_{j+1}}{{}_n\mathrm{C}_j} = \frac{n - j}{j + 1}$$
+      <p>これは $j \lt \frac{n-1}{2}$ のとき $1$ より大きく、$j \gt \frac{n-1}{2}$ のとき $1$ より小さい。よって ${}_n\mathrm{C}_j$ は $j \le \frac{n}{2}$ の範囲で増加（広義）、$j \ge \frac{n}{2}$ の範囲で減少（広義）する。したがって $2 \le k \le n - 2$ のとき</p>
+      $${}_n\mathrm{C}_k \ge {}_n\mathrm{C}_2 = {}_n\mathrm{C}_{n-2} = \frac{n(n-1)}{2}$$
+      <p>$n \ge 4$ より $\dfrac{n(n-1)}{2} - n = \dfrac{n(n-3)}{2} \gt 0$。よって ${}_n\mathrm{C}_k \gt n$。</p>
+
+      <h3>(2)</h3>
+      <ul>
+        <li>$k = n$ のとき：${}_n\mathrm{C}_n = 1 \neq p$。不適。</li>
+        <li>$k = 1$ または $k = n - 1$ のとき：${}_n\mathrm{C}_k = n$ なので $n = p$。$(n,\ k) = (p,\ 1),\ (p,\ p - 1)$。</li>
+        <li>$2 \le k \le n - 2$ のとき：${}_n\mathrm{C}_k = p$ と仮定すると、(1) より $p \gt n$。一方
+          $$n! = p \cdot k!\,(n - k)!$$
+          の右辺は $p$ で割り切れるので、左辺 $n! = 1 \cdot 2 \cdots n$ も $p$ で割り切れる。$p$ は素数なので $1,\ 2,\ \cdots,\ n$ のどれかが $p$ の倍数となり $p \le n$。これは $p \gt n$ に矛盾。</li>
+      </ul>
+      <p>以上より（$k \le n$ と $k \ge 1$ に注意して）</p>
+      $$(n,\ k) = (p,\ 1),\ (p,\ p - 1)$$
+      <p>（$p = 2$ のときは 2 つが一致して $(2,\ 1)$ のみ。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>パスカルの三角形で、値が $m$ に等しい場所を赤で示します。$m$ が素数なら、赤は左右の端の隣（$k = 1,\ n - 1$）にしか現れません。合成数（$6,\ 10,\ 15,\ 120$ など）と比べてみましょう。「$m$ で割り切れる数を塗る」にすると、$m$ が素数のとき $p$ 行目が端以外すべて塗られます（類題 1）。</p>
+
+  <div class="widget">
+    <label>m：<input type="number" id="m" min="2" max="9999" value="7" style="width:6em"></label>
+    <label>表示する行数：<input type="range" id="rows" min="6" max="40" value="12"></label><span class="readout no-math" id="rv"></span>
+    <label class="no-math" style="margin-left:8px"><input type="checkbox" id="div"> m で割り切れる数を塗る</label>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="640" height="420" style="max-width:100%"></canvas>
+    </div>
+    <div class="no-math" id="info" style="margin-top:6px;line-height:1.8"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>素数と二項係数</h3>
+  <p>$p$ が素数のとき、$1 \le k \le p - 1$ に対して ${}_p\mathrm{C}_k$ は $p$ の倍数です（類題 1）。これは<b>フェルマーの小定理</b> $a^p \equiv a \pmod p$ の二項定理による証明の鍵になる性質で、入試頻出です。本問 (2) の「$p \le n$ でないと $n!$ は $p$ で割り切れない」という議論も、同じ「素数の性質」の裏返しです。</p>
+  <h3>パスカルの三角形にある数は何回現れるか</h3>
+  <p>本問は「素数はパスカルの三角形の端以外に 2 回しか現れない」と言っています。一般に 2 以上の数 $m$ が何回現れるかは<b>シングマスター予想</b>という未解決問題に関係していて、例えば $3003$ は 8 回現れます（${}_{3003}\mathrm{C}_1,\ {}_{78}\mathrm{C}_2,\ {}_{15}\mathrm{C}_5,\ {}_{14}\mathrm{C}_6$ とその対称）。上の図解で $m = 3003$ を入れてみてください。</p>
+  <h3>全体の講評</h3>
+  <p>chopin 先生の評価は「1 &lt; 2 &lt; 5 &lt; 3 &lt; 4」の順で、本問は易しめ。「バラエティに富んでいるが、全体としてそこまで難しくない」セットです。(1) の結果を (2) でどう使うかが見えれば完答できます。</p>
+  <div class="point">「素数 $p$ が積 $ab$ を割り切るなら、$a$ か $b$ を割り切る」。これを $n! = 1 \cdot 2 \cdots n$ に使うと「$p \mid n! \iff p \le n$」。整数問題の基本道具です。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$p$ を素数とする。$1 \le k \le p - 1$ のとき，${}_p\mathrm{C}_k$ は $p$ の倍数であることを示せ。</p>
+  </div>
+  <p class="source">（自作・頻出）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$k \cdot {}_p\mathrm{C}_k = p \cdot {}_{p-1}\mathrm{C}_{k-1}$ より、右辺は $p$ の倍数なので $p \mid k \cdot {}_p\mathrm{C}_k$。$1 \le k \le p - 1$ より $k$ は $p$ と互いに素なので $p \mid {}_p\mathrm{C}_k$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$p$ を素数とする。$k \le n$ をみたす自然数の組 $(n,\ k)$ で ${}_n\mathrm{C}_k = 2p$ となるものをすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2021　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$k = n$ は不適、$k = 1,\ n - 1$ なら $n = 2p$。以下 $2 \le k \le n - 2$（$n \ge 4$）とする。(1) より $2p \ge {}_n\mathrm{C}_2 = \dfrac{n(n-1)}{2}$。</p>
+    <ul>
+      <li>$p = 2$ のとき：${}_n\mathrm{C}_k = 4$ だが ${}_n\mathrm{C}_2 \ge 6$ で不適。</li>
+      <li>$p$ が奇素数のとき：$n! = 2p \cdot k!\,(n - k)!$ は $p$ の倍数なので $p \le n$。すると $\dfrac{n(n-1)}{2} \le 2p \le 2n$ より $n \le 5$。$n = 4,\ 5$ を調べると ${}_4\mathrm{C}_2 = 6 = 2 \cdot 3$，${}_5\mathrm{C}_2 = {}_5\mathrm{C}_3 = 10 = 2 \cdot 5$。</li>
+    </ul>
+    $$(n,\ k) = (2p,\ 1),\ (2p,\ 2p - 1),\ \text{および } p = 3 \text{ のとき } (4,\ 2),\ p = 5 \text{ のとき } (5,\ 2),\ (5,\ 3)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  const isPrime = (m) => { if (m < 2) return false; for (let d = 2; d * d <= m; d++) if (m % d === 0) return false; return true; };
+  function occurrences(m) { // nCk = m (1 <= k <= n-1)
+    const res = [];
+    for (let n = 2; n <= m; n++) {
+      let v = 1;
+      for (let k = 1; k <= n / 2; k++) {
+        v = v * (n - k + 1) / k;
+        if (v > m) break;
+        if (v === m) { res.push([n, k]); if (n - k !== k) res.push([n, n - k]); }
+      }
+    }
+    return res;
+  }
+  function draw() {
+    let m = Math.max(2, Math.min(9999, Math.floor(+$("m").value || 2)));
+    const N = +$("rows").value, useDiv = $("div").checked;
+    $("rv").textContent = ` 0〜${N - 1} 行目`;
+    c.clearRect(0, 0, W, H);
+    const cw = Math.min(46, (W - 10) / N), ch = Math.min(34, (H - 10) / N);
+    const showNum = cw >= 30;
+    let row = [1], rowMod = [1 % m];
+    for (let n = 0; n < N; n++) {
+      if (n > 0) {
+        const nr = [1], nm = [1 % m];
+        for (let k = 1; k < n; k++) { nr.push(row[k - 1] + row[k]); nm.push((rowMod[k - 1] + rowMod[k]) % m); }
+        nr.push(1); nm.push(1 % m); row = nr; rowMod = nm;
+      }
+      for (let k = 0; k <= n; k++) {
+        const x = W / 2 + (k - n / 2) * cw, y = 6 + ch / 2 + n * ch;
+        const hit = row[k] === m, dv = useDiv && rowMod[k] === 0;
+        c.fillStyle = hit ? "#c92a2a" : dv ? "rgba(138,21,56,.35)" : "#f1f3f5";
+        c.beginPath(); c.arc(x, y, Math.min(cw, ch) * 0.46, 0, 7); c.fill();
+        if (showNum) {
+          const s = String(row[k]);
+          c.fillStyle = hit ? "#fff" : "#333";
+          c.font = `${s.length > 4 ? 9 : s.length > 3 ? 10 : 12}px sans-serif`;
+          c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(s, x, y);
+        }
+      }
+    }
+    c.textAlign = "start"; c.textBaseline = "alphabetic";
+    const occ = occurrences(m).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    $("info").innerHTML = `m = ${m} は ${isPrime(m) ? '<span class="ok">素数</span>' : "合成数"}。` +
+      `<sub>n</sub>C<sub>k</sub> = ${m}（1 ≤ k ≤ n − 1）となる (n, k)：${occ.map(([n, k]) => `(${n}, ${k})`).join("，")}　…… ${occ.length} 個` +
+      (showNum ? "" : "<br>（行数が多いので数字は省略しています）");
+  }
+  ["m", "rows", "div"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

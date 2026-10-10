@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2023年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2023-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$\alpha$ を実数とする。数列 $\{a_n\}$ が</p>
+    $$a_1 = \alpha,\qquad a_{n+1} = |a_n - 1| + a_n - 1\quad(n = 1,\ 2,\ 3,\ \cdots)$$
+    <p>で定められるとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\alpha \le 1$ のとき，数列 $\{a_n\}$ の収束，発散を調べよ。</li>
+      <li>(2)　$\alpha \gt 2$ のとき，数列 $\{a_n\}$ の収束，発散を調べよ。</li>
+      <li>(3)　$1 \lt \alpha \lt \dfrac32$ のとき，数列 $\{a_n\}$ の収束，発散を調べよ。</li>
+      <li>(4)　$\dfrac32 \le \alpha \lt 2$ のとき，数列 $\{a_n\}$ の収束，発散を調べよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2023 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>まず絶対値を外して漸化式の正体をつかむ。$a_n \ge 1$ なら $a_{n+1} = 2(a_n - 1)$、$a_n \lt 1$ なら $a_{n+1} = 0$。つまり<b>一度 $1$ 未満になったら次からはずっと $0$</b>。あとは「いつ $1$ 未満になるか」を追いかける。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$f(x) = |x - 1| + x - 1$ とおくと</p>
+      $$f(x) = \begin{cases} 2(x - 1) & (x \ge 1) \\ 0 & (x \lt 1) \end{cases}$$
+      <p>特に、ある $k$ で $a_k \lt 1$ となれば $a_{k+1} = 0$、$0 \lt 1$ なので $a_{k+2} = 0$、… と以後すべて $0$ になる。…（☆）</p>
+
+      <h3>(1)</h3>
+      <p>$\alpha \lt 1$ なら $a_2 = 0$、$\alpha = 1$ なら $a_2 = 2(1 - 1) = 0$。いずれも $a_2 = 0 \lt 1$ なので（☆）より $a_n = 0\ (n \ge 2)$。<b>$0$ に収束</b>する。</p>
+
+      <h3>(2)</h3>
+      <p>$a_n \gt 2$ ならば $a_{n+1} = 2(a_n - 1) \gt 2$ なので、帰納的にすべての $n$ で $a_n \gt 2$。よって $a_{n+1} = 2a_n - 2$、すなわち $a_{n+1} - 2 = 2(a_n - 2)$ より</p>
+      $$a_n = 2 + (\alpha - 2)\cdot 2^{n-1} \to \infty\qquad(\alpha - 2 \gt 0)$$
+      <p><b>正の無限大に発散</b>する。</p>
+
+      <h3>(3)</h3>
+      <p>$a_2 = 2(\alpha - 1)$ で、$1 \lt \alpha \lt \frac32$ より $0 \lt a_2 \lt 1$。（☆）より $a_n = 0\ (n \ge 3)$。<b>$0$ に収束</b>する。</p>
+
+      <h3>(4)</h3>
+      <p>$b_n = 2 - a_n$ とおく。$a_n \ge 1$（$b_n \le 1$）のとき $a_{n+1} = 2a_n - 2$ より $b_{n+1} = 2b_n$。</p>
+      <p>$b_1 = 2 - \alpha$ で $0 \lt b_1 \le \frac12$。$2^{N-1}b_1 \le 1 \lt 2^N b_1$ をみたす自然数 $N$ をとる（$b_1 \gt 0$ なので存在する）。$n = 1,\ 2,\ \dots,\ N$ では $b_n = 2^{n-1}b_1 \le 1$、つまり $a_n \ge 1$ が帰納的に保たれ、</p>
+      $$b_{N+1} = 2^N b_1 \gt 1\quad\text{すなわち}\quad a_{N+1} \lt 1$$
+      <p>（☆）より $a_n = 0\ (n \ge N + 2)$。<b>$0$ に収束</b>する。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>グラフ $y = f(x)$ と直線 $y = x$ を使った<b>クモの巣図（cobweb plot）</b>です。$\alpha$ を動かすと、点が $y = f(x)$ と $y = x$ の間を行き来して数列の動きが分かります。$\alpha$ を $2$ に近づけると、$0$ に落ちるまでの回数がどんどん増えます。</p>
+
+  <div class="widget">
+    <label>α：<input type="range" id="al" min="-500" max="2200" value="1950"></label>
+    <span class="readout no-math" id="alv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="seq" style="min-width:200px;line-height:1.7;font-size:.92em"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>不動点 $x = 2$ は「不安定」</h3>
+  <p>$f(2) = 2$ なので、$\alpha = 2$ ならずっと $a_n = 2$ です。でも $2$ から少しでもずれると、ずれ $2 - a_n$ は毎回 2 倍に拡大され、上にずれれば $\infty$ へ、下にずれれば最後は $0$ に落ちます。このような不動点を<b>不安定な不動点</b>（反発的不動点）と呼びます。傾き $2$ の直線と $y = x$ の交点なので、クモの巣図が外向きに広がっていくのが分かります。</p>
+  <h3>落ちるまでの回数</h3>
+  <p>(4) の議論から、$2 - \dfrac{1}{2^{k-1}} \le \alpha \lt 2 - \dfrac{1}{2^k}$ のとき、$a_{k+1}$ で初めて $1$ 未満になり、$a_{k+2}$ 以降が $0$ です。chopin 先生の解説にもある通り、場合分けの境界は $2 - \frac{1}{2^k}$ という形をしています。</p>
+  <div class="point">区分的に定義された漸化式は、<b>「状態が変わる条件」と「一度入ったら抜けられない状態」</b>を見つけるのがコツ。本問では「$1$ 未満 → 以後 $0$」がそれでした。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の数列で $\alpha = 2 - \dfrac{1}{1000}$ とする。$a_n = 0$ となる最小の $n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$b_n = 2 - a_n$ とすると、$b_n \le 1$ の間は $b_n = \dfrac{2^{n-1}}{1000}$。$2^9 = 512 \le 1000 \lt 1024 = 2^{10}$ より $b_{10} \le 1 \lt b_{11}$。よって $a_{10} \ge 1$、$a_{11} \lt 1$（$a_{11} = 2 - 1.024 = 0.976$）、$a_{12} = 0$。答えは $n = 12$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>数列 $\{a_n\}$ を $a_1 = \alpha$，$a_{n+1} = 2|a_n - 1|$ で定める。ただし $0 \le \alpha \le 2$ とする。$a_3 = a_1$ かつ $a_2 \neq a_1$ となる $\alpha$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2023　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$g(x) = 2|x - 1|$ は $[0,\ 2]$ を $[0,\ 2]$ に移す「テント写像」。$g(g(x)) = x$ を、$x$ と $g(x)$ が $1$ 以上か未満かの 4 通りに分けて解く。</p>
+    <ul>
+      <li>$x \ge 1,\ g(x) \ge 1$：$4(x - 1) - 2 = x$ より $x = 2$（不動点）</li>
+      <li>$x \ge 1,\ g(x) \lt 1$：$2 - 4(x - 1) = x$ より $x = \frac65$（$g(\frac65) = \frac25 \lt 1$ で適）</li>
+      <li>$x \lt 1,\ g(x) \ge 1$：$4(1 - x) - 2 = x$ より $x = \frac25$（$g(\frac25) = \frac65$ で適）</li>
+      <li>$x \lt 1,\ g(x) \lt 1$：$2 - 4(1 - x) = x$ より $x = \frac23$（不動点）</li>
+    </ul>
+    <p>不動点を除いて $\alpha = \dfrac25,\ \dfrac65$（周期 2 の軌道 $\frac25 \to \frac65 \to \frac25 \to \cdots$）。</p>
+    <p>本問の $f$ は $1$ 未満を全部 $0$ に潰してしまいますが、テント写像は $[0,\ 2]$ の中で永遠に動き回り、周期点がいくらでもある<b>カオス</b>の代表例です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -0.6, xmax: 3.2, ymin: -0.6, ymax: 3.2, equal: true });
+  const alIn = document.getElementById("al");
+  const f = (x) => (x >= 1 ? 2 * (x - 1) : 0); // = |x−1| + x − 1
+  function draw() {
+    const al = alIn.value / 1000;
+    document.getElementById("alv").textContent = ` α = ${al.toFixed(3)}`;
+    P.clear().grid(0.5).axes();
+    P.fn((x) => x, -0.6, 3.2, "#999", 1, 2, [4, 4]);
+    P.fn(f, -0.6, 3.2, "#8a1538", 2.5, 400);
+    P.text("y = x", 2.5, 2.8, "#999"); P.text("y = f(x)", 1.7, 0.4, "#8a1538");
+    // クモの巣
+    const seq = [al]; let x = al;
+    for (let i = 0; i < 30; i++) { x = f(x); seq.push(x); if (Math.abs(x) > 1e6) break; }
+    const path = [[al, 0]]; let cur = al;
+    for (let i = 0; i < 30; i++) { const nx = f(cur); path.push([cur, nx], [nx, nx]); cur = nx; if (Math.abs(nx) > 10) break; }
+    P.line(path, "#1c7ed6", 1.4);
+    P.dot(al, 0, "#1c7ed6", 4, "α", -4, 16);
+    P.dot(2, 2, "#e8590c", 4, "不動点 2", 6, 14);
+    let first0 = seq.findIndex((v) => v === 0);
+    const show = seq.slice(0, 16).map((v, i) => `a<sub>${i + 1}</sub> = ${Math.abs(v) > 1e5 ? v.toExponential(2) : (+v.toFixed(5))}`);
+    let verdict;
+    if (al > 2) verdict = `<span class="ng">→ ∞ に発散</span>`;
+    else if (al === 2) verdict = `ずっと 2（本問の範囲外）`;
+    else verdict = `<span class="ok">→ 0 に収束</span>（a<sub>${first0 + 1}</sub> で初めて 0）`;
+    document.getElementById("seq").innerHTML = show.join("<br>") + (seq.length > 16 ? "<br>…" : "") + "<br>" + verdict;
+  }
+  alIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

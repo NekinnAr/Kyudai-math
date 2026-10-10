@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2024年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2024-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$n$ を $3$ 以上の整数とする。座標平面上の点のうち，$x$ 座標と $y$ 座標がともに $1$ 以上 $n$ 以下の整数であるものを考える。これら $n^2$ 個の点のうち $3$ 点以上を通る直線の個数を $L(n)$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$L(3)$ を求めよ。</li>
+      <li>(2)　$L(4)$ を求めよ。</li>
+      <li>(3)　$L(5)$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2024 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>やることは数え上げだけだが、漏れや重複を防ぐために<b>傾きで分類</b>する。格子点を 3 個通る直線の傾きの候補は、格子の大きさから限られる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>格子点全体を $G_n$ とする。<b>準備</b>：3 点以上を通る直線 $\ell$ 上の格子点を、$x$ 座標（垂直な直線では $y$ 座標）の小さい順に $\mathrm{A}_1,\ \mathrm{A}_2,\ \mathrm{A}_3,\ \dots$ とする。$\ell$ の方向ベクトルを、成分が互いに素な整数の組 $\vec v = (p,\ q)$（$p \gt 0$、または $p = 0,\ q = 1$）にとると、$\ell$ 上の格子点は等間隔に並ぶので $\overrightarrow{\mathrm{A}_1\mathrm{A}_3} = 2k\vec v$（$k$ は自然数）。$\mathrm{A}_1,\ \mathrm{A}_3$ の座標の差は $n - 1$ 以下だから</p>
+      $$2|p| \le n - 1,\qquad 2|q| \le n - 1 \qquad\cdots (*)$$
+
+      <h3>(1)　$n = 3$</h3>
+      <p>$(*)$ より $|p|,\ |q| \le 1$。よって傾きは $0$、$\infty$（垂直）、$1$、$-1$ のみ。</p>
+      <ul>
+        <li>水平：$y = 1,\ 2,\ 3$ の 3 本　　垂直：$x = 1,\ 2,\ 3$ の 3 本</li>
+        <li>傾き $\pm1$：2 本の対角線のみ（他の傾き $\pm1$ の直線は 2 点以下）</li>
+      </ul>
+      $$L(3) = 3 + 3 + 1 + 1 = 8$$
+
+      <h3>(2)　$n = 4$</h3>
+      <p>$(*)$ より $|p|,\ |q| \le 1$（$\frac32$ 以下）なので、傾きはやはり $0,\ \infty,\ \pm1$ のみ。</p>
+      <ul>
+        <li>水平・垂直：各 4 本</li>
+        <li>傾き $1$：$y = x + k$ 上の格子点は $4 - |k|$ 個なので、3 個以上となるのは $k = -1,\ 0,\ 1$ の 3 本。傾き $-1$ も同様に 3 本。</li>
+      </ul>
+      $$L(4) = 4 + 4 + 3 + 3 = 14$$
+
+      <h3>(3)　$n = 5$</h3>
+      <p>$(*)$ より $|p|,\ |q| \le 2$。互いに素な組なので、傾きは $0,\ \infty,\ \pm1,\ \pm2,\ \pm\frac12$。</p>
+      <ul>
+        <li>水平・垂直：各 5 本</li>
+        <li>傾き $1$：$y = x + k$ 上の格子点は $5 - |k|$ 個で、$|k| \le 2$ の 5 本。傾き $-1$ も 5 本。</li>
+        <li>傾き $2$：3 点以上あれば $y$ 座標の差が $4$ 以上なので、ちょうど 3 点 $(x,\ 1),\ (x+1,\ 3),\ (x+2,\ 5)$（$x = 1,\ 2,\ 3$）の 3 本。傾き $-2,\ \pm\frac12$ も対称性から各 3 本。</li>
+      </ul>
+      $$L(5) = 5\times 2 + 5\times 2 + 3\times 4 = 32$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を変えると、3 点以上を通る直線がすべて描かれます。色は傾きの種類です。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="3" max="8" value="5"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="no-math" style="margin:6px 0">
+      <label><input type="checkbox" class="cat" value="0" checked> 水平・垂直</label>　
+      <label><input type="checkbox" class="cat" value="1" checked> 傾き ±1</label>　
+      <label><input type="checkbox" class="cat" value="2" checked> 傾き ±2, ±1/2</label>　
+      <label><input type="checkbox" class="cat" value="3" checked> その他</label>
+    </div>
+    <div class="row" style="align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="360"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>一般の $n$ ではどうなる？</h3>
+  <p>出題者が $L(5)$ までで止めたのは、$n$ が大きくなると傾きの候補が急増するからです。それでも、次のように考えると<b>機械的に</b>数えられます。</p>
+  <p>方向ベクトル $\vec v = (p,\ q)$（互いに素）の直線で 3 点以上を通るものは、その直線上の「最初の点」$\mathrm{P}$（$\mathrm{P} - \vec v \notin G_n$）と 1 対 1 に対応し、$\mathrm{P} + 2\vec v \in G_n$ が条件です。よって本数は</p>
+  $$\#\{\mathrm{P} \mid \mathrm{P},\ \mathrm{P} + 2\vec v \in G_n\} - \#\{\mathrm{P} \mid \mathrm{P} - \vec v,\ \mathrm{P} + 2\vec v \in G_n\} = N(2\vec v) - N(3\vec v)$$
+  <p>ただし $N(k\vec v) = (n - k|p|)_+\,(n - k|q|)_+$（$(x)_+$ は $x$ と $0$ の大きい方）です。これをすべての方向について足すと</p>
+  <div class="table-scroll"><table class="simple">
+    <tr><th>$n$</th><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+    <tr><th>$L(n)$</th><td>8</td><td>14</td><td>32</td><td>58</td><td>108</td><td>174</td></tr>
+  </table></div>
+  <p>となります（図解の数値と一致します）。きれいな一般項は知られていません。chopin 先生も「$L(n)$ の一般項を求めよ、ならもっと骨のある問題になった」とコメントしています。</p>
+
+  <h3>no-three-in-line 問題</h3>
+  <p>逆に「$n \times n$ の格子点から、どの 3 点も一直線上にないように最大で何点選べるか」は <b>no-three-in-line 問題</b>と呼ばれる有名な問題です。各行に 2 点までしか選べないので上限は $2n$ ですが、$2n$ 点が選べるかどうかは小さい $n$ でしか確かめられておらず、一般には未解決です。</p>
+  <div class="point">数え上げは「<b>分類の基準を決めてから数える</b>」のが鉄則。本問なら傾き、そして「対称性で同じ本数になるもの」をまとめると、記述もすっきりします。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の $L(6)$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$2|p|,\ 2|q| \le 5$ より $|p|,\ |q| \le 2$。傾きは $0,\ \infty,\ \pm1,\ \pm2,\ \pm\frac12$。</p>
+    <ul>
+      <li>水平・垂直：各 6 本</li>
+      <li>傾き $\pm1$：$y = \pm x + k$ 型で格子点 $6 - |k|$ 個（傾き $-1$ は対称）、$|k| \le 3$ の 7 本ずつ</li>
+      <li>傾き $2$：最初の点 $(x,\ y)$ に対し $(x+2,\ y+4) \in G_6$ なので $x \le 4,\ y \le 2$ の 8 通り。$(x - 1,\ y - 2) \in G_6$ となる点は $y \le 2$ にないので、すべて「最初の点」。8 本。$-2,\ \pm\frac12$ も各 8 本。</li>
+    </ul>
+    $$L(6) = 12 + 14 + 32 = 58$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>$n \ge 6$ とする。本問の $n^2$ 個の点のうち 3 点以上を通る直線で，傾きが $1$ であるもの，傾きが $2$ であるものの個数をそれぞれ $n$ の式で表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2024　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>「背景」の数え方を使う。</p>
+    <ul>
+      <li>傾き $1$（$\vec v = (1,\ 1)$）：$N(2\vec v) - N(3\vec v) = (n-2)^2 - (n-3)^2 = 2n - 5$</li>
+      <li>傾き $2$（$\vec v = (1,\ 2)$）：$N(2\vec v) - N(3\vec v) = (n-2)(n-4) - (n-3)(n-6) = 3n - 10$</li>
+    </ul>
+    <p>（$n = 6$ で $7,\ 8$ となり、類題の結果と一致。$n = 5$ では $(n-6)_+ = 0$ となるので傾き 2 は $3$ 本で、$3n - 10$ には従いません。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv"), c = cv.getContext("2d");
+  const nIn = document.getElementById("n");
+  const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
+  const COL = ["#1c7ed6", "#c92a2a", "#2b8a3e", "#e8590c"];
+  function lines(n) {
+    const pts = []; for (let x = 1; x <= n; x++) for (let y = 1; y <= n; y++) pts.push([x, y]);
+    const map = new Map();
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+      let p = pts[j][0] - pts[i][0], q = pts[j][1] - pts[i][1]; const g = gcd(p, q); p /= g; q /= g;
+      if (p < 0 || (p === 0 && q < 0)) { p = -p; q = -q; }
+      const k = q * pts[i][0] - p * pts[i][1], key = `${p},${q},${k}`;
+      if (!map.has(key)) map.set(key, { p, q, set: new Set() });
+      map.get(key).set.add(i); map.get(key).set.add(j);
+    }
+    return [...map.values()].filter((l) => l.set.size >= 3).map((l) => {
+      const ps = [...l.set].map((i) => pts[i]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+      const ap = Math.abs(l.p), aq = Math.abs(l.q);
+      const cat = (ap === 0 || aq === 0) ? 0 : (ap === aq) ? 1 : (Math.max(ap, aq) === 2 && Math.min(ap, aq) === 1) ? 2 : 3;
+      return { ...l, ps, cat, slope: ap === 0 ? "∞" : (l.q % l.p === 0 ? `${l.q / l.p}` : `${l.q}/${l.p}`) };
+    });
+  }
+  function draw() {
+    const n = +nIn.value, Ls = lines(n);
+    const show = [...document.querySelectorAll(".cat")].filter((e) => e.checked).map((e) => +e.value);
+    document.getElementById("nv").textContent = ` ${n}　L(${n}) = ${Ls.length}`;
+    const W = cv.width, m = 30, s = (W - 2 * m) / (n - 1);
+    const X = (x) => m + (x - 1) * s, Y = (y) => W - m - (y - 1) * s;
+    c.clearRect(0, 0, W, W);
+    Ls.forEach((l) => {
+      if (!show.includes(l.cat)) return;
+      const a = l.ps[0], b = l.ps[l.ps.length - 1], dx = (b[0] - a[0]), dy = (b[1] - a[1]), len = Math.hypot(dx, dy), e = 0.25;
+      c.strokeStyle = COL[l.cat]; c.globalAlpha = 0.65; c.lineWidth = 1.6; c.beginPath();
+      c.moveTo(X(a[0] - e * dx / len), Y(a[1] - e * dy / len)); c.lineTo(X(b[0] + e * dx / len), Y(b[1] + e * dy / len)); c.stroke();
+    });
+    c.globalAlpha = 1;
+    for (let x = 1; x <= n; x++) for (let y = 1; y <= n; y++) { c.fillStyle = "#222"; c.beginPath(); c.arc(X(x), Y(y), 3.5, 0, 7); c.fill(); }
+    // 集計
+    const cnt = {}; Ls.forEach((l) => (cnt[l.slope] = (cnt[l.slope] || 0) + 1));
+    const order = Object.keys(cnt).sort((a, b) => (a === "∞" ? 1e9 : eval(a)) - (b === "∞" ? 1e9 : eval(b)));
+    const names = ["水平・垂直", "傾き ±1", "傾き ±2, ±1/2", "その他"];
+    const byCat = [0, 0, 0, 0]; Ls.forEach((l) => byCat[l.cat]++);
+    document.getElementById("info").innerHTML =
+      `<b>L(${n}) = ${Ls.length}</b><br>` +
+      names.map((nm, i) => `<span style="color:${COL[i]}">■</span> ${nm}：${byCat[i]} 本`).join("<br>") +
+      `<br><span style="color:#666;font-size:.88em">傾き別：${order.map((k) => `${k}→${cnt[k]}`).join("，")}</span>`;
+  }
+  nIn.addEventListener("input", draw);
+  document.querySelectorAll(".cat").forEach((e) => e.addEventListener("change", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

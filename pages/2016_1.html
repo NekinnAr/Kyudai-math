@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2016年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2016-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上の曲線 $C_1,\ C_2$ をそれぞれ</p>
+    $$C_1：y = \log x \quad (x \gt 0),\qquad C_2：y = (x - 1)(x - a)$$
+    <p>とする。ただし，$a$ は実数である。$n$ を自然数とするとき，曲線 $C_1,\ C_2$ が 2 点 $\mathrm{P},\ \mathrm{Q}$ で交わり，$\mathrm{P},\ \mathrm{Q}$ の $x$ 座標はそれぞれ $1,\ n + 1$ となっている。また，曲線 $C_1$ と直線 $\mathrm{PQ}$ で囲まれた領域の面積を $S_n$，曲線 $C_2$ と直線 $\mathrm{PQ}$ で囲まれた領域の面積を $T_n$ とする。このとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a$ を $n$ の式で表し，$a \gt 1$ を示せ。</li>
+      <li>(2)　$S_n$ と $T_n$ をそれぞれ $n$ の式で表せ。</li>
+      <li>(3)　極限値 $\displaystyle\lim_{n\to\infty}\frac{S_n}{n\log T_n}$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2016 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$x = n + 1$ を代入して $a$ を求める。$T_n$ は放物線と弦で囲まれた部分なので <b>$\frac16$ 公式</b>で一発。$S_n$ は $\int\log x\,dx$ から台形を引く。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x = 1$ では両方とも $y = 0$ で、自動的に交わる。$x = n + 1$ で交わる条件は $\log(n + 1) = n(n + 1 - a)$ なので</p>
+      $$a = n + 1 - \frac{\log(n + 1)}{n}$$
+      <p>$a - 1 = n - \dfrac{\log(n+1)}{n} = \dfrac{n^2 - \log(n + 1)}{n}$。$x \gt 0$ で $\log(1 + x) \lt x$（$g(x) = x - \log(1 + x)$ は $g(0) = 0$，$g'(x) = \frac{x}{1+x} \gt 0$）なので $\log(n + 1) \lt n \le n^2$。よって $a \gt 1$。</p>
+
+      <h3>(2)</h3>
+      <p>$y = \log x$ は上に凸なので、$1 \le x \le n + 1$ で $C_1$ は弦 PQ の上側にある。</p>
+      $$S_n = \int_1^{n+1}\log x\,dx - \frac12\cdot n\cdot\log(n + 1) = \Big[x\log x - x\Big]_1^{n+1} - \frac n2\log(n + 1)$$
+      $$= (n + 1)\log(n + 1) - n - \frac n2\log(n+1) = \frac{n + 2}{2}\log(n + 1) - n$$
+      <p>$C_2$ は $x^2$ の係数が $1$ の放物線で、弦 PQ の下側にある。直線 PQ を $y = \ell(x)$ とすると $\ell(x) - (x-1)(x-a) = -(x - 1)(x - n - 1)$ なので</p>
+      $$T_n = \int_1^{n+1}\{-(x - 1)(x - n - 1)\}dx = \frac{n^3}{6}$$
+
+      <h3>(3)</h3>
+      $$\frac{S_n}{n\log T_n} = \frac{\frac{n+2}{2}\log(n + 1) - n}{n(3\log n - \log 6)}$$
+      <p>分母・分子を $n\log n$ で割る。$\dfrac{\log(n+1)}{\log n} = 1 + \dfrac{\log(1 + \frac1n)}{\log n} \to 1$，$\dfrac{1}{\log n} \to 0$ より</p>
+      $$\text{分子}/(n\log n) = \frac{n + 2}{2n}\cdot\frac{\log(n+1)}{\log n} - \frac{1}{\log n} \to \frac12,\qquad \text{分母}/(n\log n) = 3 - \frac{\log 6}{\log n} \to 3$$
+      $$\lim_{n\to\infty}\frac{S_n}{n\log T_n} = \frac16$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を動かすと、$C_1$（赤）と弦 PQ で囲まれた部分 $S_n$、$C_2$（青）と弦で囲まれた部分 $T_n$ が表示されます。$T_n$ のほうが圧倒的に大きくなっていく様子がわかります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="6" value="2"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>凸・凹と弦の位置関係</h3>
+  <p>上に凸な $\log x$ は弦の上に、下に凸な放物線は弦の下にあります。$T_n$ は有名な $\int_\alpha^\beta -(x-\alpha)(x-\beta)\,dx = \frac{(\beta - \alpha)^3}{6}$ で、$a$ の値にかかわらず $\frac{n^3}{6}$ になるのがポイントです。</p>
+  <p>(3) は $S_n \approx \frac n2\log n$，$\log T_n \approx 3\log n$ という<b>主要項の比較</b>で、答えの $\frac16$ が見通せます。</p>
+  <p>chopin 先生は「(1) $C_1$ と $C_2$ を連立した式が $x = n + 1$ を解に持つことから $a$ が求まります（$x = 1$ は必ず解に持つので考えなくてよし）」「(3) も定義に従って計算するだけ。$\log(n + 1) \div \log n$ は 1 に収束します」とコメントしています。</p>
+  <div class="point">放物線と直線で囲まれた面積は $\frac{|a|}{6}(\beta - \alpha)^3$。極限は主要項（$n\log n$）で割って各項の収束を確かめる。$\frac{\log(n+1)}{\log n} \to 1$ は頻出。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y = \log x$ と，2 点 $(1,\ 0)$，$(e,\ 1)$ を結ぶ線分で囲まれた部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\displaystyle\int_1^e\log x\,dx = \Big[x\log x - x\Big]_1^e = 1$。三角形部分 $\frac12(e - 1)\cdot1$ を引いて $\dfrac{3 - e}{2}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $C_1$ を $y = \sqrt x$ に変え，$C_1$ と $C_2：y = (x - 1)(x - a)$ が $x$ 座標 $1,\ (n + 1)^2$ の 2 点 P，Q で交わるとする。$C_1$ と直線 PQ で囲まれた面積 $S_n$，$C_2$ と直線 PQ で囲まれた面積 $T_n$ を求め，$\dfrac{S_n}{T_n}$ を $n$ で表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2016　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$C_1$ は $x = y^2$（$y \ge 0$）という<b>横向きの放物線</b>なので、$y$ で積分すれば $\frac16$ 公式が使える。弦 PQ は $y = 1$ から $y = n + 1$ までなので $S_n = \dfrac{n^3}{6}$。</p>
+    <p>$T_n$ は $x$ 方向の幅が $(n + 1)^2 - 1 = n(n + 2)$ なので $T_n = \dfrac{n^3(n + 2)^3}{6}$。</p>
+    $$\frac{S_n}{T_n} = \frac{1}{(n + 2)^3}$$
+    <p>（$a = (n+1)^2 - \frac{n+1}{n(n+2)}$ だが、答えには不要。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv");
+  const ratio = (n) => ((n + 2) / 2 * Math.log(n + 1) - n) / (n * Math.log(n ** 3 / 6));
+  function draw() {
+    const n = +$("n").value, a = n + 1 - Math.log(n + 1) / n, L = Math.log(n + 1);
+    const ymin = -(((a - 1) / 2) ** 2) - 0.3;
+    const P = Fig.plane(cv, { xmin: 0.2, xmax: n + 1.6, ymin: Math.min(ymin, -0.8), ymax: Math.max(L + 0.6, 1.2) });
+    P.clear().grid(1, "#f3f3f3").axes();
+    const chord = (x) => L * (x - 1) / n, f1 = Math.log, f2 = (x) => (x - 1) * (x - a);
+    const reg1 = [], reg2 = [];
+    for (let i = 0; i <= 100; i++) { const x = 1 + n * i / 100; reg1.push([x, f1(x)]); reg2.push([x, f2(x)]); }
+    for (let i = 100; i >= 0; i--) { const x = 1 + n * i / 100; reg1.push([x, chord(x)]); reg2.push([x, chord(x)]); }
+    P.fill(reg2, "rgba(28,126,214,.18)").fill(reg1, "rgba(138,21,56,.35)");
+    P.fn(f1, 0.25, n + 1.6, "#8a1538", 2.2).fn(f2, 0.5, n + 1.5, "#1c7ed6", 2.2).line([[1, 0], [n + 1, L]], "#222", 1.5);
+    P.dot(1, 0, "#222", 4, "P").dot(n + 1, L, "#222", 4, "Q");
+    const S = (n + 2) / 2 * L - n, T = n ** 3 / 6;
+    $("nv").textContent = ` n = ${n}　a = ${a.toFixed(4)}`;
+    $("info").innerHTML = `S_n = ${S.toFixed(4)}（赤）<br>T_n = n³/6 = ${T.toFixed(4)}（青）<br>S_n/(n log T_n) = ${ratio(n).toFixed(4)}<hr>` +
+      [10, 100, 1e4, 1e6, 1e9].map((m) => `n = ${m >= 1e4 ? "10^" + Math.round(Math.log10(m)) : m}：${ratio(m).toFixed(4)}`).join("<br>") + "<br>→ 1/6 ≈ 0.1667（収束はゆっくり）";
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

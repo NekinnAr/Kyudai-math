@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2020年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2020-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>4 個のサイコロを同時に投げるとき，出る目すべての積を $X$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$X$ が $25$ の倍数になる確率を求めよ。</li>
+      <li>(2)　$X$ が $4$ の倍数になる確率を求めよ。</li>
+      <li>(3)　$X$ が $100$ の倍数になる確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2020 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>素因数 $5$ をもつ目は $5$ だけ、素因数 $2$ をもつ目は $2,\ 4,\ 6$（$4$ だけが $2^2$）。(1)(2) は<b>余事象</b>が楽。(3) は「5 が 2 個以上」かつ「4 の倍数」で、5 の個数で場合分けして数える。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>目の出方は全部で $6^4 = 1296$ 通りで、同様に確からしい。</p>
+      <h3>(1)</h3>
+      <p>$X$ が $25$ の倍数 $\iff$ $5$ の目が 2 個以上。余事象は「$5$ が 0 個」または「$5$ が 1 個」なので</p>
+      $$1 - \left(\frac56\right)^4 - {}_4\mathrm{C}_1\cdot\frac16\left(\frac56\right)^3 = 1 - \frac{625}{1296} - \frac{500}{1296} = \frac{171}{1296} = \frac{19}{144}$$
+
+      <h3>(2)</h3>
+      <p>$X$ が $4$ の倍数でないのは、次のどちらか。</p>
+      <ul>
+        <li>すべて奇数の目：$\left(\frac12\right)^4 = \frac1{16}$</li>
+        <li>1 個だけが $2$ または $6$ で、残り 3 個は奇数：${}_4\mathrm{C}_1\cdot\frac26\cdot\left(\frac12\right)^3 = \frac16$</li>
+      </ul>
+      $$1 - \frac1{16} - \frac16 = \frac{37}{48}$$
+
+      <h3>(3)</h3>
+      <p>$X$ が $100 = 4\cdot25$ の倍数 $\iff$ 「$5$ が 2 個以上」かつ「$4$ の倍数」。</p>
+      <ul>
+        <li><b>$5$ がちょうど 2 個</b>：$5$ の位置が ${}_4\mathrm{C}_2 = 6$ 通り。残り 2 個は $\{1, 2, 3, 4, 6\}$ から選び、積が $4$ の倍数になる必要がある。
+          <ul>
+            <li>少なくとも一方が $4$：$5^2 - 4^2 = 9$ 通り</li>
+            <li>どちらも $4$ でない：両方とも $2$ か $6$ で $2^2 = 4$ 通り</li>
+          </ul>
+          よって $6 \times 13 = 78$ 通り。</li>
+        <li><b>$5$ がちょうど 3 個</b>：残り 1 個で $4$ の倍数にするには $4$ の目しかない。$4$ 通り。</li>
+        <li><b>$5$ が 4 個</b>：$X = 625$ で不適。</li>
+      </ul>
+      $$\frac{78 + 4}{1296} = \frac{82}{1296} = \frac{41}{648}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>4 個のサイコロを実際に振って、$X$ が $25,\ 4,\ 100$ の倍数になる割合を数えます。回数を増やすと、割合が理論値に近づいていきます（大数の法則）。</p>
+
+  <div class="widget">
+    <button id="r1">1 回振る</button>
+    <button id="r100">100 回</button>
+    <button id="r10k">10000 回</button>
+    <button id="reset">リセット</button>
+    <div id="dice" class="no-math" style="font-size:44px;letter-spacing:6px;margin:8px 0;min-height:56px"></div>
+    <div class="no-math readout" id="last"></div>
+    <table class="simple no-math" id="tb" style="margin-top:8px"></table>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>素因数の個数を数える</h3>
+  <p>「積が $m$ の倍数」という確率は、$m$ を素因数分解して「各素因数が何個あるか」を考えるのが定石です。本問では $2$ の個数と $5$ の個数を別々に考え、最後に (3) で組み合わせます。</p>
+  <p>chopin 先生は「昨日解いた北大の第 3 問とそっくりな問題」とコメントし、(3) は「(1) と (2) の考察から、出る目の組み合わせは $(5,5,4,\bigcirc)$，$(5,5,2,2)$，$(5,5,6,2)$，$(5,5,6,6)$ の 4 パターンしかない」と整理しています。標準レベルの問題です。</p>
+  <div class="point">「少なくとも〜」「〜の倍数」の確率は<b>余事象</b>を検討。積の倍数判定は<b>素因数ごとの個数</b>に分解して数える。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>3 個のサイコロを同時に投げるとき，出る目すべての積が $6$ の倍数になる確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$A$：積が偶数でない（すべて奇数）、$B$：積が $3$ の倍数でない（$3,\ 6$ が出ない）とすると、求める確率は $1 - P(A \cup B) = 1 - P(A) - P(B) + P(A \cap B)$。</p>
+    $$1 - \left(\frac12\right)^3 - \left(\frac23\right)^3 + \left(\frac13\right)^3 = 1 - \frac18 - \frac{8}{27} + \frac{1}{27} = \frac{133}{216}$$
+    <p>（$A \cap B$ は目が $1,\ 5$ のみ。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$n$ 個（$n \ge 2$）のサイコロを同時に投げるとき，出る目すべての積が $4$ の倍数になる確率 $p_n$ を求めよ。また，$p_n \ge 0.99$ となる最小の $n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2020　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>余事象は「すべて奇数」または「1 個だけ $2$ か $6$、残り奇数」で</p>
+    $$p_n = 1 - \left(\frac12\right)^n - n\cdot\frac13\left(\frac12\right)^{n-1} = 1 - \frac{2n + 3}{3\cdot 2^n}$$
+    <p>（$n = 4$ で $\frac{37}{48}$ となり本問と一致。）$p_n \ge 0.99 \iff 3\cdot2^n \ge 100(2n + 3)$。$n = 9$ では $1536 \lt 2100$ で不成立、$n = 10$ では $3072 \ge 2300$ で成立。$\frac{2n + 3}{3\cdot2^n}$ は $n$ について減少する（$n \to n + 1$ で分子は $2$ 増えるだけ、分母は $2$ 倍）ので、求める最小の $n$ は $10$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const face = ["", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+  const th = { 25: 19 / 144, 4: 37 / 48, 100: 41 / 648 };
+  const thS = { 25: "19/144", 4: "37/48", 100: "41/648" };
+  let N = 0, cnt = { 25: 0, 4: 0, 100: 0 };
+  function roll(k) {
+    let d;
+    for (let i = 0; i < k; i++) {
+      d = [0, 0, 0, 0].map(() => 1 + Math.floor(Math.random() * 6));
+      const X = d[0] * d[1] * d[2] * d[3];
+      N++; [25, 4, 100].forEach((m) => { if (X % m === 0) cnt[m]++; });
+    }
+    if (d) {
+      const X = d[0] * d[1] * d[2] * d[3];
+      $("dice").textContent = d.map((x) => face[x]).join("");
+      $("last").textContent = `最後の結果：${d.join(" × ")} = ${X}　（25 の倍数 ${X % 25 ? "✘" : "✔"}，4 の倍数 ${X % 4 ? "✘" : "✔"}，100 の倍数 ${X % 100 ? "✘" : "✔"}）`;
+    }
+    show();
+  }
+  function show() {
+    let h = "<tr><th></th><th>回数</th><th>割合</th><th>理論値</th></tr>";
+    [25, 4, 100].forEach((m) => {
+      h += `<tr><th>${m} の倍数</th><td>${cnt[m]} / ${N}</td><td>${N ? (cnt[m] / N).toFixed(4) : "−"}</td><td>${thS[m]} ≈ ${th[m].toFixed(4)}</td></tr>`;
+    });
+    $("tb").innerHTML = h;
+  }
+  $("r1").onclick = () => roll(1);
+  $("r100").onclick = () => roll(100);
+  $("r10k").onclick = () => roll(10000);
+  $("reset").onclick = () => { N = 0; cnt = { 25: 0, 4: 0, 100: 0 }; $("dice").textContent = ""; $("last").textContent = ""; show(); };
+  show();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

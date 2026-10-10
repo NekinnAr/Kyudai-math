@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2025-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>半径 $1$ の円周上に反時計回りに点 A，B，C，D を順にとり，線分 AD は直径で，$\mathrm{AC} = \mathrm{CD}$，$\mathrm{AB} = \mathrm{BC}$ が成り立つとする。</p>
+    <ol>
+      <li>(1)　$\angle\mathrm{ACB}$ を求めよ。</li>
+      <li>(2)　BC を求めよ。</li>
+      <li>(3)　線分 AC と線分 BD の交点を E とするとき，三角形 BCE の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2025 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>「等しい弦には等しい弧（中心角）が対応する」ことから、弧 AB, BC, CD の中心角が $45^\circ,\ 45^\circ,\ 90^\circ$ と決まる。あとは円周角・余弦定理・角の二等分線の性質で計算。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>円の中心を O とする。</p>
+      <h3>(1)</h3>
+      <p>AD は直径なので $\angle\mathrm{ACD} = \dfrac{\pi}{2}$。$\mathrm{AC} = \mathrm{CD}$ より $\angle\mathrm{AOC} = \angle\mathrm{COD} = \dfrac{\pi}{2}$。さらに $\mathrm{AB} = \mathrm{BC}$ より $\angle\mathrm{AOB} = \angle\mathrm{BOC} = \dfrac{\pi}{4}$。円周角の定理から</p>
+      $$\angle\mathrm{ACB} = \frac12\angle\mathrm{AOB} = \frac{\pi}{8}$$
+
+      <h3>(2)</h3>
+      <p>三角形 OBC に余弦定理を用いて</p>
+      $$\mathrm{BC}^2 = 1^2 + 1^2 - 2\cos\frac{\pi}{4} = 2 - \sqrt2 \qquad \therefore\ \mathrm{BC} = \sqrt{2-\sqrt2}$$
+
+      <h3>(3)</h3>
+      <p>$\mathrm{AC} = \sqrt2$（直角二等辺三角形 ACD の辺）。三角形 ABC は $\mathrm{AB} = \mathrm{BC}$、$\angle\mathrm{ABC} = \pi - 2\cdot\dfrac{\pi}{8} = \dfrac{3}{4}\pi$ より</p>
+      $$\triangle\mathrm{ABC} = \frac12\,\mathrm{BC}^2\sin\frac34\pi = \frac12(2-\sqrt2)\cdot\frac{\sqrt2}{2} = \frac{\sqrt2-1}{2}$$
+      <p>弧 AB と弧 BC は等しいので $\angle\mathrm{ADB} = \angle\mathrm{BDC}$、すなわち DE は $\angle\mathrm{ADC}$ の二等分線。角の二等分線の性質より</p>
+      $$\mathrm{AE} : \mathrm{EC} = \mathrm{DA} : \mathrm{DC} = 2 : \sqrt2$$
+      <p>よって</p>
+      $$\triangle\mathrm{BCE} = \frac{\mathrm{EC}}{\mathrm{AC}}\,\triangle\mathrm{ABC} = \frac{\sqrt2}{2+\sqrt2}\cdot\frac{\sqrt2-1}{2} = \frac{(\sqrt2-1)^2}{2} = \frac{3-2\sqrt2}{2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>条件 $\mathrm{AB} = \mathrm{BC}$ を外して、B を弧 AC 上で動かしてみましょう（$\angle\mathrm{AOB} = \theta$）。三角形 BCE の面積がどう変わるか、本問の位置（$\theta = 45^\circ$）がどこにあるかを観察できます。</p>
+
+  <div class="widget">
+    <label>θ = ∠AOB：<input type="range" id="th" min="1" max="89" step="0.5" value="45"></label>
+    <span class="readout no-math" id="thv"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <canvas id="gr" class="fig" width="340" height="220"></canvas>
+    </div>
+    <div class="readout no-math" id="info" style="margin-top:6px"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>正八角形が隠れている</h3>
+  <p>中心角が $45^\circ$ 刻みなので、A, B, C, D はすべて<b>円に内接する正八角形の頂点</b>です（A から数えて 0, 1, 2, 4 番目）。本問は「正八角形の対角線が作る図形」の計量問題と見ることができ、$\dfrac{\pi}{8} = 22.5^\circ$ の三角比が自然に現れます。</p>
+  $$\cos\frac{\pi}{8} = \frac{\sqrt{2+\sqrt2}}{2},\qquad \sin\frac{\pi}{8} = \frac{\sqrt{2-\sqrt2}}{2},\qquad \tan\frac{\pi}{8} = \sqrt2 - 1$$
+  <p>(2) の答え $\mathrm{BC} = \sqrt{2-\sqrt2}$ は、まさに $2\sin\dfrac{\pi}{8}$（弦の長さ $= 2R\sin\dfrac{\text{中心角}}{2}$）です。</p>
+
+  <h3>答えの正体は $\dfrac12\tan^2\dfrac{\pi}{8}$</h3>
+  <p>答え $\dfrac{3-2\sqrt2}{2} = \dfrac{(\sqrt2-1)^2}{2}$ は、ちょうど $\dfrac12\tan^2\dfrac{\pi}{8}$ になっています。これは偶然ではありません。三角形 BCE の角を調べると</p>
+  <ul>
+    <li>$\angle\mathrm{BCE} = \angle\mathrm{BCA} = \dfrac{\pi}{8}$（(1) より）</li>
+    <li>$\angle\mathrm{CBE} = \angle\mathrm{CBD} = \dfrac12\angle\mathrm{COD} = \dfrac{\pi}{4}$（弧 CD の円周角）</li>
+    <li>$\angle\mathrm{BEC} = \pi - \dfrac{\pi}{8} - \dfrac{\pi}{4} = \dfrac{5}{8}\pi$</li>
+  </ul>
+  <p>なので、正弦定理と面積公式から</p>
+  $$\triangle\mathrm{BCE} = \frac{\mathrm{BC}^2\sin\frac{\pi}{4}\sin\frac{\pi}{8}}{2\sin\frac{5\pi}{8}} = \frac{4\sin^2\frac{\pi}{8}\cdot\frac{\sqrt2}{2}\cdot\sin\frac{\pi}{8}}{2\cos\frac{\pi}{8}} = \sqrt2\,\sin^2\frac{\pi}{8}\tan\frac{\pi}{8}$$
+  <p>$\sin^2\dfrac{\pi}{8} = \dfrac{2-\sqrt2}{4} = \dfrac{\sqrt2(\sqrt2-1)}{4}$ を代入すると $\dfrac{(\sqrt2-1)^2}{2} = \dfrac12\tan^2\dfrac{\pi}{8}$ となります。</p>
+
+  <h3>座標で一気に解くなら</h3>
+  <p>O を原点、$\mathrm{A}(1,\ 0)$, $\mathrm{C}(0,\ 1)$, $\mathrm{D}(-1,\ 0)$ とおくと、直線 BD の傾きは「弧 AB の円周角」$= \dfrac{\theta}{2}$ の正接、つまり $\tan\dfrac{\theta}{2}$ です。これを使うと、$\theta$ が一般の場合も面積が計算できます（下の魔改造）。$x = \tan\dfrac{\theta}{2}$ とおくと、$\mathrm{B}\left(\dfrac{1-x^2}{1+x^2},\ \dfrac{2x}{1+x^2}\right)$ と<b>有理式</b>で表せるのがポイントで、これは <a href="2025_2.html">2025-2</a> の背景で紹介した「万能置換」と同じ式です。</p>
+  <div class="point">初等幾何（円周角・二等分線）、三角比、座標 ── どの道具でも解ける問題は、複数の方法で解いて答えを照合すると力がつきます。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問の図を利用して，$\cos\dfrac{\pi}{8}$ と $\tan\dfrac{\pi}{8}$ の値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\angle\mathrm{ADB} = \dfrac{\pi}{8}$（弧 AB の円周角）で、$\angle\mathrm{ABD} = \dfrac{\pi}{2}$（直径の円周角）。直角三角形 ABD で $\mathrm{AB} = \sqrt{2-\sqrt2}$, $\mathrm{AD} = 2$ より $\mathrm{BD} = \sqrt{4 - (2-\sqrt2)} = \sqrt{2+\sqrt2}$。よって</p>
+    $$\cos\frac{\pi}{8} = \frac{\mathrm{BD}}{\mathrm{AD}} = \frac{\sqrt{2+\sqrt2}}{2},\qquad \tan\frac{\pi}{8} = \frac{\mathrm{AB}}{\mathrm{BD}} = \sqrt{\frac{2-\sqrt2}{2+\sqrt2}} = \sqrt{(\sqrt2-1)^2} = \sqrt2-1$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>半径 $1$ の円周上に反時計回りに点 A，B，C，D を順にとり，線分 AD は直径で，$\mathrm{AC} = \mathrm{CD}$ が成り立つとする。円の中心を O，$\angle\mathrm{AOB} = \theta$ $\left(0 \lt \theta \lt \dfrac{\pi}{2}\right)$，線分 AC と線分 BD の交点を E とする。三角形 BCE の面積を $x = \tan\dfrac{\theta}{2}$ を用いて表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2025　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{A}(1,0)$, $\mathrm{C}(0,1)$, $\mathrm{D}(-1,0)$, $\mathrm{B}\left(\dfrac{1-x^2}{1+x^2},\ \dfrac{2x}{1+x^2}\right)$ とおける。直線 AC は $X + Y = 1$、直線 BD は傾き $x$ で D を通るので $Y = x(X+1)$。連立して</p>
+    $$\mathrm{E}\left(\frac{1-x}{1+x},\ \frac{2x}{1+x}\right)$$
+    $$\overrightarrow{\mathrm{CB}} = \frac{\bigl(1-x^2,\ -(1-x)^2\bigr)}{1+x^2},\qquad \overrightarrow{\mathrm{CE}} = \frac{(1-x)(1,\ -1)}{1+x}$$
+    <p>より</p>
+    $$\triangle\mathrm{BCE} = \frac12\left|\frac{-(1-x^2)+(1-x)^2}{1+x^2}\cdot\frac{1-x}{1+x}\right| = \frac{x(1-x)^2}{(1+x)(1+x^2)}$$
+    <p>$x = \tan\dfrac{\pi}{8} = \sqrt2 - 1$ を代入すると、本問の答え $\dfrac{3-2\sqrt2}{2}$ に一致します。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv"), c = cv.getContext("2d");
+  const gr = document.getElementById("gr"), g = gr.getContext("2d");
+  const th = document.getElementById("th");
+  const W = cv.width, S = 130, cx = W / 2, cy = W / 2 + 40;
+  const P = (x, y) => [cx + S * x, cy - S * y];
+  const areaOf = (t) => { const x = Math.tan(t / 2); return x * (1 - x) ** 2 / ((1 + x) * (1 + x * x)); };
+
+  // 最大値（数値探索）
+  let best = [0, 0];
+  for (let d = 0.01; d < 90; d += 0.01) { const v = areaOf(d * Math.PI / 180); if (v > best[1]) best = [d, v]; }
+
+  function seg(p, q, col, w = 1.5) { c.strokeStyle = col; c.lineWidth = w; c.beginPath(); c.moveTo(...P(...p)); c.lineTo(...P(...q)); c.stroke(); }
+  function label(p, s, dx = 6, dy = -6) { c.fillStyle = "#222"; c.font = "bold 14px sans-serif"; const [x, y] = P(...p); c.fillText(s, x + dx, y + dy); }
+
+  function draw() {
+    const deg = +th.value, t = deg * Math.PI / 180;
+    document.getElementById("thv").textContent = ` ${deg.toFixed(1)}°` + (deg === 45 ? "（本問：AB = BC）" : "");
+    const A = [1, 0], B = [Math.cos(t), Math.sin(t)], C = [0, 1], D = [-1, 0];
+    const x = Math.tan(t / 2), E = [(1 - x) / (1 + x), 2 * x / (1 + x)];
+    c.clearRect(0, 0, W, W);
+    // 円
+    c.strokeStyle = "#999"; c.lineWidth = 1.2; c.beginPath(); c.arc(cx, cy, S, 0, 2 * Math.PI); c.stroke();
+    seg(D, A, "#bbb", 1);
+    // 正八角形（薄く）
+    c.strokeStyle = "rgba(0,0,0,.08)"; c.beginPath();
+    for (let k = 0; k <= 8; k++) { const a = k * Math.PI / 4; const p = P(Math.cos(a), Math.sin(a)); k ? c.lineTo(...p) : c.moveTo(...p); } c.stroke();
+    // 三角形 BCE
+    c.fillStyle = "rgba(138,21,56,.25)"; c.beginPath(); c.moveTo(...P(...B)); c.lineTo(...P(...C)); c.lineTo(...P(...E)); c.closePath(); c.fill();
+    seg(A, B, "#555"); seg(B, C, "#555"); seg(C, D, "#555"); seg(A, C, "#1c7ed6", 2); seg(B, D, "#e8590c", 2);
+    [A, B, C, D, E].forEach((p) => { c.fillStyle = "#222"; c.beginPath(); c.arc(...P(...p), 3.5, 0, 7); c.fill(); });
+    label(A, "A", 6, 16); label(B, "B"); label(C, "C", -4, -10); label(D, "D", -18, 16); label(E, "E", 6, 16);
+    c.fillStyle = "#222"; c.beginPath(); c.arc(cx, cy, 2.5, 0, 7); c.fill(); label([0, 0], "O", -6, 16);
+
+    // グラフ
+    const GW = gr.width, GH = gr.height, pad = 30, ymax = 0.12;
+    const gx = (d) => pad + d / 90 * (GW - pad - 10), gy = (v) => GH - pad - v / ymax * (GH - pad - 14);
+    g.clearRect(0, 0, GW, GH);
+    g.strokeStyle = "#999"; g.lineWidth = 1; g.beginPath(); g.moveTo(pad, gy(0)); g.lineTo(GW - 5, gy(0)); g.moveTo(pad, GH - pad); g.lineTo(pad, 6); g.stroke();
+    g.fillStyle = "#666"; g.font = "11px sans-serif";
+    [0, 45, 90].forEach((d) => g.fillText(d + "°", gx(d) - 8, GH - pad + 14));
+    g.fillText("0.05", 2, gy(0.05) + 4); g.fillText("面積", pad + 4, 14);
+    g.strokeStyle = "#8a1538"; g.lineWidth = 2; g.beginPath();
+    for (let d = 0.5; d <= 89.5; d += 0.5) { const v = areaOf(d * Math.PI / 180); d === 0.5 ? g.moveTo(gx(d), gy(v)) : g.lineTo(gx(d), gy(v)); }
+    g.stroke();
+    g.setLineDash([3, 3]); g.strokeStyle = "#aaa"; g.beginPath(); g.moveTo(gx(45), gy(0)); g.lineTo(gx(45), 6); g.stroke(); g.setLineDash([]);
+    g.fillStyle = "#c92a2a"; g.beginPath(); g.arc(gx(deg), gy(areaOf(t)), 4.5, 0, 7); g.fill();
+
+    document.getElementById("info").innerHTML =
+      `△BCE = ${areaOf(t).toFixed(5)}　（本問 θ=45° のとき (3−2√2)/2 = ${((3 - 2 * Math.SQRT2) / 2).toFixed(5)}）<br>` +
+      `数値探索による最大：θ ≈ ${best[0].toFixed(2)}° で 約 ${best[1].toFixed(5)}`;
+  }
+  th.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

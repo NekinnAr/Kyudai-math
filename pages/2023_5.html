@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2023年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2023-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$xy$ 平面上の曲線 $C$ を，媒介変数 $t$ を用いて次のように定める。</p>
+    $$x = t + 2\sin^2 t,\qquad y = t + \sin t\qquad(0 \lt t \lt \pi)$$
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　曲線 $C$ に接する直線のうち $y$ 軸と平行なものがいくつあるか求めよ。</li>
+      <li>(2)　曲線 $C$ のうち $y \le x$ の領域にある部分と直線 $y = x$ で囲まれた図形の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2023 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は $\dfrac{dx}{dt} = 0$ となる点を数える。(2) は $\dfrac{dy}{dt} \gt 0$（$y$ が単調増加）に注目し、<b>$y$ 軸方向に積分</b>（横に切る）のが楽。直線 $y = x$ に沿った座標を使う方法は、この曲線では途中で逆戻りするのでうまくいかない。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\frac{dx}{dt} = 1 + 4\sin t\cos t = 1 + 2\sin 2t,\qquad \frac{dy}{dt} = 1 + \cos t \gt 0\quad(0 \lt t \lt \pi)$$
+      <p>$\frac{dy}{dt} \neq 0$ なので、接線が $y$ 軸に平行になるのは $\frac{dx}{dt} = 0$ のとき。$\sin 2t = -\frac12$，$0 \lt 2t \lt 2\pi$ より $2t = \frac{7}{6}\pi,\ \frac{11}{6}\pi$、すなわち</p>
+      $$t = \frac{7}{12}\pi,\quad \frac{11}{12}\pi$$
+      <p>$\frac{7}{12}\pi \lt t \lt \frac{11}{12}\pi$ で $\frac{dx}{dt} \lt 0$ なので $x$ は狭義減少し、2 点の $x$ 座標は異なる。よって接線（直線 $x = $ 一定）も異なり、求める個数は <b>2 個</b>。</p>
+
+      <h3>(2)</h3>
+      <p>$x - y = 2\sin^2 t - \sin t = \sin t\,(2\sin t - 1)$。$\sin t \gt 0$ より</p>
+      $$y \le x \iff \sin t \ge \frac12 \iff \frac{\pi}{6} \le t \le \frac{5}{6}\pi$$
+      <p>$t = \frac{\pi}{6},\ \frac56\pi$ のとき $x = y$ で、曲線は直線 $y = x$ 上の 2 点 $\left(\frac{\pi}{6} + \frac12,\ \frac{\pi}{6} + \frac12\right)$，$\left(\frac56\pi + \frac12,\ \frac56\pi + \frac12\right)$ を結ぶ。</p>
+      <p>$\frac{dy}{dt} \gt 0$ より、曲線は $y$ について 1 価で、$x = X(y)$ と表せる。直線 $y = k$（$\frac{\pi}{6} + \frac12 \lt k \lt \frac56\pi + \frac12$）で図形を切ると、切り口は直線上の点 $(k,\ k)$ と曲線上の点 $(X(k),\ k)$ を結ぶ線分で、その長さは $X(k) - k \ge 0$。よって面積 $S$ は</p>
+      $$\begin{aligned}
+        S &= \int (X(y) - y)\,dy = \int_{\frac{\pi}{6}}^{\frac56\pi}(x - y)\frac{dy}{dt}\,dt = \int_{\frac{\pi}{6}}^{\frac56\pi}(2\sin^2 t - \sin t)(1 + \cos t)\,dt \\
+        &= \int_{\frac{\pi}{6}}^{\frac56\pi}\left(1 - \cos 2t + 2\sin^2 t\cos t - \sin t - \sin t\cos t\right)dt \\
+        &= \left[t - \frac{\sin 2t}{2} + \frac{2}{3}\sin^3 t + \cos t - \frac{\sin^2 t}{2}\right]_{\frac{\pi}{6}}^{\frac56\pi}
+      \end{aligned}$$
+      <p>$\sin t$ の項は両端で等しいので消え、</p>
+      $$S = \frac{2}{3}\pi - \frac12\left(-\frac{\sqrt3}{2} - \frac{\sqrt3}{2}\right) + \left(-\frac{\sqrt3}{2} - \frac{\sqrt3}{2}\right) = \frac{2}{3}\pi - \frac{\sqrt3}{2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと曲線上の点と接線が動きます。緑の縦線が (1) の $y$ 軸に平行な接線、塗られた部分が (2) の図形です。「横に切る」と切り口が 1 本の線分になることを確かめてください。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="1" max="999" value="500"></label>
+    <span class="readout no-math" id="tv"></span>
+    <label class="no-math" style="margin-left:12px"><input type="checkbox" id="slice" checked> 横の切り口を表示</label>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="360" height="360"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>どちら向きに切るか</h3>
+  <p>直線 $y = x$ と曲線で囲まれた図形といえば、「直線に沿った座標 $u = \frac{x + y}{\sqrt2}$ と、直線からの距離 $v = \frac{x - y}{\sqrt2}$」を使うのが定番です。ところが本問では $\frac{d}{dt}(x + y) = 2 + 2\sin 2t + \cos t$ が $t = \frac34\pi$ 付近で負になり、曲線が直線方向に<b>逆戻り</b>します（図解で接線の向きを見てください）。</p>
+  <p>一方 $\frac{dy}{dt} = 1 + \cos t \gt 0$ なので、$y$ 軸方向には常に進みます。「<b>単調な変数で切る</b>」のが媒介変数表示の面積計算の鉄則です。</p>
+  <h3>符号付き面積で考えると</h3>
+  <p>実は、逆戻りがあっても $\displaystyle\frac12\int(x\,dy - y\,dx)$（閉曲線の符号付き面積）を使えば同じ答えが出ます。直線 $y = x$ 上では $x\,dy - y\,dx = 0$ なので、曲線部分の積分だけで済みます。大学で学ぶ<b>グリーンの定理</b>につながる考え方です。</p>
+  <div class="point">媒介変数表示の面積は、<b>$\frac{dx}{dt}$ と $\frac{dy}{dt}$ の符号表を最初に作る</b>。単調な方の変数で積分すれば、図形を正しく捉えられます。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $x = t + \sin t,\ y = t - \sin t\ (0 \le t \le \pi)$ と直線 $y = x$ で囲まれた図形の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>こちらは直線方向の座標がうまくいく例。$x - y = 2\sin t \ge 0$，$x + y = 2t$（単調増加）。直線 $y = x$ からの距離は $\frac{x - y}{\sqrt2}$、直線に沿った長さは $\frac{x + y}{\sqrt2}$ なので</p>
+    $$S = \int_0^{\pi}\frac{x - y}{\sqrt2}\cdot\frac{1}{\sqrt2}\frac{d(x + y)}{dt}\,dt = \frac12\int_0^{\pi}2\sin t\cdot 2\,dt = 4$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>$k$ を正の定数とし，曲線 $x = t + k\sin^2 t,\ y = t + \sin t\ (0 \lt t \lt \pi)$ に接する直線のうち $y$ 軸と平行なものの個数を，$k$ の値で分類して答えよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2023　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\frac{dy}{dt} \gt 0$ なので、$\frac{dx}{dt} = 1 + k\sin 2t = 0$、すなわち $\sin 2t = -\frac1k$（$0 \lt 2t \lt 2\pi$）の解の個数を調べればよい。</p>
+    <ul>
+      <li>$0 \lt k \lt 1$：$-\frac1k \lt -1$ で解なし → <b>0 個</b></li>
+      <li>$k = 1$：$2t = \frac32\pi$ のみ → <b>1 個</b>（$\frac{dx}{dt} = 1 + \sin 2t \ge 0$ で符号は変わらないが、接線は確かに $y$ 軸に平行）</li>
+      <li>$k \gt 1$：解は 2 つで、その間で $\frac{dx}{dt} \lt 0$ より $x$ 座標は異なる → <b>2 個</b></li>
+    </ul>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -0.2, xmax: 4.6, ymin: -0.2, ymax: 4.6, equal: true });
+  const tIn = document.getElementById("t"), slIn = document.getElementById("slice");
+  const X = (t) => t + 2 * Math.sin(t) ** 2, Y = (t) => t + Math.sin(t);
+  const dX = (t) => 1 + 2 * Math.sin(2 * t), dY = (t) => 1 + Math.cos(t);
+  const a = Math.PI / 6, b = 5 * Math.PI / 6;
+  function draw() {
+    const t = tIn.value / 1000 * Math.PI;
+    P.clear().grid(1).axes();
+    // 塗り
+    const reg = []; for (let i = 0; i <= 200; i++) { const s = a + (b - a) * i / 200; reg.push([X(s), Y(s)]); }
+    P.fill(reg, "rgba(138,21,56,.2)");
+    P.fn((x) => x, -0.2, 4.6, "#999", 1.2, 2);
+    P.param(X, Y, 0.0001, Math.PI - 0.0001, "#8a1538", 2.2, 500);
+    // 横の切り口
+    if (slIn.checked) for (let i = 1; i < 12; i++) {
+      const s = a + (b - a) * i / 12; P.line([[Y(s), Y(s)], [X(s), Y(s)]], "rgba(28,126,214,.6)", 1.2);
+    }
+    // 縦接線
+    [7 * Math.PI / 12, 11 * Math.PI / 12].forEach((s) => { P.line([[X(s), -0.2], [X(s), 4.6]], "#2b8a3e", 1.4, [5, 4]); P.dot(X(s), Y(s), "#2b8a3e", 4); });
+    // 接線
+    const x0 = X(t), y0 = Y(t), dx = dX(t), dy = dY(t), L = Math.hypot(dx, dy);
+    P.line([[x0 - 1.2 * dx / L, y0 - 1.2 * dy / L], [x0 + 1.2 * dx / L, y0 + 1.2 * dy / L]], "#e8590c", 1.6);
+    P.dot(x0, y0, "#e8590c", 5);
+    const du = 2 + 2 * Math.sin(2 * t) + Math.cos(t);
+    document.getElementById("tv").textContent =
+      ` t = ${(t / Math.PI).toFixed(3)}π　dx/dt = ${dx.toFixed(3)}　dy/dt = ${dy.toFixed(3)}　d(x+y)/dt = ${du.toFixed(3)}` + (du < 0 ? "（直線方向に逆戻り中！）" : "");
+    P.label("S = 2π/3 − √3/2 ≈ " + (2 * Math.PI / 3 - Math.sqrt(3) / 2).toFixed(4), 10, 16, "#8a1538");
+  }
+  [tIn, slIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

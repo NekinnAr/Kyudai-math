@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2020年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2020-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>点 $(a,\ 0)$ を通り，曲線 $y = e^{-x} - e^{-2x}$ に接する直線が存在するような定数 $a$ の値の範囲を求めよ。</p>
+  </div>
+  <p class="source">（2020 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>接点を $(t,\ f(t))$ と<b>先に</b>設定し、接線が $(a,\ 0)$ を通る条件を $a = g(t)$ の形にする。あとは $t$ が動くときの $g(t)$ の値域を調べるだけ。$e^{-t} = u$ と置き換えると計算が楽になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$f(x) = e^{-x} - e^{-2x}$ とおくと $f'(x) = -e^{-x} + 2e^{-2x}$。点 $(t,\ f(t))$ における接線は</p>
+      $$y = f'(t)(x - t) + f(t)$$
+      <p>$u = e^{-t}\ (u \gt 0)$ とおくと $f(t) = u - u^2 = u(1 - u)$，$f'(t) = u(2u - 1)$。</p>
+      <p><b>$f'(t) = 0$（$u = \frac12$）のとき</b>：接線は $y = f(t) = \frac14$ で $x$ 軸と交わらないので不適。</p>
+      <p><b>$u \neq \frac12$ のとき</b>：接線が $(a,\ 0)$ を通る条件は $0 = f'(t)(a - t) + f(t)$ より</p>
+      $$a = t - \frac{f(t)}{f'(t)} = -\log u - \frac{1 - u}{2u - 1}\quad(= g(u)\ \text{とおく})$$
+      <p>$u$ が $0 \lt u \lt \frac12,\ \frac12 \lt u$ を動くときの $g(u)$ の値域を求めればよい。</p>
+      $$g'(u) = -\frac1u + \frac{1}{(2u - 1)^2} = \frac{u - (2u - 1)^2}{u(2u - 1)^2} = -\frac{(4u - 1)(u - 1)}{u(2u - 1)^2}$$
+      <table class="simple">
+        <tr><th>$u$</th><td>$0$</td><td>$\cdots$</td><td>$\frac14$</td><td>$\cdots$</td><td>$\frac12$</td><td>$\cdots$</td><td>$1$</td><td>$\cdots$</td></tr>
+        <tr><th>$g'(u)$</th><td></td><td>$-$</td><td>$0$</td><td>$+$</td><td>／</td><td>$+$</td><td>$0$</td><td>$-$</td></tr>
+        <tr><th>$g(u)$</th><td>$(+\infty)$</td><td>↘</td><td>$\frac32 + 2\log 2$</td><td>↗</td><td>$(+\infty \mid -\infty)$</td><td>↗</td><td>$0$</td><td>↘</td></tr>
+      </table>
+      <p>ここで</p>
+      <ul>
+        <li>$u \to +0$：$-\log u \to +\infty$，$\frac{1 - u}{2u - 1} \to -1$ より $g(u) \to +\infty$</li>
+        <li>$u \to \frac12 - 0$：$\frac{1 - u}{2u - 1} \to -\infty$ より $g(u) \to +\infty$。$u \to \frac12 + 0$：$g(u) \to -\infty$</li>
+        <li>$u \to \infty$：$-\log u \to -\infty$，$\frac{1 - u}{2u - 1} \to -\frac12$ より $g(u) \to -\infty$</li>
+        <li>$g\!\left(\frac14\right) = \log 4 - \frac{3/4}{-1/2} = \frac32 + 2\log 2$，$g(1) = 0$</li>
+      </ul>
+      <p>よって $0 \lt u \lt \frac12$ での値域は $g(u) \ge \frac32 + 2\log 2$、$u \gt \frac12$ での値域は $g(u) \le 0$。求める範囲は</p>
+      $$a \le 0,\quad \frac32 + 2\log 2 \le a$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>接点の $x$ 座標 $t$ を動かすと、接線と $x$ 軸の交点 $a$（オレンジ）が動きます。右のグラフは $a$ を $t$ の関数として描いたもので、$0 \lt a \lt \frac32 + 2\log 2 \approx 2.886$ の値は一度もとらないことが分かります。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="-150" max="500" value="150"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="330" height="280"></canvas>
+      <canvas id="gr" class="fig" width="300" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「接点を先に設定する」が基本</h3>
+  <p>chopin 先生は「この手の問題は、接点を $(t,\ f(t))$ と先に設定してから $(a,\ 0)$ を代入する、というのが基本」「教科書の章末問題にあってもおかしくないレベルで易しい問題なので、解けていないとマズい」と評しています。</p>
+  <p>点 $(a,\ 0)$ から接線を「引く」と考えるより、「接線をすべて描いて、$x$ 切片が動く範囲を調べる」と考える方がずっと楽です。</p>
+  <h3>値域に「すき間」ができる理由</h3>
+  <p>曲線 $y = f(x)$ は $x = \log 4$（$u = \frac14$）に変曲点をもち、その左側では上に凸、右側では下に凸です。$t$ を $\log 2$ より大きくしていくと、接線の $x$ 切片は右から変曲点での値 $\frac32 + 2\log 2$ まで近づいてまた右へ戻り、$t \lt \log 2$ では原点での接線（$x$ 切片 $0$）を折り返し点として左側だけを動きます。図解の右のグラフで確かめてみてください。</p>
+  <div class="point">接線の通過範囲・接線の本数の問題は、<b>接点の $t$ を主役</b>にして「$a = g(t)$ のグラフと直線 $y = a$ の交点」に読み替える。交点の個数が接線の本数になる（ただし 1 本の直線が 2 点で接する「二重接線」がないことを確認）。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>点 $(a,\ 0)$ を通り，曲線 $y = xe^{-x}$ に接する直線が存在するような定数 $a$ の値の範囲を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f(t) = te^{-t}$，$f'(t) = (1 - t)e^{-t}$。$t = 1$ では接線 $y = \frac1e$ で不適。$t \neq 1$ のとき</p>
+    $$a = t - \frac{t}{1 - t} = \frac{t^2}{t - 1}$$
+    <p>$h(t) = \frac{t^2}{t - 1}$ は $h'(t) = \frac{t(t - 2)}{(t - 1)^2}$ より、$t \lt 1$ で最大値 $h(0) = 0$、$t \gt 1$ で最小値 $h(2) = 4$。よって $a \le 0,\ 4 \le a$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の曲線 $y = e^{-x} - e^{-2x}$ に点 $(a,\ 0)$ から引ける接線の本数を，$a$ の値によって分類せよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2020　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$u = e^{-t}$ と接点は 1 対 1 に対応し、曲線の変曲点は 1 つだけなので 2 点で接する直線はない。よって接線の本数は「$a = g(u)$ をみたす $u$ の個数」。増減表より</p>
+    <ul>
+      <li>$a \lt 0$：$u \gt \frac12$ の範囲に 2 個 → <b>2 本</b></li>
+      <li>$a = 0$：$u = 1$ の 1 個 → <b>1 本</b>（原点での接線 $y = x$）</li>
+      <li>$0 \lt a \lt \frac32 + 2\log 2$：<b>0 本</b></li>
+      <li>$a = \frac32 + 2\log 2$：$u = \frac14$ の 1 個 → <b>1 本</b>（変曲点での接線）</li>
+      <li>$a \gt \frac32 + 2\log 2$：$0 \lt u \lt \frac12$ の範囲に 2 個 → <b>2 本</b></li>
+    </ul>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -1.2, xmax: 5.2, ymin: -1.2, ymax: 0.8 });
+  const G = Fig.plane(document.getElementById("gr"), { xmin: -1.5, xmax: 5, ymin: -6, ymax: 8 });
+  const tIn = document.getElementById("t");
+  const f = (x) => Math.exp(-x) - Math.exp(-2 * x), df = (x) => -Math.exp(-x) + 2 * Math.exp(-2 * x);
+  const g = (t) => t - f(t) / df(t);
+  const m = 1.5 + 2 * Math.log(2), tInf = Math.log(4), t0 = Math.log(2);
+  function draw() {
+    const t = tIn.value / 100;
+    P.clear().grid(1).axes();
+    P.fn(f, -1.2, 5.2, "#8a1538", 2.4);
+    P.dot(tInf, f(tInf), "#999", 3, "変曲点", -20, -10);
+    const k = df(t);
+    P.fn((x) => k * (x - t) + f(t), -1.2, 5.2, "#1c7ed6", 1.6, 2);
+    P.dot(t, f(t), "#1c7ed6", 5);
+    let a = null;
+    if (Math.abs(k) > 1e-6) { a = g(t); if (a > -1.2 && a < 5.2) P.dot(a, 0, "#e8590c", 6, "a", 4, 16); }
+    // 右：a = g(t)
+    G.clear().grid(1, "#f3f3f3").axes("t", "a");
+    G.fill([[-1.5, 0], [5, 0], [5, m], [-1.5, m]], "rgba(201,42,42,.12)");
+    G.fn(g, -1.5, t0 - 0.005, "#8a1538", 2, 400).fn(g, t0 + 0.005, 5, "#8a1538", 2, 400);
+    G.line([[t0, -6], [t0, 8]], "#ccc", 1, [4, 4]);
+    G.text("a がとれない範囲", -1.3, 1.6, "#c92a2a");
+    G.dot(tInf, m, "#999", 3).dot(0, 0, "#999", 3);
+    if (a !== null) G.dot(t, Math.max(-6, Math.min(8, a)), "#e8590c", 5);
+    document.getElementById("tv").textContent = ` t = ${t.toFixed(2)}　` + (a === null ? "接線は水平（x 軸と交わらない）" : `a = ${a.toFixed(3)}`) + `　（3/2 + 2log2 ≈ ${m.toFixed(3)}）`;
+  }
+  tIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

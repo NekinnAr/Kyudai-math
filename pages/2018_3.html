@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2018-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 から 4 までの数字を 1 つずつ書いた 4 枚のカードが箱に入っている。箱の中から 1 枚カードを取り出してもとに戻す試行を $n$ 回続けて行う。$k$ 回目に取り出したカードの数字を $X_k$ とし，積 $X_1X_2\cdots X_n$ を 4 で割った余りが $0,\ 1,\ 2,\ 3$ である確率をそれぞれ $p_n,\ q_n,\ r_n,\ s_n$ とする。$p_n,\ q_n,\ r_n,\ s_n$ を求めよ。</p>
+  </div>
+  <p class="source">（2018 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>余りがどう移り変わるかを表にして<b>確率漸化式</b>を立てる。余り $0$ は一度なったら抜け出せない。$q_n,\ s_n$ → $r_n$ → $p_n$ の順に求まる（$p_n$ は $1 - q_n - r_n - s_n$ が早い）。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>積を 4 で割った余りが $a$ のとき、次に $k$ のカードを引くと余りは $ak$ を 4 で割った余りになる。</p>
+      <table class="simple">
+        <tr><th>今の余り＼カード</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+        <tr><th>0</th><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><th>1</th><td>1</td><td>2</td><td>3</td><td>0</td></tr>
+        <tr><th>2</th><td>2</td><td>0</td><td>2</td><td>0</td></tr>
+        <tr><th>3</th><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+      </table>
+      <p>各カードは確率 $\frac14$ なので</p>
+      $$q_{n+1} = \frac14q_n + \frac14s_n,\qquad s_{n+1} = \frac14q_n + \frac14s_n,\qquad r_{n+1} = \frac14q_n + \frac12r_n + \frac14s_n$$
+      <p>$q_1 = r_1 = s_1 = \frac14$。</p>
+      <p><b>$q_n,\ s_n$</b>：$q_{n+1} = s_{n+1}$ と $q_1 = s_1$ より、すべての $n$ で $q_n = s_n$。すると $q_{n+1} = \frac12q_n$ で</p>
+      $$q_n = s_n = \frac14\left(\frac12\right)^{n-1} = \frac{1}{2^{n+1}}$$
+      <p><b>$r_n$</b>：$r_{n+1} = \frac12r_n + \frac12q_n = \frac12r_n + \frac{1}{2^{n+2}}$。両辺に $2^{n+1}$ をかけると</p>
+      $$2^{n+1}r_{n+1} = 2^nr_n + \frac12$$
+      <p>$2^1r_1 = \frac12$ より $2^nr_n = \frac n2$、$r_n = \dfrac{n}{2^{n+1}}$。</p>
+      <p><b>$p_n$</b>：$p_n = 1 - q_n - r_n - s_n = 1 - \dfrac{n + 2}{2^{n+1}}$。</p>
+      $$p_n = 1 - \frac{n + 2}{2^{n+1}},\quad q_n = \frac{1}{2^{n+1}},\quad r_n = \frac{n}{2^{n+1}},\quad s_n = \frac{1}{2^{n+1}}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を変えると $p_n,\ q_n,\ r_n,\ s_n$ の棒グラフが変わります。「カードを引く」で実際に 1 枚ずつ引いて、余りの移り変わりを追ってみましょう。いつか 2 か 4 を引くと、余りは 0 に吸い込まれていきます。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="12" value="3"></label><span class="readout no-math" id="nv"></span>
+    <button id="draw1">カードを引く</button><button id="rst">最初から</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="240"></canvas>
+      <div class="no-math" id="seq" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>マルコフ連鎖と吸収状態</h3>
+  <p>「今の状態だけで次の状態の確率が決まる」確率過程を<b>マルコフ連鎖</b>といいます。本問の「余り 0」のように、一度入ると出られない状態を<b>吸収状態</b>と呼びます。$n \to \infty$ で $p_n \to 1$ となり、最終的には必ず吸収されます。</p>
+  <p>chopin 先生は「設定的に、どっかでは 2，4，6（本問では 2，4）が混入するので、回数を稼げば、積はいずれ 4 の倍数になる」「$p$ は $1 - (q + r + s)$ で簡単に出せます（$p_n$ を計算した後に気がつきました笑）」とコメントしています。</p>
+  <h3>対称性で漸化式を減らす</h3>
+  <p>$q_n$ と $s_n$ の漸化式がまったく同じ形をしていることに気づくと、連立漸化式を解く手間が省けます。余り 1 と余り 3 は「$-1$ 倍」の関係にあり、確率的に区別がつかないのです。</p>
+  <div class="point">確率漸化式は<b>状態の遷移表</b>を書いてから立てる。全確率の和が 1 であることや、状態の対称性を使って計算を減らす。$a_{n+1} = \frac12a_n + c\left(\frac12\right)^n$ 型は両辺に $2^{n+1}$ をかける。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>1 から 3 までの数字を書いた 3 枚のカードから 1 枚引いて戻す試行を $n$ 回行う。引いた数字の積を 3 で割った余りが $0,\ 1,\ 2$ である確率をそれぞれ求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>余り 1，2 の確率を $a_n,\ b_n$ とすると、1 を引けばそのまま、2 を引けば 1 ↔ 2 が入れ替わり、3 を引けば 0。$a_{n+1} = b_{n+1} = \frac13(a_n + b_n)$，$a_1 = b_1 = \frac13$ より $a_n = b_n$ で、$a_n + b_n = \left(\frac23\right)^n$。</p>
+    $$\text{余り 0}:\ 1 - \left(\frac23\right)^n,\qquad \text{余り 1, 2}:\ \frac12\left(\frac23\right)^n$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問と同じ試行で，積 $X_1X_2\cdots X_n$ が $8$ の倍数である確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2018　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>積に含まれる素因数 2 の個数を考える。カード 2 で $+1$、カード 4 で $+2$、カード 1，3 で $+0$。8 の倍数でないのは 2 の個数が $0,\ 1,\ 2$ のとき。</p>
+    <ul>
+      <li>0 個：すべて 1 か 3 で $\frac{1}{2^n}$</li>
+      <li>1 個：2 を 1 回、残り奇数で $n\cdot\frac14\cdot\frac{1}{2^{n-1}} = \frac{n}{2^{n+1}}$</li>
+      <li>2 個：2 を 2 回（${}_n\mathrm{C}_2\cdot\frac{1}{16}\cdot\frac{1}{2^{n-2}} = \frac{n(n-1)}{2^{n+3}}$）または 4 を 1 回（$\frac{n}{2^{n+1}}$）</li>
+    </ul>
+    $$1 - \frac{8 + 4n + n(n - 1) + 4n}{2^{n+3}} = 1 - \frac{n^2 + 7n + 8}{2^{n+3}}$$
+    <p>（$n = 2$ で $\frac{3}{16}$：$(2, 4),\ (4, 2),\ (4, 4)$ の 3 通り。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  let seq = [], rem = 1;
+  function bars() {
+    const n = +$("n").value, d = 2 ** (n + 1);
+    const v = [1 - (n + 2) / d, 1 / d, n / d, 1 / d], lab = ["p (余り0)", "q (余り1)", "r (余り2)", "s (余り3)"], col = ["#8a1538", "#1c7ed6", "#2b8a3e", "#e8590c"];
+    $("nv").textContent = ` ${n}`;
+    c.clearRect(0, 0, W, H);
+    const base = H - 30, top = 20, bw = 54, gap = 26, x0 = 30;
+    c.strokeStyle = "#ddd"; c.fillStyle = "#999"; c.font = "11px sans-serif";
+    [0, 0.25, 0.5, 0.75, 1].forEach((y) => { const py = base - (base - top) * y; c.beginPath(); c.moveTo(24, py); c.lineTo(W - 6, py); c.stroke(); c.fillText(y, 2, py + 4); });
+    v.forEach((val, i) => {
+      const x = x0 + i * (bw + gap), h = (base - top) * val;
+      c.fillStyle = col[i]; c.globalAlpha = 0.8; c.fillRect(x, base - h, bw, h); c.globalAlpha = 1;
+      c.fillStyle = "#222"; c.font = "bold 12px sans-serif"; c.fillText(val.toFixed(4), x + 4, base - h - 4);
+      c.font = "11px sans-serif"; c.fillText(lab[i], x - 2, base + 16);
+    });
+  }
+  function showSeq() {
+    let h = seq.length ? "" : "（まだ引いていません）";
+    let r = 1;
+    seq.forEach((k, i) => { r = (r * k) % 4; h += `${i + 1} 回目：カード ${k} → 余り <b>${r}</b><br>`; });
+    if (rem === 0 && seq.length) h += '<span class="ng">余り 0 に吸収されました</span>';
+    $("seq").innerHTML = h;
+  }
+  $("draw1").onclick = () => { if (seq.length >= 12) return; const k = 1 + Math.floor(Math.random() * 4); seq.push(k); rem = (rem * k) % 4; showSeq(); };
+  $("rst").onclick = () => { seq = []; rem = 1; showSeq(); };
+  $("n").addEventListener("input", bars);
+  bars(); showSeq();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

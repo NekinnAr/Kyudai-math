@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2020年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2020-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a,\ b,\ c,\ d$ を整数とし，$i$ を虚数単位とする。整式 $f(x) = x^4 + ax^3 + bx^2 + cx + d$ が $f\!\left(\dfrac{1 + \sqrt3 i}{2}\right) = 0$ をみたすとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$c,\ d$ を $a,\ b$ を用いて表せ。</li>
+      <li>(2)　$f(1)$ を $7$ で割ると $1$ 余り，$11$ で割ると $10$ 余るとする。また，$f(-1)$ を $7$ で割ると $3$ 余り，$11$ で割ると $10$ 余るとする。$a$ の絶対値と $b$ の絶対値がともに $40$ 以下であるとき，方程式 $f(x) = 0$ の解をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2020 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$\alpha = \dfrac{1 + \sqrt3 i}{2} = \cos\dfrac{\pi}{3} + i\sin\dfrac{\pi}{3}$ なので $\alpha^3 = -1$ で、累乗が簡単に計算できる。(2) は $f(1),\ f(-1)$ を $a,\ b$ で表し、合同式で $a,\ b$ を絞り込む。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\alpha = \dfrac{1 + \sqrt3 i}{2}$ は $\alpha^2 - \alpha + 1 = 0$ をみたす。よって $\alpha^2 = \alpha - 1$，$\alpha^3 = -1$，$\alpha^4 = -\alpha$。</p>
+      $$f(\alpha) = -\alpha - a + b(\alpha - 1) + c\alpha + d = (b + c - 1)\alpha + (d - a - b) = 0$$
+      <p>$b + c - 1,\ d - a - b$ は実数（整数）で $\alpha$ は虚数なので、$b + c - 1 = 0$ かつ $d - a - b = 0$。</p>
+      $$c = 1 - b,\qquad d = a + b$$
+
+      <h3>(2)</h3>
+      <p>(1) より $f(x) = x^4 + ax^3 + bx^2 + (1 - b)x + (a + b)$。</p>
+      $$f(1) = 2a + b + 2,\qquad f(-1) = 3b$$
+      <p><b>$b$ を決める</b>：$3b \equiv 3 \pmod 7$ より $b \equiv 1 \pmod 7$。$3b \equiv 10 \pmod{11}$ の両辺に $4$ をかけると（$3 \cdot 4 = 12 \equiv 1$）$b \equiv 40 \equiv 7 \pmod{11}$。</p>
+      <p>$b = 7k + 1$ とおくと $7k + 1 \equiv 7 \pmod{11}$、$7k \equiv 6$、両辺に $8$ をかけて（$7 \cdot 8 = 56 \equiv 1$）$k \equiv 48 \equiv 4 \pmod{11}$。よって $b \equiv 29 \pmod{77}$。$|b| \le 40$ より $b = 29$。</p>
+      <p><b>$a$ を決める</b>：$f(1) = 2a + 31$。$2a + 31 \equiv 1 \pmod 7$ より $2a \equiv -30 \equiv -2$、$a \equiv -1 \equiv 6 \pmod 7$（$2$ と $7$ は互いに素）。$2a + 31 \equiv 10 \pmod{11}$ より $2a \equiv -21 \equiv 1 \equiv 12$、$a \equiv 6 \pmod{11}$。よって $a \equiv 6 \pmod{77}$、$|a| \le 40$ より $a = 6$。</p>
+      <p>このとき $c = -28$，$d = 35$ で</p>
+      $$f(x) = x^4 + 6x^3 + 29x^2 - 28x + 35 = (x^2 - x + 1)(x^2 + 7x + 35)$$
+      <p>（$\alpha$ とその共役 $\bar\alpha$ が解なので、$f(x)$ は $x^2 - x + 1$ で割り切れる。）</p>
+      $$x = \frac{1 \pm \sqrt3 i}{2},\quad \frac{-7 \pm \sqrt{91}\,i}{2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>整数 $a,\ b$ を動かすと、(1) の関係で $c,\ d$ が決まり、$f(x) = 0$ の 4 つの解が複素数平面上に表示されます。$\frac{1 \pm \sqrt3 i}{2}$（灰色の円周上）はいつも解です。(2) の 4 つの条件をすべてみたす $(a,\ b)$ を探してみましょう。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="-40" max="40" value="0"></label><span class="readout no-math" id="av"></span>
+    <label>b：<input type="range" id="b" min="-40" max="40" value="0"></label><span class="readout no-math" id="bv"></span>
+    <button id="ans">答えの (a, b) にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:240px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>$\omega$ の仲間を使った計算</h3>
+  <p>$\alpha = \frac{1 + \sqrt3 i}{2}$ は $-\omega^2$（$\omega$ は 1 の虚数立方根）で、$\alpha^6 = 1$ をみたす「1 の 6 乗根」です。chopin 先生も「$\alpha = \cos 60^\circ + i\sin 60^\circ$ なので、$\alpha$ の累乗がド・モアブルの定理で簡単に計算できる」と指摘しています。次数下げ（$\alpha^2 = \alpha - 1$）でも同じことができます。</p>
+  <h3>中国剰余定理</h3>
+  <p>(2) は「7 で割った余り」と「11 で割った余り」から「77 で割った余り」を決める、<b>中国剰余定理</b>そのものです。7 と 11 が互いに素なので、$0 \sim 76$ の中に条件をみたす数がちょうど 1 つあります。絶対値 $40$ 以下という条件は、77 の幅の中で 1 つに決めるためのものです。</p>
+  <p>chopin 先生は「(2) は意外と息の長い計算が必要」「あとは $f(1),\ f(-1)$ の余りの条件を愚直に処理していくしかない」と評し、やや難レベルに分類しています。</p>
+  <div class="point">実数係数の方程式が虚数解 $\alpha$ をもつ → $\bar\alpha$ も解 → $(x - \alpha)(x - \bar\alpha)$ で割り切れる。合同式で「$3b \equiv 10$」のような式は、$3$ の逆数（$3 \cdot 4 \equiv 1$ となる $4$）をかけて解く。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\omega = \dfrac{-1 + \sqrt3 i}{2}$ とする。整数 $a,\ b,\ c$ に対して $g(x) = x^3 + ax^2 + bx + c$ が $g(\omega) = 0$ をみたすとき，$b,\ c$ を $a$ で表し，$g(x)$ を因数分解せよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\omega^2 = -1 - \omega$，$\omega^3 = 1$ より $g(\omega) = (1 - a + c) + (b - a)\omega = 0$。よって $b = a$，$c = a - 1$ で</p>
+    $$g(x) = x^3 + ax^2 + ax + a - 1 = (x^2 + x + 1)(x + a - 1)$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (2) で「$a$ の絶対値と $b$ の絶対値がともに $40$ 以下」という条件をはずす。方程式 $f(x) = 0$ が実数解をもつような整数の組 $(a,\ b)$ のうち，$|a| + |b|$ が最小となるものを求め，そのときの実数解を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2020　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問と同じ計算で $a \equiv 6,\ b \equiv 29 \pmod{77}$。$f(x) = (x^2 - x + 1)\{x^2 + (a + 1)x + (a + b)\}$ なので、実数解をもつ条件は $(a + 1)^2 - 4(a + b) \ge 0$、すなわち $(a - 1)^2 \ge 4b$。</p>
+    <ul>
+      <li>$b = 29$ のとき：$(a - 1)^2 \ge 116$ が必要で、$a = 6$ は不適。$a = 83,\ -71$ が候補で $|a| + |b| \ge 100$。</li>
+      <li>$b = -48$ のとき：常に成り立つので $a = 6$ でよく、$|a| + |b| = 54$。</li>
+      <li>$|b| \ge 106$ なら $|a| + |b| \gt 54$。</li>
+    </ul>
+    <p>よって $(a,\ b) = (6,\ -48)$。$x^2 + 7x - 42 = 0$ より実数解は $x = \dfrac{-7 \pm \sqrt{217}}{2}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const mod = (x, m) => ((x % m) + m) % m;
+  function quadRoots(p, q) { // x^2 + p x + q
+    const D = p * p - 4 * q;
+    return D >= 0 ? [[(-p + Math.sqrt(D)) / 2, 0], [(-p - Math.sqrt(D)) / 2, 0]] : [[-p / 2, Math.sqrt(-D) / 2], [-p / 2, -Math.sqrt(-D) / 2]];
+  }
+  function draw() {
+    const a = +$("a").value, b = +$("b").value, c = 1 - b, d = a + b;
+    $("av").textContent = ` ${a}`; $("bv").textContent = ` ${b}`;
+    const r2 = quadRoots(a + 1, a + b);
+    const R = Math.max(2, ...r2.map((z) => Math.hypot(z[0], z[1]))) * 1.15;
+    const P = Fig.plane($("cv"), { xmin: -R, xmax: R, ymin: -R, ymax: R, equal: true });
+    const step = R > 20 ? 5 : R > 8 ? 2 : 1;
+    P.clear().grid(step).axes("実", "虚");
+    P.circle(0, 0, 1, "#ccc", 1, [3, 3]);
+    P.dot(0.5, Math.sqrt(3) / 2, "#8a1538", 5).dot(0.5, -Math.sqrt(3) / 2, "#8a1538", 5);
+    r2.forEach((z) => P.dot(z[0], z[1], "#1c7ed6", 5));
+    const f1 = 2 * a + b + 2, fm = 3 * b;
+    const chk = (v, m, r) => `${v} ≡ ${mod(v, m)} (mod ${m}) ` + (mod(v, m) === r ? '<span class="ok">✔</span>' : `<span class="ng">✘（${r} が必要）</span>`);
+    const all = mod(f1, 7) === 1 && mod(f1, 11) === 10 && mod(fm, 7) === 3 && mod(fm, 11) === 10;
+    const fmt = (z) => z[1] === 0 ? z[0].toFixed(3) : `${z[0].toFixed(3)} ${z[1] < 0 ? "−" : "+"} ${Math.abs(z[1]).toFixed(3)}i`;
+    $("info").innerHTML = `f(x) = x⁴ + ${a}x³ + ${b}x² + ${c}x + ${d}<br>= (x² − x + 1)(x² + ${a + 1}x + ${a + b})<br>` +
+      `f(1) = ${chk(f1, 7, 1)}<br>　　 ${chk(f1, 11, 10)}<br>f(−1) = ${chk(fm, 7, 3)}<br>　　 ${chk(fm, 11, 10)}<br>` +
+      `<span style="color:#8a1538">●</span> (1 ± √3 i)/2　<span style="color:#1c7ed6">●</span> ${fmt(r2[0])}，${fmt(r2[1])}` +
+      (all ? '<br><span class="ok">すべての条件をみたす！</span>' : "");
+  }
+  ["a", "b"].forEach((id) => $(id).addEventListener("input", draw));
+  $("ans").onclick = () => { $("a").value = 6; $("b").value = 29; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

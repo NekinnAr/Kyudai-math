@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2020年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2020-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間において，中心 $(0,\ 2,\ 0)$，半径 $1$ で $xy$ 平面内にある円を $D$ とする。$D$ を底面とし，$z \ge 0$ の部分にある高さ $3$ の直円柱（内部を含む）を $E$ とする。点 $(0,\ 2,\ 2)$ と $x$ 軸を含む平面で $E$ を 2 つの立体に分け，$D$ を含む方を $T$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$-1 \le t \le 1$ とする。平面 $x = t$ で $T$ を切ったときの断面積 $S(t)$ を求めよ。また，$T$ の体積を求めよ。</li>
+      <li>(2)　$T$ を $x$ 軸のまわりに 1 回転させてできる立体の体積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2020 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>切る平面は $z = y$。円柱も平面も $x$ 方向に「金太郎飴」なので、$x = t$ で切った断面は台形になる。(2) はその台形を $x$ 軸（断面上では原点）のまわりに回すので、断面は<b>ドーナツ型（円環）</b>。原点から最も近い点と最も遠い点を探す。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>点 $(0,\ 2,\ 2)$ と $x$ 軸を含む平面は $z = y$。$D$ 側（$z = 0$ を含む側）は $z \le y$。</p>
+      <p>平面 $x = t$ で $E$ を切ると、$w = \sqrt{1 - t^2}$ として $2 - w \le y \le 2 + w$，$0 \le z \le 3$ の長方形。このうち $z \le y$ の部分が $T$ の断面。$y \le 3$ なので $z \le y$ の方が $z \le 3$ より厳しく、断面は</p>
+      $$2 - w \le y \le 2 + w,\qquad 0 \le z \le y$$
+      <p>の台形。</p>
+      $$S(t) = \int_{2-w}^{2+w} y\,dy = \frac{(2 + w)^2 - (2 - w)^2}{2} = 4w = 4\sqrt{1 - t^2}$$
+      $$V_T = \int_{-1}^{1} 4\sqrt{1 - t^2}\,dt = 4\cdot\frac{\pi}{2} = 2\pi$$
+      <p>（$\int_{-1}^1\sqrt{1 - t^2}\,dt$ は半径 1 の半円の面積。）</p>
+
+      <h3>(2)</h3>
+      <p>平面 $x = t$ 上で、$x$ 軸は点 $(y,\ z) = (0,\ 0)$。台形の 4 頂点は $(2 - w,\ 0)$，$(2 + w,\ 0)$，$(2 + w,\ 2 + w)$，$(2 - w,\ 2 - w)$。</p>
+      <ul>
+        <li>原点に最も近い点：台形は $y \ge 2 - w,\ z \ge 0$ の範囲にあるので、$(2 - w,\ 0)$ で距離 $2 - w$。</li>
+        <li>原点から最も遠い点：凸図形なので頂点のどれか。$(2 + w,\ 2 + w)$ で距離 $\sqrt2(2 + w)$。</li>
+      </ul>
+      <p>台形は連結なので、回転させると円環 $2 - w \le (\text{距離}) \le \sqrt2(2 + w)$ ができる。その面積は</p>
+      $$\pi\{2(2 + w)^2 - (2 - w)^2\} = \pi(4 + 12w + w^2) = \pi(5 - t^2 + 12\sqrt{1 - t^2})$$
+      $$V = \pi\int_{-1}^{1}(5 - t^2 + 12\sqrt{1 - t^2})\,dt = \pi\left(10 - \frac23 + 6\pi\right) = \frac{28}{3}\pi + 6\pi^2$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと、左の立体 $T$ を平面 $x = t$ で切った断面（赤い台形）が動きます。右は断面を正面から見た図で、台形を原点のまわりに回すと青い円環になります。左の図はドラッグで回転できます。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="-100" max="100" value="30"></label>
+    <span class="readout no-math" id="tv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="320"></canvas>
+      <canvas id="sec" class="fig" width="300" height="320"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>回転体は「断面を回す」</h3>
+  <p>立体を軸のまわりに回転させた体積は、<b>軸に垂直な平面で切った断面を回転させる</b>のが鉄則です。回転後の断面は「軸から最も近い点」と「最も遠い点」で決まる円環（ドーナツ）になります（断面が軸を中心とする円周と途切れずに交わる場合）。立体全体を回したイメージを描こうとすると混乱するので、断面だけを考えます。</p>
+  <p>chopin 先生は「やはりいつもの『断面積を出す→積分』」「(1) の設問が丁寧すぎる気がします。東大京大ならノーヒントで $T$ の体積を出させます」とコメントし、「第 1 問の次に簡単なので、ぜひ押さえたい問題」と評しています。</p>
+  <div class="point">回転体の体積：軸に垂直に切る → 断面上で軸は 1 点 → その点からの<b>最小距離 $r_1$・最大距離 $r_2$</b> を求めて $\pi(r_2^2 - r_1^2)$ を積分。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の立体 $T$ の体積を，平面 $y = s\ (1 \le s \le 3)$ で切った断面積を積分することで求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$y = s$ での断面は $|x| \le \sqrt{1 - (s - 2)^2}$，$0 \le z \le s$ の長方形で、面積 $2s\sqrt{1 - (s - 2)^2}$。$s = 2 + u$ とおくと</p>
+    $$\int_{-1}^{1}2(2 + u)\sqrt{1 - u^2}\,du = 4\int_{-1}^1\sqrt{1 - u^2}\,du + 2\int_{-1}^1 u\sqrt{1 - u^2}\,du = 2\pi + 0 = 2\pi$$
+    <p>（2 つ目は奇関数の積分で $0$。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の立体 $T$ を $y$ 軸のまわりに 1 回転させてできる立体の体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2020　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$y = s$ での断面は長方形 $|x| \le w_s$，$0 \le z \le s$（$w_s = \sqrt{1 - (s - 2)^2}$）。この平面上で $y$ 軸は点 $(x,\ z) = (0,\ 0)$ で、長方形はこの点を含む（辺上）ので最小距離は $0$、最大距離は頂点 $(\pm w_s,\ s)$ までの $\sqrt{w_s^2 + s^2}$。回転させた断面は円板で、面積は</p>
+    $$\pi(w_s^2 + s^2) = \pi\{1 - (s - 2)^2 + s^2\} = \pi(4s - 3)$$
+    $$V = \pi\int_1^3(4s - 3)\,ds = \pi\Big[2s^2 - 3s\Big]_1^3 = 10\pi$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const V = Fig.view3d($("cv"), { scale: 52, center: [0, 1.6, 1.5], az: -0.35, el: 0.3, onChange: () => draw() });
+  const S = Fig.plane($("sec"), { xmin: -5.5, xmax: 5.5, ymin: -5.5, ymax: 5.5, equal: true });
+  const tIn = $("t");
+  function draw() {
+    const t = tIn.value / 100, w = Math.sqrt(1 - t * t);
+    V.clear().axes(3.6);
+    // 円柱 E（点線）と T の輪郭
+    const N = 72, bot = [], top = [], cut = [];
+    for (let i = 0; i <= N; i++) {
+      const a = i / N * 2 * Math.PI, x = Math.cos(a), y = 2 + Math.sin(a);
+      bot.push([x, y, 0]); top.push([x, y, 3]); cut.push([x, y, y]);
+    }
+    V.poly(top, "#ccc", 1, [3, 3]);
+    [0, 0.5, 1, 1.5].forEach((k) => { const a = k * Math.PI; const x = Math.cos(a), y = 2 + Math.sin(a); V.poly([[x, y, y], [x, y, 3]], "#ccc", 1, [3, 3]); });
+    V.poly(bot, "#8a1538", 1.6, [], "rgba(138,21,56,.08)");
+    V.poly(cut, "#8a1538", 1.6, [], "rgba(138,21,56,.12)");
+    V.poly([[1, 2, 0], [1, 2, 2]], "#8a1538", 1.2); V.poly([[-1, 2, 0], [-1, 2, 2]], "#8a1538", 1.2);
+    // 平面 z = y（一部）
+    V.poly([[-1.6, 0, 0], [1.6, 0, 0], [1.6, 3.4, 3.4], [-1.6, 3.4, 3.4]], "rgba(28,126,214,.4)", 1, [], "rgba(28,126,214,.06)", true);
+    // 断面
+    const sec = [[t, 2 - w, 0], [t, 2 + w, 0], [t, 2 + w, 2 + w], [t, 2 - w, 2 - w]];
+    V.poly(sec, "#c92a2a", 2, [], "rgba(201,42,42,.35)", true);
+    V.dot([0, 2, 2], "#1c7ed6", 3.5, "(0,2,2)");
+    // 右：断面と円環
+    const r1 = 2 - w, r2 = Math.SQRT2 * (2 + w);
+    S.clear().grid(1, "#f3f3f3").axes("y", "z");
+    const ring = []; for (let i = 0; i <= 120; i++) { const a = i / 120 * 2 * Math.PI; ring.push([r2 * Math.cos(a), r2 * Math.sin(a)]); }
+    for (let i = 120; i >= 0; i--) { const a = i / 120 * 2 * Math.PI; ring.push([r1 * Math.cos(a), r1 * Math.sin(a)]); }
+    S.fill(ring, "rgba(28,126,214,.15)");
+    S.circle(0, 0, r1, "#1c7ed6", 1.2, [4, 3]).circle(0, 0, r2, "#1c7ed6", 1.2, [4, 3]);
+    S.line([[-1, -1], [5.5, 5.5]], "#bbb", 1, [3, 3]);
+    S.fill([[2 - w, 0], [2 + w, 0], [2 + w, 2 + w], [2 - w, 2 - w]], "rgba(201,42,42,.45)");
+    S.line([[2 - w, 0], [2 + w, 0], [2 + w, 2 + w], [2 - w, 2 - w], [2 - w, 0]], "#c92a2a", 2);
+    S.dot(2 - w, 0, "#1c7ed6", 4).dot(2 + w, 2 + w, "#1c7ed6", 4).dot(0, 0, "#222", 3, "x軸", 4, 14);
+    S.text("z = y", 3.6, 4.6, "#999");
+    $("tv").textContent = ` t = ${t.toFixed(2)}　S(t) = 4√(1−t²) = ${(4 * w).toFixed(3)}　円環：${r1.toFixed(3)} ≤ r ≤ ${r2.toFixed(3)}，面積 ${(Math.PI * (r2 * r2 - r1 * r1)).toFixed(3)}`;
+  }
+  tIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

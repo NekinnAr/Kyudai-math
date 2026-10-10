@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2021年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2021-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内の 4 点 $\mathrm{O}(0,\ 0,\ 0)$，$\mathrm{A}(1,\ 0,\ 0)$，$\mathrm{B}(0,\ 1,\ 0)$，$\mathrm{C}(0,\ 0,\ 2)$ を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　四面体 $\mathrm{OABC}$ に内接する球の中心の座標を求めよ。</li>
+      <li>(2)　中心の $x$ 座標，$y$ 座標，$z$ 座標がすべて正の実数であり，$xy$ 平面，$yz$ 平面，$zx$ 平面のすべてと接する球を考える。この球が平面 $\mathrm{ABC}$ と交わるとき，その交わりとしてできる円の面積の最大値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2021 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>3 つの座標平面に接する球の中心は $(r,\ r,\ r)$（半径 $r$）の形。あとは<b>平面 ABC との距離</b>で、(1) は「距離 = 半径」、(2) は三平方の定理で切り口の円の半径を出す。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>平面 ABC の方程式は $x + y + \dfrac z2 = 1$、すなわち $2x + 2y + z - 2 = 0$。点 $(s,\ s,\ s)$ との距離は</p>
+      $$d(s) = \frac{|2s + 2s + s - 2|}{\sqrt{2^2 + 2^2 + 1^2}} = \frac{|5s - 2|}{3}$$
+      <h3>(1)</h3>
+      <p>内接球は 3 つの座標平面に接するので、中心は $(r,\ r,\ r)$、半径 $r$（$r \gt 0$）。中心は四面体の内部にあるので $5r - 2 \lt 0$ で、平面 ABC にも接するから</p>
+      $$\frac{2 - 5r}{3} = r \iff r = \frac14$$
+      <p>中心は $\left(\dfrac14,\ \dfrac14,\ \dfrac14\right)$。</p>
+      <p>（別解：体積 $V = \frac13$，表面積 $S = \frac12 + 1 + 1 + \frac32 = 4$ から $r = \frac{3V}{S} = \frac14$。）</p>
+
+      <h3>(2)</h3>
+      <p>球の中心は $(s,\ s,\ s)$、半径 $s$（$s \gt 0$）。平面 ABC と交わる条件は $d(s) \lt s$ で、そのとき切り口の円の半径 $\rho$ は三平方の定理より</p>
+      $$\rho^2 = s^2 - d(s)^2 = s^2 - \frac{(5s - 2)^2}{9} = \frac{-16s^2 + 20s - 4}{9} = \frac{4}{9}(-4s^2 + 5s - 1)$$
+      <p>$\rho^2 \gt 0 \iff (4s - 1)(s - 1) \lt 0 \iff \frac14 \lt s \lt 1$。この範囲で</p>
+      $$-4s^2 + 5s - 1 = -4\left(s - \frac58\right)^2 + \frac{9}{16}$$
+      <p>は $s = \frac58$ で最大値 $\frac{9}{16}$ をとる。このとき $\rho^2 = \frac49\cdot\frac{9}{16} = \frac14$ で、円の面積の最大値は</p>
+      $$\pi\rho^2 = \frac{\pi}{4}\qquad\left(s = \frac58\ \text{のとき}\right)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>球の中心 $(s,\ s,\ s)$ を動かすと、平面 ABC（三角形を含む平面）による切り口の円が変化します。$s = \frac14$ で接し（内接球）、$s = \frac58$ で切り口が最大になります。図はドラッグで回転できます。</p>
+
+  <div class="widget">
+    <label>s：<input type="range" id="s" min="5" max="120" value="62"></label>
+    <span class="readout no-math" id="sv"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="360" height="360"></canvas>
+      <canvas id="gr" class="fig" width="280" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>内接球の半径 $r = \frac{3V}{S}$</h3>
+  <p>四面体を内接球の中心から各面に向かって 4 つの四面体に分けると、それぞれの高さは $r$ なので $V = \frac13 rS$（$S$ は表面積）。三角形の内接円の公式 $S_\triangle = \frac12 r\ell$（$\ell$ は周の長さ）の 3 次元版です。</p>
+  <h3>座標平面に接する球</h3>
+  <p>3 つの座標平面すべてに接する球（中心が第 1 象限側）は、中心が直線 $x = y = z$ 上にあり、半径が中心の座標に等しいので、1 つのパラメータ $s$ で表せます。chopin 先生は「球の中心と平面との距離を考えれば、三平方の定理で円の半径を求めることができます」と解説しており、標準的な問題です。</p>
+  <div class="point">球と平面の問題は「<b>中心と平面の距離 $d$</b>」がすべて。接する ⇔ $d = r$、交わる ⇔ $d \lt r$、切り口の半径は $\sqrt{r^2 - d^2}$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の四面体 $\mathrm{OABC}$ に外接する球の中心と半径を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>中心 $(p,\ q,\ r)$ が O，A，B，C から等距離なので、$p^2 = (p - 1)^2$，$q^2 = (q - 1)^2$，$r^2 = (r - 2)^2$ より $p = q = \frac12$，$r = 1$。中心 $\left(\frac12,\ \frac12,\ 1\right)$，半径 $\sqrt{\frac14 + \frac14 + 1} = \dfrac{\sqrt6}{2}$。</p>
+    <p>（O で 3 辺が直交しているので、外接球は「OA，OB，OC を 3 辺とする直方体」の外接球と同じです。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$c \gt 0$ とし，$\mathrm{C}(0,\ 0,\ c)$ として四面体 $\mathrm{OABC}$ を考える。内接球の半径 $r(c)$ を求め，$\displaystyle\lim_{c\to\infty}r(c)$ を求めよ。また，その値の図形的な意味を説明せよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2021　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>平面 ABC：$x + y + \frac zc = 1$。中心 $(r,\ r,\ r)$ との距離が $r$ となる条件は</p>
+    $$\frac{1 - 2r - \frac rc}{\sqrt{2 + \frac{1}{c^2}}} = r \iff r(c) = \frac{1}{2 + \frac1c + \sqrt{2 + \frac{1}{c^2}}} = \frac{c}{2c + 1 + \sqrt{2c^2 + 1}}$$
+    <p>（$c = 2$ で $\frac{2}{5 + 3} = \frac14$ と本問に一致。）$c \to \infty$ で $r(c) \to \dfrac{1}{2 + \sqrt2} = \dfrac{2 - \sqrt2}{2}$。</p>
+    <p>これは直角二等辺三角形 OAB（直角をはさむ辺が $1$）の内接円の半径 $\frac{1 + 1 - \sqrt2}{2}$ に等しい。C が無限に高くなると、四面体は三角柱のように細長くなり、内接球は底面の三角形 OAB の内接円と同じ大きさになる、という意味です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const { v3 } = Fig;
+  const cv = document.getElementById("cv");
+  const V = Fig.view3d(cv, { scale: 105, center: [0.4, 0.4, 0.7], az: 0.75, el: 0.35, onChange: () => draw() });
+  const G = Fig.plane(document.getElementById("gr"), { xmin: -0.05, xmax: 1.15, ymin: -0.1, ymax: 0.95, pad: 22 });
+  const sIn = document.getElementById("s");
+  const O = [0, 0, 0], A = [1, 0, 0], B = [0, 1, 0], Cc = [0, 0, 2];
+  const n = v3.unit([2, 2, 1]), e1 = v3.unit([1, -1, 0]), e2 = v3.cross(n, e1);
+  const area = (s) => { const d = (5 * s - 2) / 3, r2 = s * s - d * d; return r2 > 0 ? Math.PI * r2 : 0; };
+  function draw() {
+    const s = sIn.value / 100, c = [s, s, s], d = (5 * s - 2) / 3, r2 = s * s - d * d;
+    V.clear().axes(1.6);
+    // 平面 ABC（三角形の外側も少し）
+    const big = [[1.5, -0.5, 0], [-0.5, 1.5, 0], [-0.5, -0.5, 4]].map((p) => p);
+    V.poly([[1.6, 0.2, -1.6], [0.2, 1.6, -1.6], [-0.6, -0.6, 4.4]], null, 1, [], "rgba(28,126,214,.06)");
+    V.poly([A, B, Cc], "#1c7ed6", 1.2, [], "rgba(28,126,214,.14)");
+    V.poly([O, A], "#555", 1.2).poly([O, B], "#555", 1.2).poly([O, Cc], "#555", 1.2);
+    V.dot(A, "#222", 3, "A").dot(B, "#222", 3, "B").dot(Cc, "#222", 3, "C").dot(O, "#222", 3, "O");
+    // 球（輪郭 + 3 つの大円）
+    const q = V.proj(c);
+    V.c.strokeStyle = "rgba(138,21,56,.5)"; V.c.lineWidth = 1.4; V.c.beginPath(); V.c.arc(q[0], q[1], V.st.scale * s, 0, 7); V.c.stroke();
+    V.c.fillStyle = "rgba(138,21,56,.06)"; V.c.fill();
+    V.circle(c, [1, 0, 0], [0, 1, 0], s, "rgba(138,21,56,.25)", 1);
+    V.dot(c, "#8a1538", 3.5);
+    // 切り口の円
+    if (r2 > 0) {
+      const foot = v3.sub(c, v3.mul(n, d));
+      V.circle(foot, e1, e2, Math.sqrt(r2), "#c92a2a", 2.4, [], "rgba(201,42,42,.18)");
+      V.poly([c, foot], "#c92a2a", 1, [3, 3]);
+    }
+    document.getElementById("sv").textContent = ` s = ${s.toFixed(2)}　中心と平面の距離 d = ${Math.abs(d).toFixed(3)}　` +
+      (Math.abs(s - 0.25) < 0.006 ? "接する（内接球）" : r2 > 0 ? `切り口の面積 = ${(Math.PI * r2).toFixed(4)}` + (Math.abs(s - 0.625) < 0.006 ? "（最大 π/4）" : "") : "交わらない");
+    // グラフ
+    G.clear().axes("s", "");
+    G.fn(area, 0, 1.15, "#8a1538", 2, 300);
+    G.line([[0, Math.PI / 4], [1.15, Math.PI / 4]], "#bbb", 1, [3, 3]);
+    G.dot(s, area(s), "#c92a2a", 4);
+    G.label("切り口の円の面積", 30, 14, "#666");
+    G.text("1/4", 0.2, -0.08).text("5/8", 0.58, -0.08).text("1", 0.98, -0.08).text("π/4", 0.0, Math.PI / 4 + 0.03);
+  }
+  sIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

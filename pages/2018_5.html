@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2018-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$\alpha$ を複素数とする。等式</p>
+    $$\alpha(|z|^2 + 2) + i(2|\alpha|^2 + 1)\bar z = 0$$
+    <p>を満たす複素数 $z$ をすべて求めよ。ただし，$i$ は虚数単位である。</p>
+  </div>
+  <p class="source">（2018 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>両辺の<b>絶対値</b>をとると $|z|$ だけの方程式（2 次方程式）になり、$|z|$ が先に求まる。$|z|$ が分かれば元の式から $\bar z$、さらに $z$ が求まる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p><b>$\alpha = 0$ のとき</b>：$i\bar z = 0$ より $z = 0$。</p>
+      <p><b>$\alpha \neq 0$ のとき</b>：$A = |\alpha| \gt 0$，$r = |z|$ とおく。与式より $i(2A^2 + 1)\bar z = -\alpha(r^2 + 2)$。両辺の絶対値をとって</p>
+      $$(2A^2 + 1)r = A(r^2 + 2) \iff Ar^2 - (2A^2 + 1)r + 2A = 0 \iff (Ar - 1)(r - 2A) = 0$$
+      <p>よって $r = \frac1A$ または $r = 2A$。また与式より</p>
+      $$\bar z = \frac{i\alpha(r^2 + 2)}{2A^2 + 1},\qquad z = -\frac{i\bar\alpha(r^2 + 2)}{2A^2 + 1}$$
+      <ul>
+        <li>$r = 2A$ のとき：$\dfrac{r^2 + 2}{2A^2 + 1} = \dfrac{4A^2 + 2}{2A^2 + 1} = 2$ より $z = -2i\bar\alpha$。実際 $|z| = 2A$ で整合する。</li>
+        <li>$r = \frac1A$ のとき：$\dfrac{r^2 + 2}{2A^2 + 1} = \dfrac{1 + 2A^2}{A^2(2A^2 + 1)} = \dfrac{1}{A^2}$ より $z = -\dfrac{i\bar\alpha}{|\alpha|^2} = -\dfrac{i}{\alpha}$。$|z| = \frac1A$ で整合する。</li>
+      </ul>
+      <p>逆にこれらは与式をみたす（例：$z = -2i\bar\alpha$ なら $\bar z = 2i\alpha$，$|z|^2 = 4A^2$ で、$\alpha(4A^2 + 2) + i(2A^2 + 1)\cdot2i\alpha = 0$）。</p>
+      <p style="text-align:center">$\alpha = 0$ のとき $z = 0$，$\alpha \neq 0$ のとき $z = -2i\bar\alpha,\ -\dfrac{i}{\alpha}$</p>
+      <p>（$|\alpha| = \frac{1}{\sqrt2}$ のときは 2 つが一致する。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$\alpha$ の絶対値と偏角を動かすと、2 つの解 $z_1 = -2i\bar\alpha$（赤）と $z_2 = -\frac i\alpha$（青）が動きます。$|z_1| = 2|\alpha|$，$|z_2| = \frac{1}{|\alpha|}$ なので、$|\alpha| = \frac{1}{\sqrt2}$ で 2 つが重なります。</p>
+
+  <div class="widget">
+    <label>|α|：<input type="range" id="r" min="10" max="150" value="100"></label>
+    <label>arg α：<input type="range" id="th" min="-180" max="180" value="30"></label>
+    <button id="same">|α| = 1/√2 にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>絶対値をとって「大きさ」と「向き」を分ける</h3>
+  <p>複素数の方程式に $|z|$ と $\bar z$ が混ざっているときは、両辺の絶対値をとると「大きさ」だけの方程式になります。大きさが決まれば、残りは「向き」の問題で、元の式から直接求まります。</p>
+  <p>chopin 先生は極形式 $\alpha = Ae^{i\phi},\ z = re^{i\theta}$ で書いて連立方程式に持ち込む解法を示し、「別解としては、与式で絶対値を取ることにより、極形式に直すことなく解き進める方法」「ちょっと思いつきにくいですが、処理自体はこちらの別解の方が楽」と紹介しています。上の解答はこの別解です。</p>
+  <div class="point">$|z|$ と $z,\ \bar z$ が混在する方程式 → <b>絶対値をとって $|z|$ を先に決める</b>。$\bar z$ を含む式は共役をとれば $z$ の式になる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\bar z = z^2$ を満たす複素数 $z$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作・頻出）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>絶対値をとって $|z| = |z|^2$ より $|z| = 0$ または $1$。$|z| = 1$ のとき $\bar z = \frac1z$ なので $\frac1z = z^2$、$z^3 = 1$。</p>
+    $$z = 0,\ 1,\ \frac{-1 \pm \sqrt3 i}{2}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>$k$ を正の定数とする。等式 $\alpha(|z|^2 + k) + i(k|\alpha|^2 + 1)\bar z = 0$ を満たす複素数 $z$ がちょうど 1 つであるような $\alpha$ の条件を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2018　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\alpha \neq 0$ のとき、絶対値をとると $Ar^2 - (kA^2 + 1)r + kA = (Ar - 1)(r - kA) = 0$。同様にして $z = -ki\bar\alpha$ または $z = -\frac{i}{\alpha}$。2 つが一致するのは $kA = \frac1A$、つまり $|\alpha| = \frac{1}{\sqrt k}$。$\alpha = 0$ のときは $z = 0$ のみ。</p>
+    <p style="text-align:center">$\alpha = 0$ または $|\alpha| = \dfrac{1}{\sqrt k}$</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const C = Fig.C;
+  const P = Fig.plane($("cv"), { xmin: -3.2, xmax: 3.2, ymin: -3.2, ymax: 3.2, equal: true });
+  function draw() {
+    const A = $("r").value / 100, th = $("th").value * Math.PI / 180, al = [A * Math.cos(th), A * Math.sin(th)];
+    const conj = [al[0], -al[1]];
+    const z1 = C.mul([0, -2], conj), z2 = C.div([0, -1], al);
+    P.clear().grid(1, "#f3f3f3").axes("実", "虚");
+    P.circle(0, 0, 2 * A, "rgba(201,42,42,.3)", 1, [4, 3]).circle(0, 0, 1 / A, "rgba(28,126,214,.3)", 1, [4, 3]);
+    P.dot(al[0], al[1], "#2b8a3e", 5, "α").dot(z1[0], z1[1], "#c92a2a", 6, "z₁").dot(z2[0], z2[1], "#1c7ed6", 6, "z₂", 6, 16);
+    const res = (z) => { const r2 = z[0] ** 2 + z[1] ** 2; return C.abs(C.add(C.mul(al, [r2 + 2, 0]), C.mul([0, 2 * A * A + 1], [z[0], -z[1]]))); };
+    $("info").innerHTML = `α = ${C.fmt(al, 3)}<br>z₁ = −2iᾱ = ${C.fmt(z1, 3)}（|z₁| = ${C.abs(z1).toFixed(3)}）<br>z₂ = −i/α = ${C.fmt(z2, 3)}（|z₂| = ${C.abs(z2).toFixed(3)}）<br>` +
+      `左辺に代入した値の大きさ：${res(z1).toExponential(1)}，${res(z2).toExponential(1)}` + (Math.abs(A - Math.SQRT1_2) < 0.006 ? '<br><span class="ok">2 つの解が一致！</span>' : "");
+  }
+  ["r", "th"].forEach((id) => $(id).addEventListener("input", draw));
+  $("same").onclick = () => { $("r").value = Math.round(100 * Math.SQRT1_2); draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

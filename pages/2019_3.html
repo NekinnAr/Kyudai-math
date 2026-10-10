@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2019年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2019-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 個のサイコロを 3 回投げて出た目を順に $a,\ b,\ c$ とする。2 次方程式</p>
+    $$ax^2 + bx + c = 0$$
+    <p>の 2 つの解 $z_1,\ z_2$ を表す複素数平面上の点をそれぞれ $\mathrm{P_1}(z_1)$，$\mathrm{P_2}(z_2)$ とする。また，複素数平面上の原点を $\mathrm{O}$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\mathrm{P_1}$ と $\mathrm{P_2}$ が一致する確率を求めよ。</li>
+      <li>(2)　$\mathrm{P_1}$ と $\mathrm{P_2}$ がともに単位円の周上にある確率を求めよ。</li>
+      <li>(3)　$\mathrm{P_1}$ と $\mathrm{O}$ を通る直線を $\ell_1$ とし，$\mathrm{P_2}$ と $\mathrm{O}$ を通る直線を $\ell_2$ とする。$\ell_1$ と $\ell_2$ のなす鋭角が $60^\circ$ である確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2019 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>係数が正なので、実数解はどちらも負。虚数解なら互いに共役で、実軸に関して対称。(2) は「実数解（$-1$ の重解）」と「虚数解で $|z_1|^2 = z_1z_2 = \frac ca = 1$」に分ける。(3) は直線が実軸と $30^\circ$ をなす場合と $60^\circ$ をなす場合の両方があることに注意。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>目の出方は $6^3 = 216$ 通りで同様に確からしい。判別式を $D = b^2 - 4ac$ とする。</p>
+      <h3>(1)</h3>
+      <p>$\mathrm{P_1} = \mathrm{P_2} \iff D = 0 \iff b^2 = 4ac$。$b$ は偶数で</p>
+      <ul>
+        <li>$b = 2$：$ac = 1$ → $(a, c) = (1, 1)$</li>
+        <li>$b = 4$：$ac = 4$ → $(1, 4),\ (2, 2),\ (4, 1)$</li>
+        <li>$b = 6$：$ac = 9$ → $(3, 3)$</li>
+      </ul>
+      <p>計 $5$ 通りで、確率は $\dfrac{5}{216}$。</p>
+
+      <h3>(2)</h3>
+      <p><b>$D \ge 0$ のとき</b>：$z_1 + z_2 = -\frac ba \lt 0$，$z_1z_2 = \frac ca \gt 0$ より 2 解はともに負。単位円周上の負の実数は $-1$ だけなので $z_1 = z_2 = -1$、すなわち $a(x + 1)^2 = ax^2 + 2ax + a$。$(a, b, c) = (1, 2, 1),\ (2, 4, 2),\ (3, 6, 3)$ の $3$ 通り。</p>
+      <p><b>$D \lt 0$ のとき</b>：$z_2 = \overline{z_1}$ なので $|z_1| = |z_2|$ で、$|z_1|^2 = z_1\overline{z_1} = z_1z_2 = \frac ca$。条件は $c = a$ かつ $b^2 \lt 4a^2$（$b \lt 2a$）。</p>
+      <ul>
+        <li>$a = c = 1$：$b = 1$（1 通り）　$a = c = 2$：$b = 1,2,3$（3 通り）　$a = c = 3$：$b = 1 \sim 5$（5 通り）</li>
+        <li>$a = c = 4,\ 5,\ 6$：$b = 1 \sim 6$（各 6 通り）</li>
+      </ul>
+      <p>計 $1 + 3 + 5 + 18 = 27$ 通り。合わせて $30$ 通りで、確率は $\dfrac{30}{216} = \dfrac{5}{36}$。</p>
+
+      <h3>(3)</h3>
+      <p>$D \ge 0$ なら 2 解は負の実数で $\ell_1 = \ell_2$（実軸）となり不適。よって $D \lt 0$ で、$z_1,\ z_2$ は共役、$\ell_1,\ \ell_2$ は実軸に関して対称。実部 $-\frac{b}{2a}$ は負。$\ell_1$ と実軸のなす鋭角を $\varphi$ とすると、$\ell_1,\ \ell_2$ のなす角は $2\varphi$ なので、なす鋭角が $60^\circ$ になるのは $\varphi = 30^\circ$ または $\varphi = 60^\circ$（$2\varphi = 120^\circ$）のとき。$r = |z_1| = \sqrt{\frac ca}$ とする。</p>
+      <ul>
+        <li><b>$\varphi = 60^\circ$</b>：$z_1 = r\left(-\frac12 \pm \frac{\sqrt3}{2}i\right)$。実部より $\frac{b}{2a} = \frac r2$、$r = \frac ba$。$r^2 = \frac ca$ より $b^2 = ac$（このとき $D = -3ac \lt 0$ は自動的に成立）。<br>
+          $(a, b, c) = (1,1,1),\ (1,2,4),\ (2,2,2),\ (4,2,1),\ (3,3,3),\ (4,4,4),\ (5,5,5),\ (6,6,6)$ の $8$ 通り。</li>
+        <li><b>$\varphi = 30^\circ$</b>：$z_1 = r\left(-\frac{\sqrt3}{2} \pm \frac12 i\right)$。$\frac{b}{2a} = \frac{\sqrt3}{2}r$ より $r^2 = \frac{b^2}{3a^2} = \frac ca$、$b^2 = 3ac$（$D = -ac \lt 0$）。$b$ は $3$ の倍数で<br>
+          $b = 3$：$ac = 3$ → $(1, 3),\ (3, 1)$。$b = 6$：$ac = 12$ → $(2, 6),\ (3, 4),\ (4, 3),\ (6, 2)$。計 $6$ 通り。</li>
+      </ul>
+      <p>合わせて $14$ 通りで、確率は $\dfrac{14}{216} = \dfrac{7}{108}$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>216 通りの $(a, b, c)$ をすべて並べ、条件をみたすものを色付けしています。マスをクリック（タップ）すると、その方程式の 2 解が右の複素数平面に表示されます。</p>
+
+  <div class="widget">
+    <label class="no-math">条件：<select id="q">
+      <option value="1">(1) P₁ = P₂</option>
+      <option value="2">(2) ともに単位円周上</option>
+      <option value="3" selected>(3) なす鋭角が 60°</option>
+    </select></label>
+    <span class="readout no-math" id="cnt"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="grid" class="fig" width="390" height="290" style="cursor:pointer"></canvas>
+      <canvas id="cp" class="fig" width="260" height="260"></canvas>
+    </div>
+    <div class="no-math readout" id="info"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>係数の符号から解の位置が分かる</h3>
+  <p>係数がすべて正の 2 次方程式の解は、実数なら負、虚数なら実部が負（左半平面）です。この「位置の情報」を使うと、(2) で $+1$ を考える必要がなくなり、(3) でも偏角の候補が絞れます。</p>
+  <h3>見落としがちなケース</h3>
+  <p>chopin 先生は (3) について「直線と実軸が $\pm30^\circ$ で交わるケースは思いつきやすいですが、直線と虚軸が $\pm30^\circ$ で交わるケースもありうる、というのを意外と見落としがちなので要注意」と注意しています。「なす<b>鋭角</b>」なので、2 直線のなす角が $120^\circ$ の場合も含まれるのです。</p>
+  <div class="point">実数係数の 2 次方程式が虚数解をもつとき：$z_2 = \overline{z_1}$，$|z_1|^2 = z_1z_2 = \dfrac ca$，$\mathrm{Re}\,z_1 = -\dfrac{b}{2a}$。偏角の条件は「実部と絶対値の比」に直して係数の関係式にする。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>1 個のサイコロを 3 回投げて出た目を順に $a,\ b,\ c$ とする。2 次方程式 $ax^2 + bx + c = 0$ が実数解をもつ確率を求めよ。</p>
+  </div>
+  <p class="source">（自作・頻出）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$b^2 \ge 4ac$ となる $(a, c)$ の個数を $b$ ごとに数える：$b = 1$：0，$b = 2$：$ac \le 1$ で 1，$b = 3$：$ac \le 2$ で 3，$b = 4$：$ac \le 4$ で 8，$b = 5$：$ac \le 6$ で 14，$b = 6$：$ac \le 9$ で 17。計 $43$ 通りで、確率は $\dfrac{43}{216}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，3 点 $\mathrm{O}$，$\mathrm{P_1}$，$\mathrm{P_2}$ が正三角形の 3 頂点となる確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2019　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{P_1} \neq \mathrm{P_2}$ で、しかも O を含む三角形なので虚数解。$z_1,\ z_2$ は共役なので $\mathrm{OP_1} = \mathrm{OP_2}$ で、正三角形 $\iff \angle\mathrm{P_1OP_2} = 60^\circ$。実部が負なので偏角は $\pm150^\circ$、つまり (3) の $\varphi = 30^\circ$ の場合で $b^2 = 3ac$。$6$ 通りで、確率は $\dfrac{6}{216} = \dfrac{1}{36}$。</p>
+    <p>（$\varphi = 60^\circ$ の場合は $\angle\mathrm{P_1OP_2} = 120^\circ$ の二等辺三角形になります。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("grid"), c = cv.getContext("2d");
+  const CP = Fig.plane($("cp"), { xmin: -3.2, xmax: 1.2, ymin: -2.2, ymax: 2.2, equal: true });
+  const cs = 18, gx = 22, gy = 30, blockW = 6 * cs + 16; // 3 列 × 2 段
+  let sel = [1, 1, 1];
+  function cond(q, a, b, cc) {
+    const D = b * b - 4 * a * cc;
+    if (q === 1) return D === 0;
+    if (q === 2) return (D === 0 && b === 2 * a && cc === a) || (D < 0 && cc === a);
+    return D < 0 && (b * b === a * cc || b * b === 3 * a * cc);
+  }
+  const pos = (a, b, cc) => { const k = a - 1, bx = gx + (k % 3) * blockW, by = gy + Math.floor(k / 3) * (6 * cs + 30); return [bx + (cc - 1) * cs, by + (b - 1) * cs]; };
+  function draw() {
+    const q = +$("q").value; let N = 0;
+    c.clearRect(0, 0, cv.width, cv.height);
+    c.font = "11px sans-serif";
+    for (let a = 1; a <= 6; a++) {
+      const [x0, y0] = pos(a, 1, 1);
+      c.fillStyle = "#333"; c.fillText(`a = ${a}`, x0 + 30, y0 - 16);
+      c.fillStyle = "#999"; c.fillText("c→", x0 + 6 * cs - 14, y0 - 4); if (a % 3 === 1) c.fillText("b↓", x0 - 18, y0 + 12);
+      for (let b = 1; b <= 6; b++) for (let cc = 1; cc <= 6; cc++) {
+        const [x, y] = pos(a, b, cc), ok = cond(q, a, b, cc); if (ok) N++;
+        c.fillStyle = ok ? "#8a1538" : "#f1f3f5"; c.fillRect(x + 1, y + 1, cs - 2, cs - 2);
+        if (sel[0] === a && sel[1] === b && sel[2] === cc) { c.strokeStyle = "#1c7ed6"; c.lineWidth = 2.5; c.strokeRect(x, y, cs, cs); }
+      }
+    }
+    const tot = { 1: "5/216", 2: "30/216 = 5/36", 3: "14/216 = 7/108" };
+    $("cnt").textContent = ` 該当 ${N} / 216 通り（${tot[q]}）`;
+    // 複素数平面
+    const [a, b, cc] = sel, D = b * b - 4 * a * cc;
+    CP.clear().grid(1, "#f3f3f3").axes("実", "虚").circle(0, 0, 1, "#aaa", 1, [4, 3]);
+    let z1, z2;
+    if (D >= 0) { z1 = [(-b + Math.sqrt(D)) / (2 * a), 0]; z2 = [(-b - Math.sqrt(D)) / (2 * a), 0]; }
+    else { z1 = [-b / (2 * a), Math.sqrt(-D) / (2 * a)]; z2 = [-b / (2 * a), -Math.sqrt(-D) / (2 * a)]; }
+    [z1, z2].forEach((z) => { const k = 3 / Math.max(Math.hypot(z[0], z[1]), 1e-9); CP.line([[-z[0] * k, -z[1] * k], [z[0] * k, z[1] * k]], "rgba(28,126,214,.5)", 1.2); });
+    CP.dot(z1[0], z1[1], "#c92a2a", 5, "P₁").dot(z2[0], z2[1], "#c92a2a", 5, "P₂", 6, 14).dot(0, 0, "#222", 3);
+    let ang = "";
+    if (D < 0) { const phi = Math.atan2(z1[1], -z1[0]) * 180 / Math.PI, t = 2 * phi; ang = `　ℓ₁ と ℓ₂ のなす鋭角 ${Math.min(t, 180 - t).toFixed(1)}°`; }
+    const f = (z) => z[1] === 0 ? z[0].toFixed(3) : `${z[0].toFixed(3)} ± ${Math.abs(z[1]).toFixed(3)}i`;
+    $("info").textContent = `(a, b, c) = (${a}, ${b}, ${cc})：${a}x² + ${b}x + ${cc} = 0　D = ${D}　解 ${D < 0 ? f(z1) : f(z1) + "，" + f(z2)}　|z|² = c/a = ${(cc / a).toFixed(3)}${ang}`;
+  }
+  cv.addEventListener("click", (e) => {
+    const r = cv.getBoundingClientRect(), mx = (e.clientX - r.left) * cv.width / r.width, my = (e.clientY - r.top) * cv.height / r.height;
+    for (let a = 1; a <= 6; a++) for (let b = 1; b <= 6; b++) for (let cc = 1; cc <= 6; cc++) {
+      const [x, y] = pos(a, b, cc); if (mx >= x && mx < x + cs && my >= y && my < y + cs) { sel = [a, b, cc]; draw(); return; }
+    }
+  });
+  $("q").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

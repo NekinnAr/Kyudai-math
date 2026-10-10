@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .grid6 { display: grid; grid-template-columns: 34px repeat(6, 1fr); gap: 3px; max-width: 460px; font-size: 13px; }
+    .grid6 div { text-align: center; padding: 6px 2px; border-radius: 4px; }
+    .grid6 .h { font-weight: 700; color: #555; }
+    .grid6 .cell { cursor: pointer; border: 1px solid #ddd; background: #fff; line-height: 1.3; }
+    .grid6 .cell b { font-size: 15px; }
+    .grid6 .cell.sel { outline: 2px solid #222; }
+    .k-neg { background: #f3e8ff !important; } .k-zero { background: #fff3bf !important; }
+    .k-int { background: #d3f9d8 !important; } .k-irr { background: #f1f3f5 !important; }
+    .legend2 span { display: inline-block; padding: 0 8px; margin-right: 6px; border-radius: 3px; font-size: 12px; }
+  </style>
+</head>
+<body data-root=".." data-id="2025-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>1 個のさいころを 3 回続けて投げ，出る目を順に $a,\ b,\ c$ とする。整式</p>
+    $$f(x) = (x^2 - ax + b)(x - c)$$
+    <p>について，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(x) = 0$ をみたす実数 $x$ の個数が $1$ 個である確率を求めよ。</li>
+      <li>(2)　$f(x) = 0$ をみたす自然数 $x$ の個数が $3$ 個である確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2025 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>2 次方程式 $x^2 - ax + b = 0$ の解の様子で場合分けし、$(a,\ b)$ を数え上げてから $c$ を数える。(1) は「重解が $c$ と一致する」ケースの見落としに注意。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$g(x) = x^2 - ax + b$、判別式を $D = a^2 - 4b$ とする。全事象は $6^3 = 216$ 通り。</p>
+      <h3>(1)</h3>
+      <p>$x = c$ は常に実数解なので、実数解が $c$ だけになるのは次のいずれかのとき。</p>
+      <p><b>(i) $g(x) = 0$ が虚数解をもつ（$D \lt 0$, つまり $a^2 \lt 4b$）とき</b></p>
+      <ul>
+        <li>$a = 1$：$b = 1,\ \ldots,\ 6$ の 6 通り</li>
+        <li>$a = 2$：$b \gt 1$ より 5 通り</li>
+        <li>$a = 3$：$b \gt \frac94$ より 4 通り</li>
+        <li>$a = 4$：$b \gt 4$ より 2 通り</li>
+        <li>$a \ge 5$：$4b \le 24 \lt a^2$ より 0 通り</li>
+      </ul>
+      <p>$c$ は任意なので $(6+5+4+2)\times 6 = 102$ 通り。</p>
+      <p><b>(ii) $g(x) = 0$ が重解をもち、それが $c$ に等しいとき</b></p>
+      <p>$a^2 = 4b$ より $(a,\ b) = (2,\ 1),\ (4,\ 4)$ で、重解はそれぞれ $x = 1,\ 2$。よって $(a,\ b,\ c) = (2,\ 1,\ 1),\ (4,\ 4,\ 2)$ の 2 通り。</p>
+      <p>以上より、求める確率は</p>
+      $$\frac{102 + 2}{216} = \frac{13}{27}$$
+
+      <h3>(2)</h3>
+      <p>自然数解が 3 個となるのは、$g(x) = 0$ が<b>異なる 2 つの自然数解</b> $p,\ q$ $(p \lt q)$ をもち、かつ $c \ne p,\ q$ のとき。解と係数の関係より $a = p + q \le 6$, $b = pq \le 6$ なので</p>
+      $$(p,\ q) = (1,\ 2),\ (1,\ 3),\ (1,\ 4),\ (1,\ 5),\ (2,\ 3)$$
+      <p>すなわち $(a,\ b) = (3,\ 2),\ (4,\ 3),\ (5,\ 4),\ (6,\ 5),\ (5,\ 6)$ の 5 通り。それぞれ $c$ は $p,\ q$ 以外の 4 通りなので、求める確率は</p>
+      $$\frac{5 \times 4}{216} = \frac{5}{54}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$(a,\ b)$ の 36 通りを表にし、各マスに「条件をみたす $c$ の個数」を表示しました。マスの色は 2 次方程式 $x^2 - ax + b = 0$ の解の種類です。マスをクリックすると詳細が見られます。</p>
+
+  <div class="widget no-math">
+    <div style="margin-bottom:8px">
+      <label><input type="radio" name="mode" value="1" checked> (1) 実数解が 1 個</label>
+      <label><input type="radio" name="mode" value="2"> (2) 自然数解が 3 個</label>
+      <label><input type="radio" name="mode" value="3"> おまけ：実数解が 2 個</label>
+    </div>
+    <div class="grid6" id="grid"></div>
+    <p class="legend2" style="margin:8px 0 0">
+      <span class="k-neg">D &lt; 0（虚数解）</span><span class="k-zero">D = 0（重解）</span><span class="k-int">異なる整数解</span><span class="k-irr">異なる無理数解</span>
+    </p>
+    <div class="readout" id="total" style="margin-top:8px"></div>
+    <div class="readout" id="detail" style="margin-top:4px;color:#555"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>(1) の落とし穴：「重解」と「3 重解」</h3>
+  <p>「実数解の個数」は<b>異なる</b>実数解の個数です。$D \lt 0$ の場合だけを数えて $\dfrac{102}{216} = \dfrac{17}{36}$ と答えてしまうのが典型的なミスです。$(a,\ b,\ c) = (2,\ 1,\ 1)$ のとき</p>
+  $$f(x) = (x^2 - 2x + 1)(x - 1) = (x-1)^3$$
+  <p>となり、$x = 1$ が<b>3 重解</b>で、異なる実数解は 1 個だけです。「重解が $c$ と重なる」という発想は、図解の黄色いマスに注目すると見えてきます。</p>
+
+  <h3>(2) は判別式より「解と係数の関係」</h3>
+  <p>判別式 $D = a^2 - 4b$ が平方数になる $(a,\ b)$ を探す方法もありますが、<b>解 $p,\ q$ の側から $(a,\ b) = (p+q,\ pq)$ を決める</b>と、$a,\ b \le 6$ という制約から一瞬で候補が絞れます。「係数から解を調べる」のではなく「解から係数を作る」という逆転の発想は、整数解の問題で特に強力です。</p>
+
+  <h3>実数解の個数の分布</h3>
+  <p>216 通りすべてについて実数解の個数を数えると、次のようになります。</p>
+  <div class="table-scroll">
+  <table class="simple">
+    <tr><th>実数解の個数</th><th>1 個</th><th>2 個</th><th>3 個</th></tr>
+    <tr><td>場合の数</td><td>104</td><td>20</td><td>92</td></tr>
+    <tr><td>確率</td><td>$\dfrac{13}{27}$</td><td>$\dfrac{5}{54}$</td><td>$\dfrac{23}{54}$</td></tr>
+  </table>
+  </div>
+  <p>実数解 2 個の確率が (2) の答えと同じ $\dfrac{5}{54}$ になっているのは面白い一致です（下の類題）。</p>
+  <div class="point">「丁寧に数える」問題は、まず全体を表にして眺めると、数え漏れ・重複を防げるうえに、こうした発見もあります。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問と同じ設定で，$f(x) = 0$ をみたす実数 $x$ の個数が $2$ 個である確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(ア) $g(x)=0$ が重解 $r$ をもち $c \ne r$：$(a,\ b) = (2,\ 1),\ (4,\ 4)$ で $c$ は 5 通りずつ、計 10 通り。</p>
+    <p>(イ) $g(x)=0$ が異なる 2 実数解をもち、その一方が $c$：解は自然数でなければならず、(2) の 5 組について $c$ は 2 通りずつ、計 10 通り。</p>
+    <p>よって $\dfrac{20}{216} = \dfrac{5}{54}$。(2) の $5 \times 4$ と $10 + 10$ が同じ 20 になるのは偶然の一致です。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問と同じ設定で，$f(x) = 0$ の解（虚数解も含める）がすべて整数となる確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2025　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$g(x) = 0$ の 2 解がともに整数となる $(a,\ b)$ を数えればよい（$c$ は任意）。重解のとき $(2,\ 1),\ (4,\ 4)$、異なる 2 解のとき (2) の 5 組。計 7 組なので、確率は $\dfrac{7 \times 6}{216} = \dfrac{7}{36}$。</p>
+    <p class="note">「2 解の和 $a$ と積 $b$ が整数で、判別式が平方数なら、解は整数」であることに注意（$a$ と $\sqrt{D}$ の偶奇が一致するため）。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const grid = document.getElementById("grid");
+  // 解の集合（異なる実数解）
+  function realRoots(a, b, c) {
+    const D = a * a - 4 * b, s = new Set([c]);
+    if (D >= 0) { s.add(+((a + Math.sqrt(D)) / 2).toFixed(9)); s.add(+((a - Math.sqrt(D)) / 2).toFixed(9)); }
+    return [...s];
+  }
+  const kind = (a, b) => { const D = a * a - 4 * b; if (D < 0) return "k-neg"; if (D === 0) return "k-zero"; return Number.isInteger(Math.sqrt(D)) ? "k-int" : "k-irr"; };
+  const ok = (mode, a, b, c) => {
+    const rs = realRoots(a, b, c);
+    if (mode === 1) return rs.length === 1;
+    if (mode === 3) return rs.length === 2;
+    return rs.filter((x) => Number.isInteger(x) && x >= 1).length === 3;
+  };
+  let mode = 1, sel = null;
+  function render() {
+    let html = '<div class="h">b→<br>a↓</div>' + [1, 2, 3, 4, 5, 6].map((b) => `<div class="h">${b}</div>`).join("");
+    let total = 0;
+    for (let a = 1; a <= 6; a++) {
+      html += `<div class="h">${a}</div>`;
+      for (let b = 1; b <= 6; b++) {
+        const cs = [1, 2, 3, 4, 5, 6].filter((c) => ok(mode, a, b, c));
+        total += cs.length;
+        html += `<div class="cell ${kind(a, b)}${sel && sel[0] === a && sel[1] === b ? " sel" : ""}" data-a="${a}" data-b="${b}"><b>${cs.length || "·"}</b></div>`;
+      }
+    }
+    grid.innerHTML = html;
+    const g = (p, q) => (q ? g(q, p % q) : p), d = g(total, 216);
+    document.getElementById("total").innerHTML = `合計 <b>${total}</b> 通り ／ 216 通り　→　確率 <b>${total / d}/${216 / d}</b>`;
+    showDetail();
+  }
+  function showDetail() {
+    const el = document.getElementById("detail");
+    if (!sel) { el.textContent = "マスをクリックすると、その (a, b) での解と条件をみたす c が表示されます。"; return; }
+    const [a, b] = sel, D = a * a - 4 * b;
+    let roots;
+    if (D < 0) roots = "虚数解";
+    else if (D === 0) roots = `重解 x = ${a / 2}`;
+    else { const r = Math.sqrt(D); roots = Number.isInteger(r) ? `x = ${(a - r) / 2}, ${(a + r) / 2}` : `x = (${a} ± √${D})/2`; }
+    const cs = [1, 2, 3, 4, 5, 6].filter((c) => ok(mode, a, b, c));
+    el.innerHTML = `(a, b) = (${a}, ${b})：x² − ${a}x + ${b} = 0 の判別式 D = ${D}、解は ${roots}。条件をみたす c：${cs.length ? cs.join(", ") : "なし"}`;
+  }
+  grid.addEventListener("click", (e) => {
+    const t = e.target.closest(".cell"); if (!t) return;
+    sel = [+t.dataset.a, +t.dataset.b]; render();
+  });
+  document.querySelectorAll('input[name="mode"]').forEach((r) => r.addEventListener("change", () => { mode = +r.value; render(); }));
+  render();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

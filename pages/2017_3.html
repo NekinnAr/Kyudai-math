@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2017年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2017-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>初項 $a_1 = 1$，公差 $4$ の等差数列 $\{a_n\}$ を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\{a_n\}$ の初項から第 600 項のうち，7 の倍数である項の個数を求めよ。</li>
+      <li>(2)　$\{a_n\}$ の初項から第 600 項のうち，$7^2$ の倍数である項の個数を求めよ。</li>
+      <li>(3)　初項から第 $n$ 項までの積 $a_1a_2\cdots a_n$ が $7^{45}$ の倍数となる最小の自然数 $n$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2017 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$a_n = 4n - 3$。「$7 \mid 4n - 3$」となる $n$ を合同式で求める（$4$ の逆数をかける）。(3) は各項がもつ素因数 7 の個数を足し合わせる。<b>ルジャンドルの公式</b>と同じ数え方。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$a_n = 1 + 4(n - 1) = 4n - 3$。</p>
+      <h3>(1)</h3>
+      <p>$4n - 3 \equiv 0 \pmod 7 \iff 4n \equiv 3$。両辺に $2$ をかけて（$4 \cdot 2 = 8 \equiv 1$）$n \equiv 6 \pmod 7$。$n = 7m - 1$ で、$1 \le 7m - 1 \le 600$ より $1 \le m \le 85$。<b>85 個</b>。</p>
+
+      <h3>(2)</h3>
+      <p>$n = 7m - 1$ のとき $a_n = 28m - 7 = 7(4m - 1)$。$49 \mid a_n \iff 7 \mid 4m - 1 \iff 4m \equiv 1 \iff m \equiv 2 \pmod 7$。$m = 7k + 2$，$1 \le m \le 85$ より $k = 0,\ 1,\ \cdots,\ 11$。<b>12 個</b>。</p>
+      <p>（$n = 7(7k + 2) - 1 = 49k + 13$。$a_{13} = 49$ が最初。）</p>
+
+      <h3>(3)</h3>
+      <p>7 の倍数になるのは $n = 7m - 1$ の項だけで、$a_{7m-1} = 7(4m - 1)$ に含まれる素因数 7 の個数は $1 + (4m - 1\ \text{に含まれる 7 の個数})$。</p>
+      <ul>
+        <li>$7 \mid 4m - 1 \iff m \equiv 2 \pmod 7$</li>
+        <li>$49 \mid 4m - 1 \iff 4m \equiv 1 \pmod{49} \iff m \equiv 37 \pmod{49}$（$4 \cdot 37 = 148 = 3\cdot49 + 1$）</li>
+        <li>$343 \mid 4m - 1 \iff m \equiv 86 \pmod{343}$（$4\cdot86 = 344$）</li>
+      </ul>
+      <p>$m = 1,\ 2,\ \cdots,\ M$ までの項の積に含まれる 7 の個数 $N(M)$ は、$M \lt 86$ の範囲で</p>
+      $$N(M) = M + \#\{m \le M : m \equiv 2 \ (\mathrm{mod}\ 7)\} + \#\{m \le M : m \equiv 37 \ (\mathrm{mod}\ 49)\}$$
+      <p>$M = 37$ のとき：$m \equiv 2$ は $2, 9, 16, 23, 30, 37$ の 6 個、$m \equiv 37$ は 1 個で $N = 37 + 6 + 1 = 44$。<br>
+      $M = 38$ のとき：$N = 45$。</p>
+      <p>よって積が初めて $7^{45}$ の倍数になるのは $m = 38$、すなわち $n = 7\cdot38 - 1 = \mathbf{265}$。（$n = 264$ 以下では $m \le 37$ の項までしか含まれず、$N \le 44$。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>各項 $a_n$ に含まれる素因数 7 の個数をマスの色で表示します（薄：1 個、中：2 個、濃：3 個以上）。$n$ を動かすと、$a_1$ から $a_n$ までの積に含まれる 7 の個数の合計が表示されます。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="350" value="265"></label>
+    <span class="readout no-math" id="nv"></span>
+    <button id="ans">n = 265 にする</button>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="640" height="300" style="max-width:100%"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>ルジャンドルの公式の等差数列版</h3>
+  <p>$n!$ に含まれる素因数 $p$ の個数は $\left\lfloor\frac np\right\rfloor + \left\lfloor\frac{n}{p^2}\right\rfloor + \cdots$ と数えられます（<b>ルジャンドルの公式</b>）。「$p$ の倍数の個数 + $p^2$ の倍数の個数 + …」という数え方で、本問の (1)(2) はまさにその第 1 項・第 2 項を求めさせる誘導になっています。</p>
+  <p>chopin 先生は「$b_m = a_{7m-1}$ とすると、$b_1 \times \cdots \times b_7$ は素因数 7 を 8 個もつ」「8 個という周期が 5 セット続いたあと、素因数 7 が 1 個 → 3 個 → 1 個と増えて合計 45 個になる」と、周期性に注目した解説をしています。</p>
+  <div class="point">「積が $p^k$ の倍数」→ 各項の素因数 $p$ の個数を足す。数え方は「$p$ の倍数を 1 個ずつ、$p^2$ の倍数をさらに 1 個ずつ…」と<b>層ごとに数える</b>。$ax \equiv b \pmod m$ は $a$ の逆数をかけて解く。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>初項 $2$，公差 $3$ の等差数列の初項から第 100 項のうち，5 の倍数である項の個数を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>一般項 $3n - 1$。$3n \equiv 1 \pmod 5$ に $2$ をかけて $n \equiv 2 \pmod 5$。$n = 2,\ 7,\ \cdots,\ 97$ の <b>20 個</b>。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の数列で，積 $a_1a_2\cdots a_n$ が $7^{100}$ の倍数となる最小の自然数 $n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2017　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問の記号で、$M = 85$ のとき $N = 85 + 12 + 1 = 98$（$m \equiv 2 \pmod 7$ は $2 \sim 79$ の 12 個、$m \equiv 37 \pmod{49}$ は $37$ の 1 個）。</p>
+    <p>次の $m = 86$ は $m \equiv 2 \pmod 7$，$m \equiv 37 \pmod{49}$，$m \equiv 86 \pmod{343}$ をすべてみたし、$a_{601} = 4\cdot601 - 3 = 2401 = 7^4$ で一気に 4 個増えて $N = 102$。</p>
+    <p>よって最小の $n$ は $7\cdot86 - 1 = \mathbf{601}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  const v7 = (x) => { let k = 0; while (x % 7 === 0) { x /= 7; k++; } return k; };
+  const cols = 35, cs = 17, ox = 26, oy = 18;
+  function draw() {
+    const n = +$("n").value;
+    c.clearRect(0, 0, W, H);
+    let sum = 0;
+    for (let k = 1; k <= 350; k++) {
+      const i = (k - 1) % cols, j = Math.floor((k - 1) / cols), x = ox + i * cs, y = oy + j * (cs + 10);
+      const e = v7(4 * k - 3); if (k <= n) sum += e;
+      c.globalAlpha = k <= n ? 1 : 0.3;
+      c.fillStyle = e === 0 ? "#f1f3f5" : e === 1 ? "#f3c4cf" : e === 2 ? "#d0587a" : "#8a1538";
+      c.fillRect(x, y, cs - 2, cs - 2);
+      if (e >= 2) { c.fillStyle = "#fff"; c.font = "bold 10px sans-serif"; c.fillText(e, x + 4, y + 11); }
+      c.globalAlpha = 1;
+      if (i === 0) { c.fillStyle = "#999"; c.font = "10px sans-serif"; c.fillText(k, 0, y + 11); }
+    }
+    const i = (n - 1) % cols, j = Math.floor((n - 1) / cols);
+    c.strokeStyle = "#1c7ed6"; c.lineWidth = 2; c.strokeRect(ox + i * cs - 1, oy + j * (cs + 10) - 1, cs, cs);
+    c.fillStyle = "#666"; c.font = "11px sans-serif"; c.fillText("1 行 = 35 項（n = 7m − 1 の列に 7 の倍数が並ぶ）", ox, 12);
+    $("nv").textContent = ` n = ${n}　a_n = ${4 * n - 3}　積に含まれる 7 の個数 = ${sum}` + (sum >= 45 ? "（7⁴⁵ の倍数 ✔）" : "");
+  }
+  $("n").addEventListener("input", draw);
+  $("ans").onclick = () => { $("n").value = 265; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

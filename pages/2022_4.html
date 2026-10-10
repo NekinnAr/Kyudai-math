@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2022年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2022-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>定積分について述べた次の文章を読んで，後の問いに答えよ。</p>
+    <div style="border:1px solid #bbb;padding:10px 14px;margin:8px 0;background:#fff">
+      <p>区間 $a \le x \le b$ で連続な関数 $f(x)$ に対して，$F'(x) = f(x)$ となる関数 $F(x)$ を 1 つ選び，$f(x)$ の $a$ から $b$ までの定積分を</p>
+      $$\int_a^b f(x)\,dx = F(b) - F(a)\qquad\cdots\cdots ①$$
+      <p>で定義する。定積分の値は $F(x)$ の選び方によらずに定まる。定積分は次の性質 (A), (B), (C) をもつ。</p>
+      <p>(A)　$\displaystyle\int_a^b\{kf(x) + lg(x)\}\,dx = k\int_a^b f(x)\,dx + l\int_a^b g(x)\,dx$<br>
+         (B)　$a \le c \le b$ のとき，$\displaystyle\int_a^c f(x)\,dx + \int_c^b f(x)\,dx = \int_a^b f(x)\,dx$<br>
+         (C)　区間 $a \le x \le b$ において $g(x) \ge h(x)$ ならば，$\displaystyle\int_a^b g(x)\,dx \ge \int_a^b h(x)\,dx$</p>
+      <p>ただし，$f(x),\ g(x),\ h(x)$ は区間 $a \le x \le b$ で連続な関数，$k,\ l$ は定数である。</p>
+      <p>以下，$f(x)$ を区間 $0 \le x \le 1$ で連続な増加関数とし，$n$ を自然数とする。<u>定積分の性質 $\fbox{ア}$ を用い，定数関数に対する定積分の計算を行うと，</u></p>
+      $$\frac1n f\left(\frac{i-1}{n}\right) \le \int_{\frac{i-1}{n}}^{\frac{i}{n}} f(x)\,dx \le \frac1n f\left(\frac in\right)\quad(i = 1,\ 2,\ \cdots,\ n)\qquad\cdots\cdots ②$$
+      <p>が成り立つことがわかる。$S_n = \dfrac1n\displaystyle\sum_{i=1}^{n} f\left(\frac{i-1}{n}\right)$ とおくと，不等式 ② と定積分の性質 $\fbox{イ}$ より次の不等式が成り立つ。</p>
+      $$0 \le \int_0^1 f(x)\,dx - S_n \le \frac{f(1) - f(0)}{n}\qquad\cdots\cdots ③$$
+      <p>よって，はさみうちの原理より $\displaystyle\lim_{n\to\infty}S_n = \int_0^1 f(x)\,dx$ が成り立つ。</p>
+    </div>
+    <ol>
+      <li>(1)　関数 $F(x),\ G(x)$ が微分可能であるとき，$\{F(x) + G(x)\}' = F'(x) + G'(x)$ が成り立つことを，導関数の定義に従って示せ。また，この等式と定積分の定義 ① を用いて，定積分の性質 (A) で $k = l = 1$ とした場合の等式
+        $$\int_a^b\{f(x) + g(x)\}\,dx = \int_a^b f(x)\,dx + \int_a^b g(x)\,dx$$
+        を示せ。</li>
+      <li>(2)　定積分の定義 ① と平均値の定理を用いて，次を示せ。<br>
+        　$a \lt b$ のとき，区間 $a \le x \le b$ において $g(x) \gt 0$ ならば，$\displaystyle\int_a^b g(x)\,dx \gt 0$</li>
+      <li>(3)　(A), (B), (C) のうち，空欄 $\fbox{ア}$ に入る記号として最もふさわしいものを 1 つ選び答えよ。また文章中の下線部の内容を詳しく説明することで，不等式 ② を示せ。</li>
+      <li>(4)　(A), (B), (C) のうち，空欄 $\fbox{イ}$ に入る記号として最もふさわしいものを 1 つ選び答えよ。また，不等式 ③ を示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2022 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>教科書で「当たり前」として使っている定積分の性質や区分求積法を、定義から導く穴埋め・証明問題。何を仮定して何を示すのかを、<b>文章の指示どおりに</b>書くことが大切。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\begin{aligned}
+        \{F(x) + G(x)\}' &= \lim_{h\to0}\frac{\{F(x+h) + G(x+h)\} - \{F(x) + G(x)\}}{h} \\
+        &= \lim_{h\to0}\left\{\frac{F(x+h) - F(x)}{h} + \frac{G(x+h) - G(x)}{h}\right\} = F'(x) + G'(x)
+      \end{aligned}$$
+      <p>（2 つの極限がそれぞれ存在するので、和の極限は極限の和。）</p>
+      <p>次に $F' = f$，$G' = g$ となる $F,\ G$ をとると、上の等式より $\{F + G\}' = f + g$。よって $F + G$ は $f + g$ の原始関数の 1 つで、① より</p>
+      $$\int_a^b\{f + g\}\,dx = \{F(b) + G(b)\} - \{F(a) + G(a)\} = \int_a^b f\,dx + \int_a^b g\,dx$$
+
+      <h3>(2)</h3>
+      <p>$G'(x) = g(x)$ となる $G$ をとる。$G$ は $a \le x \le b$ で微分可能なので、平均値の定理より</p>
+      $$\int_a^b g(x)\,dx = G(b) - G(a) = (b - a)G'(c) = (b - a)g(c)$$
+      <p>をみたす $c$（$a \lt c \lt b$）が存在する。$b - a \gt 0$，$g(c) \gt 0$ より $\displaystyle\int_a^b g(x)\,dx \gt 0$。</p>
+
+      <h3>(3)　$\fbox{ア} = $ (C)</h3>
+      <p>$f$ は増加関数なので、$\dfrac{i-1}{n} \le x \le \dfrac in$ において</p>
+      $$f\left(\frac{i-1}{n}\right) \le f(x) \le f\left(\frac in\right)$$
+      <p>両端は定数関数である。定数関数 $k$ の原始関数は $kx$ なので、① より $\displaystyle\int_{\frac{i-1}{n}}^{\frac in}k\,dx = k\left(\frac in - \frac{i-1}{n}\right) = \frac kn$。性質 (C) を左右の不等式に用いると</p>
+      $$\frac1n f\left(\frac{i-1}{n}\right) \le \int_{\frac{i-1}{n}}^{\frac in}f(x)\,dx \le \frac1n f\left(\frac in\right)$$
+
+      <h3>(4)　$\fbox{イ} = $ (B)</h3>
+      <p>② を $i = 1,\ 2,\ \dots,\ n$ について辺々加える。性質 (B) をくり返し用いると、中辺の和は $\displaystyle\int_0^1 f(x)\,dx$ になるので</p>
+      $$S_n \le \int_0^1 f(x)\,dx \le \frac1n\sum_{i=1}^{n}f\left(\frac in\right) = S_n + \frac{f(1) - f(0)}{n}$$
+      <p>（右辺の和は $S_n$ の和から $f(0)$ を除いて $f(1)$ を加えたもの。）各辺から $S_n$ を引いて ③ を得る。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>青い長方形の面積の和が $S_n$（左端の値を高さとする）、オレンジの部分が上側の和との差です。オレンジの部分を右端にずらして積み上げると、幅 $\frac1n$・高さ $f(1) - f(0)$ の長方形になる——これが ③ の右辺 $\frac{f(1) - f(0)}{n}$ の意味です。</p>
+
+  <div class="widget">
+    <label>関数：<select id="fn">
+      <option value="0">f(x) = x²</option>
+      <option value="1">f(x) = √x</option>
+      <option value="2">f(x) = eˣ − 1</option>
+      <option value="3">f(x) = sin(πx/2)</option>
+    </select></label>　
+    <label>n：<input type="range" id="n" min="1" max="60" value="6"></label> <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「積分 = 面積」はどこから来るか</h3>
+  <p>高校では定積分を「原始関数の差」で定義し、「面積を表す」ことは区分求積法から導きます。本問はその流れを丁寧にたどる問題で、③ によって「長方形の和 → 積分」が<b>誤差 $\frac{f(1) - f(0)}{n}$ 以内</b>で成り立つことが分かります。</p>
+  <p>大学ではむしろ逆に、長方形の和の極限で積分を定義し（<b>リーマン積分</b>）、「微分すると元に戻る」ことを<b>微分積分学の基本定理</b>として証明します。</p>
+  <h3>共通テスト風の出題</h3>
+  <p>chopin 先生は「まさかのセンター試験じみた穴埋め式で面喰った受験生が多いかもしれません」とコメントしています。九大では 2022・2023 年に、このような読解型の問題が出題されました（<a href="2023_4.html">2023 年第 4 問</a>も参照）。</p>
+  <div class="point">「定義から示せ」と言われたら、<b>使ってよいもの（定義・与えられた性質）と使ってはいけないもの（示すべき結論）</b>を区別して書くことが何より大切です。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$f(x) = x^2$ のとき，$S_n$ を $n$ の式で表し，不等式 ③ が成り立つことを直接確かめよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$S_n = \frac{1}{n^3}\sum_{i=1}^{n}(i - 1)^2 = \frac{(n-1)n(2n-1)}{6n^3} = \frac{(n-1)(2n-1)}{6n^2}$$
+    <p>$\displaystyle\int_0^1 x^2\,dx - S_n = \frac13 - \frac{2n^2 - 3n + 1}{6n^2} = \frac{3n - 1}{6n^2}$。これは $0$ 以上で、$\dfrac{3n - 1}{6n^2} \le \dfrac{6n}{6n^2} = \dfrac1n = \dfrac{f(1) - f(0)}{n}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$f(x) = e^x$ のとき，$S_n$ を求め，$\displaystyle\lim_{n\to\infty}n\left\{\int_0^1 f(x)\,dx - S_n\right\}$ を求めよ。必要なら，$h \gt 0$ のとき $\dfrac{h^2}{2} \le e^h - 1 - h \le \dfrac{h^2}{2}e^h$ が成り立つことを用いてよい。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2022　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>等比数列の和より $S_n = \dfrac1n\cdot\dfrac{e - 1}{e^{1/n} - 1}$。$h = \frac1n$ とおくと</p>
+    $$n\left\{(e - 1) - S_n\right\} = (e - 1)\cdot\frac{1}{h}\left(1 - \frac{h}{e^h - 1}\right) = (e - 1)\cdot\frac{e^h - 1 - h}{h(e^h - 1)}$$
+    <p>与えられた不等式と $\dfrac{e^h - 1}{h} \to 1$ から $\dfrac{e^h - 1 - h}{h^2} \to \dfrac12$ なので、極限は $\dfrac{e - 1}{2}$。</p>
+    <p>これは $\dfrac{f(1) - f(0)}{2}$ に等しく、③ の上限 $\dfrac{f(1) - f(0)}{n}$ の<b>ちょうど半分</b>が実際の誤差の大きさ、ということを示しています（図解の「n × 誤差」でも確かめられます）。</p>
+    <p>（不等式は、$\varphi(h) = e^h - 1 - h - \frac{h^2}{2}$ などを微分して示せます。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -0.08, xmax: 1.12, ymin: -0.12, ymax: 1.9 });
+  const F = [
+    { f: (x) => x * x, I: 1 / 3 },
+    { f: (x) => Math.sqrt(x), I: 2 / 3 },
+    { f: (x) => Math.exp(x) - 1, I: Math.E - 2 },
+    { f: (x) => Math.sin(Math.PI * x / 2), I: 2 / Math.PI },
+  ];
+  const fnIn = document.getElementById("fn"), nIn = document.getElementById("n");
+  function draw() {
+    const { f, I } = F[+fnIn.value], n = +nIn.value;
+    document.getElementById("nv").textContent = ` ${n}`;
+    P.clear().axes();
+    let S = 0;
+    for (let i = 1; i <= n; i++) {
+      const x0 = (i - 1) / n, x1 = i / n, lo = f(x0), hi = f(x1); S += lo / n;
+      P.fill([[x0, 0], [x1, 0], [x1, lo], [x0, lo]], "rgba(28,126,214,.25)");
+      P.fill([[x0, lo], [x1, lo], [x1, hi], [x0, hi]], "rgba(232,89,12,.3)");
+      P.line([[x0, 0], [x0, hi], [x1, hi], [x1, 0]], "rgba(0,0,0,.25)", 0.8);
+    }
+    P.fn(f, 0, 1, "#8a1538", 2.2);
+    // 積み上げ表示
+    const f0 = f(0), f1 = f(1);
+    P.fill([[1.03, f0], [1.03 + 0.06, f0], [1.03 + 0.06, f1], [1.03, f1]], "rgba(232,89,12,.45)");
+    P.text("1", 0.99, -0.08); P.text("0", -0.05, -0.08);
+    const err = I - S;
+    document.getElementById("info").innerHTML =
+      `S<sub>n</sub> = ${S.toFixed(5)}<br>∫f dx = ${I.toFixed(5)}<br>誤差 ∫f − S<sub>n</sub> = ${err.toFixed(5)}<br>上限 (f(1) − f(0))/n = ${((f1 - f0) / n).toFixed(5)}<br>` +
+      `n × 誤差 = ${(n * err).toFixed(4)}<br><span style="color:#666;font-size:.9em">→ (f(1) − f(0))/2 = ${((f1 - f0) / 2).toFixed(4)} に近づく</span><br>` +
+      `<span style="color:#666;font-size:.9em">右端のオレンジ = 差を積み上げた長方形</span>`;
+  }
+  [fnIn, nIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

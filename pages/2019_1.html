@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2019年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2019-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$n$ を自然数とする。$x,\ y$ がすべての実数を動くとき，定積分</p>
+    $$\int_0^1\left(\sin(2n\pi t) - xt - y\right)^2dt$$
+    <p>の最小値を $I_n$ とおく。極限 $\displaystyle\lim_{n\to\infty}I_n$ を求めよ。</p>
+  </div>
+  <p class="source">（2019 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>積分を実行すると $x,\ y$ の 2 次式になるので、平方完成で最小値が求まる。必要な積分は $\int_0^1\sin^2(2n\pi t)\,dt$ と $\int_0^1 t\sin(2n\pi t)\,dt$（部分積分）。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$k = 2n\pi$ とおく。$\cos k = 1$，$\sin k = 0$ に注意して</p>
+      $$\int_0^1\sin^2 kt\,dt = \int_0^1\frac{1 - \cos 2kt}{2}\,dt = \frac12,\qquad \int_0^1\sin kt\,dt = \left[-\frac{\cos kt}{k}\right]_0^1 = 0$$
+      $$\int_0^1 t\sin kt\,dt = \left[-\frac{t\cos kt}{k}\right]_0^1 + \frac1k\int_0^1\cos kt\,dt = -\frac1k = -\frac{1}{2n\pi}$$
+      <p>よって、積分を $F(x,\ y)$ とすると</p>
+      $$\begin{aligned}
+      F &= \int_0^1\sin^2 kt\,dt - 2x\int_0^1 t\sin kt\,dt - 2y\int_0^1\sin kt\,dt + x^2\int_0^1 t^2dt + 2xy\int_0^1 t\,dt + y^2 \\
+        &= \frac12 + \frac{x}{n\pi} + \frac{x^2}{3} + xy + y^2
+      \end{aligned}$$
+      <p>$y$ について平方完成すると</p>
+      $$F = \left(y + \frac x2\right)^2 + \frac{x^2}{12} + \frac{x}{n\pi} + \frac12 = \left(y + \frac x2\right)^2 + \frac{1}{12}\left(x + \frac{6}{n\pi}\right)^2 + \frac12 - \frac{3}{n^2\pi^2}$$
+      <p>$x = -\dfrac{6}{n\pi}$，$y = \dfrac{3}{n\pi}$ のとき最小で</p>
+      $$I_n = \frac12 - \frac{3}{n^2\pi^2},\qquad \lim_{n\to\infty}I_n = \frac12$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>積分の値は、曲線 $y = \sin(2n\pi t)$（赤）と直線 $y = xt + y$（青）の「ずれの 2 乗」の合計です。$x,\ y$ を動かして積分を小さくしてみましょう。$n$ が大きいと sin が細かく振動し、どんな直線でも近似できなくなっていきます（最小値 → $\frac12$）。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="8" value="1"></label><span class="readout no-math" id="nv"></span>
+    <label>x：<input type="range" id="x" min="-300" max="300" value="0"></label><span class="readout no-math" id="xv"></span>
+    <label>y：<input type="range" id="y" min="-150" max="150" value="0"></label><span class="readout no-math" id="yv"></span>
+    <button id="opt">最小にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>最小 2 乗法と直交射影</h3>
+  <p>$\int_0^1(f(t) - g(t))^2\,dt$ を「関数どうしの距離の 2 乗」と見ると、本問は「関数 $\sin(2n\pi t)$ に最も近い 1 次関数を探す」問題、つまり<b>最小 2 乗近似</b>です。最適な 1 次関数は、$\sin(2n\pi t)$ を「1 次関数全体という平面」に<b>直交射影</b>したものになります。</p>
+  <p>このとき「ピタゴラスの定理」が成り立ち、</p>
+  $$\underbrace{\int_0^1\sin^2(2n\pi t)\,dt}_{=\frac12} = \underbrace{\int_0^1(\text{射影})^2\,dt}_{=\frac{3}{n^2\pi^2}} + I_n$$
+  <p>となっています。$n \to \infty$ で sin が激しく振動すると、1 次関数との「重なり」がなくなって射影が $0$ に近づき、$I_n \to \frac12$ となるわけです。この考え方は<b>フーリエ級数</b>につながります。</p>
+  <p>chopin 先生は「素直に積分計算実行して最小値を求めればよい」「計算ミスだけには注意しましょう」とコメントしています。</p>
+  <div class="point">2 変数 2 次式の最小値は、<b>一方の文字について平方完成 → 残りの文字について平方完成</b>。等号成立の $(x,\ y)$ も必ず確認。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$x,\ y$ がすべての実数を動くとき，$\displaystyle\int_0^1(t^2 - xt - y)^2\,dt$ の最小値と，そのときの $x,\ y$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    $$\int_0^1(t^2 - xt - y)^2dt = \frac15 - \frac x2 - \frac{2y}{3} + \frac{x^2}{3} + xy + y^2 = \left(y + \frac x2 - \frac13\right)^2 + \frac{1}{12}(x - 1)^2 + \frac{1}{180}$$
+    <p>$x = 1,\ y = -\frac16$ で最小値 $\dfrac{1}{180}$。（$t^2 - t + \frac16$ は 1 次関数すべてと「直交」しています。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$n$ を自然数とする。$x,\ y,\ z$ がすべての実数を動くとき，$\displaystyle\int_0^1\left(\sin(2n\pi t) - xt^2 - yt - z\right)^2dt$ の最小値 $J_n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2019　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\int_0^1 t^2\sin kt\,dt = -\frac1k$（部分積分を 2 回）など、必要な積分を計算して $x,\ y,\ z$ で偏微分 $= 0$ の連立方程式を解くと $x = 0$，$y = -\frac{6}{n\pi}$，$z = \frac{3}{n\pi}$。つまり 2 次の項は役に立たず</p>
+    $$J_n = \frac12 - \frac{3}{n^2\pi^2} = I_n$$
+    <p>背景：$6t^2 - 6t + 1$（ルジャンドル多項式）と $\sin(2n\pi t)$ の積の積分が $6\cdot(-\frac1k) - 6\cdot(-\frac1k) + 0 = 0$ なので、2 次の成分の射影が $0$ になるのです。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.05, xmax: 1.05, ymin: -2, ymax: 2 });
+  function draw() {
+    const n = +$("n").value, x = $("x").value / 100, y = $("y").value / 100;
+    $("nv").textContent = ` ${n}`; $("xv").textContent = ` ${x.toFixed(2)}`; $("yv").textContent = ` ${y.toFixed(2)}`;
+    const f = (t) => Math.sin(2 * n * Math.PI * t), g = (t) => x * t + y;
+    P.clear().grid(0.5, "#f3f3f3").axes("t", "");
+    const c = P.c; c.strokeStyle = "rgba(232,89,12,.35)"; c.lineWidth = 1;
+    for (let i = 0; i <= 120; i++) { const t = i / 120; c.beginPath(); c.moveTo(P.X(t), P.Y(f(t))); c.lineTo(P.X(t), P.Y(g(t))); c.stroke(); }
+    P.fn(f, 0, 1, "#8a1538", 2.2, 600).fn(g, 0, 1, "#1c7ed6", 2.2);
+    const F = 0.5 + x / (n * Math.PI) + x * x / 3 + x * y + y * y, I = 0.5 - 3 / (n * n * Math.PI * Math.PI);
+    $("info").innerHTML = `積分の値 F = ${F.toFixed(5)}<br>最小値 I<sub>${n}</sub> = 1/2 − 3/(n²π²) = ${I.toFixed(5)}<br>` +
+      (Math.abs(F - I) < 2e-4 ? '<span class="ok">最小！</span>' : `あと ${(F - I).toFixed(5)}`) + `<br>最適：x = −6/(nπ) = ${(-6 / (n * Math.PI)).toFixed(3)}，y = 3/(nπ) = ${(3 / (n * Math.PI)).toFixed(3)}`;
+  }
+  ["n", "x", "y"].forEach((id) => $(id).addEventListener("input", draw));
+  $("opt").onclick = () => { const n = +$("n").value; $("x").value = Math.round(-600 / (n * Math.PI)); $("y").value = Math.round(300 / (n * Math.PI)); draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

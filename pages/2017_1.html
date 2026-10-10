@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2017年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2017-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>定数 $a \gt 0$ に対し，曲線 $y = a\tan x$ の $0 \le x \lt \dfrac{\pi}{2}$ の部分を $C_1$，曲線 $y = \sin 2x$ の $0 \le x \lt \dfrac{\pi}{2}$ の部分を $C_2$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$C_1$ と $C_2$ が原点以外に交点をもつための $a$ の条件を求めよ。</li>
+      <li>(2)　$a$ が (1) の条件を満たすとき，原点以外の $C_1$ と $C_2$ の交点を $\mathrm{P}$ とし，$\mathrm{P}$ の $x$ 座標を $p$ とする。$\mathrm{P}$ における $C_1$ と $C_2$ のそれぞれの接線が直交するとき，$a$ および $\cos 2p$ の値を求めよ。</li>
+      <li>(3)　$a$ が (2) で求めた値のとき，$C_1$ と $C_2$ で囲まれた図形の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2017 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$a\tan x = \sin 2x$ を $\sin x(2\cos^2x - a) = 0$ と因数分解。交点では $\cos^2p = \frac a2$ なので、$C_1$ の傾き $\frac{a}{\cos^2p}$ が定数 $2$ になるのがポイント。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a\tan x = \sin 2x \iff \dfrac{a\sin x}{\cos x} = 2\sin x\cos x \iff \dfrac{\sin x}{\cos x}(a - 2\cos^2x) = 0$。</p>
+      <p>$0 \lt x \lt \frac\pi2$ では $\sin x \neq 0$ なので、原点以外の交点は $\cos^2x = \frac a2$ の解。$0 \lt x \lt \frac\pi2$ で $\cos^2x$ は $0 \lt \cos^2x \lt 1$ の値を 1 回ずつとるので、条件は $0 \lt \frac a2 \lt 1$。</p>
+      $$0 \lt a \lt 2$$
+
+      <h3>(2)</h3>
+      <p>$\cos^2p = \frac a2$。$C_1$ の接線の傾きは $\dfrac{a}{\cos^2p} = 2$、$C_2$ の接線の傾きは $2\cos 2p$。直交条件より</p>
+      $$2\cdot2\cos 2p = -1 \quad\therefore\ \cos 2p = -\frac14$$
+      <p>$\cos 2p = 2\cos^2p - 1 = a - 1$ より $a = \dfrac34$（$0 \lt a \lt 2$ をみたす）。</p>
+
+      <h3>(3)</h3>
+      <p>$0 \lt x \lt p$ では $\sin 2x \gt \frac34\tan x$（$\frac{\sin x}{\cos x}(2\cos^2x - \frac34) \gt 0$）なので</p>
+      $$S = \int_0^p\left(\sin 2x - \frac34\tan x\right)dx = \left[-\frac12\cos 2x + \frac34\log(\cos x)\right]_0^p = \frac18 + \frac12 + \frac34\log(\cos p)$$
+      <p>$\cos^2p = \frac38$ より $\log(\cos p) = \frac12\log\frac38$。</p>
+      $$S = \frac58 + \frac38\log\frac38$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かすと、交点 P と、そこでの 2 本の接線が動きます。$C_1$ の接線の傾き（青）は $a$ によらずいつも $2$ です。2 本の接線が直交する $a = \frac34$ を探してみましょう。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="5" max="199" value="120"></label>
+    <span class="readout no-math" id="av"></span>
+    <button id="ans">a = 3/4 にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="280"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>交点での傾きは条件式で簡単になる</h3>
+  <p>交点 P では $\cos^2p = \frac a2$ という関係があるので、傾き $\frac{a}{\cos^2p}$ は $a$ によらず $2$ になります。「交点の座標を具体的に求めずに、交点で成り立つ関係式を使う」のは、2 曲線の問題での定番テクニックです。</p>
+  <p>chopin 先生は「(1) $a\tan x = \sin 2x$ を因数分解すると…」「(2) 接線の傾きの積が $-1$ になることを使って計算」「(3) $C_1,\ C_2$ を図に書いて積分を実行」と、典型問題の組み合わせとして解説しています。</p>
+  <div class="point">$\int\tan x\,dx = -\log|\cos x| + C$（$\frac{f'}{f}$ 型）。交点の $x$ 座標が具体的に求まらなくても、$\cos^2p = \frac38$ のような関係から値が出せる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $y = e^x$ と $y = ae^{-x}$（$a \gt 0$）の交点における 2 本の接線が直交するような $a$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>交点では $e^{2x} = a$。傾きは $e^x$ と $-ae^{-x} = -e^x$（交点で $ae^{-x} = e^x$）。積 $-e^{2x} = -a = -1$ より $a = 1$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (2) で，「接線が直交する」を「2 本の接線のなす角が $\dfrac{\pi}{4}$ である」に変えたとき，$a$ の値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2017　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>傾きは $m_1 = 2$，$m_2 = 2\cos 2p = 2(a - 1)$。なす角が $\frac\pi4$ $\iff \left|\dfrac{m_1 - m_2}{1 + m_1m_2}\right| = 1 \iff |4 - 2a| = |4a - 3|$。$0 \lt a \lt 2$ で解くと $4 - 2a = 4a - 3$ より $a = \dfrac76$（もう一方 $4 - 2a = -(4a - 3)$ は $a = -\frac12$ で不適）。</p>
+    <p>確認：$m_2 = \frac13$ で $\dfrac{2 - \frac13}{1 + \frac23} = 1$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.1, xmax: 1.65, ymin: -0.3, ymax: 1.6, equal: true });
+  function draw() {
+    const a = $("a").value / 100;
+    $("av").textContent = ` ${a.toFixed(2)}`;
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    const c1 = (x) => a * Math.tan(x), c2 = (x) => Math.sin(2 * x);
+    const p = Math.acos(Math.sqrt(a / 2)), y0 = c2(p);
+    if (Math.abs(a - 0.75) < 0.006) {
+      const reg = []; for (let i = 0; i <= 80; i++) { const x = p * i / 80; reg.push([x, c2(x)]); } for (let i = 80; i >= 0; i--) { const x = p * i / 80; reg.push([x, c1(x)]); }
+      P.fill(reg, "rgba(138,21,56,.25)");
+    }
+    P.fn(c2, 0, Math.PI / 2 - 0.001, "#8a1538", 2.2).fn(c1, 0, Math.min(Math.PI / 2 - 0.01, Math.atan(1.6 / a)), "#1c7ed6", 2.2);
+    const m1 = 2, m2 = 2 * Math.cos(2 * p);
+    P.fn((x) => m1 * (x - p) + y0, p - 0.5, p + 0.5, "rgba(28,126,214,.7)", 1.3, 2, [5, 3]);
+    P.fn((x) => m2 * (x - p) + y0, p - 0.5, p + 0.5, "rgba(138,21,56,.7)", 1.3, 2, [5, 3]);
+    P.dot(p, y0, "#e8590c", 5, "P");
+    P.text("C₂: y = sin 2x", 1.12, 0.98, "#8a1538").text("C₁: y = a tan x", 1.1, 1.45, "#1c7ed6");
+    const S = 5 / 8 + 3 / 8 * Math.log(3 / 8);
+    $("info").innerHTML = `p = ${p.toFixed(4)}<br>cos²p = a/2 = ${(a / 2).toFixed(3)}<br>C₁ の傾き = a/cos²p = <b>2</b><br>C₂ の傾き = 2cos2p = ${m2.toFixed(3)}<br>傾きの積 = ${(m1 * m2).toFixed(3)}` +
+      (Math.abs(m1 * m2 + 1) < 0.03 ? `<br><span class="ok">直交！ a = 3/4，cos2p = −1/4</span><br>面積 = 5/8 + (3/8)log(3/8) ≈ ${S.toFixed(4)}` : "");
+  }
+  $("a").addEventListener("input", draw);
+  $("ans").onclick = () => { $("a").value = 75; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

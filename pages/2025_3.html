@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2025-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$n$ を整数とするとき，$n^2$ を $8$ で割った余りは $0,\ 1,\ 4$ のいずれかであることを示せ。</li>
+      <li>(2)　$2^m = n^2 + 3$ をみたす $0$ 以上の整数の組 $(m,\ n)$ をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2025 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) が (2) への露骨な誘導。$m \ge 3$ のとき左辺は $8$ の倍数になるので、両辺を $8$ で割った余りを比べるだけで決着する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$n$ が偶数のとき、$n = 2k$（$k$ は整数）とおくと $n^2 = 4k^2$。</p>
+      <ul>
+        <li>$k$ が偶数なら $4k^2$ は $16$ の倍数なので、$8$ で割った余りは $0$。</li>
+        <li>$k$ が奇数なら $k^2$ は奇数なので $4k^2 = 8\cdot\dfrac{k^2-1}{2} + 4$ より余りは $4$。</li>
+      </ul>
+      <p>$n$ が奇数のとき、$n = 2k+1$ とおくと</p>
+      $$n^2 = 4k(k+1) + 1$$
+      <p>であり、$k(k+1)$ は連続 2 整数の積なので偶数。よって $4k(k+1)$ は $8$ の倍数で、余りは $1$。</p>
+      <p>以上より、$n^2$ を $8$ で割った余りは $0,\ 1,\ 4$ のいずれかである。$\blacksquare$</p>
+
+      <h3>(2)</h3>
+      <p>(1) より、$n^2+3$ を $8$ で割った余りは $3,\ 4,\ 7$ のいずれかであり、特に $8$ の倍数にはならない。</p>
+      <p>一方、$m \ge 3$ のとき $2^m$ は $8$ の倍数なので不適。したがって $m = 0,\ 1,\ 2$ に限られる。</p>
+      <ul>
+        <li>$m=0$：$n^2 = 1 - 3 = -2$ となり不適。</li>
+        <li>$m=1$：$n^2 = 2 - 3 = -1$ となり不適。</li>
+        <li>$m=2$：$n^2 = 4 - 3 = 1$ より $n = 1$（$n \ge 0$）。</li>
+      </ul>
+      <p>よって $(m,\ n) = (2,\ 1)$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動画で学ぶ別解</h2>
+  <p>QuizKnock の鶴崎修功さん（東京大学 博士（数理科学））が、本問の (2) に<b>誘導なし</b>で挑戦している動画があります。誘導がない状態でどう考えるのか、その思考の流れがそのまま見られるのでオススメです。</p>
+
+  <div class="video">
+    <iframe src="https://www.youtube-nocookie.com/embed/WRSvb733WgU" title="【九大】入試問題の誘導をなくしてみても良問だった件【鶴崎】【数学】" loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+  <p class="source">▶ <a href="https://youtu.be/WRSvb733WgU" target="_blank" rel="noopener">【九大】入試問題の誘導をなくしてみても良問だった件【鶴崎】【数学】</a>（YouTube「QuizKnockと学ぼう」2026/2/2 公開）</p>
+
+  <p>動画では、(1) の誘導（$\bmod 8$）を使わない解法が 2 つ紹介されています。以下にその内容を整理しました（記述は管理人が答案の形に整えたものです）。</p>
+
+  <h3>別解 1：偶奇と「連続 2 整数の積」（鶴崎さんの解法）</h3>
+  <p>まず小さい値を代入して $(m,\ n)=(2,\ 1)$ を見つけたあと、「$2^m$ は $n^2+3$ よりずっと速く増えるので、解はほとんどなさそう」と見当をつけてから証明に入ります。</p>
+  <details class="answer">
+    <summary>別解 1（タップで展開）</summary>
+    <div class="body">
+      <p>$m=0$ のとき $n^2 = -2$ で不適。よって $m \ge 1$ で、左辺 $2^m$ は偶数。$n$ が偶数だと右辺 $n^2+3$ は奇数になるので、<b>$n$ は奇数</b>。$n = 2k+1$（$k \ge 0$ の整数）とおくと</p>
+      $$n^2 + 3 = 4k^2 + 4k + 4 = 4(k^2 + k + 1)$$
+      <p>右辺は $4$ の倍数なので $m \ge 2$ で、両辺を $4$ で割ると</p>
+      $$2^{m-2} = k(k+1) + 1$$
+      <p>$k(k+1)$ は連続 2 整数の積なので偶数。よって右辺は<b>奇数</b>。奇数になる $2$ のべきは $2^0 = 1$ だけなので</p>
+      $$m - 2 = 0,\qquad k(k+1) = 0$$
+      <p>$k \ge 0$ より $k = 0$。よって $(m,\ n) = (2,\ 1)$。</p>
+    </div>
+  </details>
+  <div class="point">ポイント：$k^2+k+1$ を丸ごと因数分解しようとせず、<b>$k^2+k$ の部分だけを $k(k+1)$ とくくる</b>。整数問題では、こうすると偶奇の情報が手に入ります。動画では「模範解答よりスマートかも」と評されていました。</div>
+
+  <h3>別解 2：$\bmod 3$ と因数分解</h3>
+  <p>動画で「誘導がなければこう解く」として紹介されている解法です。式に $3$ があるので、$3$ で割った余りを見ます。</p>
+  <details class="answer">
+    <summary>別解 2（タップで展開）</summary>
+    <div class="body">
+      <p>$2 \equiv -1 \pmod 3$ より $2^m \equiv (-1)^m \pmod 3$。一方、$n^2 + 3 \equiv n^2 \pmod 3$ で、平方数を $3$ で割った余りは $0,\ 1$。$(-1)^m$ は $1$ か $-1 \equiv 2$ なので、両辺が等しくなるのは $(-1)^m \equiv 1$、つまり <b>$m$ が偶数</b>のとき。</p>
+      <p>$m = 2l$（$l \ge 0$）とおくと、$2^{2l} - n^2 = 3$ より</p>
+      $$(2^l - n)(2^l + n) = 3$$
+      <p>$2^l + n \gt 0$ なので $2^l - n \gt 0$ でもあり、$2^l - n \le 2^l + n$ だから（$3$ が素数であることから）</p>
+      $$2^l - n = 1,\qquad 2^l + n = 3$$
+      <p>辺々足して $2^{l+1} = 4$ より $l = 1$、引いて $n = 1$。よって $(m,\ n) = (2,\ 1)$。</p>
+    </div>
+  </details>
+  <div class="point">ポイント：$m$ が偶数と分かれば「$2^m$ が平方数」になり、<b>平方の差の因数分解</b>が使えます。動画では「足して 3、引いて 1 なら、平均の 2 が $2^l$」という見方も紹介されていました。</div>
+
+  <h3>誘導（mod 8）の解法についての補足</h3>
+  <p>動画の後半では、本来の誘導である (1) の解き方にも触れています。</p>
+  <ul>
+    <li>$n$ を $8$ で割った余りが $0,\ 1,\ \ldots,\ 7$ の場合を調べれば十分です。$n = 8k + x$ とおくと $n^2 = x^2 + 16kx + 64k^2$ で、$x^2$ 以外の項は $8$ の倍数だからです（合同式の性質「$a \equiv b$ なら $a^2 \equiv b^2$」）。</li>
+    <li>誘導がない場合、$\bmod 2$ → $\bmod 4$ → $\bmod 8$ と試して見つけることになりそうです。$\bmod 2$ や $\bmod 4$ では決め手にならない理由は、下の「問題の背景」で詳しく扱っています。</li>
+  </ul>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>本問の「$3$」を好きな数 $k$ に変えて、$2^m = n^2 + k$ の解を探してみましょう。$m \le 200$ の範囲を全探索し、あわせて「$8$ で割った余り」だけで $m \ge 3$ の解を否定できるかどうかを判定します。</p>
+
+  <div class="widget no-math" id="nagell">
+    <label><i style="font-family:KaTeX_Math,serif;font-size:1.1em">k</i> = <input type="number" id="k-input" value="3" min="1" max="100000"></label>
+    <span style="margin-left:8px;font-size:13px">（試してほしい値：3, 5, 7, 15, 23）</span>
+    <div id="k-mod" style="margin-top:10px"></div>
+    <div id="k-result" style="margin-top:6px"></div>
+  </div>
+  <p class="note">※ 大きな数は BigInt で厳密に計算しています。</p>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>なぜ「8 で割った余り」なのか</h3>
+  <p>$2^m$ は $m$ が大きいほど $2$ を多く因数にもつので、「$2^j$ で割った余り」を見るのは自然な発想です。では、もっと小さい $4$ ではダメなのでしょうか。</p>
+  <p>平方数を $4$ で割った余りは $0,\ 1$ なので、$n^2+3$ を $4$ で割った余りは $3,\ 0$ です。<b>余り $0$ が残ってしまう</b>（$n$ が奇数のとき）ので、$\bmod 4$ では $m \ge 2$ の解を否定しきれません。</p>
+  <p>奇数の平方は $\bmod 8$ で必ず $1$ になる、という一段細かい情報を使って初めて $n^2 + 3 \equiv 4 \pmod 8$ となり、$8$ の倍数でないことが言えます。つまり (1) の「$8$」は、<b>この論法が通用する最小の $2$ のべき</b>になっているわけです。</p>
+
+  <h3>3 を他の数に変えると？</h3>
+  <p>$2^m = n^2 + k$ について、上と同じ議論ができるのはどんな $k$ でしょうか。$n^2 \equiv 0,\ 1,\ 4 \pmod 8$ なので、$n^2 + k \equiv 0 \pmod 8$ となりうるのは</p>
+  $$k \equiv 0,\ 7,\ 4 \pmod 8$$
+  <p>のときに限られます。逆に言えば <b>$k \equiv 1,\ 2,\ 3,\ 5,\ 6 \pmod 8$ なら、本問とまったく同じ方法で $m \ge 3$ の解がないことが分かります</b>。$k \equiv 0,\ 4$ のときは $n$ が偶数になるので、両辺を $4$ で割って小さな問題に帰着できます。</p>
+  <p>問題は $k \equiv 7 \pmod 8$ のときです。このとき $\bmod 8$ どころか、$\bmod 16,\ \bmod 32,\ \ldots$ と、どんな $2^j$ で割った余りを見ても矛盾は出てきません。（$-7 \equiv 1 \pmod 8$ なので、$n^2 \equiv -7 \pmod{2^j}$ はどの $j$ でも解をもつ、という事実によります。）</p>
+
+  <h3>ラマヌジャン–ナゲルの方程式</h3>
+  <p>その代表例が $k=7$ の場合で、</p>
+  $$2^m = n^2 + 7$$
+  <p>は<b>ラマヌジャン–ナゲル方程式</b>と呼ばれています。上の「動く図解」で $k=7$ を入力すると分かるように、</p>
+  $$n = 1,\ 3,\ 5,\ 11,\ 181 \quad (m = 3,\ 4,\ 5,\ 7,\ 15)$$
+  <p>という 5 つの解をもちます。ラマヌジャンは 1913 年にこれ以外に解がないと予想し、1948 年にナゲルが証明しました。その証明には、$\sqrt{-7}$ を含む数の世界（代数的整数論）での素因数分解が使われます。</p>
+  <h3>3 つの解法は $k=7$ で全部止まる</h3>
+  <p>ここまでに出てきた 3 つの解法を $2^m = n^2 + 7$ に当てはめてみると、どれも途中で止まってしまいます。</p>
+  <div class="table-scroll">
+  <table class="simple">
+    <tr><th>解法</th><th>$k=3$ のとき</th><th>$k=7$ のとき</th></tr>
+    <tr><td>$\bmod 8$（誘導）</td><td>$n^2+3 \equiv 3,4,7$ で $0$ にならない</td><td>$n$ が奇数なら $n^2+7 \equiv 0$ になり、矛盾が出ない</td></tr>
+    <tr><td>偶奇（別解 1）</td><td>$2^{m-2} = k(k+1)+1$ は奇数</td><td>$n=2k+1$ とすると $2^{m-2} = k(k+1)+2$ は<b>偶数</b>になり、決め手にならない</td></tr>
+    <tr><td>$\bmod 3$（別解 2）</td><td>$m$ は偶数と分かる</td><td>$n^2+7 \equiv n^2+1 \equiv 1,2$ で、$(-1)^m$ に何の制限もつかない（$\bmod 7$ で見ても $2^m \equiv 1,2,4$ はすべて平方数の余りなので同様）</td></tr>
+  </table>
+  </div>
+  <div class="point">本問は「$k=3$ ならどの方針でも数行で終わるが、$k=7$ にすると数論の難問になる」という、紙一重の位置に置かれた問題だと言えます。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>$2^m = n^2 + 1$ をみたす $0$ 以上の整数の組 $(m,\ n)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>平方数を $4$ で割った余りは $0,\ 1$ なので $n^2+1 \equiv 1,\ 2 \pmod 4$。よって $m \ge 2$ は不適。$m=0,\ 1$ を調べて $(m,\ n) = (0,\ 0),\ (1,\ 1)$。（こちらは $\bmod 4$ で十分です。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$2^m + 1 = n^2$ をみたす正の整数の組 $(m,\ n)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>余りではなく<b>因数分解</b>で攻める型。$(n-1)(n+1) = 2^m$ より $n-1,\ n+1$ はともに $2$ のべきで、差が $2$ なので $n-1 = 2,\ n+1 = 4$。よって $(m,\ n) = (3,\ 3)$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$m$ を偶数とする。$2^m = n^2 + 7$ をみたす $0$ 以上の整数の組 $(m,\ n)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2025　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\bmod 8$ は通用しないので因数分解に切り替える。$m = 2l$ とおくと $(2^l - n)(2^l + n) = 7$。$2^l + n \gt 0$ より両因数は正で、$2^l - n \le 2^l + n$ だから $2^l - n = 1,\ 2^l + n = 7$。よって $2^l = 4,\ n = 3$ となり $(m,\ n) = (4,\ 3)$。</p>
+    <p>$m$ が奇数の場合も含めた完全な解決が、上で紹介したラマヌジャン–ナゲルの定理です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+/* ---- 動く図解：2^m = n^2 + k の解探索 ---- */
+window.initPage = function (KM) {
+  const input = document.getElementById("k-input");
+  const out = document.getElementById("k-result");
+  const modBox = document.getElementById("k-mod");
+  const tex = (s) => (window.katex ? katex.renderToString(s, { throwOnError: false }) : s);
+
+  function isqrt(v) { // BigInt の整数平方根（ニュートン法）
+    if (v < 2n) return v;
+    let x = BigInt(Math.floor(Math.sqrt(Number(v))));
+    while (x * x > v) x = (x + v / x) / 2n;
+    while ((x + 1n) * (x + 1n) <= v) x += 1n;
+    return x;
+  }
+
+  function run() {
+    const k = parseInt(input.value, 10);
+    if (!(k >= 1 && k <= 100000)) { out.textContent = "1〜100000 の整数を入力してください"; modBox.textContent = ""; return; }
+
+    // mod 8 の表
+    const rs = [0, 1, 4].map((r) => (r + k) % 8);
+    const killed = !rs.includes(0);
+    modBox.innerHTML =
+      `<table><tr><th>${tex("n^2 \\bmod 8")}</th><td>0</td><td>1</td><td>4</td></tr>` +
+      `<tr><th>${tex("(n^2+" + k + ") \\bmod 8")}</th>${rs.map((r) => `<td${r === 0 ? ' class="ng"' : ""}>${r}</td>`).join("")}</tr></table>` +
+      (killed
+        ? `<p class="ok">✔ 余り 0 が現れないので、${tex("m \\ge 3")} の解は mod 8 だけで否定できます。</p>`
+        : `<p class="ng">✘ 余り 0 が現れるので、mod 8 だけでは ${tex("m \\ge 3")} の解を否定できません。</p>`);
+
+    // 全探索
+    const K = BigInt(k), sols = [];
+    for (let m = 0; m <= 200; m++) {
+      const v = (1n << BigInt(m)) - K;
+      if (v < 0n) continue;
+      const r = isqrt(v);
+      if (r * r === v) sols.push([m, r]);
+    }
+    out.innerHTML = sols.length
+      ? `${tex("0 \\le m \\le 200")} の解（${sols.length} 個）：<table><tr><th>m</th><th>n</th><th>確認</th></tr>` +
+        sols.map(([m, n]) => `<tr><td>${m}</td><td>${n}</td><td>${tex(`2^{${m}} = ${n}^2 + ${k}`)}</td></tr>`).join("") + "</table>"
+      : `${tex("0 \\le m \\le 200")} に解はありません。`;
+  }
+  input.addEventListener("input", run);
+  run();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

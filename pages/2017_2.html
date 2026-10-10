@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2017年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2017-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 つの定数 $a \gt 0$ および $b \gt 0$ に対し，座標空間内の 4 点を</p>
+    $$\mathrm{A}(a,\ 0,\ 0),\quad \mathrm{B}(0,\ b,\ 0),\quad \mathrm{C}(0,\ 0,\ 1),\quad \mathrm{D}(a,\ b,\ 1)$$
+    <p>と定める。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　点 $\mathrm{A}$ から線分 $\mathrm{CD}$ におろした垂線と $\mathrm{CD}$ の交点を $\mathrm{G}$ とする。$\mathrm{G}$ の座標を $a,\ b$ を用いて表せ。</li>
+      <li>(2)　さらに，点 $\mathrm{B}$ から線分 $\mathrm{CD}$ におろした垂線と $\mathrm{CD}$ の交点を $\mathrm{H}$ とする。$\overrightarrow{\mathrm{AG}}$ と $\overrightarrow{\mathrm{BH}}$ がなす角を $\theta$ とするとき，$\cos\theta$ を $a,\ b$ を用いて表せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2017 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>垂線の足は「直線上の点をパラメータ $t$ で表し、$\overrightarrow{\mathrm{AG}}\cdot\overrightarrow{\mathrm{CD}} = 0$」で求める典型問題。$s = a^2 + b^2$ とおくと計算がすっきりする。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\overrightarrow{\mathrm{CD}} = (a,\ b,\ 0)$。線分 CD 上の点を $(ta,\ tb,\ 1)$（$0 \le t \le 1$）とおく。$\overrightarrow{\mathrm{AG}} = (ta - a,\ tb,\ 1)$ で、$\overrightarrow{\mathrm{AG}}\cdot\overrightarrow{\mathrm{CD}} = 0$ より</p>
+      $$(t - 1)a^2 + tb^2 = 0 \iff t = \frac{a^2}{a^2 + b^2}$$
+      <p>（$0 \lt t \lt 1$ で線分上。）$s = a^2 + b^2$ とおくと</p>
+      $$\mathrm{G}\left(\frac{a^3}{s},\ \frac{a^2b}{s},\ 1\right) = \left(\frac{a^3}{a^2 + b^2},\ \frac{a^2b}{a^2 + b^2},\ 1\right)$$
+
+      <h3>(2)</h3>
+      <p>同様に $\overrightarrow{\mathrm{BH}} = (ta,\ tb - b,\ 1)$，$ta^2 + (t - 1)b^2 = 0$ より $t = \frac{b^2}{s}$、$\mathrm{H}\left(\frac{ab^2}{s},\ \frac{b^3}{s},\ 1\right)$。</p>
+      $$\overrightarrow{\mathrm{AG}} = \left(-\frac{ab^2}{s},\ \frac{a^2b}{s},\ 1\right),\qquad \overrightarrow{\mathrm{BH}} = \left(\frac{ab^2}{s},\ -\frac{a^2b}{s},\ 1\right)$$
+      <p>$\frac{a^2b^4 + a^4b^2}{s^2} = \frac{a^2b^2(a^2 + b^2)}{s^2} = \frac{a^2b^2}{s}$ に注意すると</p>
+      $$\overrightarrow{\mathrm{AG}}\cdot\overrightarrow{\mathrm{BH}} = 1 - \frac{a^2b^2}{s},\qquad |\overrightarrow{\mathrm{AG}}|^2 = |\overrightarrow{\mathrm{BH}}|^2 = 1 + \frac{a^2b^2}{s}$$
+      $$\cos\theta = \frac{1 - \frac{a^2b^2}{s}}{1 + \frac{a^2b^2}{s}} = \frac{a^2 + b^2 - a^2b^2}{a^2 + b^2 + a^2b^2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a,\ b$ を動かすと、A，B から線分 CD への垂線（赤・青）が動きます。$\overrightarrow{\mathrm{AG}}$ と $\overrightarrow{\mathrm{BH}}$ のなす角 $\theta$ を観察しましょう。図はドラッグで回転できます。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="20" max="250" value="100"></label><span class="readout no-math" id="av"></span>
+    <label>b：<input type="range" id="b" min="20" max="250" value="150"></label><span class="readout no-math" id="bv"></span>
+    <button id="rt">θ = 90° の例（a = b = √2）</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="400" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>直方体の中の対角線</h3>
+  <p>4 点 A，B，C，D は、3 辺が $a,\ b,\ 1$ の直方体の頂点です（原点 O を 1 つの頂点とする直方体で、A，B，C は O に隣り合う頂点、D は O と対角の位置にある頂点）。CD は上面の対角線で、A，B から CD への垂線を考えています。</p>
+  <p>$\overrightarrow{\mathrm{AG}}$ と $\overrightarrow{\mathrm{BH}}$ は $z$ 成分が等しく、$xy$ 成分がちょうど逆向き（$-1$ 倍）になっています。これは G，H が CD の中点に関して対称な位置にあり、A と B も（$xy$ 平面への射影で）CD の中点に関して対称だからです。</p>
+  <p>chopin 先生は「(1) は典型問題でしょう。G を C，D で表し、$\overrightarrow{\mathrm{AG}}$ と $\overrightarrow{\mathrm{CD}}$ の内積 $= 0$ を使います」とコメントしています。</p>
+  <div class="point">直線への垂線の足：直線上の点を $\vec p + t\vec d$ とおき、$(\vec p + t\vec d - \vec a)\cdot\vec d = 0$ から $t$ を求める。共通部分を文字でおく（$s = a^2 + b^2$）と計算ミスが減る。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>点 $\mathrm{A}(1,\ 0,\ 0)$ から直線 $\ell:\ (x,\ y,\ z) = (0,\ 0,\ 1) + t(1,\ 1,\ 0)$ におろした垂線の足 $\mathrm{G}$ と，A と $\ell$ の距離を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$(t - 1,\ t,\ 1)\cdot(1,\ 1,\ 0) = 2t - 1 = 0$ より $t = \frac12$、$\mathrm{G}\left(\frac12,\ \frac12,\ 1\right)$。距離は $\left|\left(-\frac12,\ \frac12,\ 1\right)\right| = \dfrac{\sqrt6}{2}$。（本問で $a = b = 1$ の場合。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で $\overrightarrow{\mathrm{AG}} \perp \overrightarrow{\mathrm{BH}}$ となるための $a,\ b$ の条件を求めよ。また，$a = b$ のときの $a$ の値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2017　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\cos\theta = 0 \iff a^2 + b^2 = a^2b^2 \iff \dfrac{1}{a^2} + \dfrac{1}{b^2} = 1$。$a = b$ なら $\frac{2}{a^2} = 1$ より $a = \sqrt2$。</p>
+    <p>（$\frac{1}{a^2} + \frac{1}{b^2} \gt 1$ なら鋭角、$\lt 1$ なら鈍角。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const v3 = Fig.v3;
+  const V = Fig.view3d($("cv"), { scale: 75, center: [0.8, 0.8, 0.5], az: -0.8, el: 0.35, onChange: () => draw() });
+  function draw() {
+    const a = $("a").value / 100, b = $("b").value / 100, s = a * a + b * b;
+    $("av").textContent = ` ${a.toFixed(2)}`; $("bv").textContent = ` ${b.toFixed(2)}`;
+    const A = [a, 0, 0], B = [0, b, 0], C = [0, 0, 1], D = [a, b, 1];
+    const G = [a ** 3 / s, a * a * b / s, 1], H = [a * b * b / s, b ** 3 / s, 1];
+    V.clear().axes(2.6);
+    // 直方体
+    const box = (x, y, z) => [x * a, y * b, z];
+    [[[0,0,0],[1,0,0]],[[0,1,0],[1,1,0]],[[0,0,1],[1,0,1]],[[0,1,1],[1,1,1]],[[0,0,0],[0,1,0]],[[1,0,0],[1,1,0]],[[0,0,1],[0,1,1]],[[1,0,1],[1,1,1]],[[0,0,0],[0,0,1]],[[1,0,0],[1,0,1]],[[0,1,0],[0,1,1]],[[1,1,0],[1,1,1]]]
+      .forEach(([u, w]) => V.poly([box(...u), box(...w)], "#ddd", 1, [3, 3]));
+    V.poly([C, D], "#222", 2.4);
+    V.poly([A, G], "#c92a2a", 2.2).poly([B, H], "#1c7ed6", 2.2);
+    V.dot(A, "#222", 4, "A").dot(B, "#222", 4, "B").dot(C, "#222", 4, "C").dot(D, "#222", 4, "D");
+    V.dot(G, "#c92a2a", 5, "G").dot(H, "#1c7ed6", 5, "H");
+    const AG = v3.sub(G, A), BH = v3.sub(H, B), cs = v3.dot(AG, BH) / (v3.len(AG) * v3.len(BH));
+    const formula = (s - a * a * b * b) / (s + a * a * b * b);
+    $("info").innerHTML = `G = (${G.map((x) => x.toFixed(3)).join(", ")})<br>H = (${H.map((x) => x.toFixed(3)).join(", ")})<br>cosθ（実測）= ${cs.toFixed(4)}<br>公式 (a²+b²−a²b²)/(a²+b²+a²b²) = ${formula.toFixed(4)}<br>θ = ${(Math.acos(cs) * 180 / Math.PI).toFixed(2)}°` +
+      (Math.abs(cs) < 0.01 ? '<br><span class="ok">直交！ 1/a² + 1/b² = 1</span>' : "");
+  }
+  ["a", "b"].forEach((id) => $(id).addEventListener("input", draw));
+  $("rt").onclick = () => { $("a").value = 141; $("b").value = 141; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

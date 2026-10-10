@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2017年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2017-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>赤玉 2 個，青玉 1 個，白玉 1 個が入った袋が置かれた円形のテーブルの周りに A，B，C の 3 人がこの順番で時計回りに着席している。3 人のうち，ひとりが袋から玉を 1 個取り出し，色を確認したら袋にもどす操作を考える。1 回目は A が玉を取り出し，次のルール (a)，(b)，(c) に従って勝者が決まるまで操作を繰り返す。</p>
+    <ul style="list-style:none">
+      <li>(a)　赤玉を取り出したら，取り出した人を勝者とする。</li>
+      <li>(b)　青玉を取り出したら，次の回も同じ人が玉を取り出す。</li>
+      <li>(c)　白玉を取り出したら，取り出した人の左隣りの人が次の回に玉を取り出す。</li>
+    </ul>
+    <p>A，B，C の 3 人が $n$ 回目に玉を取り出す確率をそれぞれ $a_n,\ b_n,\ c_n$（$n = 1,\ 2,\ \cdots$）とする。ただし，$a_1 = 1$，$b_1 = c_1 = 0$ である。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　A が 4 回目に勝つ確率と 7 回目に勝つ確率をそれぞれ求めよ。</li>
+      <li>(2)　$d_n = a_n + b_n + c_n$（$n = 1,\ 2,\ \cdots$）とおくとき，$d_n$ を求めよ。</li>
+      <li>(3)　自然数 $n \ge 3$ に対し，$a_{n+1}$ を $a_{n-2}$ と $n$ を用いて表せ。</li>
+    </ol>
+    <p style="font-size:.9em;color:#666">（問題の図では，玉を取り出す順番が A → B → C → A → … となる向きに矢印が描かれている。）</p>
+  </div>
+  <p class="source">（2017 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>「$n$ 回目に誰が取り出すか」の 3 状態の推移を漸化式にする。3 式を足すと $d_n$ の漸化式、3 回まとめて適用すると $a_{n+1}$ と $a_{n-2}$ の関係が出る。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>赤・青・白を取り出す確率は $\frac12,\ \frac14,\ \frac14$。玉を取り出す順は A → B → C → A なので、$n + 1$ 回目に A が取り出すのは「$n$ 回目に A が青」または「$n$ 回目に C が白」のとき。</p>
+      $$a_{n+1} = \frac14a_n + \frac14c_n,\quad b_{n+1} = \frac14b_n + \frac14a_n,\quad c_{n+1} = \frac14c_n + \frac14b_n$$
+
+      <h3>(2)</h3>
+      <p>3 式を足して $d_{n+1} = \frac12d_n$，$d_1 = 1$ より</p>
+      $$d_n = \left(\frac12\right)^{n-1}$$
+
+      <h3>(1)</h3>
+      <p>漸化式から順に計算する。</p>
+      <table class="simple">
+        <tr><th>$n$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        <tr><th>$a_n$</th><td>$1$</td><td>$\frac14$</td><td>$\frac1{16}$</td><td>$\frac1{32}$</td><td>$\frac5{256}$</td><td>$\frac{11}{1024}$</td><td>$\frac{11}{2048}$</td></tr>
+        <tr><th>$b_n$</th><td>$0$</td><td>$\frac14$</td><td>$\frac18$</td><td>$\frac3{64}$</td><td>$\frac{5}{256}$</td><td>$\frac{5}{512}$</td><td></td></tr>
+        <tr><th>$c_n$</th><td>$0$</td><td>$0$</td><td>$\frac1{16}$</td><td>$\frac3{64}$</td><td>$\frac{3}{128}$</td><td>$\frac{11}{1024}$</td><td></td></tr>
+      </table>
+      <p>A が $n$ 回目に勝つ確率は $\frac12a_n$ なので</p>
+      $$4\ \text{回目}：\frac12\cdot\frac1{32} = \frac1{64},\qquad 7\ \text{回目}：\frac12\cdot\frac{11}{2048} = \frac{11}{4096}$$
+
+      <h3>(3)</h3>
+      <p>$a_{n+1} = \frac14(a_n + c_n)$ に、$a_n = \frac14(a_{n-1} + c_{n-1})$，$c_n = \frac14(c_{n-1} + b_{n-1})$ を代入すると</p>
+      $$a_{n+1} = \frac1{16}(a_{n-1} + b_{n-1} + 2c_{n-1})$$
+      <p>さらに $n - 1$ 回目を $n - 2$ 回目で表すと</p>
+      $$a_{n-1} + b_{n-1} + 2c_{n-1} = \frac14\{(a + c) + (b + a) + 2(c + b)\}_{n-2} = \frac14(2a_{n-2} + 3b_{n-2} + 3c_{n-2})$$
+      <p>$b_{n-2} + c_{n-2} = d_{n-2} - a_{n-2}$ を使って</p>
+      $$a_{n+1} = \frac1{64}\{3d_{n-2} - a_{n-2}\} = -\frac1{64}a_{n-2} + \frac{3}{64}\left(\frac12\right)^{n-3}$$
+      <p>（例：$n = 3$ で $a_4 = -\frac1{64} + \frac3{64} = \frac1{32}$ ✔）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を動かすと $a_n,\ b_n,\ c_n$ と $d_n$（まだ勝者が決まっていない確率）が表示されます。「1 ゲーム」ボタンで実際に玉を引くシミュレーションもできます。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="1" max="10" value="4"></label>
+    <span class="readout no-math" id="nv"></span>
+    <button id="play">1 ゲーム</button>
+    <button id="many">10000 ゲーム</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="230"></canvas>
+      <div class="no-math" id="log" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>3 状態の推移と「3 回まとめる」</h3>
+  <p>推移の行列は $\frac14(E + P)$（$P$ は A → B → C → A と回す巡回置換）です。$P^3 = E$ なので、3 回分 $\frac1{64}(E + P)^3 = \frac1{64}(2E + 3P + 3P^2)$ をまとめると $P$ と $P^2$ の係数がそろい、$b + c = d - a$ でまとめられる、というのが (3) の仕組みです。</p>
+  <p>chopin 先生は「(1)(2) はまとめて解いたほうが良い」「誰の番になるかの状態推移を考えて、$a_n,\ b_n,\ c_n$ を使って漸化式を立てる」「(3) 漸化式から $b_n,\ c_n$ を消去しましょう」とコメントしています。</p>
+  <div class="point">状態推移の確率漸化式は<b>全部足すと簡単になる</b>ことが多い。周期的な構造（3 人で一周）があるときは、周期分まとめて適用すると対称性が使える。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>A と B が A から交互にサイコロを 1 回ずつ振り，先に 6 の目を出した方を勝ちとする。A が勝つ確率を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>A が勝つ確率を $p$ とすると、A が 1 回目に勝つか、2 人とも外して最初に戻るかなので $p = \frac16 + \left(\frac56\right)^2p$。$p = \dfrac{6}{11}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問のゲームで，最終的に A，B，C がそれぞれ勝者となる確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2017　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>A の番のとき A が最終的に勝つ確率を $f_0$，B の番のとき $f_1$，C の番のとき $f_2$ とする。</p>
+    $$f_0 = \frac12 + \frac14f_0 + \frac14f_1,\quad f_1 = \frac14f_1 + \frac14f_2,\quad f_2 = \frac14f_2 + \frac14f_0$$
+    <p>$f_2 = \frac13f_0$，$f_1 = \frac13f_2 = \frac19f_0$ より $\frac34f_0 = \frac12 + \frac1{36}f_0$、$f_0 = \dfrac9{13}$。</p>
+    <p>B は「自分の番の 1 つ前の人（A）が取り出す」状況なので $f_2$ と同じ形で $\frac3{13}$、C は $\frac1{13}$。</p>
+    <p>答：A $\dfrac9{13}$，B $\dfrac3{13}$，C $\dfrac1{13}$（合計 1 ✔）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  const seq = [[1, 0, 0]];
+  for (let k = 1; k < 12; k++) { const [a, b, cc] = seq[k - 1]; seq.push([(a + cc) / 4, (b + a) / 4, (cc + b) / 4]); }
+  function draw() {
+    const n = +$("n").value, [a, b, cc] = seq[n - 1], d = a + b + cc;
+    c.clearRect(0, 0, W, H);
+    const x0 = 40, y0 = 200, h = 170;
+    c.strokeStyle = "#ccc"; c.beginPath(); c.moveTo(x0, y0); c.lineTo(W - 10, y0); c.stroke();
+    [["a_n", a, "#8a1538"], ["b_n", b, "#1c7ed6"], ["c_n", cc, "#2f9e44"], ["d_n", d, "#888"]].forEach(([nm, v, col], i) => {
+      const x = x0 + 15 + i * 72, bh = v / Math.max(d, 1e-9) * h;
+      c.fillStyle = col; c.fillRect(x, y0 - bh, 50, bh);
+      c.fillStyle = "#333"; c.font = "12px sans-serif"; c.fillText(nm, x + 14, y0 + 16); c.fillText(v.toPrecision(4), x, y0 - bh - 5);
+    });
+    c.fillStyle = "#999"; c.font = "11px sans-serif"; c.fillText("（高さは d_n を基準に拡大）", x0, 14);
+    $("nv").textContent = ` n = ${n}　A が n 回目に勝つ確率 = a_n/2 = ${(a / 2).toPrecision(4)}　d_n = (1/2)^${n - 1}`;
+  }
+  const names = ["A", "B", "C"];
+  function game() {
+    let who = 0, t = 0, s = [];
+    while (true) {
+      t++; const r = Math.random() * 4;
+      if (r < 2) { s.push(names[who] + ":赤"); return { who, t, s }; }
+      if (r < 3) s.push(names[who] + ":青"); else { s.push(names[who] + ":白"); who = (who + 1) % 3; }
+    }
+  }
+  $("play").onclick = () => { const g = game(); $("log").innerHTML = g.s.join(" → ") + `<br><b>${names[g.who]} が ${g.t} 回目に勝利</b>`; };
+  $("many").onclick = () => {
+    const w = [0, 0, 0]; for (let i = 0; i < 10000; i++) w[game().who]++;
+    $("log").innerHTML = `10000 ゲームの勝者<br>A：${w[0]}（9/13 ≈ 6923）<br>B：${w[1]}（3/13 ≈ 2308）<br>C：${w[2]}（1/13 ≈ 769）`;
+  };
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

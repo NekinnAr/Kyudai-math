@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2026-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内で，原点 O を中心とする半径 $3$ の球を $S$ とする。また，点 $\mathrm{P}(1,\ 0,\ \sqrt3)$ を考え，$T_1$ と $T_2$ を直線 OP と直交する相異なる 2 つの平面とする。$T_1$ と $S$ の共通部分を $C_1$，$T_2$ と $S$ の共通部分を $C_2$ とし，次の 2 つの条件をみたすとする。</p>
+    <ul>
+      <li>$C_1$ と $C_2$ はどちらも半径 $1$ の円である。</li>
+      <li>$C_1$ の中心の $z$ 座標は正で，$C_2$ の中心の $z$ 座標は負である。</li>
+    </ul>
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　円 $C_1$，$C_2$ の中心の座標を求めよ。</li>
+      <li>(2)　円 $C_1$，$C_2$ を底面とする円柱の側面を平面 $z = 0$ で切る。その切り口の曲線の方程式を求めよ。また，その曲線を図示せよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2026 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>円柱の側面は「中心軸（直線 OP）からの距離が $1$ の点の集合」。点と直線の距離を、正射影ベクトルを使って式にすれば一発で方程式が出る。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>球の中心 O から平面 $T_1$ までの距離を $d$ とすると、三平方の定理より $d^2 + 1^2 = 3^2$、$d = 2\sqrt2$。$C_1,\ C_2$ の中心は直線 OP 上にあり、O からの距離は $2\sqrt2$。$|\overrightarrow{\mathrm{OP}}| = 2$ なので、直線 OP 方向の単位ベクトルは $\vec u = \dfrac12(1,\ 0,\ \sqrt3)$ で、中心は</p>
+      $$\pm 2\sqrt2\,\vec u = \pm(\sqrt2,\ 0,\ \sqrt6)$$
+      <p>$z$ 座標の符号から、$C_1$ の中心は $(\sqrt2,\ 0,\ \sqrt6)$、$C_2$ の中心は $(-\sqrt2,\ 0,\ -\sqrt6)$。</p>
+
+      <h3>(2)</h3>
+      <p>円柱の中心軸は直線 OP（2 つの中心を結ぶ直線）。点 $\mathrm{X}(x,\ y,\ z)$ が円柱の側面（を延長した面）上にある条件は、直線 OP との距離が $1$ であること、すなわち</p>
+      $$|\overrightarrow{\mathrm{OX}}|^2 - (\overrightarrow{\mathrm{OX}}\cdot\vec u)^2 = 1$$
+      <p>（$\overrightarrow{\mathrm{OX}}\cdot\vec u$ は $\overrightarrow{\mathrm{OX}}$ の直線 OP への正射影の長さ）。$z = 0$ のとき $\overrightarrow{\mathrm{OX}}\cdot\vec u = \dfrac{x}{2}$ なので</p>
+      $$x^2 + y^2 - \frac{x^2}{4} = 1 \qquad\therefore\quad \frac34 x^2 + y^2 = 1$$
+      <p>このとき軸方向の座標 $\dfrac{x}{2}$ は $|x| \le \dfrac{2}{\sqrt3}$ より $\left|\dfrac{x}{2}\right| \le \dfrac{1}{\sqrt3} \lt 2\sqrt2$ なので、この曲線全体が実際に 2 つの底面の間の側面上にある。</p>
+      <p>よって切り口は<b>楕円 $\dfrac{x^2}{\left(\frac{2}{\sqrt3}\right)^2} + y^2 = 1$</b> で、$xy$ 平面上で $x$ 軸との交点 $\left(\pm\dfrac{2}{\sqrt3},\ 0\right)$、$y$ 軸との交点 $(0,\ \pm1)$ を通る、$x$ 軸方向に長い楕円である（図は下の「動く図解」を参照）。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>ドラッグで視点を回転できます。軸の傾き $\varphi$（直線 OP と $z$ 軸のなす角）を変えると、切り口の楕円がどう変わるかを観察してみましょう。本問は $\varphi = 30^\circ$ です。</p>
+
+  <div class="widget">
+    <label>軸の傾き φ：<input type="range" id="phi" min="0" max="60" step="1" value="30"></label>
+    <span class="readout no-math" id="phiv"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv3" class="fig" width="380" height="380"></canvas>
+      <canvas id="cv2" class="fig" width="260" height="260"></canvas>
+    </div>
+    <div class="readout no-math" id="info" style="margin-top:6px"></div>
+    <p class="note no-math">左：赤＝切り口の楕円，青＝C₁・C₂，灰＝円柱の母線，薄い円＝球 S　／　右：xy 平面上の切り口（点は焦点）</p>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>円柱を斜めに切ると楕円になる</h3>
+  <p>軸が $z$ 軸と角 $\varphi$ をなす半径 $1$ の円柱を平面 $z = 0$ で切ると、同じ計算で</p>
+  $$x^2\cos^2\varphi + y^2 = 1$$
+  <p>が得られます。軸に垂直な方向（$y$ 方向）の半径は $1$ のまま、斜めに切った方向（$x$ 方向）だけが $\dfrac{1}{\cos\varphi}$ 倍に引き伸ばされた楕円です。本問は $\cos^2 30^\circ = \dfrac34$ のケースです。斜めに切ったきゅうりやソーセージの断面が楕円になるのと同じ現象ですね。</p>
+
+  <h3>ダンドランの球 ── 焦点はどこにある？</h3>
+  <p>楕円 $\dfrac34x^2 + y^2 = 1$ の焦点は、$a^2 = \dfrac43,\ b^2 = 1$ より $c = \sqrt{a^2 - b^2} = \dfrac{1}{\sqrt3}$ で、$\left(\pm\dfrac{1}{\sqrt3},\ 0\right)$ です。実はこの焦点は、空間図形として美しく説明できます。</p>
+  <p>円柱の内側に、半径 $1$ の球を平面 $z = 0$ の上下から 1 つずつ、円柱にぴったり内接し、かつ平面 $z = 0$ に接するように入れます（<b>ダンドランの球</b>）。球の中心は軸上で $z = \pm1$ の点、すなわち $\left(\pm\dfrac{1}{\sqrt3},\ 0,\ \pm1\right)$ で、平面 $z = 0$ との接点は $\left(\pm\dfrac{1}{\sqrt3},\ 0,\ 0\right)$ ── ちょうど楕円の焦点です。</p>
+  <p>切り口上の点 X から 2 つの接点までの距離は、それぞれ X から各球への接線の長さに等しく、それは X を通る母線に沿って 2 つの球と円柱の接触円まで測った長さと同じです。その和は「2 つの接触円の間隔」で一定になるので、切り口は 2 つの接点を焦点とする楕円になる ── というのがダンドラン（1822 年）の証明です。</p>
+  <div class="point">離心率 $e = \dfrac{c}{a} = \dfrac{1/\sqrt3}{2/\sqrt3} = \dfrac12$ は $\sin30^\circ$ に一致します。一般に、円柱を軸と角 $\varphi$ をなす向きに切った楕円の離心率は $\sin\varphi$ です。</div>
+
+  <h3>球 S の役割</h3>
+  <p>球 $S$ は「軸上のどこに底面があるか」を決めるためだけに使われていて、(2) の切り口の方程式には一切影響しません（底面の間隔が十分長ければ、切り口は同じ楕円）。条件が多い問題では、「どの条件が本質で、どれが設定のための飾りか」を見抜くことも大切です。</p>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問の楕円上の任意の点 X について，2 点 $\mathrm{F}_1\left(\dfrac{1}{\sqrt3},\ 0,\ 0\right)$，$\mathrm{F}_2\left(-\dfrac{1}{\sqrt3},\ 0,\ 0\right)$ からの距離の和 $\mathrm{XF}_1 + \mathrm{XF}_2$ が一定であることを，楕円の方程式を用いて示し，その値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{X}(x,\ y,\ 0)$ で $y^2 = 1 - \dfrac34x^2$ を代入すると</p>
+    $$\mathrm{XF}_1^2 = \left(x - \frac{1}{\sqrt3}\right)^2 + 1 - \frac34x^2 = \frac{x^2}{4} - \frac{2x}{\sqrt3} + \frac43 = \left(\frac{2}{\sqrt3} - \frac{x}{2}\right)^2$$
+    <p>$|x| \le \dfrac{2}{\sqrt3}$ より $\mathrm{XF}_1 = \dfrac{2}{\sqrt3} - \dfrac{x}{2}$。同様に $\mathrm{XF}_2 = \dfrac{2}{\sqrt3} + \dfrac{x}{2}$。和は $\dfrac{4}{\sqrt3}$（長軸の長さ）で一定。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の円柱（円 $C_1$，$C_2$ を底面とする円柱）の側面を平面 $z = k$ で切った切り口が，楕円全体（底面にかからない閉曲線）となるような実数 $k$ の範囲を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>円 $C_1$ は中心の $z$ 座標が $\sqrt6$、半径 $1$ で、軸と $z$ 軸のなす角が $30^\circ$ なので、$C_1$ 上の点の $z$ 座標は $\sqrt6 - \sin30^\circ$ から $\sqrt6 + \sin30^\circ$ まで、すなわち $\sqrt6 - \dfrac12 \le z \le \sqrt6 + \dfrac12$ の範囲にあります。平面 $z = k$ が $C_1$ と交わらず、その下側にあればよいので $k \le \sqrt6 - \dfrac12$。$C_2$ についても同様にして</p>
+    $$-\sqrt6 + \frac12 \le k \le \sqrt6 - \frac12$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv3"), c = cv.getContext("2d");
+  const cv2 = document.getElementById("cv2"), c2 = cv2.getContext("2d");
+  const phiIn = document.getElementById("phi");
+  let az = -0.9, el = 0.35; // 視点
+  const W = cv.width, SC = 44;
+
+  const proj = ([x, y, z]) => {
+    const ca = Math.cos(az), sa = Math.sin(az), cb = Math.cos(el), sb = Math.sin(el);
+    const u = -x * sa + y * ca;
+    const v = z * cb - (x * ca + y * sa) * sb;
+    return [W / 2 + SC * u, W / 2 - SC * v];
+  };
+  function poly(pts, col, w = 1.5, dash = []) {
+    c.strokeStyle = col; c.lineWidth = w; c.setLineDash(dash); c.beginPath();
+    pts.forEach((p, i) => { const q = proj(p); i ? c.lineTo(...q) : c.moveTo(...q); });
+    c.stroke(); c.setLineDash([]);
+  }
+  const N = 72, range = (n) => Array.from({ length: n + 1 }, (_, i) => (i / n) * 2 * Math.PI);
+
+  function draw() {
+    const phi = phiIn.value * Math.PI / 180, cp = Math.cos(phi), sp = Math.sin(phi);
+    document.getElementById("phiv").textContent = ` ${phiIn.value}°` + (+phiIn.value === 30 ? "（本問）" : "");
+    const u = [sp, 0, cp], e1 = [cp, 0, -sp], e2 = [0, 1, 0], h = 2 * Math.SQRT2;
+    const circ = (s) => range(N).map((t) => [0, 1, 2].map((k) => s * u[k] + Math.cos(t) * e1[k] + Math.sin(t) * e2[k]));
+    c.clearRect(0, 0, W, W);
+    // 球 S（輪郭と赤道・子午線）
+    poly(range(N).map((t) => [3 * Math.cos(t), 3 * Math.sin(t), 0]), "rgba(0,0,0,.12)", 1);
+    poly(range(N).map((t) => [3 * Math.cos(t), 0, 3 * Math.sin(t)]), "rgba(0,0,0,.12)", 1);
+    poly(range(N).map((t) => [0, 3 * Math.cos(t), 3 * Math.sin(t)]), "rgba(0,0,0,.12)", 1);
+    // 平面 z = 0
+    const L = 3.4;
+    c.fillStyle = "rgba(28,126,214,.06)"; c.beginPath();
+    [[-L, -L, 0], [L, -L, 0], [L, L, 0], [-L, L, 0]].forEach((p, i) => { const q = proj(p); i ? c.lineTo(...q) : c.moveTo(...q); }); c.closePath(); c.fill();
+    // 座標軸
+    poly([[-3.6, 0, 0], [3.6, 0, 0]], "#bbb", 1); poly([[0, -3.6, 0], [0, 3.6, 0]], "#bbb", 1); poly([[0, 0, -3.6], [0, 0, 3.6]], "#bbb", 1);
+    c.fillStyle = "#888"; c.font = "12px sans-serif";
+    [["x", [3.8, 0, 0]], ["y", [0, 3.8, 0]], ["z", [0, 0, 3.8]]].forEach(([s, p]) => c.fillText(s, ...proj(p)));
+    // 軸 OP の延長
+    poly([[-3.2 * u[0], 0, -3.2 * u[2]], [3.2 * u[0], 0, 3.2 * u[2]]], "#e8590c", 1.2, [5, 4]);
+    // 円柱の母線
+    for (let k = 0; k < 16; k++) {
+      const t = k / 16 * 2 * Math.PI;
+      const w = [0, 1, 2].map((i) => Math.cos(t) * e1[i] + Math.sin(t) * e2[i]);
+      poly([[0, 1, 2].map((i) => -h * u[i] + w[i]), [0, 1, 2].map((i) => h * u[i] + w[i])], "rgba(0,0,0,.25)", 1);
+    }
+    // C1, C2
+    poly(circ(h), "#1c7ed6", 2.2); poly(circ(-h), "#1c7ed6", 2.2);
+    // 切り口
+    poly(range(N).map((t) => [Math.cos(t) / cp, Math.sin(t), 0]), "#c92a2a", 2.8);
+    // 中心
+    [h, -h].forEach((s) => { const q = proj(u.map((v) => v * s)); c.fillStyle = "#1c7ed6"; c.beginPath(); c.arc(...q, 3.5, 0, 7); c.fill(); });
+
+    // 右：xy 平面
+    const W2 = cv2.width, s2 = 52, o = W2 / 2;
+    c2.clearRect(0, 0, W2, W2);
+    c2.strokeStyle = "#ccc"; c2.lineWidth = 1; c2.beginPath(); c2.moveTo(0, o); c2.lineTo(W2, o); c2.moveTo(o, 0); c2.lineTo(o, W2); c2.stroke();
+    c2.fillStyle = "#888"; c2.font = "12px sans-serif"; c2.fillText("x", W2 - 12, o - 4); c2.fillText("y", o + 4, 12);
+    c2.strokeStyle = "#c92a2a"; c2.lineWidth = 2.5; c2.beginPath();
+    range(N).forEach((t, i) => { const X = o + s2 * Math.cos(t) / cp, Y = o - s2 * Math.sin(t); i ? c2.lineTo(X, Y) : c2.moveTo(X, Y); }); c2.stroke();
+    const a = 1 / cp, f = Math.sqrt(Math.max(a * a - 1, 0));
+    [f, -f].forEach((x) => { c2.fillStyle = "#222"; c2.beginPath(); c2.arc(o + s2 * x, o, 3.5, 0, 7); c2.fill(); });
+    c2.fillStyle = "#555"; c2.fillText("1", o + 4, o - s2 - 2); c2.fillText(a.toFixed(3), o + s2 * a - 10, o + 16);
+
+    document.getElementById("info").innerHTML =
+      `切り口：x²·cos²φ + y² = 1　→　x²·${(cp * cp).toFixed(3)} + y² = 1` + (+phiIn.value === 30 ? "（= ¾x² + y² = 1）" : "") +
+      `<br>長半径 1/cosφ = ${a.toFixed(3)}，短半径 1，焦点 (±${f.toFixed(3)}, 0)，離心率 = sinφ = ${sp.toFixed(3)}`;
+  }
+
+  let drag = null;
+  cv.addEventListener("pointerdown", (e) => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    az -= (e.clientX - drag[0]) * 0.01; el = Math.max(-1.4, Math.min(1.4, el + (e.clientY - drag[1]) * 0.01));
+    drag = [e.clientX, e.clientY]; draw();
+  });
+  cv.addEventListener("pointerup", () => (drag = null));
+  phiIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

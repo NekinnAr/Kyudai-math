@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2018-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>原点を中心とする半径 $3$ の半円 $C : x^2 + y^2 = 9\ (y \ge 0)$ 上の 2 点 $\mathrm{P}$ と $\mathrm{Q}$ に対し，線分 $\mathrm{PQ}$ を $2 : 1$ に内分する点を $\mathrm{R}$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　点 $\mathrm{P}$ の $y$ 座標と $\mathrm{Q}$ の $y$ 座標が等しく，かつ $\mathrm{P}$ の $x$ 座標は $\mathrm{Q}$ の $x$ 座標より小さくなるように $\mathrm{P}$ と $\mathrm{Q}$ が動くものとする。このとき，線分 $\mathrm{PR}$ が通過してできる図形 $S$ の面積を求めよ。</li>
+      <li>(2)　点 $\mathrm{P}$ を $(-3,\ 0)$ に固定する。$\mathrm{Q}$ が半円 $C$ 上を動くとき線分 $\mathrm{PR}$ が通過してできる図形 $T$ の面積を求めよ。</li>
+      <li>(3)　(1) の図形 $S$ から (2) の図形 $T$ を除いた図形と第 1 象限の共通部分を $U$ とする。$U$ を $y$ 軸のまわりに 1 回転させてできる回転体の体積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2018 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>R の軌跡を求めれば図形が分かる。(1) は R が楕円、(2) は R が円を描き、どちらも面積は積分なしで求まる。(3) は回転体を「円板 − 円板」で計算する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>P，Q の $y$ 座標を $h\ (0 \le h \lt 3)$ とすると、$w = \sqrt{9 - h^2}$ として $\mathrm{P}(-w,\ h)$，$\mathrm{Q}(w,\ h)$。$\mathrm{R} = \frac{\mathrm{P} + 2\mathrm{Q}}{3} = \left(\frac w3,\ h\right)$。線分 PR は高さ $h$ の水平な線分 $-w \le x \le \frac w3$。$h$ を $0 \le h \lt 3$ で動かすと</p>
+      $$S:\ -\sqrt{9 - y^2} \le x \le \frac13\sqrt{9 - y^2},\quad 0 \le y \lt 3$$
+      <p>左側の境界は円 $x^2 + y^2 = 9$、右側の境界は $9x^2 + y^2 = 9$，すなわち楕円 $x^2 + \frac{y^2}{9} = 1$。S は「半径 3 の四分円」と「半軸 $1,\ 3$ の楕円の $\frac14$」を合わせた図形で</p>
+      $$S\ \text{の面積} = \frac{9\pi}{4} + \frac{\pi\cdot1\cdot3}{4} = 3\pi$$
+
+      <h3>(2)</h3>
+      <p>$\mathrm{Q}(3\cos\varphi,\ 3\sin\varphi)\ (0 \le \varphi \le \pi)$ とすると $\mathrm{R} = \frac{\mathrm{P} + 2\mathrm{Q}}{3} = (-1 + 2\cos\varphi,\ 2\sin\varphi)$。R は中心 $(-1,\ 0)$、半径 $2$ の上半円を描き、P$(-3,\ 0)$ はこの円の左端。線分 PR は、この半円板の弦を P から引いたもので、その通過範囲は半円板 $(x + 1)^2 + y^2 \le 4,\ y \ge 0$ 全体。</p>
+      $$T\ \text{の面積} = \frac12\cdot\pi\cdot2^2 = 2\pi$$
+
+      <h3>(3)</h3>
+      <p>第 1 象限では、S は楕円の内部 $0 \le x \le \frac13\sqrt{9 - y^2}$、T は $0 \le x \le -1 + \sqrt{4 - y^2}\ (0 \le y \le \sqrt3)$。$-1 + \sqrt{4 - y^2} \le \frac13\sqrt{9 - y^2}$ が成り立つ（$y = 0$ でともに $1$、それ以外では左辺の方が小さい）ので、T の第 1 象限部分は S に含まれる。</p>
+      <p>よって $y$ 軸まわりの回転体の体積は「S の第 1 象限部分の回転体」から「T の第 1 象限部分の回転体」を引いたもの。</p>
+      $$V_1 = \pi\int_0^3\frac{9 - y^2}{9}\,dy = \pi\left[y - \frac{y^3}{27}\right]_0^3 = 2\pi$$
+      $$V_2 = \pi\int_0^{\sqrt3}\left(\sqrt{4 - y^2} - 1\right)^2dy = \pi\int_0^{\sqrt3}\left(5 - y^2 - 2\sqrt{4 - y^2}\right)dy$$
+      <p>$\int_0^{\sqrt3}\sqrt{4 - y^2}\,dy$ は、半径 2 の円の扇形（中心角 $\frac\pi3$）と直角三角形の面積の和で $\frac{2\pi}{3} + \frac{\sqrt3}{2}$。よって</p>
+      $$V_2 = \pi\left(5\sqrt3 - \sqrt3 - \frac{4\pi}{3} - \sqrt3\right) = \pi\left(3\sqrt3 - \frac{4\pi}{3}\right)$$
+      $$V = V_1 - V_2 = 2\pi - 3\sqrt3\pi + \frac{4\pi^2}{3}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>スライダーで P，Q を動かすと、線分 PR（赤）が動いて図形を塗っていきます。「(3) U」では、S（楕円部分）から T を除いた第 1 象限部分 U が表示されます。</p>
+
+  <div class="widget">
+    <label class="no-math">表示：<select id="mode"><option value="1">(1) 図形 S</option><option value="2">(2) 図形 T</option><option value="3">(3) 図形 U</option></select></label>
+    <label>動かす：<input type="range" id="u" min="0" max="1000" value="350"></label>
+    <span class="readout no-math" id="info"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="460" height="260"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>楕円は「円を縮めたもの」</h3>
+  <p>(1) で R の $x$ 座標は Q の $x$ 座標の $\frac13$ 倍です。つまり R の軌跡は、半円 C を $x$ 軸方向に $\frac13$ 倍に縮めた楕円。面積も $\frac13$ 倍になるので、楕円の面積公式 $\pi ab$ を知らなくても「四分円の $\frac13$」で $\frac{9\pi}{4}\cdot\frac13 = \frac{3\pi}{4}$ と求まります。</p>
+  <p>(2) の R の軌跡は、半円 C を点 P を中心に $\frac23$ 倍に縮小（相似拡大）したものです。</p>
+  <p>chopin 先生は「S，T の形状をきちんと図に描いてあげれば、典型的な問題になります」「登場する図形は円と楕円だけなので、積分なしに面積を計算できます」とコメントしています。</p>
+  <div class="point">内分点・中点の軌跡は「元の図形の相似拡大・一方向への縮小」になることが多い。$\int\sqrt{a^2 - y^2}\,dy$ は<b>扇形＋三角形</b>の面積で計算する。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問 (2) で，R を線分 PQ を $t : (1 - t)$ に内分する点（$0 \lt t \lt 1$）に変えたとき，線分 PR が通過してできる図形の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{R} = (1 - t)\mathrm{P} + t\mathrm{Q} = (-3 + 3t + 3t\cos\varphi,\ 3t\sin\varphi)$ は、中心 $(-3 + 3t,\ 0)$、半径 $3t$ の上半円を描き、P はその左端。通過範囲は半円板で、面積は $\dfrac{9\pi t^2}{2}$（$t = \frac23$ で $2\pi$）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) の図形 $U$ を $x$ 軸のまわりに 1 回転させてできる回転体の体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2018　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$0 \le x \le 1$ で、U の $x$ における断面は $\sqrt{4 - (x + 1)^2} \le y \le 3\sqrt{1 - x^2}$。回転させると円環で、面積は</p>
+    $$\pi\left\{9(1 - x^2) - 4 + (x + 1)^2\right\} = \pi(6 + 2x - 8x^2)$$
+    $$V = \pi\int_0^1(6 + 2x - 8x^2)\,dx = \pi\left(6 + 1 - \frac83\right) = \frac{13\pi}{3}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -3.6, xmax: 3.6, ymin: -0.4, ymax: 3.4, equal: true });
+  const arcPts = (cx, cy, r, a0, a1, n = 120) => { const q = []; for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; q.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } return q; };
+  function draw() {
+    const m = $("mode").value, u = $("u").value / 1000;
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.line(arcPts(0, 0, 3, 0, Math.PI), "#999", 1.5);
+    let info = "";
+    if (m === "1") {
+      const h = 2.999 * u, w = Math.sqrt(9 - h * h);
+      // 塗られた部分（0〜h）
+      const reg = [];
+      for (let i = 0; i <= 80; i++) { const y = h * i / 80; reg.push([Math.sqrt(9 - y * y) / 3, y]); }
+      for (let i = 80; i >= 0; i--) { const y = h * i / 80; reg.push([-Math.sqrt(9 - y * y), y]); }
+      P.fill(reg, "rgba(138,21,56,.2)");
+      P.line(arcPts(0, 0, 3, Math.PI / 2, Math.PI), "#8a1538", 1.4, [4, 3]);
+      const el = []; for (let i = 0; i <= 80; i++) { const a = i / 80 * Math.PI / 2; el.push([Math.cos(a), 3 * Math.sin(a)]); } P.line(el, "#8a1538", 1.4, [4, 3]);
+      P.line([[-w, h], [w, h]], "#bbb", 1);
+      P.line([[-w, h], [w / 3, h]], "#c92a2a", 3);
+      P.dot(-w, h, "#222", 4, "P", -16, -4).dot(w, h, "#222", 4, "Q").dot(w / 3, h, "#e8590c", 5, "R");
+      info = ` y = ${h.toFixed(2)}　S の面積 = 9π/4 + 3π/4 = 3π`;
+    } else if (m === "2") {
+      const ph = Math.PI * (1 - u), Q = [3 * Math.cos(ph), 3 * Math.sin(ph)], R = [-1 + 2 * Math.cos(ph), 2 * Math.sin(ph)];
+      const reg = [[-3, 0]].concat(arcPts(-1, 0, 2, Math.PI, ph, 80));
+      P.fill(reg, "rgba(28,126,214,.2)");
+      P.line(arcPts(-1, 0, 2, 0, Math.PI), "#1c7ed6", 1.4, [4, 3]);
+      P.line([[-3, 0], Q], "#bbb", 1);
+      P.line([[-3, 0], R], "#c92a2a", 3);
+      P.dot(-3, 0, "#222", 4, "P", -6, 16).dot(Q[0], Q[1], "#222", 4, "Q").dot(R[0], R[1], "#e8590c", 5, "R");
+      info = ` R は中心 (−1, 0)，半径 2 の半円を描く　T の面積 = 2π`;
+    } else {
+      const el = []; for (let i = 0; i <= 80; i++) { const a = i / 80 * Math.PI / 2; el.push([Math.cos(a), 3 * Math.sin(a)]); }
+      const tc = arcPts(-1, 0, 2, Math.PI / 3, 0, 60);
+      P.fill([[0, 0]].concat(el), "rgba(138,21,56,.25)");
+      P.fill([[0, 0]].concat(tc.slice().reverse()).concat([[0, Math.sqrt(3)]]), "rgba(255,255,255,1)");
+      P.fill([[0, 0]].concat(tc.slice().reverse()).concat([[0, Math.sqrt(3)]]), "rgba(28,126,214,.12)");
+      P.line(el, "#8a1538", 2).line(tc, "#1c7ed6", 2);
+      const y = 3 * u, r2 = Math.sqrt(Math.max(0, 9 - y * y)) / 3, r1 = y <= Math.sqrt(3) ? -1 + Math.sqrt(4 - y * y) : 0;
+      P.line([[r1, y], [r2, y]], "#c92a2a", 3).line([[-r2, y], [-r1, y]], "rgba(201,42,42,.35)", 3);
+      P.line([[0, -0.4], [0, 3.4]], "#2b8a3e", 1.5, [6, 3]);
+      P.text("U", 0.55, 1.9, "#8a1538", "bold 14px sans-serif");
+      info = ` 高さ y = ${y.toFixed(2)} の断面：${r1.toFixed(3)} ≤ r ≤ ${r2.toFixed(3)}　V = 2π − 3√3π + 4π²/3 ≈ ${(2 * Math.PI - 3 * Math.sqrt(3) * Math.PI + 4 * Math.PI ** 2 / 3).toFixed(4)}`;
+    }
+    $("info").textContent = info;
+  }
+  ["mode", "u"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

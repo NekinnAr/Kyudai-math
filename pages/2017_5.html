@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2017年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2017-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>2 つの複素数 $\alpha = 10000 + 10000i$ と $w = \dfrac{\sqrt3}{4} + \dfrac14i$ を用いて，複素数平面上の点 $\mathrm{P}_n(z_n)$ を $z_n = \alpha w^n$（$n = 1,\ 2,\ \cdots$）により定める。ただし，$i$ は虚数単位を表す。2 と 3 の常用対数を $\log_{10}2 = 0.301$，$\log_{10}3 = 0.477$ として，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$z_n$ の絶対値 $|z_n|$ と偏角 $\arg z_n$ を求めよ。</li>
+      <li>(2)　$|z_n| \le 1$ が成り立つ最小の自然数 $n$ を求めよ。</li>
+      <li>(3)　下図のように，複素数平面上の $\triangle\mathrm{ABC}$ は線分 $\mathrm{AB}$ を斜辺とし，点 $\mathrm{C}\left(\dfrac{i}{\sqrt2}\right)$ を一つの頂点とする直角二等辺三角形である。なお $\mathrm{A},\ \mathrm{B}$ を表す複素数の虚部は負であり，原点 O と 2 点 A，B の距離はともに 1 である。点 $\mathrm{P}_n$ が $\triangle\mathrm{ABC}$ の内部に含まれる最小の自然数 $n$ を求めよ。</li>
+    </ol>
+    <svg viewBox="0 0 300 150" width="300" style="display:block;margin:6px auto" class="no-math">
+      <line x1="10" y1="90" x2="290" y2="90" stroke="#999"/><line x1="150" y1="140" x2="150" y2="5" stroke="#999"/>
+      <polygon points="34.1,121.1 265.9,121.1 150,5.1" fill="none" stroke="#222" stroke-width="1.5"/>
+      <line x1="34.1" y1="121.1" x2="150" y2="90" stroke="#222"/><line x1="265.9" y1="121.1" x2="150" y2="90" stroke="#222"/>
+      <text x="14" y="130" font-size="13">A</text><text x="276" y="130" font-size="13">B</text><text x="156" y="14" font-size="13">C</text>
+      <text x="138" y="103" font-size="12">O</text><text x="86" y="100" font-size="11">1</text><text x="208" y="100" font-size="11">1</text>
+      <text x="282" y="85" font-size="12">x</text><text x="155" y="140" font-size="12" fill="#666">y 軸</text>
+      <text x="44" y="113" font-size="10">π/6</text><text x="238" y="113" font-size="10">π/6</text>
+    </svg>
+    <p style="font-size:.9em;color:#666;text-align:center">（図の π/6 は ∠OAC，∠OBC。辺 AC，BC は x 軸と π/4 の角をなす。）</p>
+  </div>
+  <p class="source">（2017 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$w = \frac12\left(\cos\frac\pi6 + i\sin\frac\pi6\right)$ なので、$z_n$ は「回転しながら半分ずつ縮む」点列。偏角は 12 通りしかないので、<b>各方向で三角形の内部に入るための半径の上限</b>を調べる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\alpha = 10000\sqrt2\left(\cos\frac\pi4 + i\sin\frac\pi4\right)$，$w = \frac12\left(\cos\frac\pi6 + i\sin\frac\pi6\right)$ より</p>
+      $$|z_n| = \frac{10000\sqrt2}{2^n} = 10^4\cdot2^{\frac12 - n},\qquad \arg z_n = \frac\pi4 + \frac{n\pi}{6}$$
+
+      <h3>(2)</h3>
+      <p>$|z_n| \le 1 \iff 2^{n - \frac12} \ge 10^4 \iff \left(n - \frac12\right)\cdot0.301 \ge 4 \iff n \ge \frac12 + \frac{4}{0.301} = 13.78\cdots$。最小の $n$ は $\mathbf{14}$。</p>
+
+      <h3>(3)</h3>
+      <p><b>三角形の位置。</b>$\angle\mathrm{CAB} = \frac\pi4$，$\angle\mathrm{OAC} = \frac\pi6$ より $\angle\mathrm{OAB} = \frac{\pi}{12}$。よって</p>
+      $$\mathrm{A} = \left(-\cos\tfrac{\pi}{12},\ -\sin\tfrac{\pi}{12}\right),\quad \mathrm{B} = \left(\cos\tfrac{\pi}{12},\ -\sin\tfrac{\pi}{12}\right)$$
+      <p>（実際 $\cos\frac\pi{12} - \sin\frac\pi{12} = \frac{1}{\sqrt2}$ で、C から傾き $\pm1$ の直線上にある。）三角形の頂点はすべて単位円の周上または内部にあるので、<b>三角形の内部の点は $|z| \lt 1$</b> をみたす。</p>
+      <p><b>必要条件。</b>(2) より $|z_n| \lt 1$ となるのは $n \ge 14$（$n = 13$ 以下では $|z_n| \gt 1$）。</p>
+      <p><b>$n = 14$。</b>$\arg z_{14} = \frac\pi4 + \frac{7\pi}{3} \equiv \frac{7\pi}{12}$。この方向の半直線は辺 AC（直線 $y = x + \frac{1}{\sqrt2}$）と原点から距離 $r = \dfrac{1/\sqrt2}{\sin\frac{7\pi}{12} - \cos\frac{7\pi}{12}} = \dfrac{1}{2\sin\frac\pi3} = \dfrac{1}{\sqrt3}$ の点で交わる。</p>
+      <p>$\log_{10}|z_{14}|^2 = 8 - 27\cdot0.301 = -0.127 \gt -0.477 = \log_{10}\frac13$ なので $|z_{14}| \gt \frac1{\sqrt3}$。$\mathrm{P}_{14}$ は三角形の外。</p>
+      <p><b>$n = 15$。</b>$\arg z_{15} = \frac\pi4 + \frac{5\pi}{2} \equiv \frac{3\pi}{4}$。これは辺 AC に垂直な方向で、O から直線 AC までの距離は $\frac{1/\sqrt2}{\sqrt2} = \frac12$。</p>
+      <p>$|z_{15}| \lt \frac12 \iff 10^4\cdot2^{-\frac{29}{2}} \lt 2^{-1} \iff 10^4 \lt 2^{\frac{27}{2}}$。$\frac{27}{2}\cdot0.301 = 4.0635 \gt 4$ なので成立。$\arg z_{15} = \frac{3\pi}{4}$ 方向の点は $y \gt 0 \gt -\sin\frac\pi{12}$ で辺 AB より上にあるから、$\mathrm{P}_{15}$ は三角形の内部。</p>
+      <p>よって求める最小の $n$ は $\mathbf{15}$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ を動かすと $\mathrm{P}_n$ が回転しながら原点に近づきます。破線の円は、その方向で三角形の内部に入るための半径の上限です。$n = 14$ では惜しくも外、$n = 15$ で初めて内部に入ります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="10" max="24" value="15"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>回転しながら縮む点列</h3>
+  <p>$z_{n+1} = wz_n$ は「$30^\circ$ 回転して $\frac12$ 倍」する操作なので、$\mathrm{P}_n$ は原点に向かう<b>等角らせん</b>上に並びます。12 回で一周するので、方向は 12 通りしかありません。</p>
+  <p>chopin 先生は「(1)(2) はあまり大したことありませんが、(3) が非常に重たい問題です。本番では捨てて OK」「12 方向それぞれに対して、絶対値がどれだけあると三角形の中に入るかを検討しないといけない」とコメントしています。</p>
+  <p>ただし「三角形は単位円に含まれる」ことに気づけば、(2) から $n \ge 14$ に絞れて、調べるのは $n = 14,\ 15$ の 2 方向だけで済みます。(2) が (3) の強力な誘導になっているわけです。</p>
+  <div class="point">点列 $\alpha w^n$ は極形式で「絶対値 $r^n$・偏角 $n\theta$」に分解する。図形に含まれる条件は、<b>図形を円で外から押さえて候補を絞る</b>と調べる範囲が小さくなる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$z_n = (1 + i)^n$ とする。$|z_n| \ge 1000$ となる最小の自然数 $n$ と，そのときの $z_n$ を求めよ。ただし $\log_{10}2 = 0.301$ とする。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$|z_n| = 2^{\frac n2} \ge 10^3 \iff n \ge \frac{6}{0.301} = 19.9\cdots$ より $n = 20$。$z_{20} = (\sqrt2)^{20}(\cos 5\pi + i\sin 5\pi) = -1024$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の点列で，$\mathrm{P}_n$ が「単位円の内部，かつ第 1 象限（座標軸上を除く）」にある最小の自然数 $n$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2017　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>単位円の内部 $\iff n \ge 14$。$\arg z_n = \frac\pi4 + \frac{n\pi}6$ が $\left(0,\ \frac\pi2\right)$（mod $2\pi$）に入るのは $n \equiv 11,\ 0,\ 1 \pmod{12}$（偏角 $15^\circ,\ 45^\circ,\ 75^\circ$）。$n \ge 14$ で最小は $n = \mathbf{23}$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -1.25, xmax: 1.25, ymin: -1.0, ymax: 1.1, equal: true });
+  const s15 = Math.sin(Math.PI / 12), c15 = Math.cos(Math.PI / 12), r2 = 1 / Math.SQRT2;
+  const A = [-c15, -s15], B = [c15, -s15], C = [0, r2];
+  const inside = (x, y) => y > -s15 && y + Math.abs(x) < r2;
+  function Rmax(th) { // 方向 th で三角形の境界までの距離
+    let lo = 0, hi = 2; for (let k = 0; k < 60; k++) { const m = (lo + hi) / 2; if (inside(m * Math.cos(th), m * Math.sin(th))) lo = m; else hi = m; } return lo;
+  }
+  function draw() {
+    const n = +$("n").value;
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    P.circle(0, 0, 1, "#ddd", 1, [4, 4]);
+    P.fill([A, B, C], "rgba(138,21,56,.10)").line([A, B, C, A], "#8a1538", 1.8);
+    P.text("A", A[0] - 0.08, A[1] - 0.05).text("B", B[0] + 0.03, B[1] - 0.05).text("C", 0.04, r2 + 0.05);
+    let rows = [];
+    for (let k = 10; k <= 24; k++) {
+      const r = 1e4 * Math.pow(2, 0.5 - k), th = Math.PI / 4 + k * Math.PI / 6;
+      const x = r * Math.cos(th), y = r * Math.sin(th), inn = inside(x, y);
+      if (r < 1.3 && k !== n) P.dot(x, y, inn ? "#2f9e44" : "#adb5bd", 2.5);
+    }
+    const r = 1e4 * Math.pow(2, 0.5 - n), th = Math.PI / 4 + n * Math.PI / 6, R = Rmax(th);
+    const x = r * Math.cos(th), y = r * Math.sin(th), inn = inside(x, y);
+    const L = Math.min(r, 1.6);
+    P.line([[0, 0], [L * Math.cos(th), L * Math.sin(th)]], "#1c7ed6", 1, [4, 3]);
+    P.circle(0, 0, R, "rgba(28,126,214,.5)", 1, [3, 3]);
+    if (r < 1.3) P.dot(x, y, inn ? "#2f9e44" : "#e8590c", 5, "P" + n);
+    const deg = ((45 + 30 * n) % 360);
+    $("nv").textContent = ` n = ${n}`;
+    $("info").innerHTML = `|z_n| = 10⁴·2^(1/2−n) = ${r < 0.01 ? r.toExponential(3) : r.toFixed(4)}<br>arg z_n ≡ ${deg}°<br>その方向の上限 R = ${R.toFixed(4)}<br>` +
+      (inn ? '<span class="ok">三角形の内部</span>' : '<span class="ng">三角形の外</span>') + (r >= 1.3 ? "（図の範囲外）" : "") +
+      `<br><span style="color:#888;font-size:.9em">緑：内部に入る点　灰：外の点</span>`;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

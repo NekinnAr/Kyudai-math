@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2021年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2021-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>自然数 $n$ と実数 $a_0,\ a_1,\ a_2,\ \cdots\cdots,\ a_n\ (a_n \neq 0)$ に対して，2 つの整式</p>
+    $$f(x) = \sum_{k=0}^{n}a_kx^k = a_nx^n + a_{n-1}x^{n-1} + \cdots\cdots + a_1x + a_0$$
+    $$f'(x) = \sum_{k=1}^{n}ka_kx^{k-1} = na_nx^{n-1} + (n-1)a_{n-1}x^{n-2} + \cdots\cdots + a_1$$
+    <p>を考える。$\alpha,\ \beta$ を異なる複素数とする。複素数平面上の 2 点 $\alpha,\ \beta$ を結ぶ線分上にある点 $\gamma$ で，</p>
+    $$\frac{f(\beta) - f(\alpha)}{\beta - \alpha} = f'(\gamma)$$
+    <p>をみたすものが存在するとき，</p>
+    <p>　　$\alpha,\ \beta,\ f(x)$ は平均値の性質をもつ</p>
+    <p>ということにする。以下の問いに答えよ。ただし，$i$ は虚数単位とする。</p>
+    <ol>
+      <li>(1)　$n = 2$ のとき，どのような $\alpha,\ \beta,\ f(x)$ も平均値の性質をもつことを示せ。</li>
+      <li>(2)　$\alpha = 1 - i$，$\beta = 1 + i$，$f(x) = x^3 + ax^2 + bx + c$ が平均値の性質をもつための，実数 $a,\ b,\ c$ に関する必要十分条件を求めよ。</li>
+      <li>(3)　$\alpha = \dfrac{1 - i}{\sqrt2}$，$\beta = \dfrac{1 + i}{\sqrt2}$，$f(x) = x^7$ は，平均値の性質をもたないことを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2021 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>定義は長いが、やることは「線分上の点 $\gamma$ を $1$ 変数で表し、方程式 $f'(\gamma) = (\text{平均変化率})$ が解をもつか調べる」だけ。(2)(3) は線分が虚軸に平行なので $\gamma = (\text{定数}) + si$ と表せる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$f(x) = a_2x^2 + a_1x + a_0\ (a_2 \neq 0)$ とすると</p>
+      $$\frac{f(\beta) - f(\alpha)}{\beta - \alpha} = \frac{a_2(\beta^2 - \alpha^2) + a_1(\beta - \alpha)}{\beta - \alpha} = a_2(\alpha + \beta) + a_1$$
+      <p>一方 $f'(\gamma) = 2a_2\gamma + a_1$ なので、$\gamma = \dfrac{\alpha + \beta}{2}$（線分 $\alpha\beta$ の中点）とすれば等式が成り立つ。よって、どのような $\alpha,\ \beta,\ f(x)$ も平均値の性質をもつ。</p>
+
+      <h3>(2)</h3>
+      <p>$\alpha + \beta = 2$，$\alpha\beta = 2$ より $\alpha^2 + \alpha\beta + \beta^2 = (\alpha + \beta)^2 - \alpha\beta = 2$。よって</p>
+      $$\frac{f(\beta) - f(\alpha)}{\beta - \alpha} = (\alpha^2 + \alpha\beta + \beta^2) + a(\alpha + \beta) + b = 2 + 2a + b$$
+      <p>線分上の点は $\gamma = 1 + si\ (-1 \le s \le 1)$ と表せる。$f'(\gamma) = 3\gamma^2 + 2a\gamma + b$ で、$\gamma^2 = 1 - s^2 + 2si$ より条件は</p>
+      $$3(1 - s^2) + 2a + (6 + 2a)s\,i = 2 + 2a$$
+      <p>$s,\ a$ は実数なので、実部と虚部を比べて</p>
+      $$3s^2 = 1 \quad\text{かつ}\quad (6 + 2a)s = 0$$
+      <p>$s^2 = \frac13$ より $s \neq 0$ なので $a = -3$。逆に $a = -3$ なら $s = \pm\frac{1}{\sqrt3}$（$-1 \le s \le 1$ をみたす）で成り立つ。求める条件は</p>
+      $$a = -3\quad(b,\ c \text{ は任意の実数})$$
+
+      <h3>(3)</h3>
+      <p>$\alpha = e^{-\frac{\pi}{4}i}$，$\beta = e^{\frac{\pi}{4}i}$ なので $\beta^7 = e^{\frac{7\pi}{4}i} = \alpha$，$\alpha^7 = e^{-\frac{7\pi}{4}i} = \beta$。よって</p>
+      $$\frac{f(\beta) - f(\alpha)}{\beta - \alpha} = \frac{\alpha - \beta}{\beta - \alpha} = -1$$
+      <p>条件は $7\gamma^6 = -1$。線分上の点は $\gamma = \dfrac{1}{\sqrt2} + si\ \left(|s| \le \dfrac{1}{\sqrt2}\right)$ で、これは $\gamma = r(\cos\varphi + i\sin\varphi)$，$-\dfrac{\pi}{4} \le \varphi \le \dfrac{\pi}{4}$，$r\cos\varphi = \dfrac{1}{\sqrt2}$ と表せる。</p>
+      <p>$\gamma^6 = r^6(\cos 6\varphi + i\sin 6\varphi)$ が負の実数になるには $6\varphi = \pi + 2k\pi$。$-\dfrac{3\pi}{2} \le 6\varphi \le \dfrac{3\pi}{2}$ より $6\varphi = \pm\pi$、つまり $\varphi = \pm\dfrac{\pi}{6}$。このとき</p>
+      $$r = \frac{1}{\sqrt2\cos\frac{\pi}{6}} = \sqrt{\frac23},\qquad |\gamma|^6 = \left(\frac23\right)^3 = \frac{8}{27}$$
+      <p>一方 $7\gamma^6 = -1$ には $|\gamma|^6 = \dfrac17$ が必要で、$\dfrac{8}{27} \neq \dfrac17$（$56 \neq 27$）。よって条件をみたす $\gamma$ は存在せず、平均値の性質をもたない。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>左は線分 $\alpha\beta$ と点 $\gamma$、右は $\gamma$ が線分上を動くときの $f'(\gamma)$ の軌跡（青）と平均変化率 $M = \dfrac{f(\beta) - f(\alpha)}{\beta - \alpha}$（赤の ×）です。<b>青い曲線が × を通れば</b>平均値の性質をもちます。</p>
+
+  <div class="widget">
+    <div class="row">
+      <label class="no-math">問題：<select id="mode">
+        <option value="1">(1) f = x²（α, β は任意）</option>
+        <option value="2" selected>(2) f = x³ + ax²，α = 1 − i，β = 1 + i</option>
+        <option value="3">(3) f = x⁷，α, β = (1 ∓ i)/√2</option>
+      </select></label>
+    </div>
+    <div class="row" id="rowA"><label>a：<input type="range" id="a" min="-600" max="200" value="0"></label><span class="readout no-math" id="av"></span>
+      <button id="am3">a = −3 にする</button></div>
+    <div class="row" id="rowR"><button id="rnd">α, β をランダムに変える</button></div>
+    <div class="row"><label>γ の位置 s：<input type="range" id="s" min="0" max="1000" value="500"></label></div>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv1" class="fig" width="300" height="300"></canvas>
+      <canvas id="cv2" class="fig" width="300" height="300"></canvas>
+    </div>
+    <div class="no-math" id="info" style="margin-top:6px;line-height:1.8"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>平均値の定理は複素数では成り立たない</h3>
+  <p>実数の関数については、平均値の定理「$\dfrac{f(b) - f(a)}{b - a} = f'(c)$ となる $c$ が $a$ と $b$ の間にある」が成り立ちます。本問は、これを複素数に拡張しようとすると<b>一般には成り立たない</b>こと（(3)）、でも 2 次式なら成り立つこと（(1)）を体験させる問題です。</p>
+  <p>大学の複素解析では、代わりに次のような結果が知られています。</p>
+  <ul>
+    <li><b>Grace–Heawood の定理</b>：$n$ 次多項式 $f$ が $f(z_1) = f(z_2)$ をみたすなら、$f'$ は $z_1,\ z_2$ の中点を中心とする半径 $\dfrac{|z_1 - z_2|}{2}\cot\dfrac{\pi}{n}$ の円板内に零点をもつ。</li>
+  </ul>
+  <p>$g(z) = f(z) - Mz$（$M$ は平均変化率）に適用すると $g(\alpha) = g(\beta)$ なので、$f'(\gamma) = M$ をみたす $\gamma$ は「線分上」とは限らないが「線分 $\alpha\beta$ の中点を中心とするある円板の中」には必ずある、ということになります。$n = 2$ なら $\cot\frac{\pi}{2} = 0$ で中点そのもの、という (1) とも合っています。</p>
+  <h3>見た目ほど難しくない</h3>
+  <p>chopin 先生は「『平均値の性質』という造語が出てきて身構えるが、見た目ほどは難しくない」と評しています。長い定義文に圧倒されず、<b>線分上の点を実数パラメータ 1 つで表す</b>という基本に戻れるかがポイントです。</p>
+  <div class="point">線分 $\alpha\beta$ 上の点は $\gamma = (1 - t)\alpha + t\beta\ (0 \le t \le 1)$。本問のように線分が軸に平行なら $\gamma = (\text{定数}) + si$ でさらに簡単になる。複素数の等式は「実部・虚部」または「絶対値・偏角」に分けて比べる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\alpha = 1$，$\beta = i$，$f(x) = x^3$ は平均値の性質をもたないことを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>平均変化率は $\alpha^2 + \alpha\beta + \beta^2 = 1 + i - 1 = i$。$3\gamma^2 = i$ より $\gamma^2 = \dfrac{i}{3}$、$\gamma = \pm\dfrac{1 + i}{\sqrt6}$。線分 $\alpha\beta$ 上の点は「実部 + 虚部 $= 1$，ともに $0$ 以上」をみたすが、$\pm\dfrac{1 + i}{\sqrt6}$ の実部 + 虚部は $\pm\dfrac{2}{\sqrt6} \neq 1$。よって平均値の性質をもたない。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\alpha = 1 - i$，$\beta = 1 + i$，$f(x) = x^4 + ax^3$（$a$ は実数）が平均値の性質をもつような $a$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2021　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\alpha^2 + \beta^2 = 0$ より $\dfrac{\beta^4 - \alpha^4}{\beta - \alpha} = (\alpha + \beta)(\alpha^2 + \beta^2) = 0$，$\dfrac{\beta^3 - \alpha^3}{\beta - \alpha} = 2$ なので平均変化率は $2a$。$\gamma = 1 + si\ (|s| \le 1)$ とすると $\gamma^3 = (1 - 3s^2) + (3s - s^3)i$，$\gamma^2 = (1 - s^2) + 2si$ で、$4\gamma^3 + 3a\gamma^2 = 2a$ の実部・虚部は</p>
+    $$(a + 4)(1 - 3s^2) = 0,\qquad s(12 - 4s^2 + 6a) = 0$$
+    <ul>
+      <li>$s = 0$ のとき：$a = -4$（$\gamma = 1$）。</li>
+      <li>$s \neq 0$ のとき：$s^2 = 3 + \frac32a$。$a = -4$ だと $s^2 \lt 0$ で不適なので $s^2 = \frac13$、$a = -\frac{16}{9}$（$s^2 = \frac13 \le 1$ で適する）。</li>
+    </ul>
+    $$a = -4,\ -\frac{16}{9}$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const C = Fig.C;
+  const $ = (id) => document.getElementById(id);
+  let A = [1, -1], B = [1, 1]; // mode 1 の α, β
+  const r2 = Math.SQRT1_2;
+  function setup() {
+    const m = $("mode").value, a = $("a").value / 100;
+    if (m === "1") return { al: A, be: B, f: (z) => C.pow(z, 2), df: (z) => C.mul([2, 0], z), name: "f(x) = x²" };
+    if (m === "2") return { al: [1, -1], be: [1, 1],
+      f: (z) => C.add(C.pow(z, 3), C.mul([a, 0], C.pow(z, 2))),
+      df: (z) => C.add(C.mul([3, 0], C.pow(z, 2)), C.mul([2 * a, 0], z)), name: `f(x) = x³ + (${a.toFixed(2)})x²` };
+    return { al: [r2, -r2], be: [r2, r2], f: (z) => C.pow(z, 7), df: (z) => C.mul([7, 0], C.pow(z, 6)), name: "f(x) = x⁷" };
+  }
+  function bounds(pts, padFrac = 0.15) {
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    pts.forEach(([x, y]) => { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
+    x0 = Math.min(x0, 0); x1 = Math.max(x1, 0); y0 = Math.min(y0, 0); y1 = Math.max(y1, 0);
+    const d = Math.max(x1 - x0, y1 - y0, 1) * padFrac;
+    return { xmin: x0 - d, xmax: x1 + d, ymin: y0 - d, ymax: y1 + d, equal: true };
+  }
+  const niceStep = (r) => { const s = r / 6, p = Math.pow(10, Math.floor(Math.log10(s))); return [1, 2, 5, 10].map((k) => k * p).find((v) => v >= s); };
+  function draw() {
+    const m = $("mode").value, S = setup();
+    $("rowA").style.display = m === "2" ? "" : "none";
+    $("rowR").style.display = m === "1" ? "" : "none";
+    $("av").textContent = ` a = ${($("a").value / 100).toFixed(2)}`;
+    const t = $("s").value / 1000;
+    const seg = (u) => C.add(C.mul([1 - u, 0], S.al), C.mul([u, 0], S.be));
+    const g = seg(t);
+    const M = C.div(C.sub(S.f(S.be), S.f(S.al)), C.sub(S.be, S.al));
+    // 左：線分
+    const P1 = Fig.plane($("cv1"), bounds([S.al, S.be], 0.3));
+    P1.clear().grid(niceStep(P1.xmax - P1.xmin)).axes("実", "虚");
+    P1.line([S.al, S.be], "#8a1538", 2.5);
+    P1.dot(S.al[0], S.al[1], "#222", 4, "α").dot(S.be[0], S.be[1], "#222", 4, "β").dot(g[0], g[1], "#e8590c", 6, "γ");
+    // 右：f'(線分)
+    const N = 600, img = []; let best = Infinity, bestU = 0;
+    for (let i = 0; i <= N; i++) img.push(S.df(seg(i / N)));
+    for (let i = 0; i <= 4000; i++) { const u = i / 4000, d = C.abs(C.sub(S.df(seg(u)), M)); if (d < best) { best = d; bestU = u; } }
+    const P2 = Fig.plane($("cv2"), bounds(img.concat([M])));
+    P2.clear().grid(niceStep(P2.xmax - P2.xmin)).axes("実", "虚");
+    P2.line(img, "#1c7ed6", 2.2);
+    const fg = S.df(g);
+    P2.dot(fg[0], fg[1], "#e8590c", 6, "f′(γ)");
+    const X = P2.X(M[0]), Y = P2.Y(M[1]), c = P2.c;
+    c.strokeStyle = "#c92a2a"; c.lineWidth = 3; c.beginPath(); c.moveTo(X - 7, Y - 7); c.lineTo(X + 7, Y + 7); c.moveTo(X - 7, Y + 7); c.lineTo(X + 7, Y - 7); c.stroke();
+    P2.label("M", X + 8, Y - 8, "#c92a2a", "bold 13px sans-serif");
+    const ok = best < 2e-3 * Math.max(1, C.abs(M));
+    $("info").innerHTML = `${S.name}　α = ${C.fmt(S.al, 3)}，β = ${C.fmt(S.be, 3)}<br>` +
+      `γ = ${C.fmt(g, 3)}　f′(γ) = ${C.fmt(fg, 3)}　M = ${C.fmt(M, 3)}<br>` +
+      (ok ? `<span class="ok">✔ 軌跡が M を通る → 平均値の性質をもつ（γ ≈ ${C.fmt(seg(bestU), 3)}）</span>`
+          : `<span class="ng">✘ 軌跡は M を通らない（最も近づいても距離 ${best.toFixed(3)}）</span>`);
+  }
+  ["mode", "a", "s"].forEach((id) => $(id).addEventListener("input", draw));
+  $("am3").onclick = () => { $("a").value = -300; draw(); };
+  $("rnd").onclick = () => { const r = () => Math.round((Math.random() * 4 - 2) * 10) / 10; A = [r(), r()]; do { B = [r(), r()]; } while (B[0] === A[0] && B[1] === A[1]); draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

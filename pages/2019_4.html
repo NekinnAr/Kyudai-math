@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2019年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2019-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上の 3 点 $\mathrm{O}(0,\ 0)$，$\mathrm{A}(2,\ 0)$，$\mathrm{B}(1,\ \sqrt3)$ を考える。点 $\mathrm{P_1}$ は線分 $\mathrm{AB}$ 上にあり，$\mathrm{A}$，$\mathrm{B}$ とは異なる点とする。</p>
+    <p>線分 $\mathrm{AB}$ 上の点 $\mathrm{P_2},\ \mathrm{P_3},\ \cdots\cdots$ を以下のように順に定める。点 $\mathrm{P}_n$ が定まったとき，点 $\mathrm{P}_n$ から線分 $\mathrm{OB}$ に下ろした垂線と $\mathrm{OB}$ との交点を $\mathrm{Q}_n$ とし，点 $\mathrm{Q}_n$ から線分 $\mathrm{OA}$ に下ろした垂線と $\mathrm{OA}$ との交点を $\mathrm{R}_n$ とし，点 $\mathrm{R}_n$ から線分 $\mathrm{AB}$ に下ろした垂線と $\mathrm{AB}$ との交点を $\mathrm{P}_{n+1}$ とする。</p>
+    <p>$n \to \infty$ のとき，$\mathrm{P}_n$ が限りなく近づく点の座標を求めよ。</p>
+  </div>
+  <p class="source">（2019 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>座標でも解けるが、三角形 OAB が 1 辺 $2$ の正三角形であることを使い、<b>頂点からの距離</b>で追いかけると簡単。垂線を下ろすたびに「$\cos60^\circ = \frac12$ 倍」になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$\mathrm{OA} = \mathrm{AB} = \mathrm{BO} = 2$ より、三角形 OAB は 1 辺 $2$ の正三角形で、内角はすべて $60^\circ$。$s_n = \mathrm{BP}_n$ とおく（$0 \lt s_1 \lt 2$）。</p>
+      <ul>
+        <li>$\mathrm{P}_n$ から OB に垂線：$\angle\mathrm{B} = 60^\circ$ より $\mathrm{BQ}_n = \frac{s_n}{2}$。よって $\mathrm{OQ}_n = 2 - \frac{s_n}{2}$。</li>
+        <li>$\mathrm{Q}_n$ から OA に垂線：$\angle\mathrm{O} = 60^\circ$ より $\mathrm{OR}_n = \frac12\mathrm{OQ}_n = 1 - \frac{s_n}{4}$。よって $\mathrm{AR}_n = 1 + \frac{s_n}{4}$。</li>
+        <li>$\mathrm{R}_n$ から AB に垂線：$\angle\mathrm{A} = 60^\circ$ より $\mathrm{AP}_{n+1} = \frac12\mathrm{AR}_n = \frac12 + \frac{s_n}{8}$。</li>
+      </ul>
+      <p>（いずれも垂線の足は線分の内部にある。）よって</p>
+      $$s_{n+1} = 2 - \mathrm{AP}_{n+1} = \frac32 - \frac{s_n}{8}$$
+      <p>$\alpha = \frac32 - \frac\alpha8$ をみたす $\alpha = \frac43$ を用いると</p>
+      $$s_{n+1} - \frac43 = -\frac18\left(s_n - \frac43\right) \quad\therefore\ s_n - \frac43 = \left(-\frac18\right)^{n-1}\left(s_1 - \frac43\right) \to 0$$
+      <p>よって $\mathrm{BP}_n \to \frac43$。$\mathrm{P}_n$ が近づく点は、B から A の方向へ $\frac43$（AB の $\frac23$）進んだ点で</p>
+      $$(1,\ \sqrt3) + \frac23(1,\ -\sqrt3) = \left(\frac53,\ \frac{\sqrt3}{3}\right)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$\mathrm{P_1}$ の位置を動かすと、P → Q → R → P → … と垂線をたどる折れ線が描かれます。どこから始めても、すぐに同じ点（緑）に吸い寄せられることが分かります。</p>
+
+  <div class="widget">
+    <label>P₁ の位置 BP₁：<input type="range" id="s" min="1" max="199" value="20"></label>
+    <span class="readout no-math" id="sv"></span>
+    <label>ステップ数：<input type="range" id="k" min="1" max="8" value="4"></label>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="320"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>縮小写像と不動点</h3>
+  <p>「P から P' を作る操作」は 1 次関数 $s \mapsto \frac32 - \frac s8$ で、距離を $\frac18$ 倍に縮めます。このような<b>縮小写像</b>を繰り返すと、どこから始めても<b>ただ 1 つの不動点</b>に収束します（バナッハの不動点定理）。</p>
+  <p>極限の点 $\mathrm{P}$ と、そこから作られる $\mathrm{Q},\ \mathrm{R}$ を結ぶと、三角形 PQR は各辺が OAB の辺と垂直な三角形、つまり<b>正三角形</b>になっています（類題 1）。</p>
+  <p>chopin 先生は「少々手間はかかりますが、$\mathrm{P}(x_n,\ y_n)$ とおいて、$x_n,\ y_n$ の漸化式を立てて一般項を求めに行きましょう」とコメントしています。座標の代わりに距離 1 つで追うと、漸化式が 1 本で済みます。</p>
+  <div class="point">点の列の極限は、<b>1 変数（距離・比・パラメータ）</b>で位置を表して漸化式 $s_{n+1} = ps_n + q$ を作る。$|p| \lt 1$ なら不動点に収束。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問で $\mathrm{P_1}$ を極限の点 $\left(\frac53,\ \frac{\sqrt3}{3}\right)$ にとる。三角形 $\mathrm{P_1Q_1R_1}$ は正三角形であることを示し，その面積が三角形 OAB の面積の何倍か求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$s_1 = \frac43$ より $\mathrm{BQ_1} = \frac23$、$\mathrm{Q_1} = \left(\frac23,\ \frac{2\sqrt3}{3}\right)$、$\mathrm{OR_1} = \frac23$、$\mathrm{R_1} = \left(\frac23,\ 0\right)$。</p>
+    $$\mathrm{P_1Q_1}^2 = 1 + \frac13,\quad \mathrm{Q_1R_1}^2 = \frac43,\quad \mathrm{R_1P_1}^2 = 1 + \frac13$$
+    <p>3 辺とも $\frac{2}{\sqrt3}$ で正三角形。面積比は $\left(\frac{2/\sqrt3}{2}\right)^2 = \dfrac13$ 倍。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\mathrm{O}(0,\ 0)$，$\mathrm{A}(2,\ 0)$，$\mathrm{B}(1,\ 2)$ として本問と同じ操作を行うとき，$\mathrm{P}_n$ が限りなく近づく点の座標を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2019　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{P}_n = (2 - u_n,\ 2u_n)$（$0 \lt u_n \lt 1$）とおく。OB 方向の単位ベクトル $\frac{1}{\sqrt5}(1,\ 2)$ への正射影より $\mathrm{Q}_n = \frac{2 + 3u_n}{5}(1,\ 2)$、$\mathrm{R}_n = \left(\frac{2 + 3u_n}{5},\ 0\right)$。$\cos A = \frac{1}{\sqrt5}$，$\mathrm{AB} = \sqrt5$ より</p>
+    $$u_{n+1} = \frac{\mathrm{AR}_n\cos A}{\mathrm{AB}} = \frac{\mathrm{AR}_n}{5} = \frac{8 - 3u_n}{25}$$
+    <p>不動点は $u = \frac27$、$u_n - \frac27 = \left(-\frac{3}{25}\right)^{n-1}\left(u_1 - \frac27\right) \to 0$。極限の点は $\left(\dfrac{12}{7},\ \dfrac47\right)$。</p>
+    <p>（縮小率 $\frac{3}{25}$ は $\cos O\cos A\cos B = \frac{1}{\sqrt5}\cdot\frac{1}{\sqrt5}\cdot\frac35$。本問では $\left(\frac12\right)^3 = \frac18$ でした。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.2, xmax: 2.2, ymin: -0.2, ymax: 1.9, equal: true });
+  const O = [0, 0], A = [2, 0], B = [1, Math.sqrt(3)];
+  const foot = (p, u, v) => { const d = [v[0] - u[0], v[1] - u[1]], k = ((p[0] - u[0]) * d[0] + (p[1] - u[1]) * d[1]) / (d[0] * d[0] + d[1] * d[1]); return [u[0] + k * d[0], u[1] + k * d[1]]; };
+  const lim = [5 / 3, Math.sqrt(3) / 3];
+  function draw() {
+    const s1 = $("s").value / 100, K = +$("k").value;
+    $("sv").textContent = ` ${s1.toFixed(2)}`;
+    P.clear().grid(0.5, "#f3f3f3").axes();
+    P.fill([O, A, B], "rgba(138,21,56,.06)").line([O, A, B, O], "#8a1538", 2);
+    P.dot(O[0], O[1], "#222", 3, "O", -14, 14).dot(A[0], A[1], "#222", 3, "A", 4, 14).dot(B[0], B[1], "#222", 3, "B", 6, -2);
+    let p = [B[0] + (A[0] - B[0]) * s1 / 2, B[1] + (A[1] - B[1]) * s1 / 2];
+    const list = [];
+    for (let i = 1; i <= K; i++) {
+      const q = foot(p, O, B), r = foot(q, O, A), np = foot(r, A, B);
+      const alpha = Math.max(0.25, 1 - (i - 1) * 0.15);
+      P.line([p, q, r, np], `rgba(28,126,214,${alpha})`, 1.6);
+      P.dot(p[0], p[1], "#c92a2a", 4, i <= 2 ? `P${i}` : "");
+      if (i === 1) { P.dot(q[0], q[1], "#1c7ed6", 3, "Q1", -22, -2).dot(r[0], r[1], "#1c7ed6", 3, "R1", -6, 16); }
+      list.push(`BP<sub>${i}</sub> = ${(2 * Math.hypot(p[0] - B[0], p[1] - B[1]) / 2).toFixed(6)}`);
+      p = np;
+    }
+    list.push(`BP<sub>${K + 1}</sub> = ${Math.hypot(p[0] - B[0], p[1] - B[1]).toFixed(6)}`);
+    P.dot(lim[0], lim[1], "#2b8a3e", 6, "極限", 8, -4);
+    $("info").innerHTML = list.join("<br>") + `<br><span class="ok">→ 4/3 = 1.333333…</span><br>極限の点 (5/3, √3/3)`;
+  }
+  ["s", "k"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

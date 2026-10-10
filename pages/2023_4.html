@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2023年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2023-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の文章を読んで後の問いに答えよ。</p>
+    <div style="border:1px solid #bbb;padding:10px 14px;margin:8px 0;background:#fff">
+      <p>三角関数 $\cos x,\ \sin x$ については加法定理が成立するが，逆に加法定理を満たす関数はどのようなものがあるだろうか。実数全体を定義域とする実数値関数 $f(x),\ g(x)$ が以下の条件を満たすとする。</p>
+      <p>(A)　すべての $x,\ y$ について $f(x + y) = f(x)f(y) - g(x)g(y)$<br>
+         (B)　すべての $x,\ y$ について $g(x + y) = f(x)g(y) + g(x)f(y)$<br>
+         (C)　$f(0) \neq 0$<br>
+         (D)　$f(x),\ g(x)$ は $x = 0$ で微分可能で $f'(0) = 0,\ g'(0) = 1$</p>
+      <p><u>条件 (A), (B), (C) から $f(0) = 1,\ g(0) = 0$ がわかる。</u>①　以上のことから <u>$f(x),\ g(x)$ はすべての $x$ の値で微分可能で，$f'(x) = -g(x),\ g'(x) = f(x)$ が成立する</u>②ことが示される。上のことから <u>$\{f(x) + ig(x)\}(\cos x - i\sin x) = 1$ であることが，実部と虚部を調べることによりわかる。</u>③　ただし $i$ は虚数単位である。よって条件 (A), (B), (C), (D) を満たす関数は三角関数 $f(x) = \cos x,\ g(x) = \sin x$ であることが示される。</p>
+      <p>さらに，$a,\ b$ を実数で $b \neq 0$ とする。このとき条件 (D) をより一般的な</p>
+      <p>(D)′　$f(x),\ g(x)$ は $x = 0$ で微分可能で $f'(0) = a,\ g'(0) = b$</p>
+      <p>におきかえて，条件 (A), (B), (C), (D)′ を満たす $f(x),\ g(x)$ はどのような関数になるか考えてみる。この場合でも，条件 (A), (B), (C) から $f(0) = 1,\ g(0) = 0$ が上と同様にわかる。ここで</p>
+      $$p(x) = e^{-\frac{a}{b}x}f\left(\frac{x}{b}\right),\qquad q(x) = e^{-\frac{a}{b}x}g\left(\frac{x}{b}\right)$$
+      <p>とおくと，<u>条件 (A), (B), (C), (D) において，$f(x)$ を $p(x)$ に，$g(x)$ を $q(x)$ におきかえた条件が満たされる。</u>④　すると前半の議論により，$p(x),\ q(x)$ がまず求まり，このことを用いると $f(x) = \fbox{ア}$，$g(x) = \fbox{イ}$ が得られる。</p>
+    </div>
+    <ol>
+      <li>(1)　下線部 ① について，$f(0) = 1,\ g(0) = 0$ となることを示せ。</li>
+      <li>(2)　下線部 ② について，$f(x)$ がすべての $x$ の値で微分可能な関数であり，$f'(x) = -g(x)$ となることを示せ。</li>
+      <li>(3)　下線部 ③ について，下線部 ①，下線部 ② の事実を用いることにより，$\{f(x) + ig(x)\}(\cos x - i\sin x) = 1$ となることを示せ。</li>
+      <li>(4)　下線部 ④ について，条件 (B), (D) において，$f(x)$ を $p(x)$ に，$g(x)$ を $q(x)$ におきかえた条件が満たされることを示せ。つまり $p(x)$ と $q(x)$ が，<br>
+        　(B)　すべての $x,\ y$ について $q(x + y) = p(x)q(y) + q(x)p(y)$<br>
+        　(D)　$p(x),\ q(x)$ は $x = 0$ で微分可能で $p'(0) = 0,\ q'(0) = 1$<br>
+        を満たすことを示せ。また空欄 $\fbox{ア}$，$\fbox{イ}$ に入る関数を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2023 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>問題文が長いが、やることは誘導どおり。(1) は $x = y = 0$ を代入、(2) は<b>微分の定義</b>に戻って加法定理で展開、(3) は「導関数が $0$ なら定数」。(4) は代入して確かめるだけ。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>(A), (B) で $x = y = 0$ とすると</p>
+      $$f(0) = f(0)^2 - g(0)^2\quad\cdots\text{(i)},\qquad g(0) = 2f(0)g(0)\quad\cdots\text{(ii)}$$
+      <p>$g(0) \neq 0$ と仮定すると、(ii) より $f(0) = \frac12$。(i) に代入すると $g(0)^2 = \frac14 - \frac12 \lt 0$ となり、$g(0)$ が実数であることに反する。よって $g(0) = 0$。すると (i) より $f(0) = f(0)^2$ で、(C) より $f(0) = 1$。</p>
+
+      <h3>(2)</h3>
+      <p>(A) と (1) より、$h \neq 0$ のとき</p>
+      $$\frac{f(x + h) - f(x)}{h} = f(x)\cdot\frac{f(h) - f(0)}{h} - g(x)\cdot\frac{g(h) - g(0)}{h}$$
+      <p>$h \to 0$ のとき、(D) より右辺は $f(x)f'(0) - g(x)g'(0) = -g(x)$ に収束する。よって $f(x)$ はすべての $x$ で微分可能で $f'(x) = -g(x)$。（同様に (B) から $g'(x) = f(x)$。）</p>
+
+      <h3>(3)</h3>
+      <p>$F(x) = f(x)\cos x + g(x)\sin x$，$G(x) = g(x)\cos x - f(x)\sin x$ とおくと</p>
+      $$\{f(x) + ig(x)\}(\cos x - i\sin x) = F(x) + iG(x)$$
+      <p>(2) を用いて微分すると</p>
+      $$\begin{aligned}
+        F'(x) &= -g\cos x - f\sin x + f\sin x + g\cos x = 0 \\
+        G'(x) &= f\cos x - g\sin x - (-g)\sin x - f\cos x = 0
+      \end{aligned}$$
+      <p>よって $F,\ G$ は定数で、(1) より $F(x) = F(0) = f(0) = 1$，$G(x) = G(0) = g(0) = 0$。したがって $\{f(x) + ig(x)\}(\cos x - i\sin x) = 1$。</p>
+      <p>（両辺に $\cos x + i\sin x$ をかけると $f(x) + ig(x) = \cos x + i\sin x$。実部・虚部を比べて $f(x) = \cos x,\ g(x) = \sin x$。）</p>
+
+      <h3>(4)</h3>
+      <p>$k = \dfrac{a}{b}$ とおく。(B) より</p>
+      $$\begin{aligned}
+        q(x + y) &= e^{-k(x+y)}g\left(\frac xb + \frac yb\right) = e^{-kx}e^{-ky}\left\{f\left(\frac xb\right)g\left(\frac yb\right) + g\left(\frac xb\right)f\left(\frac yb\right)\right\} \\
+        &= p(x)q(y) + q(x)p(y)
+      \end{aligned}$$
+      <p>また $f(x),\ g(x)$ は $x = 0$ で微分可能なので、$p(x),\ q(x)$ も $x = 0$ で微分可能で</p>
+      $$p'(0) = -k f(0) + \frac1b f'(0) = -\frac ab + \frac ab = 0,\qquad q'(0) = -k g(0) + \frac1b g'(0) = 0 + \frac bb = 1$$
+      <p>（(A), (C) も同様に成り立つ。$p(0) = f(0) \neq 0$。）よって前半の議論から $p(x) = \cos x,\ q(x) = \sin x$。$x = bt$ とおくと $f(t) = e^{kbt}p(bt) = e^{at}\cos bt$ なので</p>
+      $$\fbox{ア} = e^{ax}\cos bx,\qquad \fbox{イ} = e^{ax}\sin bx$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$f(x) = e^{ax}\cos bx$，$g(x) = e^{ax}\sin bx$ のグラフ（左）と、点 $(f(x),\ g(x))$ が描く曲線（右）です。$a = 0,\ b = 1$ なら単位円（三角関数）、$a \neq 0$ なら<b>らせん</b>になります。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="-50" max="50" value="15"></label> <span class="readout no-math" id="av"></span>　
+    <label>b：<input type="range" id="b" min="-30" max="30" value="10"></label> <span class="readout no-math" id="bv"></span><br>
+    <label>x：<input type="range" id="x" min="0" max="1000" value="400"></label> <span class="readout no-math" id="xv"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="c1" class="fig" width="340" height="240"></canvas>
+      <canvas id="c2" class="fig" width="260" height="260"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>加法定理 = 指数法則</h3>
+  <p>(A), (B) は、複素数 $\varphi(x) = f(x) + ig(x)$ を使うと 1 本の式</p>
+  $$\varphi(x + y) = \varphi(x)\varphi(y)$$
+  <p>にまとまります（右辺を展開して実部・虚部を比べてみてください）。これは指数関数の性質そのものです。オイラーの公式 $e^{ix} = \cos x + i\sin x$ を認めれば、答えは</p>
+  $$f(x) + ig(x) = e^{(a + bi)x} = e^{ax}(\cos bx + i\sin bx)$$
+  <p>と一行で書けます。(3) の $\{f + ig\}(\cos x - i\sin x) = 1$ は、$\varphi(x)e^{-ix} = 1$ を高校の範囲で示していることになります。</p>
+  <h3>関数方程式</h3>
+  <p>「$f(x + y) = f(x)f(y)$ をみたす関数は指数関数」のように、関数の性質から関数そのものを決める問題を<b>関数方程式</b>と呼びます。微分可能性（本問では $x = 0$ だけ！）を仮定すると、微分の定義から $f'$ が計算でき、微分方程式に帰着できるのがポイントです。chopin 先生は「問題文が強制的に解法を誘導しているため解きにくい」とコメントしており、共通テスト風の読解型の出題でした。</p>
+  <div class="point">「$x = 0$ で微分可能」しか仮定がなくても、<b>加法定理で $f(x + h)$ を分解すれば、すべての $x$ での微分可能性が導ける</b>。関数方程式の定番テクニックです。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>実数全体で定義された関数 $f(x)$ が，すべての実数 $x,\ y$ について $f(x + y) = f(x)f(y)$ をみたし，$f(0) \neq 0$，さらに $x = 0$ で微分可能で $f'(0) = a$ であるとする。$f(x) = e^{ax}$ であることを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x = y = 0$ として $f(0) = f(0)^2$、$f(0) \neq 0$ より $f(0) = 1$。$\dfrac{f(x + h) - f(x)}{h} = f(x)\dfrac{f(h) - 1}{h} \to af(x)$ より $f'(x) = af(x)$。$F(x) = e^{-ax}f(x)$ とおくと $F'(x) = e^{-ax}(f'(x) - af(x)) = 0$ で、$F(x) = F(0) = 1$。よって $f(x) = e^{ax}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>実数全体で定義された関数 $f(x),\ g(x)$ が次の条件をみたすとする。$f(x),\ g(x)$ を求めよ。<br>
+      (A)′　すべての $x,\ y$ について $f(x + y) = f(x)f(y) + g(x)g(y)$<br>
+      (B)　すべての $x,\ y$ について $g(x + y) = f(x)g(y) + g(x)f(y)$<br>
+      (C)　$f(0) \neq 0$，$f(0) + g(0) \neq 0$，$f(0) - g(0) \neq 0$<br>
+      (D)　$f(x),\ g(x)$ は $x = 0$ で微分可能で $f'(0) = 0,\ g'(0) = 1$</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2023　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(A)′ ± (B) より、$u = f + g$，$w = f - g$ はそれぞれ</p>
+    $$u(x + y) = u(x)u(y),\qquad w(x + y) = w(x)w(y)$$
+    <p>をみたす（右辺を展開して確かめられる）。$u(0),\ w(0) \neq 0$ で $u'(0) = 1$，$w'(0) = -1$ なので、類題（自作）より $u = e^x$，$w = e^{-x}$。よって</p>
+    $$f(x) = \frac{e^x + e^{-x}}{2},\qquad g(x) = \frac{e^x - e^{-x}}{2}$$
+    <p>これらは<b>双曲線関数</b> $\cosh x,\ \sinh x$ と呼ばれ、点 $(f(x),\ g(x))$ は双曲線 $X^2 - Y^2 = 1$ の上を動きます。加法定理の符号を 1 つ変えると、円が双曲線に変わるわけです。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P1 = Fig.plane(document.getElementById("c1"), { xmin: -0.3, xmax: 10.3, ymin: -3.2, ymax: 3.2 });
+  const P2 = Fig.plane(document.getElementById("c2"), { xmin: -3, xmax: 3, ymin: -3, ymax: 3, equal: true });
+  const aIn = document.getElementById("a"), bIn = document.getElementById("b"), xIn = document.getElementById("x");
+  function draw() {
+    const a = aIn.value / 100, b = bIn.value / 10, x0 = xIn.value / 100;
+    document.getElementById("av").textContent = ` ${a.toFixed(2)}`;
+    document.getElementById("bv").textContent = ` ${b.toFixed(1)}` + (b === 0 ? "（本問では b ≠ 0）" : "");
+    document.getElementById("xv").textContent = ` ${x0.toFixed(2)}`;
+    const f = (x) => Math.exp(a * x) * Math.cos(b * x), g = (x) => Math.exp(a * x) * Math.sin(b * x);
+    P1.clear().axes("x", "");
+    P1.fn((x) => Math.exp(a * x), 0, 10, "#ccc", 1, 200, [3, 3]).fn((x) => -Math.exp(a * x), 0, 10, "#ccc", 1, 200, [3, 3]);
+    P1.fn(f, 0, 10, "#8a1538", 2, 500).fn(g, 0, 10, "#1c7ed6", 2, 500);
+    P1.label("f(x) = e^(ax) cos bx", 150, 14, "#8a1538").label("g(x) = e^(ax) sin bx", 150, 30, "#1c7ed6");
+    P1.line([[x0, -3.2], [x0, 3.2]], "#999", 1, [3, 3]);
+    P1.dot(x0, f(x0), "#8a1538", 4).dot(x0, g(x0), "#1c7ed6", 4);
+    P2.clear().axes("f", "g").circle(0, 0, 1, "#ddd");
+    P2.param(f, g, 0, 10, "#2b8a3e", 2, 800);
+    P2.line([[0, 0], [f(x0), g(x0)]], "#999", 1, [3, 3]);
+    P2.dot(f(x0), g(x0), "#222", 5);
+    P2.label("(f(x), g(x))", 8, 16, "#2b8a3e");
+  }
+  [aIn, bIn, xIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

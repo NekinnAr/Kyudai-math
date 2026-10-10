@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2020年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2020-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>四面体 $\mathrm{OABC}$ において，辺 $\mathrm{OA}$ の中点と辺 $\mathrm{BC}$ の中点を通る直線を $\ell$，辺 $\mathrm{OB}$ の中点と辺 $\mathrm{CA}$ の中点を通る直線を $m$，辺 $\mathrm{OC}$ の中点と辺 $\mathrm{AB}$ の中点を通る直線を $n$ とする。$\ell \perp m$，$m \perp n$，$n \perp \ell$ であり，$\mathrm{AB} = \sqrt5$，$\mathrm{BC} = \sqrt3$，$\mathrm{CA} = 2$ のとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　直線 $\mathrm{OB}$ と直線 $\mathrm{CA}$ のなす角 $\theta\ \left(0 \le \theta \le \dfrac{\pi}{2}\right)$ を求めよ。</li>
+      <li>(2)　四面体 $\mathrm{OABC}$ の 4 つの頂点をすべて通る球の半径を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2020 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$\vec a = \overrightarrow{\mathrm{OA}}$ などとおいて垂直条件を内積で書くと、「向かい合う辺の長さが等しい」ことが分かる（<b>等面四面体</b>）。すると四面体は直方体にすっぽり埋め込めて、(2) は直方体の対角線の半分になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\vec a = \overrightarrow{\mathrm{OA}},\ \vec b = \overrightarrow{\mathrm{OB}},\ \vec c = \overrightarrow{\mathrm{OC}}$ とする。$\ell$ の方向ベクトルは $\dfrac{\vec b + \vec c}{2} - \dfrac{\vec a}{2}$ より $\vec b + \vec c - \vec a$。同様に $m,\ n$ の方向ベクトルは $\vec c + \vec a - \vec b$，$\vec a + \vec b - \vec c$。</p>
+      $$\ell \perp m \iff (\vec c + (\vec b - \vec a))\cdot(\vec c - (\vec b - \vec a)) = 0 \iff |\vec c|^2 = |\vec b - \vec a|^2 \iff \mathrm{OC} = \mathrm{AB}$$
+      <p>同様に $m \perp n \iff \mathrm{OA} = \mathrm{BC}$，$n \perp \ell \iff \mathrm{OB} = \mathrm{CA}$。よって</p>
+      $$|\vec a| = \sqrt3,\quad |\vec b| = 2,\quad |\vec c| = \sqrt5$$
+      <p>$|\vec a - \vec b|^2 = 5$ より $3 - 2\vec a\cdot\vec b + 4 = 5$、$\vec a\cdot\vec b = 1$。$|\vec b - \vec c|^2 = 3$ より $4 - 2\vec b\cdot\vec c + 5 = 3$、$\vec b\cdot\vec c = 3$。</p>
+      $$\overrightarrow{\mathrm{OB}}\cdot\overrightarrow{\mathrm{CA}} = \vec b\cdot(\vec a - \vec c) = 1 - 3 = -2$$
+      $$\cos\theta = \frac{|\overrightarrow{\mathrm{OB}}\cdot\overrightarrow{\mathrm{CA}}|}{\mathrm{OB}\cdot\mathrm{CA}} = \frac{2}{2 \cdot 2} = \frac12 \qquad\therefore\ \theta = \frac{\pi}{3}$$
+
+      <h3>(2)</h3>
+      <p>向かい合う辺の長さが等しいので、四面体は直方体の 4 つの頂点を結んでできる（各辺が直方体の面の対角線になる）。直方体の 3 辺を $p,\ q,\ r$ とすると</p>
+      $$p^2 + q^2 = 5,\quad q^2 + r^2 = 3,\quad r^2 + p^2 = 4$$
+      <p>辺々加えて $p^2 + q^2 + r^2 = 6$。四面体の外接球は直方体の外接球と同じなので、半径は直方体の対角線の半分。</p>
+      $$R = \frac{\sqrt{p^2 + q^2 + r^2}}{2} = \frac{\sqrt6}{2}$$
+      <p>（直方体を使わない場合：外接球の中心を $\overrightarrow{\mathrm{OT}} = s\vec a + t\vec b + u\vec c$ とおき、$|\overrightarrow{\mathrm{OT}}| = |\overrightarrow{\mathrm{AT}}| = |\overrightarrow{\mathrm{BT}}| = |\overrightarrow{\mathrm{CT}}|$ から $s,\ t,\ u$ を決めても同じ結果になります。）</p>
+      <p>実際、$p = \sqrt3,\ q = \sqrt2,\ r = 1$ で $\mathrm{O}(0,0,0)$，$\mathrm{A}(0,\sqrt2,1)$，$\mathrm{B}(\sqrt3,0,1)$，$\mathrm{C}(\sqrt3,\sqrt2,0)$ とおくと、すべての条件をみたします。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>ドラッグで回転できます。四面体 OABC（赤）が直方体（灰色）にぴったり収まり、3 本の直線 $\ell,\ m,\ n$（青・緑・オレンジ）は直方体の中心を通って各面に垂直、つまり互いに垂直です。</p>
+
+  <div class="widget">
+    <label class="no-math"><input type="checkbox" id="box" checked> 直方体</label>
+    <label class="no-math"><input type="checkbox" id="lmn" checked> 直線 ℓ, m, n</label>
+    <label class="no-math"><input type="checkbox" id="sph" checked> 外接球</label>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="420" height="360"></canvas>
+    </div>
+    <div class="no-math readout" id="info"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>等面四面体</h3>
+  <p>向かい合う 3 組の辺の長さがそれぞれ等しい四面体を<b>等面四面体</b>といいます。4 つの面がすべて合同な三角形（本問では 3 辺が $\sqrt3,\ 2,\ \sqrt5$）になるからです。等面四面体は必ず直方体に埋め込めるので、体積・外接球・内接球などが直方体を使ってすっきり計算できます。大学入試では頻出のテーマです。</p>
+  <h3>chopin 先生のコメント</h3>
+  <p>chopin 先生はこの問題を「難問といえる」とし、2020 年のセットで最も難しいと評価しています（約 57 分）。「$\mathrm{OA},\ \mathrm{OB},\ \mathrm{OC}$ の長さをどう出すかで、実は余弦定理でうまくいく」「(2) で『内接球』と勘違いして途中で引き返した」とのこと。また、数学系 YouTuber の AKITO さんが<b>中学数学だけで解く解法</b>を紹介しているとも追記しています。直方体に埋め込む方法は、まさに中学生でも分かる発想です。</p>
+  <div class="point">四面体の問題で「向かい合う辺が等しい」「中点を結ぶ線分が垂直」などが出たら、<b>直方体への埋め込み</b>を疑う。3 辺 $p,\ q,\ r$ の直方体から 4 隅を切り落とすと体積 $\dfrac{pqr}{3}$ の等面四面体が残る。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の四面体 $\mathrm{OABC}$ の体積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>直方体（体積 $pqr = \sqrt3\cdot\sqrt2\cdot1 = \sqrt6$）から、4 隅の三角錐（それぞれ体積 $\frac16 pqr$）を除くと</p>
+    $$V = pqr - 4\cdot\frac{pqr}{6} = \frac{pqr}{3} = \frac{\sqrt6}{3}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の四面体 $\mathrm{OABC}$ に内接する球の半径を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2020　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>4 つの面は 3 辺が $\sqrt3,\ 2,\ \sqrt5$ の合同な三角形。その面積 $S$ は、$\cos A = \dfrac{3 + 4 - 5}{2\cdot\sqrt3\cdot2} = \dfrac{1}{2\sqrt3}$，$\sin A = \sqrt{\dfrac{11}{12}}$ より</p>
+    $$S = \frac12\cdot\sqrt3\cdot2\cdot\sqrt{\frac{11}{12}} = \frac{\sqrt{11}}{2}$$
+    <p>体積 $V = \frac13 r\cdot 4S$ より</p>
+    $$r = \frac{3V}{4S} = \frac{\sqrt6}{2\sqrt{11}} = \frac{\sqrt{66}}{22}$$
+    <p>（chopin 先生が勘違いしかけた「内接球」バージョンです。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const p = Math.sqrt(3), q = Math.sqrt(2), r = 1;
+  const ctr = [p / 2, q / 2, r / 2];
+  const V = Fig.view3d($("cv"), { scale: 95, center: ctr, az: -0.9, el: 0.35, onChange: () => draw() });
+  const O = [0, 0, 0], A = [0, q, r], B = [p, 0, r], C = [p, q, 0];
+  const v3 = Fig.v3, mid = (X, Y) => v3.mul(v3.add(X, Y), 0.5);
+  function draw() {
+    V.clear().axes(2.2);
+    if ($("box").checked) {
+      const b = (x, y, z) => [x * p, y * q, z * r];
+      const E = [[[0,0,0],[1,0,0]],[[0,1,0],[1,1,0]],[[0,0,1],[1,0,1]],[[0,1,1],[1,1,1]],[[0,0,0],[0,1,0]],[[1,0,0],[1,1,0]],[[0,0,1],[0,1,1]],[[1,0,1],[1,1,1]],[[0,0,0],[0,0,1]],[[1,0,0],[1,0,1]],[[0,1,0],[0,1,1]],[[1,1,0],[1,1,1]]];
+      E.forEach(([u, w]) => V.poly([b(...u), b(...w)], "#bbb", 1, [4, 3]));
+    }
+    if ($("sph").checked) {
+      const R = Math.sqrt(6) / 2, s = V.proj(ctr);
+      V.c.strokeStyle = "rgba(28,126,214,.35)"; V.c.lineWidth = 1.2; V.c.beginPath(); V.c.arc(s[0], s[1], V.st.scale * R, 0, 7); V.c.stroke();
+    }
+    [[O, A], [O, B], [O, C], [A, B], [B, C], [C, A]].forEach(([X, Y]) => V.poly([X, Y], "#8a1538", 2.2));
+    V.poly([A, B, C], null, 0, [], "rgba(138,21,56,.08)");
+    if ($("lmn").checked) {
+      [[O, A, B, C, "#1c7ed6", "ℓ"], [O, B, C, A, "#2b8a3e", "m"], [O, C, A, B, "#e8590c", "n"]].forEach(([X, Y, Z, W, col, nm]) => {
+        const M1 = mid(X, Y), M2 = mid(Z, W), d = v3.sub(M2, M1);
+        V.poly([v3.add(M1, v3.mul(d, -0.25)), v3.add(M2, v3.mul(d, 0.25))], col, 2);
+        V.dot(M1, col, 3.5).dot(M2, col, 3.5, nm);
+      });
+    }
+    V.dot(O, "#222", 4, "O").dot(A, "#222", 4, "A").dot(B, "#222", 4, "B").dot(C, "#222", 4, "C");
+  }
+  ["box", "lmn", "sph"].forEach((id) => $(id).addEventListener("input", draw));
+  const d = (X, Y) => v3.len(v3.sub(X, Y)).toFixed(3);
+  $("info").textContent = `AB = OC = ${d(A, B)}（√5）, BC = OA = ${d(B, C)}（√3）, CA = OB = ${d(C, A)}（2）　直方体 √3 × √2 × 1　外接球の半径 √6/2 ≈ ${(Math.sqrt(6) / 2).toFixed(3)}`;
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

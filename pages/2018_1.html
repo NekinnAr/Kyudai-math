@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2018-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間において，$xy$ 平面上にある双曲線 $x^2 - y^2 = 1$ のうち $x \ge 1$ を満たす部分を $C$ とする。また，$z$ 軸上の点 $\mathrm{A}(0,\ 0,\ 1)$ を考える。点 $\mathrm{P}$ が $C$ 上を動くとき，直線 $\mathrm{AP}$ と平面 $x = d$ との交点の軌跡を求めよ。ただし，$d$ は正の定数とする。</p>
+  </div>
+  <p class="source">（2018 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$\mathrm{P}(p,\ q,\ 0)$ とおいて交点を $p,\ q$ で表し、逆に $p,\ q$ を交点の座標で表して $p^2 - q^2 = 1$ に代入する（<b>逆像法</b>）。範囲の確認を忘れずに。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$\mathrm{P}(p,\ q,\ 0)$（$p^2 - q^2 = 1$，$p \ge 1$）とする。直線 AP 上の点は $(0,\ 0,\ 1) + s(p,\ q,\ -1)$。$x = d$ となるのは $s = \frac dp$ のときで、交点は</p>
+      $$(x,\ y,\ z) = \left(d,\ \frac{dq}{p},\ 1 - \frac dp\right)$$
+      <p>$y = \frac{dq}{p}$，$z = 1 - \frac dp$ より $1 - z = \frac dp \gt 0$ で、$p = \dfrac{d}{1 - z}$，$q = \dfrac{py}{d} = \dfrac{y}{1 - z}$。これを $p^2 - q^2 = 1$ に代入して</p>
+      $$\frac{d^2 - y^2}{(1 - z)^2} = 1 \iff y^2 + (z - 1)^2 = d^2$$
+      <p><b>範囲</b>：$p \ge 1$ より $0 \lt \frac dp \le d$、つまり $1 - d \le z \lt 1$。逆に、$y^2 + (z - 1)^2 = d^2$，$z \lt 1$ をみたす $(y,\ z)$ に対して $p = \frac{d}{1 - z},\ q = \frac{y}{1 - z}$ と定めると、$p^2 - q^2 = \frac{d^2 - y^2}{(1 - z)^2} = 1$，$p \gt 0$ なので $p \ge 1$ となり、対応する P が C 上に存在する。</p>
+      <p>よって求める軌跡は</p>
+      <p style="text-align:center"><b>平面 $x = d$ 上の半円 $y^2 + (z - 1)^2 = d^2$，$z \lt 1$</b></p>
+      <p>（中心 $(d,\ 0,\ 1)$，半径 $d$ の円の $z \lt 1$ の部分。両端の点 $(d,\ \pm d,\ 1)$ は含まない。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>P（赤）を双曲線上で動かすと、直線 AP と平面 $x = d$ の交点（オレンジ）が半円を描きます。P が遠くへ行くほど、交点は半円の端（高さ $z = 1$）に近づきます。図はドラッグで回転できます。</p>
+
+  <div class="widget">
+    <label>P の位置：<input type="range" id="t" min="-200" max="200" value="80"></label>
+    <label>d：<input type="range" id="d" min="20" max="200" value="80"></label>
+    <span class="readout no-math" id="info"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="460" height="360"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>双曲線関数によるパラメータ表示</h3>
+  <p>chopin 先生は「P をどう表現するかという初手でかなり左右される」とし、双曲線を $x = \frac{e^t + e^{-t}}{2},\ y = \frac{e^t - e^{-t}}{2}$（<b>双曲線関数</b> $\cosh t,\ \sinh t$）でパラメータ表示する方法を紹介しています。上の解答のように P を $(p,\ q)$ のまま扱い、逆に解いて代入する方法でも解けます。</p>
+  <h3>中心射影と円錐曲線</h3>
+  <p>点 A から見て、双曲線を平面 $x = d$ に<b>映した影</b>が円になる、というのが本問の内容です。点からの射影（中心射影）で円錐曲線は円錐曲線に移ります。双曲線は「円を斜めから見たもの」の一種で、見る位置を選ぶと円に戻せるのです。射影幾何学の入口となる話題です。</p>
+  <div class="point">軌跡は「動く点の座標 $(X,\ Y)$ を媒介変数で表し、媒介変数を $X,\ Y$ で表して条件式に代入」。<b>逆向きに解けるか（範囲）</b>の確認で、軌跡の除外点が決まる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$xy$ 平面上の放物線 $y = x^2$ の $x \gt 0$ の部分を点 P が動くとき，$\mathrm{A}(0,\ 0,\ 1)$ と P を通る直線と平面 $x = d\ (d \gt 0)$ との交点の軌跡を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{P}(t,\ t^2,\ 0)$ とすると交点は $\left(d,\ dt,\ 1 - \frac dt\right)$。$y = dt$ より $t = \frac yd$、$z = 1 - \frac{d^2}{y}$。$t \gt 0$ を $y \gt 0$ に対応させて</p>
+    <p style="text-align:center">平面 $x = d$ 上の曲線 $(z - 1)y = -d^2$，$y \gt 0$（双曲線の片方）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，$C$ を双曲線 $x^2 - y^2 = 1$ 全体（$x \le -1$ の部分も含む）に変えたとき，直線 AP と平面 $x = d$ との交点の軌跡を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2018　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>同じ計算で $y^2 + (z - 1)^2 = d^2$ が得られる。$p \le -1$ のとき $\frac dp \in [-d,\ 0)$ で $1 \lt z \le 1 + d$。また $\frac qp$ は $-1 \lt \frac qp \lt 1$ なので $y \neq \pm d$。よって軌跡は</p>
+    <p style="text-align:center"><b>円 $y^2 + (z - 1)^2 = d^2$（平面 $x = d$ 上）から 2 点 $(d,\ \pm d,\ 1)$ を除いたもの</b></p>
+    <p>欠けた 2 点は、双曲線の漸近線 $y = \pm x$ の方向（無限遠）に対応しています。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const V = Fig.view3d($("cv"), { scale: 55, center: [1.3, 0, 0.6], az: -1.0, el: 0.35, onChange: () => draw() });
+  function draw() {
+    const t = $("t").value / 100, d = $("d").value / 100;
+    const p = Math.cosh(t), q = Math.sinh(t);
+    V.clear().axes(3);
+    // 双曲線
+    const hyp = []; for (let i = -100; i <= 100; i++) { const u = i / 100 * 2.1; hyp.push([Math.cosh(u), Math.sinh(u), 0]); }
+    V.poly(hyp, "#8a1538", 2);
+    // 平面 x = d
+    V.poly([[d, -2.6, -1.2], [d, 2.6, -1.2], [d, 2.6, 2.6], [d, -2.6, 2.6]], "rgba(28,126,214,.4)", 1, [], "rgba(28,126,214,.06)", true);
+    // 軌跡（半円）
+    const arc = []; for (let i = 0; i <= 60; i++) { const a = Math.PI + i / 60 * Math.PI; arc.push([d, d * Math.cos(a), 1 + d * Math.sin(a)]); }
+    V.poly(arc, "#e8590c", 2.5);
+    const full = []; for (let i = 0; i <= 60; i++) { const a = i / 60 * Math.PI; full.push([d, d * Math.cos(a), 1 + d * Math.sin(a)]); }
+    V.poly(full, "rgba(232,89,12,.35)", 1, [4, 4]);
+    // 直線 AP
+    const A = [0, 0, 1], X = [d, d * q / p, 1 - d / p];
+    const far = Math.max(1, d / p) * 1.15;
+    V.poly([A, [p * far, q * far, 1 - far]], "#555", 1.3);
+    V.dot(A, "#222", 4, "A").dot([p, q, 0], "#c92a2a", 5, "P").dot(X, "#e8590c", 6);
+    V.dot([d, d, 1], "#fff", 0).dot([d, -d, 1], "#fff", 0);
+    $("info").textContent = ` P = (${p.toFixed(2)}, ${q.toFixed(2)}, 0)　交点 = (${d.toFixed(2)}, ${X[1].toFixed(3)}, ${X[2].toFixed(3)})　y² + (z−1)² = ${(X[1] ** 2 + (X[2] - 1) ** 2).toFixed(4)} = d² = ${(d * d).toFixed(4)}`;
+  }
+  ["t", "d"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

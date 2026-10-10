@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2025-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$y = \tan x$ とするとき，$\dfrac{dy}{dx}$ を $y$ の整式で表せ。</li>
+      <li>(2)　次の定積分を求めよ。
+        $$\int_0^{\frac{\pi}{4}} \frac{\tan^4 x - \tan^2 x - 2}{\tan^2 x - 4}\,dx$$
+      </li>
+    </ol>
+  </div>
+  <p class="source">（2025 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は (2) で $\tan x = y$ と置換せよ、という合図。被積分関数の分子が $(y^2+1)$ で因数分解でき、$dx = \dfrac{dy}{1+y^2}$ ときれいに約分される。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\frac{dy}{dx} = \frac{1}{\cos^2 x} = 1 + \tan^2 x = 1 + y^2$$
+
+      <h3>(2)</h3>
+      <p>$y = \tan x$ とおくと、$x: 0 \to \dfrac{\pi}{4}$ のとき $y: 0 \to 1$、また (1) より $dx = \dfrac{dy}{1+y^2}$。分子は</p>
+      $$\tan^4 x - \tan^2 x - 2 = (y^2+1)(y^2-2)$$
+      <p>と因数分解できるので、</p>
+      $$\begin{aligned}
+        I &= \int_0^1 \frac{(y^2+1)(y^2-2)}{y^2-4}\cdot\frac{dy}{1+y^2}
+           = \int_0^1 \frac{y^2-2}{y^2-4}\,dy \\
+          &= \int_0^1 \left(1 + \frac{2}{y^2-4}\right)dy
+           = \int_0^1 \left\{1 + \frac12\left(\frac{1}{y-2} - \frac{1}{y+2}\right)\right\}dy \\
+          &= \left[\,y + \frac12\log\left|\frac{y-2}{y+2}\right|\,\right]_0^1
+           = 1 + \frac12\log\frac13 - \frac12\log 1 \\
+          &= 1 - \frac12\log 3
+      \end{aligned}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>置換積分は「面積の形を変えても、面積の値は変わらない」操作です。上端 $a$ を動かして、左の $\displaystyle\int_0^{a} f(x)\,dx$ と右の $\displaystyle\int_0^{\tan a} \frac{t^2-2}{t^2-4}\,dt$ が常に一致することを確かめてみましょう。</p>
+
+  <div class="widget">
+    <label>上端 $a$：<input type="range" id="a-range" min="1" max="100" value="100" style="width:220px"></label>
+    <span id="a-val" class="no-math"></span>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <div><canvas id="cv-x" width="320" height="220" style="background:#fff;border:1px solid #ddd;border-radius:6px;max-width:100%"></canvas>
+        <div class="no-math" id="area-x" style="font-size:14px;text-align:center"></div></div>
+      <div><canvas id="cv-y" width="320" height="220" style="background:#fff;border:1px solid #ddd;border-radius:6px;max-width:100%"></canvas>
+        <div class="no-math" id="area-y" style="font-size:14px;text-align:center"></div></div>
+    </div>
+  </div>
+  <p class="note">左：もとの被積分関数 $y=f(x)$（$x$ 軸の区間 $[0,a]$）　右：置換後の $y = \dfrac{t^2-2}{t^2-4}$（$t$ 軸の区間 $[0,\tan a]$）。横に伸び縮みした分だけ高さが補正されるので、面積は等しくなります。</p>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>「tan の有理式」は必ず積分できる</h3>
+  <p>$\tan x$ の有理式 $R(\tan x)$ は、$t = \tan x$ と置換すると</p>
+  $$\int R(\tan x)\,dx = \int \frac{R(t)}{1+t^2}\,dt$$
+  <p>と、$t$ の有理関数の積分に変わります。有理関数は部分分数分解すれば必ず $\log$ と $\arctan$（$=\tan^{-1}$）で表せるので、<b>$\tan x$ の有理式は原理的にすべて積分できる</b>ことになります。</p>
+  <p>さらに一般に、$\sin x,\ \cos x$ の有理式は $t = \tan\dfrac{x}{2}$ という「万能置換」で必ず有理関数の積分に直せます。ただし計算はかなり重くなるので、$\sin^2 x,\ \cos^2 x,\ \tan x$ だけで書ける式なら、本問のように $t = \tan x$ の方が軽く済みます。</p>
+
+  <h3>出題者の「配慮」</h3>
+  <p>本問の分子 $\tan^4 x - \tan^2 x - 2$ は、置換で出てくる $1+y^2$ をちょうど打ち消すように作られています。もし約分できない場合、部分分数分解に $\dfrac{1}{1+y^2}$ の項が残り、その積分は</p>
+  $$\int \frac{dy}{1+y^2} = \arctan y = x$$
+  <p>となって、答えに $\pi$ が現れます（$\arctan$ は高校範囲外ですが、$y = \tan\theta$ と置換し直せば同じことです）。つまり<b>答えに $\pi$ が出ないように調整された問題</b>だと読み取れます。</p>
+  <div class="point">置換を使わない見方：被積分関数は $\dfrac{1}{\cos^2 x}\left(1 + \dfrac{2}{\tan^2 x - 4}\right)$ と書け、これは $g(\tan x)\cdot(\tan x)'$ の形。合成関数の微分の逆として、置換の必然性が見えてきます。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>定積分 $\displaystyle\int_0^{\frac{\pi}{4}} \frac{dx}{1+\tan x}$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$t = \tan x$ とおくと $\displaystyle\int_0^1 \frac{dt}{(1+t)(1+t^2)}$。部分分数分解</p>
+    $$\frac{1}{(1+t)(1+t^2)} = \frac12\left(\frac{1}{1+t} + \frac{1-t}{1+t^2}\right)$$
+    <p>より、今度は約分されずに $\dfrac{1}{1+t^2}$ の項が残り、答えに $\pi$ が現れる：$\dfrac{\pi}{8} + \dfrac{1}{4}\log 2$。</p>
+    <p class="note">別解：$\dfrac{1}{1+\tan x} = \dfrac{\cos x}{\sin x + \cos x} = \dfrac12\left(1 + \dfrac{\cos x - \sin x}{\sin x + \cos x}\right)$ と変形すると置換なしで計算できます。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <ol>
+      <li>(1)　$\displaystyle\int_0^{\frac{\pi}{4}} \log(1+\tan x)\,dx$ を求めよ。</li>
+      <li>(2)　$\displaystyle\int_0^{1} \frac{\log(1+t)}{1+t^2}\,dt$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2025　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(1) $x = \dfrac{\pi}{4} - u$ と置換すると $1 + \tan\left(\dfrac{\pi}{4} - u\right) = \dfrac{2}{1+\tan u}$ なので、求める積分を $I$ とすると</p>
+    $$I = \int_0^{\frac{\pi}{4}} \left\{\log 2 - \log(1+\tan u)\right\}du = \frac{\pi}{4}\log 2 - I$$
+    <p>よって $I = \dfrac{\pi}{8}\log 2$。</p>
+    <p>(2) 本問とは<b>逆向き</b>に $t = \tan x$ と置換すると (1) の積分そのものになり、答えは $\dfrac{\pi}{8}\log 2$。$t$ のまま原始関数を求めることは（高校範囲では）できないので、「$\tan$ の世界に戻る」のが鍵です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+/* ---- 動く図解：置換積分で面積が保存されることの可視化 ---- */
+window.initPage = function () {
+  const f = (x) => { const t = Math.tan(x); return (t ** 4 - t ** 2 - 2) / (t ** 2 - 4); };
+  const g = (t) => (t * t - 2) / (t * t - 4);
+  const simpson = (h, a, b, n = 200) => {
+    const d = (b - a) / n; let s = h(a) + h(b);
+    for (let i = 1; i < n; i++) s += h(a + i * d) * (i % 2 ? 4 : 2);
+    return s * d / 3;
+  };
+
+  function plot(cv, func, xmax, upper, label) {
+    const c = cv.getContext("2d"), W = cv.width, H = cv.height, pad = 28;
+    const ymax = 0.8;
+    const X = (x) => pad + (x / xmax) * (W - pad - 10);
+    const Yp = (y) => H - pad - (y / ymax) * (H - pad - 10);
+    c.clearRect(0, 0, W, H);
+    // 軸
+    c.strokeStyle = "#999"; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(pad, Yp(0)); c.lineTo(W - 5, Yp(0)); c.moveTo(pad, H - pad); c.lineTo(pad, 5); c.stroke();
+    c.fillStyle = "#666"; c.font = "12px sans-serif";
+    c.fillText("0", pad - 12, H - pad + 14); c.fillText(label, W - 60, H - pad + 14);
+    c.fillText("0.5", 2, Yp(0.5) + 4); c.beginPath(); c.moveTo(pad - 3, Yp(0.5)); c.lineTo(pad, Yp(0.5)); c.stroke();
+    // 塗りつぶし
+    c.fillStyle = "rgba(138,21,56,.18)"; c.beginPath(); c.moveTo(X(0), Yp(0));
+    for (let i = 0; i <= 100; i++) { const x = upper * i / 100; c.lineTo(X(x), Yp(func(x))); }
+    c.lineTo(X(upper), Yp(0)); c.closePath(); c.fill();
+    // 曲線
+    c.strokeStyle = "#8a1538"; c.lineWidth = 2; c.beginPath();
+    for (let i = 0; i <= 200; i++) { const x = xmax * i / 200; i ? c.lineTo(X(x), Yp(func(x))) : c.moveTo(X(x), Yp(func(x))); }
+    c.stroke();
+  }
+
+  const range = document.getElementById("a-range");
+  function update() {
+    const a = (Math.PI / 4) * range.value / 100, ta = Math.tan(a);
+    document.getElementById("a-val").textContent = ` a = ${a.toFixed(4)}（π/4 = 0.7854）, tan a = ${ta.toFixed(4)}`;
+    plot(document.getElementById("cv-x"), f, Math.PI / 4, a, "x (≤ π/4)");
+    plot(document.getElementById("cv-y"), g, 1, ta, "t (≤ 1)");
+    document.getElementById("area-x").textContent = `面積 = ${simpson(f, 0, a).toFixed(6)}`;
+    document.getElementById("area-y").textContent = `面積 = ${simpson(g, 0, ta).toFixed(6)}`;
+  }
+  range.addEventListener("input", update);
+  update();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

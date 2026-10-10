@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2021年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2021-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上の点 $(x,\ y)$ について，次の条件を考える。</p>
+    <p>　条件：すべての実数 $t$ に対して $y \le e^t - xt$ が成立する。$\quad\cdots\cdots (*)$</p>
+    <p>以下の問いに答えよ。必要ならば $\displaystyle\lim_{x\to+0}x\log x = 0$ を使ってよい。</p>
+    <ol>
+      <li>(1)　条件 $(*)$ をみたす点 $(x,\ y)$ 全体の集合を座標平面上に図示せよ。</li>
+      <li>(2)　条件 $(*)$ をみたす点 $(x,\ y)$ のうち，$x \ge 1$ かつ $y \ge 0$ をみたすもの全体の集合を $S$ とする。$S$ を $x$ 軸の周りに 1 回転させてできる立体の体積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2021 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$x$ を固定して、$t$ の関数 $h(t) = e^t - xt$ の<b>最小値（下限）</b>を調べる。「すべての $t$ で $y \le h(t)$」⇔「$y \le h(t)$ の最小値」。$x$ の符号で場合分けが必要。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x$ を固定し、$h(t) = e^t - xt$ とおく。</p>
+      <ul>
+        <li><b>$x \lt 0$ のとき</b>：$t \to -\infty$ で $e^t \to 0$，$-xt \to -\infty$ なので $h(t) \to -\infty$。どんな $y$ に対しても $y \gt h(t)$ となる $t$ があり、条件をみたす $y$ はない。</li>
+        <li><b>$x = 0$ のとき</b>：$h(t) = e^t$ は正の値をすべてとり、いくらでも $0$ に近づくが $0$ にはならない。よって「すべての $t$ で $y \le e^t$」$\iff y \le 0$。</li>
+        <li><b>$x \gt 0$ のとき</b>：$h'(t) = e^t - x$ より、$h(t)$ は $t = \log x$ で最小値 $h(\log x) = x - x\log x$ をとる。条件は $y \le x - x\log x$。</li>
+      </ul>
+      <p>$f(x) = x - x\log x\ (x \gt 0)$ について $f'(x) = -\log x$ より、$0 \lt x \lt 1$ で増加、$x \gt 1$ で減少、極大値 $f(1) = 1$。$f(e) = 0$，$\displaystyle\lim_{x\to+0}f(x) = 0$（$x\log x \to 0$ より），$\displaystyle\lim_{x\to\infty}f(x) = -\infty$。</p>
+      <p>求める集合は、<b>曲線 $y = x - x\log x\ (x \gt 0)$ とその下側</b>、および <b>$y$ 軸の $y \le 0$ の部分</b>（図解参照）。曲線の端点 $(0,\ 0)$ は含む。</p>
+
+      <h3>(2)</h3>
+      <p>$S$ は $1 \le x \le e$，$0 \le y \le x - x\log x$ の部分。回転体の体積 $V$ は</p>
+      $$V = \pi\int_1^e x^2(1 - \log x)^2\,dx$$
+      <p>$x = e^s$ と置換すると $dx = e^s\,ds$、$s: 0 \to 1$ で</p>
+      $$V = \pi\int_0^1 e^{3s}(1 - s)^2\,ds$$
+      <p>部分積分を 2 回行うと</p>
+      $$\begin{aligned}
+        \int_0^1 e^{3s}(1 - s)^2\,ds &= \left[\frac{e^{3s}}{3}(1 - s)^2\right]_0^1 + \frac23\int_0^1 e^{3s}(1 - s)\,ds = -\frac13 + \frac23\left\{\left[\frac{e^{3s}}{3}(1 - s)\right]_0^1 + \frac13\int_0^1 e^{3s}\,ds\right\} \\
+        &= -\frac13 + \frac23\left\{-\frac13 + \frac{e^3 - 1}{9}\right\} = \frac{2e^3 - 17}{27}
+      \end{aligned}$$
+      $$V = \frac{(2e^3 - 17)\pi}{27}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>各 $t$ に対して $y \le e^t - xt$ は「直線 $y = -tx + e^t$ の下側」です。$t$ を動かすと直線が動き、すべての直線の下側の共通部分（塗られた部分）が条件 $(*)$ の集合になります。その境界が曲線 $y = x - x\log x$（直線たちの<b>包絡線</b>）です。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="-300" max="250" value="50"></label>
+    <span class="readout no-math" id="tv"></span>
+    <label class="no-math" style="margin-left:10px"><input type="checkbox" id="many" checked> 直線をたくさん描く</label>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv" class="fig" width="360" height="320"></canvas>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>包絡線とルジャンドル変換</h3>
+  <p>直線族 $y = -tx + e^t$ のすべての直線の下側にある部分の境界は、直線族の<b>包絡線</b>です。各点で包絡線に接する直線がちょうど 1 本ずつあり、点 $(x,\ x - x\log x)$ では $t = \log x$ の直線が接しています。</p>
+  <p>「$\displaystyle\min_t(e^t - xt)$」のように、関数 $g(t)$ から $\displaystyle\max_t\{xt - g(t)\}$ を作る操作は<b>ルジャンドル変換</b>と呼ばれ、物理学（解析力学・熱力学）や最適化で重要です。本問は $g(t) = e^t$ のルジャンドル変換が $x\log x - x$ になる、という計算をしていることになります。</p>
+  <h3>$x = 0$ の扱い</h3>
+  <p>chopin 先生も「$x = 0$ では $f(x)$ の下限値が $0$ なので、最終結果に $y$ 軸の $0$ 以下の部分は含まれる」と訂正を入れています。最小値をもたない（下限だけがある）場合を丁寧に扱えるかがポイントです。</p>
+  <div class="point">「すべての $t$ で $y \le h(t)$」⇔ 「$y \le \inf h(t)$」。<b>最小値がない場合（下限のみ・$-\infty$）</b>を別に扱うのを忘れずに。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>すべての実数 $t$ に対して $y \ge tx - t^2$ が成立するような点 $(x,\ y)$ 全体の集合を図示せよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$tx - t^2 = -\left(t - \frac x2\right)^2 + \frac{x^2}{4}$ の最大値は $\frac{x^2}{4}$。よって $y \ge \dfrac{x^2}{4}$（放物線 $y = \frac{x^2}{4}$ とその上側）。直線族 $y = tx - t^2$ は放物線 $y = \frac{x^2}{4}$ の接線族です。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の集合 $S$ を $y$ 軸の周りに 1 回転させてできる立体の体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2021　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$S$ を $x = u$（$1 \le u \le e$）で切った線分（長さ $f(u)$）が $y$ 軸の周りに回ってできる円筒の側面積は $2\pi u f(u)$。これを積分して（バウムクーヘン積分）</p>
+    $$V = 2\pi\int_1^e x(x - x\log x)\,dx = 2\pi\left\{\frac{e^3 - 1}{3} - \left[\frac{x^3}{3}\log x - \frac{x^3}{9}\right]_1^e\right\} = 2\pi\left\{\frac{e^3 - 1}{3} - \frac{2e^3 + 1}{9}\right\} = \frac{2(e^3 - 4)\pi}{9}$$
+    <p>（バウムクーヘン積分は答案で使う場合、正当化を求められることがあります。$y$ で積分する方法でも計算できますが、$x = X(y)$ が 2 価になるので面倒です。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -1.5, xmax: 4.5, ymin: -3, ymax: 2.5 });
+  const tIn = document.getElementById("t"), manyIn = document.getElementById("many");
+  const f = (x) => x - x * Math.log(x);
+  function draw() {
+    const t = tIn.value / 100;
+    P.clear().grid(1);
+    // 領域
+    const reg = [[0, -3], [0, 0]]; for (let i = 1; i <= 300; i++) { const x = 4.5 * i / 300; reg.push([x, f(x)]); } reg.push([4.5, -3]);
+    P.fill(reg, "rgba(138,21,56,.18)");
+    // S
+    const Sp = [[1, 0]]; for (let i = 0; i <= 100; i++) { const x = 1 + (Math.E - 1) * i / 100; Sp.push([x, f(x)]); }
+    P.fill(Sp, "rgba(28,126,214,.3)");
+    P.axes();
+    if (manyIn.checked) for (let s = -3; s <= 2.5; s += 0.25) P.fn((x) => Math.exp(s) - s * x, -1.5, 4.5, "rgba(0,0,0,.12)", 1, 2);
+    P.fn(f, 0.0005, 4.5, "#8a1538", 2.4, 400);
+    P.line([[0, 0], [0, -3]], "#8a1538", 3);
+    P.fn((x) => Math.exp(t) - t * x, -1.5, 4.5, "#e8590c", 2, 2);
+    const xt = Math.exp(t); if (xt < 4.5) P.dot(xt, f(xt), "#e8590c", 5);
+    P.text("S", 1.6, 0.35, "#1c7ed6", "bold 13px sans-serif");
+    P.text("y = x − x log x", 1.9, 1.3, "#8a1538");
+    document.getElementById("tv").textContent = ` t = ${t.toFixed(2)}　直線 y = −${t.toFixed(2)}x + e^${t.toFixed(2)}　接点 x = e^t = ${xt.toFixed(3)}`;
+  }
+  [tIn, manyIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

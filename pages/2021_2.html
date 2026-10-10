@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2021年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2021-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$\theta$ を $0 \lt \theta \lt \dfrac{\pi}{4}$ をみたす定数とし，$x$ の 2 次方程式</p>
+    $$x^2 - (4\cos\theta)x + \frac{1}{\tan\theta} = 0\qquad\cdots\cdots (*)$$
+    <p>を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　2 次方程式 $(*)$ が実数解をもたないような $\theta$ の値の範囲を求めよ。</li>
+      <li>(2)　$\theta$ が (1) で求めた範囲にあるとし，$(*)$ の 2 つの虚数解を $\alpha,\ \beta$ とする。ただし，$\alpha$ の虚部は $\beta$ の虚部より大きいとする。複素数平面上の 3 点 $\mathrm{A}(\alpha)$，$\mathrm{B}(\beta)$，$\mathrm{O}(0)$ を通る円の中心を $\mathrm{C}(\gamma)$ とするとき，$\theta$ を用いて $\gamma$ を表せ。</li>
+      <li>(3)　点 $\mathrm{O}$，$\mathrm{A}$，$\mathrm{C}$ を (2) のように定めるとき，三角形 $\mathrm{OAC}$ が直角三角形になるような $\theta$ に対する $\tan\theta$ の値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2021 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>実数係数の 2 次方程式の虚数解は<b>互いに共役</b>なので、A と B は実軸に関して対称。よって外接円の中心 C は実軸上にある。(3) は $\mathrm{CO} = \mathrm{CA}$（ともに半径）に注目すると、直角になれるのは C の角だけ。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>判別式を $D$ とすると</p>
+      $$\frac D4 = 4\cos^2\theta - \frac{\cos\theta}{\sin\theta} = \frac{\cos\theta}{\sin\theta}(4\sin\theta\cos\theta - 1) = \frac{\cos\theta}{\sin\theta}(2\sin 2\theta - 1)$$
+      <p>$0 \lt \theta \lt \frac{\pi}{4}$ で $\frac{\cos\theta}{\sin\theta} \gt 0$ なので、$D \lt 0 \iff \sin 2\theta \lt \frac12$。$0 \lt 2\theta \lt \frac{\pi}{2}$ より $2\theta \lt \frac{\pi}{6}$。</p>
+      $$0 \lt \theta \lt \frac{\pi}{12}$$
+
+      <h3>(2)</h3>
+      <p>$\alpha,\ \beta$ は共役で、$\alpha = p + qi$，$\beta = p - qi$（$q \gt 0$）とおくと、解と係数の関係より</p>
+      $$\alpha + \beta = 2p = 4\cos\theta,\qquad \alpha\beta = p^2 + q^2 = \frac{1}{\tan\theta}$$
+      <p>A，B は実軸に関して対称なので、線分 AB の垂直二等分線は実軸。C はその上にあるので $\gamma$ は実数。$|\gamma| = |\gamma - \alpha|$ より</p>
+      $$\gamma^2 = (\gamma - p)^2 + q^2 \iff 2p\gamma = p^2 + q^2 \iff \gamma = \frac{p^2 + q^2}{2p} = \frac{\cos\theta/\sin\theta}{4\cos\theta}$$
+      $$\gamma = \frac{1}{4\sin\theta}$$
+
+      <h3>(3)</h3>
+      <p>C は円の中心なので $\mathrm{CO} = \mathrm{CA}$。もし $\angle\mathrm{COA} = 90^\circ$ なら斜辺 CA が CO より長くなり矛盾。$\angle\mathrm{CAO} = 90^\circ$ も同様に不可。よって $\angle\mathrm{OCA} = 90^\circ$。</p>
+      <p>$\gamma \gt 0$ で、$\overrightarrow{\mathrm{CA}}$ は $\overrightarrow{\mathrm{CO}} = -\gamma$ を $\pm90^\circ$ 回転したもの。$\alpha$ の虚部は正なので $\alpha - \gamma = \gamma i$、すなわち $\alpha = \gamma + \gamma i$。実部を比べて</p>
+      $$p = 2\cos\theta = \gamma = \frac{1}{4\sin\theta} \iff 8\sin\theta\cos\theta = 1 \iff \sin 2\theta = \frac14$$
+      <p>（このとき $q = \gamma$ も自動的に成り立つ：$p^2 + q^2 = 2p\gamma = 2\gamma^2$ より $q^2 = \gamma^2$。）$\sin 2\theta = \frac14 \lt \frac12$ で (1) の範囲内。$t = \tan\theta$ とおくと $\sin 2\theta = \dfrac{2t}{1 + t^2} = \dfrac14$ より $t^2 - 8t + 1 = 0$、$t = 4 \pm \sqrt{15}$。$0 \lt \theta \lt \frac{\pi}{12}$ より $0 \lt t \lt \tan\frac{\pi}{12} = 2 - \sqrt3 \lt 1$ なので</p>
+      $$\tan\theta = 4 - \sqrt{15}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$\theta$ を動かすと、虚数解 $\alpha,\ \beta$ と円の中心 C が動きます。$\theta \ge 15^\circ$ では実数解になり、図が消えます。∠OCA が $90^\circ$ になる $\theta$ を探してみましょう。</p>
+
+  <div class="widget">
+    <label>θ：<input type="range" id="th" min="1" max="2000" value="400"></label>
+    <span class="readout no-math" id="thv"></span>
+    <button id="right">∠OCA = 90° にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>3 点 O，$\alpha$，$\bar\alpha$ を通る円</h3>
+  <p>(2) の結果は、一般に「$\gamma = \dfrac{|\alpha|^2}{2\,\mathrm{Re}\,\alpha} = \dfrac{\alpha\beta}{\alpha + \beta}$」と書けます。解と係数の関係をそのまま使える形で、$\frac{1}{\gamma} = \frac1\alpha + \frac1\beta$ とも書けます（調和平均の半分）。</p>
+  <h3>二等辺三角形なら直角は頂角だけ</h3>
+  <p>chopin 先生は「直角になる角度が 3 通りあるので場合分けして検討しましょう」と解説していますが、三角形 OAC は $\mathrm{CO} = \mathrm{CA}$ の二等辺三角形なので、底角（$\angle$O，$\angle$A）が $90^\circ$ になることはありません。図形的な性質を使うと場合分けを減らせます。</p>
+  <div class="point">実数係数の方程式の虚数解は共役 → 図形は<b>実軸に関して対称</b>。この一言で、外接円の中心が実軸上にあることが分かります。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>複素数 $\alpha$（虚部は正，実部は正）について，3 点 $0,\ \alpha,\ \bar\alpha$ を通る円の中心 $\gamma$ を $\alpha$ と $\bar\alpha$ で表せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\gamma$ は実数で $|\gamma| = |\gamma - \alpha|$。両辺を 2 乗して $\gamma^2 = \gamma^2 - \gamma(\alpha + \bar\alpha) + \alpha\bar\alpha$ より</p>
+    $$\gamma = \frac{\alpha\bar\alpha}{\alpha + \bar\alpha}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の点 $\mathrm{O}$，$\mathrm{A}$，$\mathrm{C}$ について，三角形 $\mathrm{OAC}$ が正三角形になるような $\theta$ に対する $\tan\theta$ の値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2021　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\mathrm{CO} = \mathrm{CA}$ なので、正三角形 $\iff \mathrm{OA} = \mathrm{OC} \iff |\alpha|^2 = \gamma^2$。$|\alpha|^2 = 2p\gamma$ より $2p = \gamma$、つまり $4\cos\theta = \dfrac{1}{4\sin\theta}$、$\sin 2\theta = \dfrac18$（(1) の範囲内）。$\dfrac{2t}{1 + t^2} = \dfrac18$ より $t^2 - 16t + 1 = 0$、小さい方をとって</p>
+    $$\tan\theta = 8 - 3\sqrt7$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -1, xmax: 9, ymin: -4.2, ymax: 4.2, equal: true });
+  const thIn = document.getElementById("th");
+  const thRight = Math.asin(0.25) / 2;
+  function draw() {
+    const th = thIn.value / 2000 * Math.PI / 4;
+    const deg = th * 180 / Math.PI;
+    P.clear().grid(1).axes("実軸", "虚軸");
+    const p = 2 * Math.cos(th), q2 = 1 / Math.tan(th) - 4 * Math.cos(th) ** 2;
+    let info = `θ = ${deg.toFixed(2)}°　tanθ = ${Math.tan(th).toFixed(4)}<br>`;
+    if (q2 <= 0) {
+      const r = Math.sqrt(-q2);
+      P.dot(p + r, 0, "#999", 4).dot(p - r, 0, "#999", 4);
+      info += `<span class="ng">実数解をもつ（θ ≥ 15°）</span>`;
+    } else {
+      const q = Math.sqrt(q2), g = 1 / (4 * Math.sin(th));
+      P.circle(g, 0, g, "#1c7ed6", 1.4);
+      P.fill([[0, 0], [p, q], [g, 0]], "rgba(138,21,56,.18)").line([[0, 0], [p, q], [g, 0], [0, 0]], "#8a1538", 2);
+      P.dot(0, 0, "#222", 4, "O", -14, -6).dot(p, q, "#c92a2a", 5, "A(α)").dot(p, -q, "#c92a2a", 5, "B(β)").dot(g, 0, "#1c7ed6", 5, "C(γ)", 4, 16);
+      // ∠OCA
+      const ang = Math.atan2(q, p - g), angC = 180 - Math.abs(ang * 180 / Math.PI);
+      info += `α = ${p.toFixed(3)} + ${q.toFixed(3)}i<br>γ = 1/(4 sinθ) = ${g.toFixed(3)}<br>∠OCA = ${angC.toFixed(2)}°` + (Math.abs(angC - 90) < 0.3 ? `<br><span class="ok">直角！ tanθ = 4 − √15 ≈ ${(4 - Math.sqrt(15)).toFixed(4)}</span>` : "");
+    }
+    document.getElementById("thv").textContent = ` ${deg.toFixed(2)}°`;
+    document.getElementById("info").innerHTML = info;
+  }
+  thIn.addEventListener("input", draw);
+  document.getElementById("right").onclick = () => { thIn.value = Math.round(thRight / (Math.PI / 4) * 2000); draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

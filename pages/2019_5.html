@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2019年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2019-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a,\ b$ を複素数，$c$ を純虚数でない複素数とし，$i$ を虚数単位とする。複素数平面において，点 $z$ が虚軸全体を動くとき</p>
+    $$w = \frac{az + b}{cz + 1}$$
+    <p>で定まる点 $w$ の軌跡を $C$ とする。次の 3 条件が満たされているとする。</p>
+    <ul>
+      <li>(ア)　$z = i$ のときに $w = i$ となり，$z = -i$ のときに $w = -i$ となる。</li>
+      <li>(イ)　$C$ は単位円の周に含まれる。</li>
+      <li>(ウ)　点 $-1$ は $C$ に属さない。</li>
+    </ul>
+    <p>このとき $a,\ b,\ c$ の値を求めよ。さらに $C$ を求め，複素数平面上に図示せよ。</p>
+  </div>
+  <p class="source">（2019 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(ア) で $a,\ b$ を $c$ で表し、(イ) で $|c| = 1$ を導く（$z = ti$ とおいて恒等式にする）。最後に (ウ)：$w = -1$ となる $z$ を逆算すると、$c \neq -1$ ならそれが虚軸上に来てしまう。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>$a,\ b,\ c$ の決定</h3>
+      <p><b>(ア)</b>：$z = i$ で $w = i$ より $ai + b = i(ci + 1) = -c + i$。$z = -i$ で $w = -i$ より $-ai + b = -i(-ci + 1) = -c - i$。辺々引いて $2ai = 2i$、$a = 1$。辺々足して $2b = -2c$、$b = -c$。</p>
+      $$w = \frac{z - c}{cz + 1}$$
+      <p><b>(イ)</b>：$z = ti$（$t$ は実数）とおき、$c = p + qi$（$p,\ q$ は実数、$p \neq 0$）とする。（$cz + 1 = 0$ となる $t$ は C に含まれないので除く。）すべての $t$ で $|w| = 1$、すなわち $|ti - c| = |cti + 1|$。</p>
+      $$|ti - c|^2 = p^2 + (t - q)^2,\qquad |cti + 1|^2 = |(1 - qt) + pti|^2 = (1 - qt)^2 + p^2t^2$$
+      <p>差をとって整理すると $(1 - p^2 - q^2)t^2 + (p^2 + q^2 - 1) = 0$。これが（有限個を除く）すべての実数 $t$ で成り立つので $p^2 + q^2 = 1$、つまり $|c| = 1$。</p>
+      <p><b>(ウ)</b>：$w = -1$ とすると $z - c = -cz - 1$ より $(1 + c)z = c - 1$。</p>
+      <p>もし $c \neq -1$ なら $z = \dfrac{c - 1}{c + 1}$。$|c| = 1$ より $\bar c = \frac1c$ で</p>
+      $$\overline{\left(\frac{c - 1}{c + 1}\right)} = \frac{\frac1c - 1}{\frac1c + 1} = \frac{1 - c}{1 + c} = -\frac{c - 1}{c + 1}$$
+      <p>なので $z$ は純虚数または $0$、つまり虚軸上にある。このとき $cz + 1 = \frac{c^2 + 1}{c + 1} \neq 0$（$c$ は純虚数でないので $c \neq \pm i$）で、$w = -1$ が C に属してしまい (ウ) に反する。よって $c = -1$（純虚数でなく、$|c| = 1$ もみたす）。</p>
+      $$a = 1,\quad b = 1,\quad c = -1$$
+
+      <h3>C の決定</h3>
+      <p>$w = \dfrac{1 + z}{1 - z}$，$z = ti$ より</p>
+      $$w = \frac{1 + ti}{1 - ti} = \frac{(1 + ti)^2}{1 + t^2} = \frac{1 - t^2}{1 + t^2} + \frac{2t}{1 + t^2}i$$
+      <p>$t = \tan\frac\theta2$（$-\pi \lt \theta \lt \pi$）とおくと $w = \cos\theta + i\sin\theta$。$t$ が実数全体を動くとき $\theta$ は $-\pi \lt \theta \lt \pi$ 全体を動くので</p>
+      <p style="text-align:center"><b>C は単位円から点 $-1$ を除いたもの</b></p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$|c| = 1$ の範囲で $c$ の偏角を動かすと、$w = \frac{z - c}{cz + 1}$ による虚軸の像（赤）が変わります。像はいつも単位円ですが、<b>欠ける 1 点</b>（○）の位置が $c$ によって変わります。欠ける点が $-1$ になるのは $c = -1$ のときだけです。</p>
+
+  <div class="widget">
+    <label>c の偏角：<input type="range" id="c" min="-180" max="180" value="120"></label>
+    <span class="readout no-math" id="cv2"></span>
+    <button id="cm1">c = −1 にする</button>
+    <label>z = ti の t：<input type="range" id="t" min="-400" max="400" value="50"></label>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="zp" class="fig" width="260" height="260"></canvas>
+      <canvas id="wp" class="fig" width="260" height="260"></canvas>
+    </div>
+    <div class="no-math readout" id="info"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>1 次分数変換（メビウス変換）</h3>
+  <p>$w = \frac{az + b}{cz + d}$（$ad - bc \neq 0$）の形の変換を<b>1 次分数変換</b>（メビウス変換）といいます。「円または直線」を「円または直線」に移すという著しい性質があり、本問はその具体例です。直線（虚軸）は無限遠点を通る「円」とみなせ、その無限遠点の行き先 $\frac ac$ が像の円から欠ける点になります。本問では $\frac ac = \frac1c$ なので、$-1$ が欠けるには $c = -1$。</p>
+  <h3>「c は純虚数でない」の意味</h3>
+  <p>$c = \pm i$ だと $ad - bc = 1 + c^2 = 0$ となり、$w$ が定数（$\mp i$）になってしまいます。問題文の「純虚数でない」は、このような退化を防ぐための条件です。</p>
+  <p>chopin 先生は「(ウ) について考えるところがこの問題の難しい部分」「結局、C は円から $z = -1$ を除いただけの図形となります。なんか拍子抜けですね」とコメントしています。</p>
+  <div class="point">$|c| = 1 \iff \bar c = \dfrac1c$。これを使うと「$\frac{c - 1}{c + 1}$ は純虚数」のような計算が一瞬でできる。直線の 1 次分数変換の像から欠ける点は「$z \to \infty$ のときの $w$ の極限」。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>点 $z$ が単位円周上の $z \neq 1$ をみたす部分を動くとき，$w = \dfrac{1 + z}{1 - z}$ の軌跡を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\bar z = \frac1z$ より $\bar w = \dfrac{1 + \frac1z}{1 - \frac1z} = \dfrac{z + 1}{z - 1} = -w$。よって $w$ は純虚数または $0$。逆に $w = ti$ に対して $z = \frac{w - 1}{w + 1}$ は $|z| = 1$，$z \neq 1$ をみたす。軌跡は<b>虚軸全体</b>（本問の変換の逆）。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の条件 (ウ) を「点 $1$ は $C$ に属さない」に変えたとき，$a,\ b,\ c$ の値と $C$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2019　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(ア)(イ) までは同じで $a = 1,\ b = -c,\ |c| = 1$。$w = 1$ とすると $z - c = cz + 1$、$(1 - c)z = 1 + c$。$c \neq 1$ なら $z = \frac{1 + c}{1 - c}$ は（同様の計算で）虚軸上にあり不適。よって $c = 1$、$a = 1,\ b = -1$。</p>
+    <p>$w = \dfrac{z - 1}{z + 1} = \dfrac{ti - 1}{ti + 1}$ で、$t \to \pm\infty$ のとき $w \to 1$。C は<b>単位円から点 $1$ を除いたもの</b>。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const C = Fig.C;
+  const Z = Fig.plane($("zp"), { xmin: -2.2, xmax: 2.2, ymin: -2.2, ymax: 2.2, equal: true });
+  const W = Fig.plane($("wp"), { xmin: -1.6, xmax: 1.6, ymin: -1.6, ymax: 1.6, equal: true });
+  function draw() {
+    const th = $("c").value * Math.PI / 180, c = [Math.cos(th), Math.sin(th)], t = $("t").value / 100;
+    const w = (z) => C.div(C.sub(z, c), C.add(C.mul(c, z), [1, 0]));
+    const pure = Math.abs(c[0]) < 1e-9;
+    Z.clear().grid(1, "#f3f3f3").axes("実", "虚");
+    Z.line([[0, -2.2], [0, 2.2]], "#1c7ed6", 3);
+    Z.circle(0, 0, 1, "#ddd", 1, [3, 3]);
+    Z.dot(c[0], c[1], "#2b8a3e", 5, "c").dot(0, t, "#e8590c", 6, "z", 8, 4);
+    Z.label("z 平面", 8, 16, "#888");
+    W.clear().grid(0.5, "#f3f3f3").axes("実", "虚");
+    W.label("w 平面", 8, 16, "#888");
+    if (pure) { $("info").textContent = "c が純虚数（±i）だと w は定数になってしまいます。"; return; }
+    const pts = []; for (let i = -3000; i <= 3000; i++) { const s = Math.tan(i / 3000 * Math.PI / 2 * 0.9995); pts.push(w([0, s])); }
+    W.line(pts, "#8a1538", 2.5);
+    const miss = C.div([1, 0], c); // z→∞ の極限 a/c
+    W.ring(miss[0], miss[1], "#8a1538", 6);
+    W.dot(-1, 0, "#999", 3, "−1", -24, 16);
+    const wz = w([0, t]); W.dot(wz[0], wz[1], "#e8590c", 6, "w");
+    // w = -1 となる z
+    let hit = "";
+    if (Math.hypot(c[0] + 1, c[1]) > 1e-6) { const z0 = C.div(C.sub(c, [1, 0]), C.add(c, [1, 0])); hit = `w = −1 となる z = ${C.fmt(z0, 3)}（虚軸上！ → −1 ∈ C）`; Z.dot(z0[0], z0[1], "#c92a2a", 4, "", 0, 0); }
+    else hit = "c = −1：w = −1 となる z は存在しない（−1 ∉ C）✔";
+    $("cv2").textContent = ` c = ${C.fmt(c, 3)}`;
+    $("info").textContent = `欠ける点 1/c = ${C.fmt(miss, 3)}　|w| = ${C.abs(wz).toFixed(4)}　${hit}`;
+  }
+  ["c", "t"].forEach((id) => $(id).addEventListener("input", draw));
+  $("cm1").onclick = () => { $("c").value = 180; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

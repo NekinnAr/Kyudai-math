@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2015年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2015-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　関数 $y = \dfrac{1}{x(\log x)^2}$ は $x \gt 1$ において単調に減少することを示せ。</li>
+      <li>(2)　不定積分 $\displaystyle\int\frac{1}{x(\log x)^2}\,dx$ を求めよ。</li>
+      <li>(3)　$n$ を 3 以上の整数とするとき，不等式
+        $$\sum_{k=3}^{n}\frac{1}{k(\log k)^2} \lt \frac{1}{\log 2}$$
+        が成り立つことを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2015 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>和を積分で上から押さえる定番問題。減少関数なら「幅 1 の長方形 $<$ その区間の積分」。$\frac1x$ が $\log x$ の導関数なので $t = \log x$ と置換。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$g(x) = x(\log x)^2$ とおくと $g'(x) = (\log x)^2 + 2\log x = \log x(\log x + 2) \gt 0$（$x \gt 1$）。$g(x) \gt 0$ は増加するので、$y = \frac{1}{g(x)}$ は単調に減少する。</p>
+
+      <h3>(2)</h3>
+      <p>$t = \log x$ とおくと $dt = \frac{dx}{x}$。</p>
+      $$\int\frac{dx}{x(\log x)^2} = \int\frac{dt}{t^2} = -\frac1t + C = -\frac{1}{\log x} + C$$
+
+      <h3>(3)</h3>
+      <p>$f(x) = \frac{1}{x(\log x)^2}$ は $x \gt 1$ で減少するので、$k \ge 3$ に対し $k - 1 \le x \le k$ で $f(x) \ge f(k)$（等号は $x = k$ のみ）。</p>
+      $$\frac{1}{k(\log k)^2} = \int_{k-1}^{k}f(k)\,dx \lt \int_{k-1}^{k}f(x)\,dx$$
+      <p>$k = 3,\ \cdots,\ n$ で足すと</p>
+      $$\sum_{k=3}^{n}\frac{1}{k(\log k)^2} \lt \int_2^n f(x)\,dx = \left[-\frac{1}{\log x}\right]_2^n = \frac{1}{\log 2} - \frac{1}{\log n} \lt \frac{1}{\log 2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>赤い長方形（幅 1，高さ $f(k)$）の面積の和が左辺です。どの長方形も曲線の下に収まるので、和は $\int_2^n f(x)\,dx$ より小さくなります。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="3" max="20" value="8"></label>
+    <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>ベルトラン級数</h3>
+  <p>$\sum\frac{1}{k(\log k)^p}$ は<b>ベルトラン級数</b>と呼ばれ、$p \gt 1$ なら収束、$p \le 1$ なら発散します。$\sum\frac1k$（発散）と $\sum\frac{1}{k^{1+\varepsilon}}$（収束）のちょうど境目を調べる級数で、本問は $p = 2$ の場合に「和は $\frac{1}{\log 2}$ を超えない」ことを示させています。</p>
+  <p>chopin 先生は「(2) は $\frac1x$ が $\log x$ の微分だと気づければ、置換積分でうまくいきます」「(3) は $\sum\frac1k$ を評価するときによく使う、グラフの面積と短冊の面積の大小比較。このグラフの形状を (1) で、面積を (2) で計算していたというわけです」とコメントしています。</p>
+  <div class="point">減少関数 $f$ なら $f(k) \lt \int_{k-1}^{k}f(x)\,dx \lt f(k - 1)$。和の評価は<b>短冊と積分の比較</b>。$\int\frac{f'}{f^2}dx = -\frac1f$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>自然数 $n$ に対して $\displaystyle\sum_{k=1}^{n}\frac{1}{k^2} \lt 2$ を示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$k \ge 2$ で $\frac1{k^2} \lt \int_{k-1}^{k}\frac{dx}{x^2}$。足して $\sum_{k=2}^{n}\frac1{k^2} \lt \int_1^n\frac{dx}{x^2} = 1 - \frac1n \lt 1$。$k = 1$ の項 1 を加えて $\lt 2$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\displaystyle\sum_{k=2}^{n}\frac{1}{k\log k} \gt \log(\log(n + 1)) - \log(\log 2)$ を示し，$\displaystyle\lim_{n\to\infty}\sum_{k=2}^{n}\frac{1}{k\log k}$ を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2015　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$f(x) = \frac{1}{x\log x}$ は $x \gt 1$ で減少するので、$\frac{1}{k\log k} \gt \int_k^{k+1}f(x)\,dx$（今度は<b>右側</b>の区間と比べる）。$\int\frac{dx}{x\log x} = \log(\log x) + C$ より</p>
+    $$\sum_{k=2}^{n}\frac{1}{k\log k} \gt \Big[\log(\log x)\Big]_2^{n+1} = \log(\log(n + 1)) - \log(\log 2)$$
+    <p>右辺 $\to \infty$ なので、極限は $\infty$（発散）。$(\log k)^2$ を $\log k$ にするだけで収束から発散に変わる。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const f = (x) => 1 / (x * Math.log(x) ** 2);
+  function draw() {
+    const n = +$("n").value;
+    const P = Fig.plane($("cv"), { xmin: 1, xmax: n + 1.2, ymin: -0.08, ymax: 0.9 });
+    P.clear().grid(1, "#f3f3f3").axes();
+    let s = 0;
+    for (let k = 3; k <= n; k++) { const h = f(k); s += h; P.fill([[k - 1, 0], [k, 0], [k, h], [k - 1, h]], "rgba(138,21,56,.35)"); P.line([[k - 1, h], [k, h], [k, 0]], "#8a1538", 1); }
+    P.fn(f, 2.02, n + 1.2, "#1c7ed6", 2.2);
+    P.text("2", 1.95, -0.05, "#666").text(String(n), n - 0.1, -0.05, "#666");
+    const I = 1 / Math.log(2) - 1 / Math.log(n);
+    $("nv").textContent = ` n = ${n}`;
+    $("info").innerHTML = `Σ（長方形の和）= ${s.toFixed(4)}<br>∫₂ⁿ f(x)dx = 1/log2 − 1/log n = ${I.toFixed(4)}<br>1/log 2 = ${(1 / Math.log(2)).toFixed(4)}<br><span style="color:#888;font-size:.9em">n → ∞ でも和は約 1.07 にしかならない<br>（無限和 ≈ ${(() => { let t = 0; for (let k = 3; k < 2e6; k++) t += f(k); return (t + 1 / Math.log(2e6)).toFixed(3); })()}）</span>`;
+  }
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

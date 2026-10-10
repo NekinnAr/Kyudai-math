@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2026-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。ただし，$\sqrt2,\ \sqrt3,\ \sqrt6$ が無理数であることは用いてよい。</p>
+    <ol>
+      <li>(1)　$\sqrt2 + \sqrt3 = \sqrt{5 + 2\sqrt6}$ を示せ。また，$\sqrt2 + \sqrt3$ は無理数であることを示せ。</li>
+      <li>(2)　$\sqrt2 + \sqrt3$ を解にもち，係数がすべて有理数の 4 次方程式を 1 つ求めよ。また，その 4 次方程式の解をすべて求めよ。</li>
+      <li>(3)　$\sqrt2 + \sqrt3$ を解にもち，係数がすべて有理数の 2 次方程式は存在しないことを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2026 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1)(2) は「2 乗して根号を 1 つずつ外す」定番処理。(3) は 2 次方程式があると仮定し、根号の係数を比較して矛盾を導く。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$(\sqrt2+\sqrt3)^2 = 5 + 2\sqrt6$ であり、$\sqrt2+\sqrt3 \gt 0$ なので $\sqrt2 + \sqrt3 = \sqrt{5+2\sqrt6}$。</p>
+      <p>次に、$\sqrt2+\sqrt3 = r$（$r$ は有理数）と仮定すると、2 乗して $5 + 2\sqrt6 = r^2$ より</p>
+      $$\sqrt6 = \frac{r^2 - 5}{2}$$
+      <p>右辺は有理数なので、$\sqrt6$ が無理数であることに矛盾。よって $\sqrt2+\sqrt3$ は無理数。$\blacksquare$</p>
+
+      <h3>(2)</h3>
+      <p>$x = \sqrt2+\sqrt3$ とおくと、(1) より $x^2 - 5 = 2\sqrt6$。両辺を 2 乗して $(x^2-5)^2 = 24$、すなわち</p>
+      $$x^4 - 10x^2 + 1 = 0$$
+      <p>は $\sqrt2 + \sqrt3$ を解にもつ有理数係数の 4 次方程式である。</p>
+      <p>この方程式を $x^2$ について解くと $x^2 = 5 \pm 2\sqrt6 = (\sqrt3 \pm \sqrt2)^2$ なので、解は</p>
+      $$x = \sqrt3+\sqrt2,\quad -\sqrt3-\sqrt2,\quad \sqrt3-\sqrt2,\quad -\sqrt3+\sqrt2$$
+      <p>すなわち $x = \pm\sqrt2 \pm \sqrt3$（複号任意）。</p>
+
+      <h3>(3)</h3>
+      <p>$\alpha = \sqrt2+\sqrt3$ が有理数係数の 2 次方程式の解であると仮定する。$x^2$ の係数で割って、$p,\ q$ を有理数として $\alpha^2 + p\alpha + q = 0$ としてよい。$\alpha^2 = 5 + 2\sqrt6$ より</p>
+      $$2\sqrt6 + (5+q) = -p(\sqrt2 + \sqrt3)$$
+      <p>両辺を 2 乗すると、$s = 5+q$ として</p>
+      $$24 + 4s\sqrt6 + s^2 = p^2(5 + 2\sqrt6)$$
+      $$\therefore\ (s^2 + 24 - 5p^2) + (4s - 2p^2)\sqrt6 = 0$$
+      <p>$s^2+24-5p^2,\ 4s - 2p^2$ は有理数で、$\sqrt6$ は無理数なので</p>
+      $$4s - 2p^2 = 0,\qquad s^2 + 24 - 5p^2 = 0$$
+      <p>前者より $p^2 = 2s$。後者に代入して $s^2 - 10s + 24 = 0$、よって $s = 4,\ 6$。このとき $p^2 = 8,\ 12$ となるが、$p = \pm2\sqrt2,\ \pm2\sqrt3$ はいずれも無理数であり、$p$ が有理数であることに矛盾する。</p>
+      <p>したがって、条件をみたす 2 次方程式は存在しない。$\blacksquare$</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>(3) により、$x^4 - 10x^2 + 1$ は<b>有理数の範囲では</b>2 次式の積に分解できません（くわしくは下の「背景」で）。ところが、整数を素数 $p$ で割った余りだけで計算する世界では、話がまったく変わります。素数 $p$ を選んで、$\bmod p$ での因数分解を見てみましょう。</p>
+
+  <div class="widget no-math">
+    <label>素数 p = <select id="p-sel"></select></label>
+    <button type="button" id="p-all" style="margin-left:8px">100 未満の素数をすべて調べる</button>
+    <div id="p-out" style="margin-top:10px"></div>
+  </div>
+  <p class="note">※ 係数を $p$ で割った余りで考えたときの、モニックな多項式への分解を全探索で求めています。</p>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>(3) の別解：「根号の一次独立性」</h3>
+  <p>実は、$a,\ b,\ c,\ d$ が有理数のとき</p>
+  $$a + b\sqrt2 + c\sqrt3 + d\sqrt6 = 0 \ \Longrightarrow\ a = b = c = d = 0$$
+  <p>が成り立ちます（証明は下の類題で）。これを認めると、(3) の式 $\alpha^2 + p\alpha + q = 0$ は</p>
+  $$(5 + q) + p\sqrt2 + p\sqrt3 + 2\sqrt6 = 0$$
+  <p>となり、<b>$\sqrt6$ の係数が $2 \ne 0$</b> であることから、一瞬で矛盾が出ます。解答例の「2 乗して係数比較」は、この事実を手で確かめている作業だと言えます。</p>
+
+  <h3>最小多項式と「共役」</h3>
+  <p>(2)(3) と、$\sqrt2+\sqrt3$ が 1 次方程式の解にならない（＝無理数である、(1)）ことを合わせると、</p>
+  <div class="box">$\sqrt2+\sqrt3$ を解にもつ有理数係数の方程式の最小次数は $4$ であり、$x^4 - 10x^2 + 1 = 0$ がその代表。</div>
+  <p>ということが分かります。このような多項式を $\sqrt2+\sqrt3$ の<b>最小多項式</b>といいます。（3 次方程式でもダメなことは、下の類題で確かめられます。）</p>
+  <p>(2) の 4 つの解 $\pm\sqrt2\pm\sqrt3$ は、$\sqrt2$ と $\sqrt3$ の符号をそれぞれ独立に反転したものになっています。有理数の立場からは $\sqrt2$ と $-\sqrt2$ は区別できない（どちらも $x^2=2$ の解）ので、この 4 つは「有理数から見ると見分けがつかない仲間」です。これらを $\sqrt2+\sqrt3$ の<b>共役</b>と呼びます。$a+b\sqrt2$ と $a - b\sqrt2$ が共役であるのと同じ発想を、根号 2 つに拡張したものです。</p>
+
+  <h3>$\sqrt2+\sqrt3$ だけで $\sqrt2,\ \sqrt3$ が作れる</h3>
+  <p>$\alpha = \sqrt2+\sqrt3$ とすると $\alpha^3 = 11\sqrt2 + 9\sqrt3$ なので、</p>
+  $$\sqrt2 = \frac{\alpha^3 - 9\alpha}{2},\qquad \sqrt3 = \frac{11\alpha - \alpha^3}{2}$$
+  <p>が成り立ちます。つまり、$\alpha$ と有理数から四則演算だけで $\sqrt2$ も $\sqrt3$ も作れます。「$\sqrt2$ と $\sqrt3$ の 2 つを有理数に付け加えた世界」は、「$\alpha$ 1 つを付け加えた世界」と同じなのです。大学の代数学では、これを<b>原始元</b>と呼びます。そしてその世界の「広さ」（次元）がちょうど $4$（基底 $1,\ \sqrt2,\ \sqrt3,\ \sqrt6$）であることが、最小多項式の次数 $4$ と対応しています。</p>
+
+  <h3>素数で割ると必ず分解する</h3>
+  <p>$x^4 - 10x^2 + 1$ は有理数の範囲では分解しないのに、上の図解のとおり<b>どんな素数 $p$ で割った余りの世界でも必ず分解します</b>。これは代数学でよく知られた例です。理由は、実数の範囲で</p>
+  $$\begin{aligned}
+    x^4 - 10x^2 + 1 &= (x^2 - 2\sqrt2\,x - 1)(x^2 + 2\sqrt2\,x - 1) \\
+                    &= (x^2 - 2\sqrt3\,x + 1)(x^2 + 2\sqrt3\,x + 1) \\
+                    &= (x^2 - 5 - 2\sqrt6)(x^2 - 5 + 2\sqrt6)
+  \end{aligned}$$
+  <p>と 3 通りに分解できることにあります。$\bmod p$ の世界で $2,\ 3,\ 6$ のどれか 1 つでも「平方数」になれば、対応する分解が使えます。そして「$2$ も $3$ も平方数でないなら、その積 $6$ は平方数になる」という性質（平方剰余の乗法性）があるので、3 つすべてが平方数でない、ということは起こらないのです。</p>
+  <div class="point">「余りの世界で調べて分解しないなら、整数でも分解しない」は正しいですが、その逆は成り立ちません。本問の多項式は、その反例として有名なものです。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>$a,\ b,\ c,\ d$ を有理数とする。$a + b\sqrt2 + c\sqrt3 + d\sqrt6 = 0$ ならば $a = b = c = d = 0$ であることを示せ。ただし，$\sqrt2,\ \sqrt3,\ \sqrt6$ が無理数であることは用いてよい。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a + b\sqrt2 = -(c + d\sqrt2)\sqrt3$ と変形する。$c + d\sqrt2 \ne 0$ と仮定すると、$\sqrt3 = u + v\sqrt2$（$u,\ v$ は有理数）と書ける。2 乗して $3 = u^2 + 2v^2 + 2uv\sqrt2$ なので、$\sqrt2$ が無理数であることから $uv = 0$。</p>
+    <ul>
+      <li>$v = 0$ なら $\sqrt3 = u$ が有理数となり矛盾。</li>
+      <li>$u = 0$ なら $\sqrt3 = v\sqrt2$ より $\sqrt6 = 2v$ が有理数となり矛盾。</li>
+    </ul>
+    <p>よって $c + d\sqrt2 = 0$、$\sqrt2$ の無理性から $c = d = 0$。すると $a + b\sqrt2 = 0$ より $a = b = 0$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\sqrt2 + \sqrt3$ を解にもち，係数がすべて有理数の 3 次方程式は存在しないことを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>そのような 3 次式 $g(x)$ があると仮定し、$f(x) = x^4 - 10x^2 + 1$ を $g(x)$ で割った余りを $r(x)$（2 次以下、有理数係数）とする。$f(\alpha) = g(\alpha) = 0$ より $r(\alpha) = 0$。本問 (3) と (1) から $r$ は 2 次でも 1 次でもなく、0 でない定数でもないので $r(x) = 0$。</p>
+    <p>すると $f(x) = g(x)h(x)$（$h$ は有理数係数の 1 次式）となり、$f(x) = 0$ が有理数解をもつ。しかし (2) の解 $\pm\sqrt2\pm\sqrt3$ はすべて無理数（(1) と同様）なので矛盾。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\sqrt2 + \sqrt[3]{3}$ を解にもち，係数がすべて有理数の 6 次方程式を 1 つ求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x - \sqrt2 = \sqrt[3]{3}$ の両辺を 3 乗すると $x^3 - 3\sqrt2\,x^2 + 6x - 2\sqrt2 = 3$。$\sqrt2$ を含む項を分離して</p>
+    $$x^3 + 6x - 3 = \sqrt2\,(3x^2 + 2)$$
+    <p>両辺を 2 乗して整理すると</p>
+    $$x^6 - 6x^4 - 6x^3 + 12x^2 - 36x + 1 = 0$$
+    <p class="note">「消したい根号を片側に集めてから累乗する」のが、本問 (2) と共通する考え方です。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+/* ---- 動く図解：x^4 - 10x^2 + 1 の mod p 因数分解 ---- */
+window.initPage = function () {
+  const F = [1, 0, -10, 0, 1]; // x^4 + 0x^3 - 10x^2 + 0x + 1（高次から）
+  const tex = (s) => (window.katex ? katex.renderToString(s, { throwOnError: false }) : s);
+  const primes = []; for (let n = 2; n < 100; n++) if (primes.every((q) => n % q)) primes.push(n);
+
+  const mod = (a, p) => ((a % p) + p) % p;
+  const inv = (a, p) => { for (let i = 1; i < p; i++) if ((a * i) % p === 1) return i; };
+
+  // 多項式（高次→低次、モニック前提でない）を p で割った商と余り
+  function divmod(num, den, p) {
+    num = num.map((c) => mod(c, p)); const out = [];
+    const il = inv(den[0], p);
+    while (num.length >= den.length) {
+      const c = mod(num[0] * il, p); out.push(c);
+      for (let i = 0; i < den.length; i++) num[i] = mod(num[i] - c * den[i], p);
+      num.shift();
+    }
+    while (num.length && num[0] === 0) num.shift();
+    return [out, num]; // num が空なら割り切れる
+  }
+
+  // モニック既約因数に分解（1 次 → 2 次の因数を全探索。4 次以下なので残りは既約）
+  function factor(poly, p) {
+    const res = []; let cur = poly.map((c) => mod(c, p));
+    const tryDivide = (cands) => {
+      for (const d of cands) {
+        const [q, r] = divmod(cur, d, p);
+        if (r.length === 0) { res.push(d); cur = q; return true; }
+      }
+      return false;
+    };
+    const lin = [...Array(p).keys()].map((b) => [1, b]);
+    while (cur.length - 1 >= 1 && tryDivide(lin));
+    if (cur.length - 1 >= 4) {
+      const quad = [...Array(p * p).keys()].map((k) => [1, Math.floor(k / p), k % p]);
+      while (cur.length - 1 >= 4 && tryDivide(quad));
+    }
+    if (cur.length - 1 >= 1) res.push(cur);
+    return res;
+  }
+
+  function polyTex(c) { // 係数を -p/2..p/2 に寄せずそのまま表示
+    const n = c.length - 1; let s = "";
+    c.forEach((a, i) => {
+      const e = n - i; if (a === 0) return;
+      const coef = (a === 1 && e > 0) ? "" : String(a);
+      s += (s ? " + " : "") + coef + (e > 1 ? `x^{${e}}` : e === 1 ? "x" : "");
+    });
+    return s || "0";
+  }
+
+  function show(p) {
+    const fs = factor(F, p);
+    const body = fs.map((f) => `(${polyTex(f)})`).join("");
+    const degs = fs.map((f) => f.length - 1).join("+");
+    return `<tr><td>${p}</td><td style="text-align:left">${tex("x^4 - 10x^2 + 1 \\equiv " + body)}</td><td>${degs}</td></tr>`;
+  }
+
+  const sel = document.getElementById("p-sel"), out = document.getElementById("p-out");
+  sel.innerHTML = primes.map((p) => `<option${p === 5 ? " selected" : ""}>${p}</option>`).join("");
+  const head = `<table><tr><th>p</th><th>mod p での因数分解</th><th>次数</th></tr>`;
+  const one = () => { out.innerHTML = head + show(+sel.value) + "</table>"; };
+  sel.addEventListener("change", one);
+  document.getElementById("p-all").addEventListener("click", () => {
+    out.innerHTML = head + primes.map(show).join("") + "</table>" +
+      `<p class="ok">どの p でも 4 次のまま残ることはありません（次数の列に「4」が現れない）。</p>`;
+  });
+  one();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

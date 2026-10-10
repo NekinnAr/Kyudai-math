@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2015年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2015-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$C_1,\ C_2$ をそれぞれ次式で与えられる放物線の一部分とする。</p>
+    $$C_1：y = -x^2 + 2x,\quad 0 \le x \le 2,\qquad C_2：y = -x^2 - 2x,\quad -2 \le x \le 0$$
+    <p>また，$a$ を実数とし，直線 $y = a(x + 4)$ を $l$ とする。</p>
+    <ol>
+      <li>(1)　直線 $l$ と $C_1$ が異なる 2 つの共有点をもつための $a$ の値の範囲を求めよ。</li>
+    </ol>
+    <p>以下，$a$ が (1) の条件を満たすとする。このとき，$l$ と $C_1$ で囲まれた領域の面積を $S_1$，$x$ 軸と $C_2$ で囲まれた領域で $l$ の下側にある部分の面積を $S_2$ とする。</p>
+    <ol>
+      <li>(2)　$S_1$ を $a$ を用いて表せ。</li>
+      <li>(3)　$S_1 = S_2$ を満たす実数 $a$ が $0 \lt a \lt \dfrac15$ の範囲に存在することを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2015 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は 2 次方程式の解の配置。(2) は $\frac16$ 公式で $S_1 = \frac16(\beta - \alpha)^3$。(3) は $S_2$ を「山全体 $\frac43$ − $l$ より上の部分」として求め、<b>中間値の定理</b>で示す。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$-x^2 + 2x = a(x + 4) \iff f(x) = x^2 + (a - 2)x + 4a = 0$ が $0 \le x \le 2$ に異なる 2 解をもつ条件は</p>
+      <ul>
+        <li>判別式：$(a - 2)^2 - 16a = a^2 - 20a + 4 \gt 0$</li>
+        <li>軸：$0 \lt \frac{2 - a}{2} \lt 2 \iff -2 \lt a \lt 2$</li>
+        <li>$f(0) = 4a \ge 0$，$f(2) = 6a \ge 0$</li>
+      </ul>
+      <p>$a^2 - 20a + 4 \gt 0 \iff a \lt 10 - 4\sqrt6$ または $a \gt 10 + 4\sqrt6$。まとめて</p>
+      $$0 \le a \lt 10 - 4\sqrt6\quad(= 0.202\cdots)$$
+
+      <h3>(2)</h3>
+      <p>$f(x) = 0$ の 2 解を $\alpha \lt \beta$ とすると、$\alpha \le x \le \beta$ で $C_1$ が $l$ の上にあり</p>
+      $$S_1 = \int_\alpha^\beta\{-f(x)\}dx = \frac{(\beta - \alpha)^3}{6} = \frac{(a^2 - 20a + 4)^{\frac32}}{6}$$
+
+      <h3>(3)</h3>
+      <p><b>$S_2$ を求める。</b>$-x^2 - 2x = a(x + 4) \iff x^2 + (a + 2)x + 4a = 0$ の判別式は $a^2 - 12a + 4$ で、$0 \le a \lt 10 - 4\sqrt6$ では正。2 解 $\gamma \lt \delta$ は $g(x) = x^2 + (a+2)x + 4a$ について $g(-2) = 2a \ge 0$，$g(0) = 4a \ge 0$，軸 $-\frac{a+2}{2} \in (-2,\ 0)$ より $-2 \le \gamma \lt \delta \le 0$。</p>
+      <p>$\gamma \lt x \lt \delta$ では $C_2$ が $l$ より上、それ以外では $C_2$ が $l$ より下。よって $C_2$ と $x$ 軸で囲まれた山（面積 $\frac{2^3}{6} = \frac43$）から、$l$ より上の部分を除いたものが $S_2$：</p>
+      $$S_2 = \frac43 - \frac{(\delta - \gamma)^3}{6} = \frac43 - \frac{(a^2 - 12a + 4)^{\frac32}}{6}$$
+      <p><b>中間値の定理。</b>$h(a) = S_1 - S_2 = \dfrac{(a^2 - 20a + 4)^{\frac32} + (a^2 - 12a + 4)^{\frac32}}{6} - \dfrac43$ は $0 \le a \le \frac15$ で連続（$\frac15 \lt 10 - 4\sqrt6$ を $4\sqrt6 \lt 9.8 \iff 96 \lt 96.04$ で確認）。</p>
+      <ul>
+        <li>$h(0) = \frac{8 + 8}{6} - \frac43 = \frac43 \gt 0$</li>
+        <li>$h\left(\frac15\right)$：$a^2 - 20a + 4 = \frac1{25}$，$a^2 - 12a + 4 = \frac{41}{25}$ より $h\left(\frac15\right) = \dfrac{1 + 41\sqrt{41}}{750} - \dfrac43$。$\sqrt{41} \lt 7$ より $1 + 41\sqrt{41} \lt 288 \lt 1000$ なので $h\left(\frac15\right) \lt 0$。</li>
+      </ul>
+      <p>よって $h(a) = 0$，すなわち $S_1 = S_2$ となる $a$ が $0 \lt a \lt \frac15$ に存在する。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a$ を動かすと直線 $l$ が点 $(-4,\ 0)$ を中心に回転します。$S_1$（赤）と $S_2$（青）が等しくなる $a$ を探してみましょう（$a \approx 0.094$）。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="0" max="2020" value="500"></label>
+    <span class="readout no-math" id="av"></span>
+    <button id="eq">S₁ = S₂ の a</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="420" height="230"></canvas>
+      <div class="no-math" id="info" style="min-width:180px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>解けない方程式の解の存在</h3>
+  <p>$S_1 = S_2$ は $\frac32$ 乗を含む方程式で、きれいには解けません。そこで「解の値」ではなく「解の存在」を問うのが (3) です。端点での符号の違いと連続性だけで存在が言えるのが中間値の定理の強みです。</p>
+  <p>chopin 先生は「(1) $l$ が $C_1$ の接線になっているときが $a$ の限界値」「(3) $S_1 = S_2$ はかなり複雑な方程式となり、解はキレイに求まりません。よって、$y = S_1$ のグラフと $y = S_2$ の交点が $0$ と $\frac15$ の間にあることを示しに行きます」とコメントしています。</p>
+  <div class="point">「〜を満たす $a$ が存在することを示せ」→ 差の関数をつくって<b>中間値の定理</b>。$\sqrt{41} \lt 7$ のような粗い評価で十分なことが多い。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$0 \lt a \lt 2$ とする。放物線 $y = -x^2 + 2x$ と直線 $y = ax$ で囲まれた部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$-x^2 + 2x - ax = -x(x - (2 - a))$ より交点は $x = 0,\ 2 - a$。面積は $\dfrac{(2 - a)^3}{6}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，$S_1 = S_2$ を満たす $a$ は (1) の範囲にただ 1 つ存在し，それは $0 \lt a \lt \dfrac1{10}$ の範囲にあることを示せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2015　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p><b>ただ 1 つ。</b>$0 \le a \lt 10 - 4\sqrt6$ で $a^2 - 20a + 4$，$a^2 - 12a + 4$ はともに正で減少（軸 $a = 10,\ 6$ より左）。よって $S_1$ は減少、$S_2$ は増加し、$h = S_1 - S_2$ は狭義単調減少。解は高々 1 つで、(3) より存在する。</p>
+    <p><b>$\frac1{10}$ 未満。</b>$a = \frac1{10}$ で $a^2 - 20a + 4 = \frac{201}{100}$，$a^2 - 12a + 4 = \frac{281}{100}$。</p>
+    $$h\left(\tfrac1{10}\right) = \frac{201\sqrt{201} + 281\sqrt{281}}{6000} - \frac43,\qquad 201\sqrt{201} + 281\sqrt{281} \lt 201\cdot15 + 281\cdot17 = 7792 \lt 8000$$
+    <p>より $h\left(\frac1{10}\right) \lt 0$。単調減少なので解は $0 \lt a \lt \frac1{10}$ にある（実際は $a \approx 0.0939$）。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -4.4, xmax: 2.6, ymin: -0.4, ymax: 1.5, equal: true });
+  const c1 = (x) => -x * x + 2 * x, c2 = (x) => -x * x - 2 * x;
+  function draw() {
+    const a = $("a").value / 10000, l = (x) => a * (x + 4);
+    $("av").textContent = ` ${a.toFixed(4)}`;
+    P.clear().grid(1, "#f3f3f3").axes();
+    const D1 = a * a - 20 * a + 4, D2 = a * a - 12 * a + 4;
+    const al = ((2 - a) - Math.sqrt(D1)) / 2, be = ((2 - a) + Math.sqrt(D1)) / 2;
+    const ga = (-(a + 2) - Math.sqrt(D2)) / 2, de = (-(a + 2) + Math.sqrt(D2)) / 2;
+    // S2：山の l より下の部分
+    const r2 = [];
+    for (let i = 0; i <= 200; i++) { const x = -2 + 2 * i / 200; r2.push([x, Math.min(c2(x), l(x))]); }
+    r2.push([0, 0], [-2, 0]);
+    P.fill(r2, "rgba(28,126,214,.35)");
+    const r1 = [];
+    for (let i = 0; i <= 100; i++) { const x = al + (be - al) * i / 100; r1.push([x, c1(x)]); }
+    for (let i = 100; i >= 0; i--) { const x = al + (be - al) * i / 100; r1.push([x, l(x)]); }
+    P.fill(r1, "rgba(138,21,56,.45)");
+    P.fn(c1, 0, 2, "#8a1538", 2.2).fn(c2, -2, 0, "#1c7ed6", 2.2).fn(l, -4.4, 2.6, "#222", 1.5);
+    P.dot(-4, 0, "#222", 4, "(−4, 0)", -10, 16);
+    const S1 = Math.pow(D1, 1.5) / 6, S2 = 4 / 3 - Math.pow(D2, 1.5) / 6;
+    $("info").innerHTML = `S₁ = ${S1.toFixed(4)}（赤）<br>S₂ = ${S2.toFixed(4)}（青）<br>S₁ − S₂ = ${(S1 - S2).toFixed(4)}` +
+      (Math.abs(S1 - S2) < 0.003 ? '<br><span class="ok">S₁ ≈ S₂</span>' : "") + `<br><span style="color:#888;font-size:.9em">a の上限 10 − 4√6 ≈ 0.2020</span>`;
+  }
+  $("a").addEventListener("input", draw);
+  $("eq").onclick = () => { $("a").value = 939; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

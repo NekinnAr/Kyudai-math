@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2016年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2016-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標平面上で円 $x^2 + y^2 = 1$ に内接する正六角形で，点 $\mathrm{P}_0(1,\ 0)$ を 1 つの頂点とするものを考える。この正六角形の頂点を $\mathrm{P}_0$ から反時計まわりに順に $\mathrm{P}_1,\ \mathrm{P}_2,\ \mathrm{P}_3,\ \mathrm{P}_4,\ \mathrm{P}_5$ とする。ある頂点に置かれている 1 枚のコインに対し，1 つのサイコロを 1 回投げ，出た目に応じてコインを次の規則にしたがって頂点上を動かす。</p>
+    <p>（規則）</p>
+    <ul style="list-style:none">
+      <li>(i)　1 から 5 までの目が出た場合は，出た目の数だけコインを反時計まわりに動かす。例えば，コインが $\mathrm{P}_4$ にあるときに 4 の目が出た場合は $\mathrm{P}_2$ まで動かす。</li>
+      <li>(ii)　6 の目が出た場合は，$x$ 軸に関して対称な位置にコインを動かす。ただし，コインが $x$ 軸上にあるときは動かさない。例えば，コインが $\mathrm{P}_5$ にあるときに 6 の目が出た場合は $\mathrm{P}_1$ に動かす。</li>
+    </ul>
+    <p>はじめにコインを 1 枚だけ $\mathrm{P}_0$ に置き，1 つのサイコロを続けて何回か投げて，1 回投げるごとに上の規則にしたがってコインを動かしていくゲームを考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　2 回サイコロを投げた後に，コインが $\mathrm{P}_0$ の位置にある確率を求めよ。</li>
+      <li>(2)　3 回サイコロを投げた後に，コインが $\mathrm{P}_0$ の位置にある確率を求めよ。</li>
+      <li>(3)　$n$ を自然数とする。$n$ 回サイコロを投げた後に，コインが $\mathrm{P}_0$ の位置にある確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2016 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>1 回投げた時点でコインは 6 頂点に<b>等確率</b>で散らばる。しかも 1 回の操作は「等確率の分布を等確率の分布に移す」ので、以後ずっと $\frac16$。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>$n$ 回後にコインが $\mathrm{P}_j$ にある確率を $p_n(j)$ とする。</p>
+      <h3>1 回後</h3>
+      <p>$\mathrm{P}_0$ から、1〜5 の目で $\mathrm{P}_1 \sim \mathrm{P}_5$ へ、6 の目では $x$ 軸上なので $\mathrm{P}_0$ のまま。よって $p_1(j) = \frac16$（$j = 0,\ \cdots,\ 5$）。</p>
+
+      <h3>等確率は保たれる</h3>
+      <p>ある回で $p_n(j) = \frac16$（すべての $j$）とする。1 つの目に対する移動は、どれも 6 頂点の<b>並べかえ（1 対 1 の対応）</b>になっている：</p>
+      <ul>
+        <li>$k$ の目（$1 \le k \le 5$）：$\mathrm{P}_j \to \mathrm{P}_{j+k}$（添字は 6 で割った余り）</li>
+        <li>6 の目：$\mathrm{P}_j \to \mathrm{P}_{-j}$（$\mathrm{P}_0,\ \mathrm{P}_3$ は動かない）</li>
+      </ul>
+      <p>したがって各目について、$\mathrm{P}_i$ に移ってくる頂点はちょうど 1 つで、</p>
+      $$p_{n+1}(i) = \sum_{\text{目}}\frac16\cdot p_n(\text{移ってくる頂点}) = 6\cdot\frac16\cdot\frac16 = \frac16$$
+      <p>帰納法により、$n \ge 1$ のすべてで $p_n(j) = \frac16$。</p>
+      <h3>答</h3>
+      <p>(1) $\dfrac16$　(2) $\dfrac16$　(3) $\dfrac16$</p>
+      <p>（(1) を直接確かめると：1 回後 $\mathrm{P}_j$ にあれば、2 回目に $\mathrm{P}_0$ に行く目は、$j = 0$ なら 6、$j \neq 0$ なら $6 - j$ の 1 通りずつ。よって $\sum_j\frac16\cdot\frac16 = \frac16$。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ 回後に各頂点にある確率を円の大きさで表示します。「6 の目の規則」を $y$ 軸対称に変えると（魔改造の設定）、等確率にはならず、$\frac16$ に近づいていきます。</p>
+
+  <div class="widget">
+    <label>6 の目の規則：<select id="mode"><option value="0">x 軸に関して対称（本問）</option><option value="1">y 軸に関して対称（魔改造）</option></select></label>
+    <label>n：<input type="range" id="n" min="0" max="8" value="1"></label>
+    <span class="readout no-math" id="nv"></span>
+    <button id="sim">10000 回シミュレーション</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>二重確率行列</h3>
+  <p>推移確率を行列で書くと、各行・各列の和がすべて 1 になっています（<b>二重確率行列</b>）。これは「1 回の操作が並べかえ（置換）の平均」になっていることの言いかえで、二重確率行列は一様分布を一様分布に移します。本問は 1 回目で一様になるので、以後ずっと $\frac16$ です。</p>
+  <p>chopin 先生は「(1) はサイコロの目によってコインがどう動くかを全て書き出してあげるとよい」「(2)(3) は $n$ 回サイコロを投げてコインが 1〜6 にいる確率を $a_n,\ \cdots,\ f_n$ として漸化式を立ててあげると、任意の $n$ について $a_n = \frac16$ になることが分かります」と解説しています。</p>
+  <div class="point">「どの目でも移動が 1 対 1」なら、等確率の分布は保たれる。漸化式を立てる前に、<b>小さい $n$ で計算して規則性を疑う</b>のも大事。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>正方形 $\mathrm{P}_0\mathrm{P}_1\mathrm{P}_2\mathrm{P}_3$ の頂点 $\mathrm{P}_0$ にコインを置く。サイコロを投げ，1, 2 の目なら反時計まわりに隣へ，3, 4 の目なら時計まわりに隣へ，5, 6 の目なら対角の頂点へ動かす。$n$ 回後にコインが $\mathrm{P}_0$ にある確率 $q_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>どの頂点からも、自分以外の 3 頂点へ $\frac13$ ずつ移る。$\mathrm{P}_0$ にいなければ確率 $\frac13$ で $\mathrm{P}_0$ に来るので $q_{n+1} = \frac13(1 - q_n)$，$q_0 = 1$。</p>
+    $$q_n - \frac14 = \left(-\frac13\right)^n\left(1 - \frac14\right) \quad\therefore\ q_n = \frac14 + \frac34\left(-\frac13\right)^n$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の規則 (ii) を「6 の目が出た場合は，$y$ 軸に関して対称な位置にコインを動かす」に変える。$n$ 回サイコロを投げた後に，コインが $\mathrm{P}_0$ にある確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2016　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$y$ 軸対称は $\mathrm{P}_j \to \mathrm{P}_{3-j}$（$\mathrm{P}_0 \leftrightarrow \mathrm{P}_3$）。$\mathrm{P}_0,\ \mathrm{P}_3$ にある確率を $p_n,\ r_n$ とすると</p>
+    $$p_{n+1} = \frac16(1 - p_n) + \frac16r_n,\qquad r_{n+1} = \frac16(1 - r_n) + \frac16p_n$$
+    <p>（$\mathrm{P}_0$ 以外の各頂点からは 1〜5 の目のうちちょうど 1 つで $\mathrm{P}_0$ へ、加えて $\mathrm{P}_3$ からは 6 の目でも来る。）足すと $p_{n+1} + r_{n+1} = \frac13$ なので $n \ge 1$ で $r_n = \frac13 - p_n$。代入して $p_{n+1} = \frac29 - \frac13p_n$，$p_1 = 0$。</p>
+    $$p_n - \frac16 = \left(-\frac13\right)^{n-1}\left(0 - \frac16\right) \quad\therefore\ p_n = \frac16 + \frac12\left(-\frac13\right)^n$$
+    <p>（$p_2 = \frac29$，$p_3 = \frac4{27}$。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height, cx = W / 2, cy = H / 2, R = 105;
+  const refl = (mode, j) => mode === 0 ? (6 - j) % 6 : (9 - j) % 6;
+  function dist(mode, n) {
+    let p = [1, 0, 0, 0, 0, 0];
+    for (let s = 0; s < n; s++) {
+      const q = [0, 0, 0, 0, 0, 0];
+      for (let j = 0; j < 6; j++) { for (let k = 1; k <= 5; k++) q[(j + k) % 6] += p[j] / 6; q[refl(mode, j)] += p[j] / 6; }
+      p = q;
+    }
+    return p;
+  }
+  function draw(simRes) {
+    const mode = +$("mode").value, n = +$("n").value, p = dist(mode, n);
+    c.clearRect(0, 0, W, H);
+    c.strokeStyle = "#ccc"; c.beginPath(); c.moveTo(10, cy); c.lineTo(W - 10, cy); c.moveTo(cx, 10); c.lineTo(cx, H - 10); c.stroke();
+    c.strokeStyle = mode === 0 ? "rgba(28,126,214,.6)" : "rgba(232,89,12,.6)"; c.setLineDash([5, 4]); c.lineWidth = 2;
+    c.beginPath(); if (mode === 0) { c.moveTo(10, cy); c.lineTo(W - 10, cy); } else { c.moveTo(cx, 10); c.lineTo(cx, H - 10); } c.stroke(); c.setLineDash([]); c.lineWidth = 1;
+    c.strokeStyle = "#222"; c.beginPath();
+    for (let j = 0; j <= 6; j++) { const a = j * Math.PI / 3, x = cx + R * Math.cos(a), y = cy - R * Math.sin(a); j ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+    for (let j = 0; j < 6; j++) {
+      const a = j * Math.PI / 3, x = cx + R * Math.cos(a), y = cy - R * Math.sin(a);
+      c.fillStyle = "rgba(138,21,56,.75)"; c.beginPath(); c.arc(x, y, 4 + 60 * Math.sqrt(p[j]) * 0.6, 0, 7); c.fill();
+      c.fillStyle = "#222"; c.font = "13px sans-serif";
+      c.fillText("P" + j, cx + (R + 34) * Math.cos(a) - 8, cy - (R + 34) * Math.sin(a) + 5);
+    }
+    $("nv").textContent = ` n = ${n}`;
+    $("info").innerHTML = p.map((v, j) => `P${j}：${v.toFixed(5)}`).join("<br>") + (simRes ? `<hr>${simRes}` : "") +
+      (mode === 1 && n >= 1 ? `<br><span style="color:#888">公式 1/6 + (1/2)(−1/3)^n = ${(1 / 6 + 0.5 * Math.pow(-1 / 3, n)).toFixed(5)}</span>` : "");
+  }
+  $("sim").onclick = () => {
+    const mode = +$("mode").value, n = +$("n").value; let cnt = 0;
+    for (let s = 0; s < 10000; s++) { let j = 0; for (let k = 0; k < n; k++) { const d = 1 + Math.floor(Math.random() * 6); j = d < 6 ? (j + d) % 6 : refl(mode, j); } if (j === 0) cnt++; }
+    draw(`シミュレーション：P0 に ${cnt} / 10000 回`);
+  };
+  ["mode", "n"].forEach((id) => $(id).addEventListener("input", () => draw()));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

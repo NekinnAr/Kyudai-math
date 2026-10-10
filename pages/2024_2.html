@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2024年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2024-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>整式</p>
+    $$f(z) = z^6 + z^4 + z^2 + 1$$
+    <p>について，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(z) = 0$ をみたすすべての複素数 $z$ に対して，$|z| = 1$ が成り立つことを示せ。</li>
+      <li>(2)　次の条件をみたす複素数 $w$ をすべて求めよ。<br>
+        　条件：$f(z) = 0$ をみたすすべての複素数 $z$ に対して $f(wz) = 0$ が成り立つ。</li>
+    </ol>
+  </div>
+  <p class="source">（2024 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$f(z)$ は因数分解でき、解は「1 の 8 乗根から $\pm1$ を除いた 6 個」。(2) は「$w$ 倍 = 回転」と見て、6 個の点の集合を自分自身に移す回転を探す問題になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$f(z) = z^4(z^2+1) + (z^2+1) = (z^2+1)(z^4+1)$$
+      <p>$z^2 = -1$ のとき $z = \pm i$。$z^4 = -1$ のとき $|z|^4 = 1$ より $|z| = 1$。いずれも $|z| = 1$ である。</p>
+      <p>具体的には $z^4 = -1$ の解は $z = \cos\frac{k\pi}{4} + i\sin\frac{k\pi}{4}$（$k = 1,\ 3,\ 5,\ 7$）なので、$\alpha = \cos\frac{\pi}{4} + i\sin\frac{\pi}{4}$ とおくと、$f(z) = 0$ の解全体は</p>
+      $$S = \{\alpha,\ \alpha^2,\ \alpha^3,\ \alpha^5,\ \alpha^6,\ \alpha^7\}$$
+      <p>つまり、1 の 8 乗根 $1,\ \alpha,\ \dots,\ \alpha^7$ のうち $\alpha^0 = 1$ と $\alpha^4 = -1$ を除いたものである。</p>
+
+      <h3>(2)</h3>
+      <p><b>必要条件</b>　$z = i\ (= \alpha^2) \in S$ に対して $wi \in S$ なので、$wi = \alpha^k$ となる $k$ があり、$w = \alpha^{k-2}$。よって $w$ は 1 の 8 乗根で、$w = \alpha^j$（$j = 0,\ 1,\ \dots,\ 7$）と書ける。</p>
+      <p>$j \neq 0,\ 4$ と仮定する。$z = \alpha^{8-j}$ とおくと $8 - j \neq 0,\ 4,\ 8$ なので $z \in S$。ところが</p>
+      $$wz = \alpha^j\cdot\alpha^{8-j} = \alpha^8 = 1 \notin S$$
+      <p>となり条件に反する。よって $j = 0$ または $4$、すなわち $w = \pm1$。</p>
+      <p><b>十分性</b>　$f$ は偶数次の項のみなので $f(-z) = f(z)$。よって $w = \pm1$ は条件をみたす。</p>
+      $$w = 1,\ -1$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>黒丸が $f(z) = 0$ の解、白丸が除かれた $\pm1$ です。$w$ の偏角と絶対値を動かすと、赤い点 $wz$ が移動します。6 個すべてが黒丸に重なるのはどんなときでしょう？ 他の多項式に切り替えて比べることもできます。</p>
+
+  <div class="widget">
+    <div class="row" style="gap:16px;flex-wrap:wrap">
+      <label>多項式：<select id="poly">
+        <option value="0">z⁶+z⁴+z²+1（本問）</option>
+        <option value="1">z⁴+1</option>
+        <option value="2">z⁶+z³+1（類題）</option>
+      </select></label>
+    </div>
+    <label>arg w：<input type="range" id="arg" min="0" max="360" value="45"></label>
+    <span class="readout no-math" id="argv"></span><br>
+    <label>|w|：<input type="range" id="abs" min="50" max="150" value="100"></label>
+    <span class="readout no-math" id="absv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「解の集合」の対称性</h3>
+  <p>複素数 $w$ をかけることは、原点まわりの回転（と拡大・縮小）です。(2) は「解 6 個の配置を、それ自身に重ねる回転は何か」という問題で、正八角形から 2 頂点 $\pm1$ が抜けた図形の回転対称性を問うています。抜けた 2 点の位置も保たれなければならないので、許されるのは $0$ 回転（$w = 1$）と半回転（$w = -1$）だけ、というわけです。</p>
+  <p>一方、$z^4 + 1 = 0$ の 4 つの解（正方形の頂点）なら $w = \pm1,\ \pm i$ の 4 つが条件をみたします。図解で多項式を切り替えて確かめてください。</p>
+
+  <h3>円分多項式</h3>
+  <p>$(z^2 - 1)f(z) = z^8 - 1$ なので、$f(z) = \dfrac{z^8 - 1}{z^2 - 1}$ です。さらに $z^2 + 1$ は「1 の原始 4 乗根」、$z^4 + 1$ は「1 の原始 8 乗根」を解にもつ多項式で、これらは<b>円分多項式</b> $\Phi_4(z),\ \Phi_8(z)$ と呼ばれます。九大は 1 の $n$ 乗根の扱いを好んで出題します。</p>
+  <div class="point">「すべての $z$ に対して」という条件は、<b>都合のよい $z$ を 1 つ選んで必要条件を絞る</b>のが基本。本問では $z = i$ で $w$ を 8 個に絞り、$z = 1/w$ で $w = \pm1$ まで絞りました。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$g(z) = z^6 + z^3 + 1$ とする。$g(z) = 0$ をみたすすべての複素数 $z$ に対して $g(wz) = 0$ が成り立つような複素数 $w$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$(z^3 - 1)g(z) = z^9 - 1$ より、$g(z) = 0$ の解全体 $T$ は「1 の 9 乗根のうち、1 の 3 乗根でないもの」の 6 個。</p>
+    <p>本問と同様に、$T$ の 1 つの要素 $z$ について $wz \in T$ から $w$ は 1 の 9 乗根。$w^3 \neq 1$ なら $z = \dfrac1w$ も 1 の 9 乗根で 3 乗根でないから $z \in T$ だが、$wz = 1 \notin T$。よって $w^3 = 1$。</p>
+    <p>逆に $w^3 = 1$ なら、$z \in T$ に対し $(wz)^9 = 1$，$(wz)^3 = z^3 \neq 1$ より $wz \in T$。</p>
+    $$w = 1,\ \frac{-1 \pm \sqrt3\,i}{2}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $f(z)$ について，$f(z) = 0$ をみたすすべての複素数 $z$ に対して $f(z^k) = 0$ が成り立つような自然数 $k$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2024　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$z = i$ とすると $i^k \in \{\pm1,\ \pm i\}$ で、これが $S$ に入るには $i^k = \pm i$、すなわち $k$ が奇数であることが必要。</p>
+    <p>逆に $k$ が奇数のとき、$z \in S$ に対し $(z^k)^8 = 1$。もし $z^k = \pm1$ なら $z^{2k} = 1$ で、$z^8 = 1$ と合わせると $\gcd(2k,\ 8) = 2$ より $z^2 = 1$ となり $z \notin S$ に矛盾。よって $z^k \in S$。</p>
+    <p>答：$k$ は<b>正の奇数</b>すべて。</p>
+    <p>（回転「$w$ 倍」ではなく「$k$ 乗」という写像で、解の集合が保たれる条件を考えた問題です。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv"), c = cv.getContext("2d");
+  const argIn = document.getElementById("arg"), absIn = document.getElementById("abs"), polyIn = document.getElementById("poly");
+  // [ n, 解の番号 k（偏角 2πk/n）, 除かれる n 乗根の番号 ]
+  const P = [
+    { n: 8, roots: [1, 2, 3, 5, 6, 7], ans: "w = 1, −1" },
+    { n: 8, roots: [1, 3, 5, 7], ans: "w = ±1, ±i" },
+    { n: 9, roots: [1, 2, 4, 5, 7, 8], ans: "w = 1, ω, ω²" },
+  ];
+  function draw() {
+    const p = P[+polyIn.value];
+    const th = argIn.value * Math.PI / 180, r = absIn.value / 100;
+    document.getElementById("argv").textContent = ` ${argIn.value}°`;
+    document.getElementById("absv").textContent = ` ${r.toFixed(2)}`;
+    const W = cv.width, o = W / 2, s = 110;
+    const X = (x) => o + s * x, Y = (y) => o - s * y;
+    c.clearRect(0, 0, W, W);
+    c.strokeStyle = "#ccc"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, o); c.lineTo(W, o); c.moveTo(o, 0); c.lineTo(o, W); c.stroke();
+    c.beginPath(); c.arc(o, o, s, 0, 7); c.stroke();
+    c.fillStyle = "#888"; c.font = "12px sans-serif"; c.fillText("1", X(1) + 4, o + 14); c.fillText("i", o + 5, Y(1) - 5);
+    const roots = p.roots.map((k) => 2 * Math.PI * k / p.n);
+    // n 乗根（除かれたもの = 白丸）
+    for (let k = 0; k < p.n; k++) {
+      const a = 2 * Math.PI * k / p.n, isRoot = p.roots.includes(k);
+      c.beginPath(); c.arc(X(Math.cos(a)), Y(Math.sin(a)), 6, 0, 7);
+      if (isRoot) { c.fillStyle = "#222"; c.fill(); } else { c.fillStyle = "#fff"; c.fill(); c.strokeStyle = "#555"; c.lineWidth = 1.5; c.stroke(); }
+    }
+    // wz
+    let hit = 0;
+    roots.forEach((a) => {
+      const b = a + th, x = r * Math.cos(b), y = r * Math.sin(b);
+      const ok = Math.abs(r - 1) < 0.005 && roots.some((q) => Math.abs(Math.cos(q) - Math.cos(b)) < 1e-6 && Math.abs(Math.sin(q) - Math.sin(b)) < 1e-6);
+      if (ok) hit++;
+      c.strokeStyle = "rgba(201,42,42,.35)"; c.lineWidth = 1; c.beginPath(); c.moveTo(X(Math.cos(a)), Y(Math.sin(a))); c.lineTo(X(x), Y(y)); c.stroke();
+      c.fillStyle = ok ? "#2b8a3e" : "#c92a2a"; c.beginPath(); c.arc(X(x), Y(y), 4, 0, 7); c.fill();
+    });
+    const all = hit === roots.length;
+    document.getElementById("info").innerHTML =
+      `w = ${r.toFixed(2)}(cos ${argIn.value}° + i sin ${argIn.value}°)<br>` +
+      `解に重なった wz：<b>${hit} / ${roots.length}</b> 個<br>` +
+      (all ? `<span class="ok">✔ 条件をみたす！</span>` : `<span class="ng">✘ 条件をみたさない</span>`) +
+      `<br><span style="color:#666;font-size:.9em">● 解　○ 除かれた点　<span style="color:#c92a2a">●</span> wz（<span style="color:#2b8a3e">●</span> = 解に重なった）<br>答え：${p.ans}</span>`;
+  }
+  [argIn, absIn, polyIn].forEach((el) => el.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

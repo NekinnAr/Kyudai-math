@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2015年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2015-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内に，原点 $\mathrm{O}(0,\ 0,\ 0)$ を中心とする半径 1 の球がある。下の概略図のように，$y$ 軸の負の方向から仰角 $\dfrac{\pi}{6}$ で太陽光線が当たっている。この太陽光線はベクトル $(0,\ \sqrt3,\ -1)$ に平行である。球は光を通さないものとするとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　球の $z \ge 0$ の部分が $xy$ 平面上につくる影を考える。$k$ を $-1 \lt k \lt 1$ を満たす実数とするとき，$xy$ 平面上の直線 $x = k$ において，球の外で光が当たらない部分の $y$ 座標の範囲を $k$ を用いて表せ。</li>
+      <li>(2)　$xy$ 平面上において，球の外で光が当たらない部分の面積を求めよ。</li>
+      <li>(3)　$z \ge 0$ において，球の外で光が当たらない部分の体積を求めよ。</li>
+    </ol>
+    <p style="font-size:.9em;color:#666">（概略図：上半球に $y$ 軸の負の側から斜め下向きに光が当たり、$y$ 軸の正の側の $xy$ 平面上に影ができている。）</p>
+  </div>
+  <p class="source">（2015 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>平面 $x = k$ で切ると、断面は半径 $r = \sqrt{1 - k^2}$ の半円で、光は傾き $-\frac{1}{\sqrt3}$ の平行線。<b>半円に接する光線</b>が影の境界になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>平面 $x = k$ 上で考え、$(y,\ z)$ 座標を使う。球の断面は $y^2 + z^2 \le r^2$（$r = \sqrt{1 - k^2}$）。光線の方向は $(\sqrt3,\ -1)$。</p>
+      <p>光線に平行で半円 $z \ge 0$ に接する直線は、法線方向 $\left(\frac12,\ \frac{\sqrt3}{2}\right)$ の点 $\mathrm{T}\left(\frac r2,\ \frac{\sqrt3}{2}r\right)$ で接し、その方程式は</p>
+      $$\frac12y + \frac{\sqrt3}{2}z = r \iff y + \sqrt3z = 2r$$
+      <p>これが $z = 0$ と交わるのは $y = 2r$。半円の右端は $y = r$ なので、球の外で光が当たらないのは</p>
+      $$\sqrt{1 - k^2} \lt y \le 2\sqrt{1 - k^2}$$
+      <p>（$y = 2r$ は接する光線がちょうど届く点。境界の扱いは等号の有無を問わない。）</p>
+
+      <h3>(2)</h3>
+      $$\int_{-1}^{1}\left(2\sqrt{1 - k^2} - \sqrt{1 - k^2}\right)dk = \int_{-1}^{1}\sqrt{1 - k^2}\,dk = \frac\pi2$$
+      <p>（影の外形は楕円 $x^2 + \frac{y^2}{4} = 1$ の半分。半楕円 $\pi$ から半円 $\frac\pi2$ を除いた形。）</p>
+
+      <h3>(3)</h3>
+      <p>平面 $x = k$ による断面は、O，T，$(2r,\ 0)$ を頂点とする三角形から、中心角 $\frac\pi3$ の扇形 $\mathrm{O}$-$(r,0)$-$\mathrm{T}$ を除いた部分。</p>
+      $$\frac12\cdot2r\cdot\frac{\sqrt3}{2}r - \frac12r^2\cdot\frac\pi3 = \left(\frac{\sqrt3}{2} - \frac\pi6\right)(1 - k^2)$$
+      $$V = \left(\frac{\sqrt3}{2} - \frac\pi6\right)\int_{-1}^{1}(1 - k^2)\,dk = \frac43\left(\frac{\sqrt3}{2} - \frac\pi6\right) = \frac{2\sqrt3}{3} - \frac{2\pi}{9}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>左は平面 $x = k$ での断面（灰色が影）、右は真上から見た $xy$ 平面上の影です。$k$ を動かすと、右図の赤い線分が左図の影の底辺に対応します。仰角も変えられます。</p>
+
+  <div class="widget">
+    <label>k：<input type="range" id="k" min="-95" max="95" value="30"></label>
+    <span class="readout no-math" id="kv"></span>
+    <label>仰角：<input type="range" id="ph" min="10" max="80" value="30"></label>
+    <span class="readout no-math" id="phv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv1" class="fig" width="300" height="220"></canvas>
+      <canvas id="cv2" class="fig" width="260" height="220"></canvas>
+    </div>
+    <div class="no-math" id="info" style="margin-top:6px;line-height:1.8"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>断面で考える立体の影</h3>
+  <p>光が $yz$ 平面に平行なので、$x = k$ で切ればすべての断面が同じ形（相似）になり、2 次元の問題に帰着します。断面積が $r^2 = 1 - k^2$ に比例するので、(2)(3) の積分はどちらも一瞬です。</p>
+  <p>一般に仰角を $\varphi$ にすると、影の先端は $y = \frac{r}{\sin\varphi}$、断面の影の面積は $\frac{r^2}{2}\left(\frac{1}{\tan\varphi} - \left(\frac\pi2 - \varphi\right)\right)$ になります（$\varphi = \frac\pi6$ で本問）。</p>
+  <p>chopin 先生は「(1) 影は、太陽光線が半円の接線になっているときに、光線・半円・$x$ 軸で囲まれるエリア」「(3) 影の部分の体積は『光線・半円・$x$ 軸で囲まれるエリア』の面積を $k$ で積分したもの」とコメントしています。</p>
+  <div class="point">立体の問題は、条件がそろう方向（ここでは光に平行な平面 $x = k$）で切る。断面積 $S(k)$ を求めて $\int S(k)\,dk$。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$xy$ 平面上に半円 $x^2 + y^2 \le 1$，$y \ge 0$ がある。ベクトル $(1,\ -1)$ に平行な光が当たるとき，半円の外で $y \ge 0$ にある影の部分の面積を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>接点は $\mathrm{T}\left(\frac{1}{\sqrt2},\ \frac{1}{\sqrt2}\right)$，接線 $x + y = \sqrt2$ は $x$ 軸と $(\sqrt2,\ 0)$ で交わる。三角形 $\mathrm{O}$-$\mathrm{T}$-$(\sqrt2,0)$ の面積 $\frac12\cdot\sqrt2\cdot\frac1{\sqrt2} = \frac12$ から中心角 $\frac\pi4$ の扇形 $\frac\pi8$ を引いて $\dfrac12 - \dfrac\pi8$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で，太陽光線の仰角を $\dfrac{\pi}{4}$（光線はベクトル $(0,\ 1,\ -1)$ に平行）に変えたとき，(2)(3) に相当する面積と体積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2015　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>断面で、接線は $y + z = \sqrt2r$、影の範囲は $r \lt y \le \sqrt2r$。</p>
+    <p>面積：$\displaystyle\int_{-1}^{1}(\sqrt2 - 1)\sqrt{1 - k^2}\,dk = \frac{(\sqrt2 - 1)\pi}{2}$</p>
+    <p>体積：断面積は自作類題の $r^2$ 倍で $\left(\frac12 - \frac\pi8\right)(1 - k^2)$。$V = \frac43\left(\frac12 - \frac\pi8\right) = \dfrac23 - \dfrac\pi6$。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P1 = Fig.plane($("cv1"), { xmin: -1.3, xmax: 2.6, ymin: -0.25, ymax: 1.6, equal: true });
+  const P2 = Fig.plane($("cv2"), { xmin: -1.3, xmax: 1.3, ymin: -1.2, ymax: 2.6, equal: true });
+  function draw() {
+    const k = $("k").value / 100, ph = $("ph").value * Math.PI / 180, r = Math.sqrt(1 - k * k);
+    const tip = r / Math.sin(ph), T = [r * Math.sin(ph), r * Math.cos(ph)];
+    $("kv").textContent = ` ${k.toFixed(2)}`; $("phv").textContent = ` ${$("ph").value}°`;
+    // 断面
+    P1.clear().axes("y", "z");
+    const reg = [[tip, 0], T];
+    for (let i = 0; i <= 40; i++) { const a = (Math.PI / 2 - ph) * (1 - i / 40); reg.push([r * Math.cos(a), r * Math.sin(a)]); }
+    P1.fill(reg, "rgba(0,0,0,.25)");
+    const semi = []; for (let i = 0; i <= 80; i++) { const a = Math.PI * i / 80; semi.push([r * Math.cos(a), r * Math.sin(a)]); }
+    P1.fill([...semi], "rgba(138,21,56,.12)").line(semi, "#8a1538", 2);
+    const d = [Math.cos(ph), -Math.sin(ph)];
+    for (let j = -3; j <= 4; j++) { const off = j * 0.28; const p0 = [T[0] - 3 * d[0] + off * Math.sin(ph), T[1] - 3 * d[1] + off * Math.cos(ph)]; P1.line([p0, [p0[0] + 6 * d[0], p0[1] + 6 * d[1]]], j === 0 ? "#e8590c" : "rgba(232,140,12,.35)", j === 0 ? 1.8 : 1); }
+    P1.dot(T[0], T[1], "#e8590c", 4, "T").dot(tip, 0, "#222", 3.5, "2r", -4, 14);
+    P1.text("x = k の断面", -1.2, 1.5, "#666");
+    // 上から
+    P2.clear().axes();
+    const up = [], low = [];
+    for (let i = 0; i <= 80; i++) { const x = -1 + 2 * i / 80; up.push([x, Math.sqrt(1 - x * x) / Math.sin(ph)]); low.push([x, Math.sqrt(1 - x * x)]); }
+    P2.fill([...up, ...low.reverse()], "rgba(0,0,0,.22)");
+    P2.circle(0, 0, 1, "#8a1538", 2);
+    P2.line([[k, r], [k, tip]], "#c92a2a", 3).line([[k, -1.2], [k, 2.6]], "rgba(201,42,42,.3)", 1, [4, 3]);
+    P2.text("真上から", -1.25, 2.45, "#666");
+    const isP6 = Math.abs($("ph").value - 30) < 0.5;
+    const A = (1 / Math.sin(ph) - 1) * Math.PI / 2, Vc = 0.5 * (1 / Math.tan(ph) - (Math.PI / 2 - ph)) * 4 / 3;
+    $("info").innerHTML = `影の範囲：${r.toFixed(3)} < y ≤ ${tip.toFixed(3)}　｜　影の面積 = ${A.toFixed(4)}${isP6 ? "（= π/2）" : ""}　｜　影の体積 = ${Vc.toFixed(4)}${isP6 ? "（= 2√3/3 − 2π/9）" : ""}`;
+  }
+  ["k", "ph"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2024年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .gridF { display: grid; grid-template-columns: 34px repeat(7, 1fr); gap: 3px; max-width: 480px; font-size: 13px; }
+    .gridF div { text-align: center; padding: 6px 2px; border-radius: 4px; }
+    .gridF .h { font-weight: 700; color: #555; }
+    .gridF .cell { cursor: pointer; border: 1px solid #ddd; background: #fff; }
+    .gridF .cell.sel { outline: 2px solid #222; }
+    .gridF .yes { background: #d3f9d8; font-weight: 700; }
+  </style>
+</head>
+<body data-root=".." data-id="2024-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　自然数 $a,\ b$ が $a \lt b$ をみたすとき，$\dfrac{b!}{a!} \ge b$ が成り立つことを示せ。</li>
+      <li>(2)　$2\cdot a! = b!$ をみたす自然数の組 $(a,\ b)$ をすべて求めよ。</li>
+      <li>(3)　$a! + b! = 2\cdot c!$ をみたす自然数の組 $(a,\ b,\ c)$ をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2024 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>階乗は急激に増えるので、「大きさの評価」で候補を絞るのが基本方針。(1) はそのための道具で、(2)(3) は「ある数が $1$ より大きい整数なら $2$ 以上」といった評価で決着する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\frac{b!}{a!} = b(b-1)(b-2)\cdots(a+1)$$
+      <p>右辺は $b$ と、$1$ 以上の整数 $b-1,\ \dots,\ a+1$（$a + 1 = b$ のときは $b$ のみ）の積だから、$b$ 以上である。</p>
+
+      <h3>(2)</h3>
+      <p>$b! = 2\cdot a! \gt a!$ より $b \gt a$。(1) より</p>
+      $$2 = \frac{b!}{a!} \ge b$$
+      <p>よって $b \le 2$、$a \lt b$ より $(a,\ b) = (1,\ 2)$。これは $2\cdot1! = 2!$ をみたす。</p>
+      $$(a,\ b) = (1,\ 2)$$
+
+      <h3>(3)</h3>
+      <p>対称性より $a \le b$ として考える。</p>
+      <p><b>$a = b$ のとき</b>　$a! = c!$。自然数 $n$ に対して $n!$ は $1,\ 2,\ 6,\ 24,\ \dots$ と狭義単調増加なので $c = a$。（$0! = 1! = 1$ のように重なるのは $0$ を含むときだけです。）</p>
+      <p><b>$a \lt b$ のとき</b>　$2\cdot c! = a! + b!$ について</p>
+      $$2\cdot a! \lt a! + b! \lt 2\cdot b!$$
+      <p>なので $a! \lt c! \lt b!$、よって $a \lt c \lt b$。両辺を $c!$ で割ると</p>
+      $$\frac{a!}{c!} + \frac{b!}{c!} = 2$$
+      <p>$a \lt c$ より $0 \lt \dfrac{a!}{c!} \lt 1$。また (1) より $\dfrac{b!}{c!} \ge b$ で、$b \gt c \gt a \ge 1$ から $b \ge 3$。よって左辺は $3$ より大きく、矛盾。</p>
+      <p>以上より、求める組は</p>
+      $$(a,\ b,\ c) = (n,\ n,\ n)\qquad(n\ \text{は自然数})$$
+    </div>
+  </details>
+  <div class="note"><p>(3) の答えは「当たり前の解」だけ。こういう問題では<b>「当たり前の解以外はない」ことの証明</b>が本題です。答えだけ書いても点はほとんどもらえません。</p></div>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a,\ b = 1, \dots, 7$ の組について、式をみたす解があるマスを緑で表示します。マスをクリックすると、なぜダメなのか（大きさの比較）が表示されます。モードを切り替えると類題の式でも確かめられます。</p>
+
+  <div class="widget">
+    <div class="no-math" style="margin-bottom:8px">
+      <label><input type="radio" name="mode" value="3" checked> (3) a! + b! = 2·c!</label>　
+      <label><input type="radio" name="mode" value="s"> 類題：a! + b! = c!</label>　
+      <label><input type="radio" name="mode" value="k"> 魔改造：a! + b! = 2ᵏ</label>
+    </div>
+    <div class="gridF" id="grid"></div>
+    <p class="readout no-math" id="detail" style="margin-top:8px">マスをクリックしてください。</p>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>階乗を含む方程式</h3>
+  <p>階乗は指数関数よりも速く増えるので、階乗を含む方程式の解は「小さい数だけ」になりがちです。(1) の不等式 $\dfrac{b!}{a!} \ge b$ は「階乗の比は少なくとも $b$ 倍」という、その速さを表す一番シンプルな評価です。</p>
+  <p>翌年の <a href="2025_3.html">2025 年第 3 問</a>（$2^m = n^2 + 3$）も「急激に増える量」と「多項式」の方程式で、九大は 2 年続けて同じタイプの整数問題を出しています。こちらは大きさの評価ではなく<b>余り（mod）</b>で絞る問題でした。比較してみると面白いです。</p>
+
+  <h3>未解決問題とのつながり</h3>
+  <p>「$n! + 1 = m^2$ をみたす自然数 $(n,\ m)$ は $(4,\ 5),\ (5,\ 11),\ (7,\ 71)$ 以外にあるか？」という<b>ブロカールの問題</b>は、100 年以上たった今も未解決です。階乗の方程式は、少し形を変えるだけで急に難しくなります。</p>
+  <div class="point">整数問題の 3 本柱は「<b>大きさの評価</b>」「<b>余り</b>」「<b>因数分解</b>」。本問は評価、2025-3 は余り、というように、どれを使うかを最初に見極めましょう。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$a! + b! = c!$ をみたす自然数の組 $(a,\ b,\ c)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a \le b$ としてよい。$c! \gt b!$ より $c \gt b$。両辺を $b!$ で割ると $\dfrac{a!}{b!} + 1 = \dfrac{c!}{b!} \ge c \ge b + 1$（(1) を利用）なので $\dfrac{a!}{b!} \ge b \ge 1$。$a \le b$ より $\dfrac{a!}{b!} \le 1$ だから $\dfrac{a!}{b!} = 1$、$b = 1$。よって $a = b = 1$、$c! = 2$ より $c = 2$。</p>
+    $$(a,\ b,\ c) = (1,\ 1,\ 2)$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>$a! + b! = 2^k$ をみたす自然数の組 $(a,\ b,\ k)$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2024　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$a \le b$ として考える。今度は「大きさ」ではなく<b>余り</b>で攻める。</p>
+    <ul>
+      <li>$a \ge 3$ なら $a!,\ b!$ はともに $3$ の倍数で、$2^k$ が $3$ の倍数となり矛盾。</li>
+      <li>$a = 1$：$1 + b! = 2^k$。$b = 1$ なら $k = 1$。$b \ge 2$ なら左辺は $3$ 以上の奇数で不適。</li>
+      <li>$a = 2$：$2 + b! = 2^k$。$b = 2$ なら $k = 2$、$b = 3$ なら $k = 3$。$b \ge 4$ なら左辺 $\equiv 2 \pmod 4$ かつ $2$ より大きいので不適。</li>
+    </ul>
+    $$(a,\ b,\ k) = (1,\ 1,\ 1),\ (2,\ 2,\ 2),\ (2,\ 3,\ 3),\ (3,\ 2,\ 3)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const F = [1n]; for (let i = 1; i <= 20; i++) F[i] = F[i - 1] * BigInt(i);
+  const grid = document.getElementById("grid"), detail = document.getElementById("detail");
+  const N = 7;
+  let sel = null;
+  const mode = () => document.querySelector('input[name="mode"]:checked').value;
+  // 右辺の候補 R(c) と、その記号
+  function rhs(m) {
+    if (m === "3") return { f: (c) => 2n * F[c], name: (c) => `2·${c}!`, from: 1, to: 20 };
+    if (m === "s") return { f: (c) => F[c], name: (c) => `${c}!`, from: 1, to: 20 };
+    return { f: (c) => 2n ** BigInt(c), name: (c) => `2^${c}`, from: 1, to: 70 };
+  }
+  function solve(a, b, m) {
+    const L = F[a] + F[b], R = rhs(m);
+    let lo = null;
+    for (let c = R.from; c <= R.to; c++) {
+      const v = R.f(c);
+      if (v === L) return { ok: true, c, L, R };
+      if (v < L) lo = c; else return { ok: false, lo, hi: c, L, R };
+    }
+    return { ok: false, lo, hi: null, L, R };
+  }
+  function build() {
+    const m = mode();
+    grid.innerHTML = '<div class="h">a\\b</div>' + Array.from({ length: N }, (_, j) => `<div class="h">${j + 1}</div>`).join("");
+    for (let a = 1; a <= N; a++) {
+      grid.insertAdjacentHTML("beforeend", `<div class="h">${a}</div>`);
+      for (let b = 1; b <= N; b++) {
+        const r = solve(a, b, m);
+        const d = document.createElement("div");
+        d.className = "cell" + (r.ok ? " yes" : "") + (sel && sel[0] === a && sel[1] === b ? " sel" : "");
+        d.textContent = r.ok ? (m === "k" ? `k=${r.c}` : `c=${r.c}`) : "·";
+        d.onclick = () => { sel = [a, b]; build(); show(a, b); };
+        grid.appendChild(d);
+      }
+    }
+  }
+  function show(a, b) {
+    const m = mode(), r = solve(a, b, m);
+    let s = `a = ${a}, b = ${b}：　a! + b! = ${F[a]} + ${F[b]} = ${r.L}　→　`;
+    if (r.ok) s += `${r.R.name(r.c)} = ${r.R.f(r.c)} と一致！ ✔`;
+    else s += `${r.lo ? `${r.R.name(r.lo)} = ${r.R.f(r.lo)}` : ""} < ${r.L} < ${r.R.name(r.hi)} = ${r.R.f(r.hi)} なので解なし`;
+    detail.textContent = s;
+  }
+  document.querySelectorAll('input[name="mode"]').forEach((el) => el.addEventListener("change", () => { build(); if (sel) show(...sel); }));
+  build();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

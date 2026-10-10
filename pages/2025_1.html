@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2025年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2025-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内の 3 点 $\mathrm{A}(1,\ 1,\ -5)$，$\mathrm{B}(-1,\ -1,\ 7)$，$\mathrm{C}(1,\ -1,\ 3)$ を通る平面を $\alpha$ とする。点 $\mathrm{P}(a,\ b,\ t)$ を通り $\alpha$ に垂直な直線と $xy$ 平面との交点を $\mathrm{Q}$ とする。</p>
+    <ol>
+      <li>(1)　点 $\mathrm{Q}$ の座標を求めよ。</li>
+      <li>(2)　$t$ がすべての実数値をとって変化するときの $\mathrm{OQ}$ の最小値が $1$ 以下となるような $a,\ b$ の条件を求めよ。ただし，$\mathrm{O}$ は原点である。</li>
+    </ol>
+  </div>
+  <p class="source">（2025 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>平面 $\alpha$ の法線ベクトル $\vec n$ さえ求まれば、P を通り $\alpha$ に垂直な直線は $\overrightarrow{\mathrm{OP}} + s\vec n$ と書ける。(2) は $t$ の 2 次関数の最小値。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      $$\overrightarrow{\mathrm{CA}} = (0,\ 2,\ -8) = 2(0,\ 1,\ -4),\qquad \overrightarrow{\mathrm{CB}} = (-2,\ 0,\ 4) = -2(1,\ 0,\ -2)$$
+      <p>$\vec n = (p,\ q,\ r)$ がこの 2 つに垂直とすると $q - 4r = 0,\ p - 2r = 0$。$r = 1$ として $\vec n = (2,\ 4,\ 1)$ は $\alpha$ の法線ベクトルである。</p>
+      <p>P を通り $\alpha$ に垂直な直線上の点は、実数 $s$ を用いて</p>
+      $$(a + 2s,\ b + 4s,\ t + s)$$
+      <p>と表せる。$z$ 座標が $0$ となるのは $s = -t$ のときなので</p>
+      $$\mathrm{Q}(a - 2t,\ b - 4t,\ 0)$$
+
+      <h3>(2)</h3>
+      $$\begin{aligned}
+        \mathrm{OQ}^2 &= (a-2t)^2 + (b-4t)^2 = 20t^2 - 4(a+2b)t + a^2 + b^2 \\
+                      &= 20\left(t - \frac{a+2b}{10}\right)^2 + a^2 + b^2 - \frac{(a+2b)^2}{5} \\
+                      &= 20\left(t - \frac{a+2b}{10}\right)^2 + \frac{(2a-b)^2}{5}
+      \end{aligned}$$
+      <p>よって $\mathrm{OQ}$ の最小値は $\dfrac{|2a-b|}{\sqrt5}$（$t = \dfrac{a+2b}{10}$ のとき）。これが $1$ 以下となる条件は</p>
+      $$|2a - b| \le \sqrt5 \quad\text{すなわち}\quad -\sqrt5 \le 2a - b \le \sqrt5$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと、Q は $xy$ 平面上の<b>直線</b>を描きます。OQ の最小値は「原点からその直線までの距離」です。下の図の上でクリック（タップ）すると点 $(a,\ b)$ を動かせます。</p>
+
+  <div class="widget">
+    <div class="row">
+      <canvas id="cv" class="fig" width="380" height="380"></canvas>
+      <div class="readout no-math" style="min-width:220px">
+        <label>t = <input type="range" id="t" min="-200" max="200" value="30"></label>
+        <div id="info" style="margin-top:8px"></div>
+        <p style="font-size:13px;color:#666;margin-top:10px">
+          ■ 薄い帯：条件 |2a−b| ≤ √5 をみたす (a, b) の範囲<br>
+          ● 黒点：(a, b)　● 赤点：Q<br>
+          ― 赤線：t を動かしたときの Q の軌跡<br>
+          ― 青線：原点からの垂線（最小値）
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>Q は「斜めの光でできる影」</h3>
+  <p>P から $\vec n = (2,\ 4,\ 1)$ の方向に進んで $xy$ 平面にぶつかった点が Q なので、Q は<b>$\vec n$ の方向から平行光線を当てたときの、P の影</b>だと見ることができます。このような写像を<b>平行投影</b>といいます。</p>
+  <p>P$(a,\ b,\ t)$ は $t$ を動かすと $z$ 軸に平行な直線上を動くので、その影 Q も直線を描きます。実際、</p>
+  $$\mathrm{Q} = (a,\ b,\ 0) + t(-2,\ -4,\ 0)$$
+  <p>は「点 $(a,\ b)$ を通り方向 $(1,\ 2)$ の直線」です。</p>
+
+  <h3>(2) は「点と直線の距離」</h3>
+  <p>点 $(a,\ b)$ を通り方向 $(1,\ 2)$ の直線の方程式は $2(x - a) - (y - b) = 0$、すなわち $2x - y - (2a - b) = 0$。原点との距離は、点と直線の距離の公式から</p>
+  $$\frac{|2a - b|}{\sqrt{2^2 + 1^2}} = \frac{|2a-b|}{\sqrt5}$$
+  <p>となり、平方完成の結果と一致します。つまり (2) の答え $-\sqrt5 \le 2a - b \le \sqrt5$ は、<b>直線 $y = 2x$ を中心とする幅 2 の帯</b>です。直線 $y = 2x$ は、法線ベクトル $\vec n$ を $xy$ 平面に落とした向き $(2,\ 4) \parallel (1,\ 2)$ と平行になっています。</p>
+  <div class="point">計算で解いたあとに「この式は図形的に何を意味するのか」を考えると、検算にもなり、問題の構造も見えてきます。</div>
+
+  <h3>平面の方程式を使う方法</h3>
+  <p>平面 $\alpha$ の方程式は $2x + 4y + z = 1$ です（A, B, C を代入して確かめられます）。$ax+by+cz=d$ の形の平面の法線ベクトルは $(a,\ b,\ c)$ なので、方程式が分かれば法線ベクトルは「係数を読むだけ」です。新課程では平面の方程式は発展的な扱いですが、知っていると検算に便利です。</p>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問の平面 $\alpha$ について，原点 O から $\alpha$ に下ろした垂線の足 H の座標と，O と $\alpha$ の距離を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>H $= s(2,\ 4,\ 1)$ とおいて $\alpha: 2x+4y+z=1$ に代入すると $21s = 1$。よって $\mathrm{H}\left(\dfrac{2}{21},\ \dfrac{4}{21},\ \dfrac{1}{21}\right)$、距離は $|\overrightarrow{\mathrm{OH}}| = \dfrac{\sqrt{21}}{21} = \dfrac{1}{\sqrt{21}}$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問と同じ平面 $\alpha$ を考える。点 P が球面 $x^2 + y^2 + (z-3)^2 = 1$ 上を動くとき，P を通り $\alpha$ に垂直な直線と $xy$ 平面との交点 Q が動く範囲の面積を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2025　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>Q の動く範囲は、球を $\vec n$ 方向の平行光線で照らしたときの $xy$ 平面上の影で、楕円になります。$\vec n$ に垂直な平面への球の影は半径 $1$ の円（面積 $\pi$）で、それを $xy$ 平面に斜めに落とすと面積は $\dfrac{1}{\cos\theta}$ 倍になります（$\theta$ は $\vec n$ と $z$ 軸のなす角）。</p>
+    $$\cos\theta = \frac{\vec n\cdot(0,0,1)}{|\vec n|} = \frac{1}{\sqrt{21}} \quad\text{より}\quad \text{面積} = \pi\sqrt{21}$$
+    <p class="note">式で確かめるなら、Q$(X,\ Y,\ 0)$ に対して P $= (X + 2s,\ Y + 4s,\ s)$ が球面上にあるような実数 $s$ が存在する条件（$s$ の 2 次方程式の判別式 $\ge 0$）を求めると、楕円の内部が得られます。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv"), c = cv.getContext("2d");
+  const W = cv.width, R = 4.5; // 表示範囲 [-R, R]
+  const X = (x) => (x + R) / (2 * R) * W, Y = (y) => W - (y + R) / (2 * R) * W;
+  const inv = (px, py) => [px / W * 2 * R - R, (W - py) / W * 2 * R - R];
+  let a = 2.2, b = 0.8;
+  const tIn = document.getElementById("t"), info = document.getElementById("info");
+
+  function line(x1, y1, x2, y2, col, w = 1.5, dash = []) {
+    c.strokeStyle = col; c.lineWidth = w; c.setLineDash(dash);
+    c.beginPath(); c.moveTo(X(x1), Y(y1)); c.lineTo(X(x2), Y(y2)); c.stroke(); c.setLineDash([]);
+  }
+  function dot(x, y, col, r = 5) { c.fillStyle = col; c.beginPath(); c.arc(X(x), Y(y), r, 0, 7); c.fill(); }
+
+  function draw() {
+    const t = tIn.value / 100;
+    c.clearRect(0, 0, W, W);
+    // 帯 |2x - y| <= √5
+    const s5 = Math.sqrt(5);
+    c.fillStyle = "rgba(138,21,56,.08)"; c.beginPath();
+    c.moveTo(X(-R), Y(2 * -R - s5)); c.lineTo(X(R), Y(2 * R - s5)); c.lineTo(X(R), Y(2 * R + s5)); c.lineTo(X(-R), Y(2 * -R + s5)); c.closePath(); c.fill();
+    line(-R, -2 * R - s5, R, 2 * R - s5, "rgba(138,21,56,.35)", 1, [4, 4]);
+    line(-R, -2 * R + s5, R, 2 * R + s5, "rgba(138,21,56,.35)", 1, [4, 4]);
+    // 格子と軸
+    c.strokeStyle = "#eee"; c.lineWidth = 1;
+    for (let k = -4; k <= 4; k++) { line(k, -R, k, R, "#f0f0f0", 1); line(-R, k, R, k, "#f0f0f0", 1); }
+    line(-R, 0, R, 0, "#999", 1); line(0, -R, 0, R, "#999", 1);
+    c.fillStyle = "#666"; c.font = "12px sans-serif"; c.fillText("x", W - 12, Y(0) - 4); c.fillText("y", X(0) + 4, 12); c.fillText("O", X(0) - 12, Y(0) + 14);
+    // Q の軌跡：(a,b) + u(1,2)
+    line(a - 10, b - 20, a + 10, b + 20, "#c92a2a", 2);
+    // 原点からの垂線の足
+    const k = (a * 1 + b * 2) / 5; // 直線上の点 (a,b)+u(1,2) で原点に最も近い: u = -(a+2b)/5
+    const fx = a - k, fy = b - 2 * k;
+    line(0, 0, fx, fy, "#1c7ed6", 2);
+    dot(fx, fy, "#1c7ed6", 3.5);
+    // 点
+    dot(a, b, "#222", 5.5);
+    const qx = a - 2 * t, qy = b - 4 * t;
+    dot(qx, qy, "#c92a2a", 5.5);
+    const d = Math.abs(2 * a - b) / Math.sqrt(5);
+    info.innerHTML =
+      `(a, b) = (${a.toFixed(2)}, ${b.toFixed(2)})<br>` +
+      `Q = (${qx.toFixed(2)}, ${qy.toFixed(2)}, 0)<br>` +
+      `OQ = ${Math.hypot(qx, qy).toFixed(3)}<br>` +
+      `OQ の最小値 = |2a−b|/√5 = <b>${d.toFixed(3)}</b><br>` +
+      (d <= 1 ? '<span class="ok">✔ 最小値は 1 以下</span>' : '<span class="ng">✘ 最小値は 1 より大きい</span>');
+  }
+  function pick(e) {
+    const r = cv.getBoundingClientRect();
+    const px = (e.clientX - r.left) * (W / r.width), py = (e.clientY - r.top) * (W / r.height);
+    [a, b] = inv(px, py); draw();
+  }
+  let down = false;
+  cv.addEventListener("pointerdown", (e) => { down = true; pick(e); });
+  cv.addEventListener("pointermove", (e) => down && pick(e));
+  window.addEventListener("pointerup", () => (down = false));
+  tIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

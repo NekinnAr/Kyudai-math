@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2015年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2015-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>袋の中に最初に赤玉 2 個と青玉 1 個が入っている。次の操作を繰り返し行う。</p>
+    <p>（操作）　袋から 1 個の玉を取り出し，それが赤玉ならば代わりに青玉 1 個を袋に入れ，青玉ならば代わりに赤玉 1 個を袋に入れる。袋に入っている 3 個の玉がすべて青玉になるとき，硬貨を 1 枚もらう。</p>
+    <ol>
+      <li>(1)　2 回目の操作で硬貨をもらう確率を求めよ。</li>
+      <li>(2)　奇数回目の操作で硬貨をもらうことはないことを示せ。</li>
+      <li>(3)　8 回目の操作ではじめて硬貨をもらう確率を求めよ。</li>
+      <li>(4)　8 回の操作でもらう硬貨の総数がちょうど 1 枚である確率を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2015 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>袋の中の赤玉の個数（0〜3）で状態を表す。1 回の操作で赤玉は必ず ±1 変化するので偶奇が交互に入れかわる。<b>2 回分をまとめた推移</b>で考えると見通しがよい。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p>赤玉が $r$ 個のとき、赤を取り出す確率は $\frac r3$（$r \to r - 1$）、青を取り出す確率は $\frac{3 - r}{3}$（$r \to r + 1$）。硬貨をもらうのは $r = 0$ になったとき。</p>
+      <h3>(1)</h3>
+      <p>$2 \to 1 \to 0$ の場合のみ。$\frac23\cdot\frac13 = \dfrac29$。</p>
+
+      <h3>(2)</h3>
+      <p>1 回の操作で $r$ は 1 増えるか 1 減るので、$r$ の偶奇は毎回入れかわる。最初 $r = 2$（偶数）なので、奇数回目の操作の後は $r$ が奇数で、$r = 0$ にはならない。</p>
+
+      <h3>2 回ごとの推移</h3>
+      <p>偶数回目の後の状態は $r = 2$ か $r = 0$。2 回分の推移確率は</p>
+      <ul>
+        <li>$2 \to 0$：$2 \to 1 \to 0$ で $\frac23\cdot\frac13 = \frac29$</li>
+        <li>$2 \to 2$：$2 \to 1 \to 2$（$\frac23\cdot\frac23$）または $2 \to 3 \to 2$（$\frac13\cdot1$）で $\frac49 + \frac13 = \frac79$</li>
+        <li>$0 \to 0$：$0 \to 1 \to 0$ で $1\cdot\frac13 = \frac13$</li>
+        <li>$0 \to 2$：$0 \to 1 \to 2$ で $1\cdot\frac23 = \frac23$</li>
+      </ul>
+
+      <h3>(3)</h3>
+      <p>2, 4, 6 回目は $r = 2$ のまま、8 回目に $r = 0$：</p>
+      $$\left(\frac79\right)^3\cdot\frac29 = \frac{686}{6561}$$
+
+      <h3>(4)</h3>
+      <p>2, 4, 6, 8 回目のうちちょうど 1 回だけ $r = 0$ になる確率。</p>
+      <ul>
+        <li>2 回目だけ：$\frac29\cdot\frac23\cdot\left(\frac79\right)^2 = \frac{588}{6561}$</li>
+        <li>4 回目だけ：$\frac79\cdot\frac29\cdot\frac23\cdot\frac79 = \frac{588}{6561}$</li>
+        <li>6 回目だけ：$\left(\frac79\right)^2\cdot\frac29\cdot\frac23 = \frac{588}{6561}$</li>
+        <li>8 回目だけ：(3) の $\frac{686}{6561}$</li>
+      </ul>
+      $$\frac{588\times3 + 686}{6561} = \frac{2450}{6561}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$n$ 回目の操作後の赤玉の個数の確率分布です。奇数回目は $r = 1,\ 3$、偶数回目は $r = 0,\ 2$ にしか確率がありません。「8 回シミュレーション」を繰り返して、硬貨の枚数の分布を確かめましょう。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="0" max="8" value="2"></label>
+    <span class="readout no-math" id="nv"></span>
+    <button id="one">8 回やってみる</button>
+    <button id="many">10000 セット</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="220"></canvas>
+      <div class="no-math" id="log" style="min-width:230px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>エーレンフェストの壺</h3>
+  <p>「取り出した玉の色を反転させて戻す」操作は、物理学の<b>エーレンフェストの壺モデル</b>（2 つの箱の間を分子が移動するモデル）と同じ構造です。赤玉の個数は平均（1.5 個）に引き戻される傾向があり、すべて青（$r = 0$）のような偏った状態にはなかなかなりません。</p>
+  <p>偶奇が交互に入れかわる（周期 2 の）マルコフ連鎖なので、2 回分をまとめると状態が $\{0,\ 2\}$ の 2 つだけになり、計算が大幅に楽になります。</p>
+  <p>chopin 先生は「赤の個数で状態を分けて、それらの移りあいをまずは考えましょう」「漸化式を使って解く方法と、経路を全調査して確率を直接計算する方法の 2 択がありますが、今回はどちらでも OK」「(4) は経路を全調査して確率を直接計算するのが確実」とコメントしています。</p>
+  <div class="point">個数が ±1 ずつ変わる推移は<b>偶奇</b>に注目。周期 2 なら 2 回分まとめた推移確率をつくると状態数が半分になる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>袋の中に赤玉 1 個と青玉 1 個が入っている。本問と同じ操作（取り出した玉と反対の色の玉を入れる）を繰り返し，2 個とも青玉になるとき硬貨を 1 枚もらう。10 回の操作でもらう硬貨の枚数の期待値を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>赤玉の個数は奇数回目の後 0 か 2（確率 $\frac12$ ずつ）、偶数回目の後は必ず 1。硬貨は奇数回目に確率 $\frac12$ でもらえる。期待値は $5\cdot\frac12 = \dfrac52$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の設定で，$2n$ 回の操作でもらう硬貨の総数がちょうど 1 枚である確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2015　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$2j$ 回目（$1 \le j \le n - 1$）だけ $r = 0$：$\left(\frac79\right)^{j-1}\cdot\frac29\cdot\frac23\cdot\left(\frac79\right)^{n-1-j} = \frac{4}{27}\left(\frac79\right)^{n-2}$。$2n$ 回目だけ：$\left(\frac79\right)^{n-1}\cdot\frac29$。</p>
+    $$P = (n - 1)\cdot\frac{4}{27}\left(\frac79\right)^{n-2} + \frac29\left(\frac79\right)^{n-1} = \frac{2(6n + 1)}{63}\left(\frac79\right)^{n-1}$$
+    <p>（$n = 4$ で $\frac{2\cdot25}{63}\cdot\frac{343}{729} = \frac{2450}{6561}$ ✔）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv"), c = cv.getContext("2d"), W = cv.width, H = cv.height;
+  function dist(n) {
+    let p = [0, 0, 1, 0];
+    for (let s = 0; s < n; s++) { const q = [0, 0, 0, 0]; for (let r = 0; r < 4; r++) { if (r > 0) q[r - 1] += p[r] * r / 3; if (r < 3) q[r + 1] += p[r] * (3 - r) / 3; } p = q; }
+    return p;
+  }
+  function draw() {
+    const n = +$("n").value, p = dist(n);
+    c.clearRect(0, 0, W, H);
+    const y0 = 185, h = 150;
+    c.strokeStyle = "#ccc"; c.beginPath(); c.moveTo(20, y0); c.lineTo(W - 10, y0); c.stroke();
+    p.forEach((v, r) => {
+      const x = 35 + r * 72, bh = v * h;
+      c.fillStyle = r === 0 ? "#1c7ed6" : "#8a1538"; c.fillRect(x, y0 - bh, 50, bh);
+      c.fillStyle = "#333"; c.font = "12px sans-serif"; c.fillText(`赤 ${r} 個`, x + 2, y0 + 16); c.fillText(v.toFixed(4), x + 2, y0 - bh - 5);
+    });
+    $("nv").textContent = ` n = ${n}（${n % 2 ? "奇数回目：r = 0 はあり得ない" : "偶数回目"}）`;
+  }
+  function run() {
+    let r = 2, coins = 0, seq = [2];
+    for (let s = 0; s < 8; s++) { if (Math.random() < r / 3) r--; else r++; seq.push(r); if (r === 0) coins++; }
+    return { coins, seq };
+  }
+  $("one").onclick = () => { const g = run(); $("log").innerHTML = `赤玉の個数：${g.seq.join(" → ")}<br>硬貨 <b>${g.coins}</b> 枚`; };
+  $("many").onclick = () => {
+    const cnt = [0, 0, 0, 0, 0]; for (let i = 0; i < 10000; i++) cnt[run().coins]++;
+    $("log").innerHTML = `10000 セットの硬貨の枚数<br>0 枚：${cnt[0]}（理論 ${(2401 / 6561 * 1e4).toFixed(0)}）<br>1 枚：${cnt[1]}（理論 ${(2450 / 6561 * 1e4).toFixed(0)}）<br>2 枚：${cnt[2]}<br>3 枚：${cnt[3]}<br>4 枚：${cnt[4]}`;
+  };
+  $("n").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2026-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>点 $z$ が複素数平面上の線分</p>
+    $$z = t + ti \qquad \left(\frac{-1+\sqrt3}{2} \le t \le \frac{1+\sqrt3}{2}\right)$$
+    <p>の上を動くとき，</p>
+    $$z^2 - wz + 1 = 0$$
+    <p>をみたす複素数 $w$ を表す点が描く軌跡を $C$ とする。ただし，$i$ は虚数単位である。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　軌跡 $C$ を複素数平面上に図示せよ。</li>
+      <li>(2)　$t = \dfrac{1+\sqrt3}{2}$ のときに複素数 $w$ を表す点を $\mathrm{P}_1$ とし，$t = \dfrac{-1+\sqrt3}{2}$ のときに複素数 $w$ を表す点を $\mathrm{P}_2$ とする。このとき，軌跡 $C$，線分 $\mathrm{OP}_1$，線分 $\mathrm{OP}_2$ で囲まれる領域を虚軸の周りに 1 回転させてできる立体の体積を求めよ。ただし，O は複素数平面の原点である。</li>
+    </ol>
+  </div>
+  <p class="source">（2026 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$z \ne 0$ なので $w = z + \dfrac1z$。実部・虚部を $t$ で表して $t$ を消去すると双曲線が現れる。(2) は虚軸（$y$ 軸）方向に輪切りにして積分。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$z = t(1+i)$ で $t \gt 0$ より $z \ne 0$。$z^2 - wz + 1 = 0$ より</p>
+      $$w = z + \frac1z = t(1+i) + \frac{1}{t(1+i)} = t(1+i) + \frac{1-i}{2t} = \left(t + \frac{1}{2t}\right) + \left(t - \frac{1}{2t}\right)i$$
+      <p>$w = x + yi$（$x,\ y$ は実数）とおくと</p>
+      $$x = t + \frac{1}{2t},\qquad y = t - \frac{1}{2t}$$
+      <p>よって $x^2 - y^2 = (x+y)(x-y) = 2t\cdot\dfrac1t = 2$。また $x + y = 2t$ より、$t$ の範囲は</p>
+      $$\sqrt3 - 1 \le x + y \le \sqrt3 + 1$$
+      <p>に対応する。さらに $x \gt 0$ であり、$\dfrac{dy}{dt} = 1 + \dfrac{1}{2t^2} \gt 0$ より $y$ は $t$ について単調増加。端点は</p>
+      <ul>
+        <li>$t = \dfrac{1+\sqrt3}{2}$ のとき $\dfrac{1}{2t} = \dfrac{\sqrt3-1}{2}$ より $w = \sqrt3 + i$</li>
+        <li>$t = \dfrac{-1+\sqrt3}{2}$ のとき $\dfrac{1}{2t} = \dfrac{\sqrt3+1}{2}$ より $w = \sqrt3 - i$</li>
+      </ul>
+      <p>したがって $C$ は<b>双曲線 $x^2 - y^2 = 2$ の $x \gt 0$ の部分のうち、点 $\sqrt3 - i$ から頂点 $\sqrt2$ を通って点 $\sqrt3 + i$ までの弧</b>（$-1 \le y \le 1$ の部分）である。漸近線は $y = \pm x$（図は下の「動く図解」の右図）。</p>
+
+      <h3>(2)</h3>
+      <p>$\mathrm{P}_1 = \sqrt3 + i$, $\mathrm{P}_2 = \sqrt3 - i$。線分 $\mathrm{OP}_1$, $\mathrm{OP}_2$ はそれぞれ $x = \sqrt3\,y\ (0 \le y \le 1)$, $x = -\sqrt3\,y\ (-1 \le y \le 0)$。領域は、$-1 \le y \le 1$ の各 $y$ で</p>
+      $$\sqrt3\,|y| \le x \le \sqrt{y^2 + 2}$$
+      <p>の部分（$3y^2 \le y^2 + 2 \iff y^2 \le 1$ で確かに大小関係が成り立つ）。これを虚軸（$y$ 軸）の周りに回転すると、高さ $y$ での断面は内半径 $\sqrt3|y|$、外半径 $\sqrt{y^2+2}$ の円環なので</p>
+      $$V = \int_{-1}^{1}\pi\left\{(y^2 + 2) - 3y^2\right\}dy = 2\pi\int_{0}^{1}(2 - 2y^2)\,dy = 2\pi\left(2 - \frac23\right) = \frac{8}{3}\pi$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$w = z + \dfrac1z$ は、$z$ 平面（左）の図形を $w$ 平面（右）に写す変換です。$t$ を動かすと、左の線分上の点 $z$ に対応して、右の双曲線上を点 $w$ が動きます。薄い線は、原点を通る直線（偏角一定）と原点中心の円（絶対値一定）が、それぞれ何に写るかを表しています。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="0" max="1000" value="500"></label>
+    <label><input type="checkbox" id="grid" checked> 背景の格子を表示</label>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cz" class="fig" width="300" height="300"></canvas>
+      <canvas id="cw" class="fig" width="300" height="300"></canvas>
+    </div>
+    <div class="readout no-math" id="info" style="margin-top:6px"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>ジューコフスキー変換</h3>
+  <p>$w = z + \dfrac1z$ は<b>ジューコフスキー変換</b>と呼ばれる有名な変換です。ロシアの航空力学者ジューコフスキーが、円を<b>飛行機の翼の断面</b>のような形に写すことに用いたことで知られています。</p>
+  <p>$z = re^{i\theta}$ とおくと</p>
+  $$w = \left(r + \frac1r\right)\cos\theta + i\left(r - \frac1r\right)\sin\theta$$
+  <p>となるので、</p>
+  <ul>
+    <li><b>円 $|z| = r$（$r \ne 1$）</b>は、楕円 $\dfrac{x^2}{(r+\frac1r)^2} + \dfrac{y^2}{(r-\frac1r)^2} = 1$ に写る。</li>
+    <li><b>原点を通る直線（偏角 $\theta$ 一定）</b>は、双曲線 $\dfrac{x^2}{\cos^2\theta} - \dfrac{y^2}{\sin^2\theta} = 4$ に写る。</li>
+  </ul>
+  <p>本問は $\theta = \dfrac{\pi}{4}$ の場合で、$2x^2 - 2y^2 = 4$、すなわち $x^2 - y^2 = 2$ が得られます。</p>
+  <p>驚くべきことに、これらの楕円と双曲線はすべて<b>焦点 $\pm2$ を共有</b>しています（$(r+\frac1r)^2 - (r-\frac1r)^2 = 4$、$\cos^2\theta + \sin^2\theta = 1$ より $c^2 = 4$）。このような曲線の族を<b>共焦点 2 次曲線</b>といいます。$z$ 平面で直線と円が直交しているのに対応して、$w$ 平面の楕円と双曲線も直交します（ジューコフスキー変換は角度を保つ「等角写像」の代表例です）。</p>
+
+  <h3>体積 $\dfrac83\pi$ は「単位球 2 個分」</h3>
+  <p>(2) の断面積は $\pi(2 - 2y^2) = 2\cdot\pi(1 - y^2)$ でした。$\pi(1-y^2)$ は半径 $1$ の球を高さ $y$ で切った断面積です。つまり<b>この立体は、どの高さで切っても単位球の断面のちょうど 2 倍の面積</b>をもち、カヴァリエリの原理から体積は単位球 2 個分 $2\cdot\dfrac43\pi = \dfrac83\pi$ となります。</p>
+  <div class="point">双曲線の回転体から円錐をくり抜いた立体が、球と同じ断面積の構造をもつ ── 「$x^2 - y^2 = 2$ と $x^2 = 3y^2$ の差が $2 - 2y^2$」という計算の裏に、こんな見方が隠れています。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>点 $z$ が複素数平面上の円 $|z| = 2$ 上を動くとき，$w = z + \dfrac1z$ を表す点が描く軌跡を求めよ。また，その曲線の焦点を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$z = 2(\cos\theta + i\sin\theta)$ とおくと $w = \dfrac52\cos\theta + \dfrac32 i\sin\theta$。よって楕円 $\dfrac{x^2}{\frac{25}{4}} + \dfrac{y^2}{\frac94} = 1$。$c^2 = \dfrac{25}{4} - \dfrac94 = 4$ より焦点は $\pm2$。本問の双曲線と焦点が一致します。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>点 $z$ が半直線 $z = t + ti\ (t \gt 0)$ 全体を動くとき，$w = z + \dfrac1z$ を表す点が描く軌跡 $C'$ を求めよ。また，$C'$ 上の点と点 $-2$ の距離から，点 $2$ との距離を引いた値は一定であることを示せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>本問と同様に $x^2 - y^2 = 2$。$x = t + \dfrac{1}{2t} \ge \sqrt2$（相加・相乗平均）で、$y = t - \dfrac{1}{2t}$ は $t \gt 0$ で全実数値をとるので、$C'$ は双曲線 $x^2 - y^2 = 2$ の $x \gt 0$ の部分全体。</p>
+    <p>$C'$ 上の点 $(x,\ y)$ について $y^2 = x^2 - 2$ を使うと</p>
+    $$(x \mp 2)^2 + y^2 = 2x^2 \mp 4x + 2 = (\sqrt2\,x \mp \sqrt2)^2$$
+    <p>$x \ge \sqrt2$ より、点 $2$ との距離は $\sqrt2x - \sqrt2$、点 $-2$ との距離は $\sqrt2x + \sqrt2$。差は $2\sqrt2$ で一定。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cz = document.getElementById("cz").getContext("2d"), cw = document.getElementById("cw").getContext("2d");
+  const tIn = document.getElementById("t"), gIn = document.getElementById("grid");
+  const t0 = (Math.sqrt(3) - 1) / 2, t1 = (Math.sqrt(3) + 1) / 2;
+  const W = 300;
+  const mk = (ctx, R) => ({
+    ctx, R,
+    X: (x) => W / 2 + x / R * (W / 2), Y: (y) => W / 2 - y / R * (W / 2),
+  });
+  const Z = mk(cz, 2.2), Wp = mk(cw, 3.2);
+  const J = (x, y) => { const r2 = x * x + y * y; return [x + x / r2, y - y / r2]; };
+
+  function path(P, pts, col, w = 1.5) {
+    const c = P.ctx; c.strokeStyle = col; c.lineWidth = w; c.beginPath();
+    let pen = false;
+    pts.forEach(([x, y]) => {
+      if (!isFinite(x) || !isFinite(y) || Math.abs(x) > 50 || Math.abs(y) > 50) { pen = false; return; }
+      pen ? c.lineTo(P.X(x), P.Y(y)) : c.moveTo(P.X(x), P.Y(y)); pen = true;
+    });
+    c.stroke();
+  }
+  function axes(P, lab) {
+    const c = P.ctx; c.clearRect(0, 0, W, W);
+    c.strokeStyle = "#999"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, W / 2); c.lineTo(W, W / 2); c.moveTo(W / 2, 0); c.lineTo(W / 2, W); c.stroke();
+    c.fillStyle = "#666"; c.font = "12px sans-serif"; c.fillText(lab, 6, 14); c.fillText("O", W / 2 - 12, W / 2 + 14);
+  }
+  const dot = (P, x, y, col, r = 5) => { const c = P.ctx; c.fillStyle = col; c.beginPath(); c.arc(P.X(x), P.Y(y), r, 0, 7); c.fill(); };
+
+  function draw() {
+    const t = t0 + (t1 - t0) * tIn.value / 1000;
+    axes(Z, "z 平面"); axes(Wp, "w 平面");
+    if (gIn.checked) {
+      for (let k = 1; k < 12; k++) { // 偏角一定の直線
+        const th = k * Math.PI / 12; if (k === 6) continue;
+        const ray = [], img = [];
+        for (let s = -3; s <= 3; s += 0.01) { if (Math.abs(s) < 0.02) continue; const x = s * Math.cos(th), y = s * Math.sin(th); ray.push([x, y]); }
+        path(Z, ray, "rgba(28,126,214,.18)", 1);
+        for (let s = 0.03; s <= 6; s += 0.01) img.push(J(s * Math.cos(th), s * Math.sin(th)));
+        path(Wp, img, "rgba(28,126,214,.18)", 1);
+        path(Wp, img.map(([x, y]) => [-x, -y]), "rgba(28,126,214,.18)", 1);
+      }
+      [0.5, 0.7, 1.4, 2].forEach((r) => { // 円
+        const ci = [], im = [];
+        for (let a = 0; a <= 2 * Math.PI + 0.01; a += 0.02) { ci.push([r * Math.cos(a), r * Math.sin(a)]); im.push(J(r * Math.cos(a), r * Math.sin(a))); }
+        path(Z, ci, "rgba(43,138,62,.25)", 1); path(Wp, im, "rgba(43,138,62,.25)", 1);
+      });
+      path(Z, Array.from({ length: 315 }, (_, i) => [Math.cos(i / 50), Math.sin(i / 50)]), "rgba(43,138,62,.45)", 1);
+      path(Wp, [[-2, 0], [2, 0]], "rgba(43,138,62,.6)", 2); // 単位円 → 線分
+      dot(Wp, 2, 0, "#2b8a3e", 3); dot(Wp, -2, 0, "#2b8a3e", 3);
+    }
+    // 本問の線分と軌跡 C
+    const seg = [], arc = [];
+    for (let s = t0; s <= t1 + 1e-9; s += (t1 - t0) / 200) { seg.push([s, s]); arc.push(J(s, s)); }
+    // 漸近線
+    path(Wp, [[-3.5, -3.5], [3.5, 3.5]], "rgba(0,0,0,.25)", 1); path(Wp, [[-3.5, 3.5], [3.5, -3.5]], "rgba(0,0,0,.25)", 1);
+    // 領域（OP1, C, OP2）
+    const c = cw; c.fillStyle = "rgba(138,21,56,.12)"; c.beginPath(); c.moveTo(Wp.X(0), Wp.Y(0));
+    arc.forEach(([x, y]) => c.lineTo(Wp.X(x), Wp.Y(y))); c.closePath(); c.fill();
+    path(Wp, [[0, 0], [Math.sqrt(3), 1]], "#8a1538", 1.2); path(Wp, [[0, 0], [Math.sqrt(3), -1]], "#8a1538", 1.2);
+    path(Z, seg, "#c92a2a", 3); path(Wp, arc, "#c92a2a", 3);
+    const [wx, wy] = J(t, t);
+    dot(Z, t, t, "#222"); dot(Wp, wx, wy, "#222");
+    cw.fillStyle = "#555"; cw.font = "12px sans-serif";
+    cw.fillText("P₁", Wp.X(Math.sqrt(3)) + 6, Wp.Y(1)); cw.fillText("P₂", Wp.X(Math.sqrt(3)) + 6, Wp.Y(-1) + 10);
+    document.getElementById("info").innerHTML =
+      `t = ${t.toFixed(4)}　z = ${t.toFixed(3)} + ${t.toFixed(3)}i　→　w = ${wx.toFixed(3)} ${wy >= 0 ? "+" : "−"} ${Math.abs(wy).toFixed(3)}i` +
+      `<br>x² − y² = ${(wx * wx - wy * wy).toFixed(6)}（常に 2）`;
+  }
+  tIn.addEventListener("input", draw); gIn.addEventListener("change", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

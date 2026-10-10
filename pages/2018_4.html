@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2018年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2018-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>整数 $a,\ b$ は 3 の倍数ではないとし，</p>
+    $$f(x) = 2x^3 + a^2x^2 + 2b^2x + 1$$
+    <p>とおく。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$f(1)$ と $f(2)$ を 3 で割った余りをそれぞれ求めよ。</li>
+      <li>(2)　$f(x) = 0$ を満たす整数 $x$ は存在しないことを示せ。</li>
+      <li>(3)　$f(x) = 0$ を満たす有理数 $x$ が存在するような組 $(a,\ b)$ をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2018 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>3 の倍数でない整数の 2 乗は 3 で割って 1 余る。(2)(3) は「整数係数の方程式の有理数解 $\frac qp$ は、$p$ が最高次の係数の約数、$q$ が定数項の約数」という定理で候補を $\pm1,\ \pm\frac12$ に絞る。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$a,\ b$ は 3 の倍数でないので $a \equiv \pm1$，$b \equiv \pm1 \pmod 3$、よって $a^2 \equiv b^2 \equiv 1 \pmod 3$。</p>
+      $$f(1) = 3 + a^2 + 2b^2 \equiv 0 + 1 + 2 = 3 \equiv 0,\qquad f(2) = 17 + 4a^2 + 4b^2 \equiv 2 + 1 + 1 = 4 \equiv 1 \pmod 3$$
+      <p>$f(1)$ を 3 で割った余りは $0$、$f(2)$ を 3 で割った余りは $1$。</p>
+
+      <h3>(2)</h3>
+      <p>整数 $x$ が $f(x) = 0$ をみたすとすると、$x(2x^2 + a^2x + 2b^2) = -1$ より $x$ は $-1$ の約数で $x = \pm1$。</p>
+      <ul>
+        <li>$f(1) = 3 + a^2 + 2b^2 \gt 0$ なので $f(1) \neq 0$。</li>
+        <li>$f(-1) = a^2 - 2b^2 - 1 \equiv 1 - 2 - 1 = -2 \equiv 1 \pmod 3$ なので $f(-1) \neq 0$。</li>
+      </ul>
+      <p>よって整数解は存在しない。</p>
+
+      <h3>(3)</h3>
+      <p>有理数解を $x = \frac qp$（$p \ge 1$，$p,\ q$ は互いに素な整数）とする。$f\left(\frac qp\right) = 0$ の両辺に $p^3$ をかけて</p>
+      $$2q^3 + a^2q^2p + 2b^2qp^2 + p^3 = 0$$
+      <p>$p^3 = -q(2q^2 + a^2qp + 2b^2p^2)$ より $q \mid p^3$、$p,\ q$ は互いに素なので $q = \pm1$。また $2q^3 = -p(a^2q^2 + 2b^2qp + p^2)$ より $p \mid 2q^3$、よって $p \mid 2$ で $p = 1,\ 2$。(2) より整数解はないので $p = 2$、$x = \pm\frac12$。</p>
+      <ul>
+        <li>$x = \frac12$：$f\left(\frac12\right) = \frac14 + \frac{a^2}{4} + b^2 + 1 \gt 0$ で不適。</li>
+        <li>$x = -\frac12$：$f\left(-\frac12\right) = -\frac14 + \frac{a^2}{4} - b^2 + 1 = 0 \iff a^2 - 4b^2 = -3 \iff (2b - a)(2b + a) = 3$。</li>
+      </ul>
+      <p>$(2b - a,\ 2b + a) = (1, 3),\ (3, 1),\ (-1, -3),\ (-3, -1)$ より $(a,\ b) = (1,\ 1),\ (-1,\ 1),\ (-1,\ -1),\ (1,\ -1)$。いずれも 3 の倍数でない。</p>
+      $$(a,\ b) = (1,\ 1),\ (1,\ -1),\ (-1,\ 1),\ (-1,\ -1)$$
+      <p>（このとき $f(x) = 2x^3 + x^2 + 2x + 1 = (2x + 1)(x^2 + 1)$。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$a,\ b$ を動かすと、有理数解の候補 $\pm1,\ \pm\frac12$ での $f$ の値と、$y = f(x)$ のグラフが表示されます。候補で $0$ になるのはどんなときか確かめましょう。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="-8" max="8" value="2"></label><span class="readout no-math" id="av"></span>
+    <label>b：<input type="range" id="b" min="-8" max="8" value="1"></label><span class="readout no-math" id="bv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="320" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:230px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>有理根定理</h3>
+  <p>整数係数の方程式 $a_nx^n + \cdots + a_0 = 0$ の有理数解 $\frac qp$（既約）は、$p \mid a_n$，$q \mid a_0$ をみたします。これを<b>有理根定理</b>（有理数解の定理）といい、本問の (3) のように、候補を有限個に絞り込むのに使います。答案では、上の解答のように証明を添えるのが安全です。</p>
+  <p>chopin 先生は「(1) は、平方数を 3 で割った余りが 0 か 1 になることを利用」「(2) $f(x)$ が整数係数の 3 次式なので、$f(x) = 0$ の有理数解としてありえるのは $x = \pm1$ か $x = \pm\frac12$ のみ」とコメントしています。</p>
+  <div class="point">平方数 $\bmod 3$ は $0,\ 1$、$\bmod 4$ は $0,\ 1$、$\bmod 8$（奇数）は $1$。有理数解は「分母は最高次係数の約数、分子は定数項の約数」。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>方程式 $x^3 - 3x + 1 = 0$ は有理数解をもたないことを示せ。</p>
+  </div>
+  <p class="source">（自作・頻出）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>有理数解 $\frac qp$（既約，$p \ge 1$）があるとすると、$q^3 - 3qp^2 + p^3 = 0$ より $q \mid p^3$，$p \mid q^3$ で $p = 1,\ q = \pm1$。しかし $1 - 3 + 1 = -1$，$-1 + 3 + 1 = 3$ でどちらも $0$ でない。（この方程式の解は $2\cos\frac{2\pi}{9}$ などで、正九角形の作図不可能性につながります。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で「$a,\ b$ は 3 の倍数ではない」という条件をはずす。$f(x) = 0$ が整数解をもつような整数の組 $(a,\ b)$ のうち，$0 \lt b \lt 100$ をみたすものをすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2018　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>整数解の候補は $\pm1$ で、$f(1) \gt 0$。$f(-1) = a^2 - 2b^2 - 1 = 0 \iff a^2 - 2b^2 = 1$（<b>ペル方程式</b>）。最小解 $(3,\ 2)$ から $(a + b\sqrt2) = (3 + 2\sqrt2)^k$ で解が作られ、$(3,\ 2),\ (17,\ 12),\ (99,\ 70),\ (577,\ 408),\ \cdots$。$0 \lt b \lt 100$ より</p>
+    $$(a,\ b) = (\pm3,\ 2),\ (\pm17,\ 12),\ (\pm99,\ 70)$$
+    <p>（いずれも $a$ か $b$ が 3 の倍数。本問の条件は、このペル方程式の解を排除するためのものだったのです。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -2.2, xmax: 1.2, ymin: -6, ymax: 6 });
+  const fr = (n, d) => d === 1 ? `${n}` : `${n}/${d}`;
+  function draw() {
+    const a = +$("a").value, b = +$("b").value;
+    $("av").textContent = ` ${a}`; $("bv").textContent = ` ${b}`;
+    const f = (x) => 2 * x ** 3 + a * a * x * x + 2 * b * b * x + 1;
+    P.clear().grid(1, "#f3f3f3").axes();
+    P.fn(f, -2.2, 1.2, "#8a1538", 2.2, 400);
+    let h = `f(x) = 2x³ + ${a * a}x² + ${2 * b * b}x + 1<br>a, b は 3 の倍数で${a % 3 && b % 3 ? "ない" : '<span class="ng">ある</span>'}<br>`;
+    [[1, 1], [-1, 1], [1, 2], [-1, 2]].forEach(([n, d]) => {
+      const x = n / d, v = f(x), ok = Math.abs(v) < 1e-12;
+      P.dot(x, Math.max(-6, Math.min(6, v)), ok ? "#2b8a3e" : "#1c7ed6", ok ? 6 : 4);
+      h += `f(${fr(n, d)}) = ${Number.isInteger(v) ? v : v.toFixed(2)} ${ok ? '<span class="ok">← 解！</span>' : ""}<br>`;
+    });
+    h += `f(−1) を 3 で割った余り：${(((a * a - 2 * b * b - 1) % 3) + 3) % 3}`;
+    $("info").innerHTML = h;
+  }
+  ["a", "b"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

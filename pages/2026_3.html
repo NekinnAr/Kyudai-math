@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .balls { display: flex; flex-wrap: wrap; gap: 3px; margin: 8px 0; }
+    .ball { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #333; font-size: 10px; display: grid; place-items: center; color: #999; position: relative; }
+    .ball.b { background: #222; color: #ccc; }
+    .ball.w { background: #fff; }
+    .ball.hl { box-shadow: 0 0 0 3px #f59f00; }
+    .pairgap { margin-right: 6px; }
+  </style>
+</head>
+<body data-root=".." data-id="2026-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$0 \lt r \lt 1$ とする。表が出る確率が $r$，裏が出る確率が $1 - r$ の硬貨を投げ，表が出た場合は白玉を 2 つ横並びに置き，裏が出た場合は黒玉を 1 つ置く。この要領で硬貨を繰り返し投げ，左から右に 1 列になるように白玉と黒玉を順に並べていく。</p>
+    <p>例えば，3 回硬貨を投げ，結果が順に「裏，表，表」であれば，左から順に「黒，白，白，白，白」と 5 つの玉が並ぶ。</p>
+    <p>$n$ を自然数とする。$n + 2$ 回硬貨を投げたとき，左から $n,\ n+1,\ n+2$ 番目の玉がすべて黒である確率を $p_n$ とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$p_1,\ p_2$ を求めよ。</li>
+      <li>(2)　$n \ge 2$ とする。$n + 2$ 回硬貨を投げたとき，左から $1,\ n,\ n+1,\ n+2$ 番目の玉がすべて黒である確率を $p_{n-1}$ を用いて表せ。</li>
+      <li>(3)　$n \ge 3$ のとき，$p_n$ を $p_{n-2},\ p_{n-1}$ を用いて表せ。</li>
+      <li>(4)　$p_n$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2026 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>最初の 1 回の結果で場合分けして、「残りの列」を新しい列とみなす。(2) は 1 回目が裏の場合、(3) で 1 回目が表の場合を追加すれば漸化式が完成する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <p class="note">$n+2$ 回投げると玉は $n+2$ 個以上並ぶので、$n+2$ 番目までの玉は必ず確定します。</p>
+      <h3>(1)</h3>
+      <p>$n = 1$：1 回目が表だと 1, 2 番目が白になるので、1 回目は裏。以下同様に 2, 3 回目も裏でなければならず、$p_1 = (1-r)^3$。</p>
+      <p>$n = 2$：1 回目が表だと 2 番目が白なので、1 回目は裏（1 番目が黒）。すると 2, 3, 4 番目は 2, 3, 4 回目の結果で決まり、すべて裏でなければならない。よって $p_2 = (1-r)^4$。</p>
+
+      <h3>(2)</h3>
+      <p>1 番目が黒 $\iff$ 1 回目が裏（確率 $1-r$）。このとき、2 回目以降の $n+1$ 回の結果で並ぶ玉を新たな列とみなすと、元の $n,\ n+1,\ n+2$ 番目は新たな列の $n-1,\ n,\ n+1$ 番目にあたる。$(n-1)+2 = n+1$ 回で決まるので、その確率は $p_{n-1}$。よって求める確率は</p>
+      $$(1-r)\,p_{n-1}$$
+
+      <h3>(3)</h3>
+      <p>1 回目の結果で場合分けする。</p>
+      <ul>
+        <li>1 回目が裏：(2) の場合で、確率 $(1-r)p_{n-1}$。</li>
+        <li>1 回目が表（確率 $r$）：1, 2 番目が白。2 回目以降の結果で並ぶ玉を新たな列とみなすと、元の $n,\ n+1,\ n+2$ 番目は新たな列の $n-2,\ n-1,\ n$ 番目。これらは 2 回目以降の最初の $n$ 回で確定する（残りの 1 回は無関係）ので、確率は $p_{n-2}$。</li>
+      </ul>
+      $$\therefore\ p_n = (1-r)\,p_{n-1} + r\,p_{n-2} \qquad (n \ge 3)$$
+
+      <h3>(4)</h3>
+      <p>漸化式は $p_{n+2} - p_{n+1} = -r(p_{n+1} - p_n)$、$p_{n+2} + rp_{n+1} = p_{n+1} + rp_n$ と 2 通りに変形できる（特性方程式 $x^2 = (1-r)x + r$ の解は $x = 1,\ -r$）。</p>
+      $$p_{n+1} - p_n = (-r)^{n-1}(p_2 - p_1) = (-r)^{n-1}\cdot(1-r)^3\cdot(-r) = (1-r)^3(-r)^n$$
+      $$p_{n+1} + r\,p_n = p_2 + r\,p_1 = (1-r)^3\{(1-r) + r\} = (1-r)^3$$
+      <p>辺々引いて $(1+r)p_n = (1-r)^3\{1 - (-r)^n\}$ より</p>
+      $$p_n = \frac{(1-r)^3\{1 - (-r)^n\}}{1 + r}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>実際に硬貨を投げて玉を並べてみましょう。下のグラフは $p_n$ を $n = 1,\ 2,\ \ldots,\ 20$ について並べたもので、ある値に向かって<b>振動しながら</b>収束していく様子が見られます。</p>
+
+  <div class="widget no-math">
+    <label>r = <input type="range" id="r" min="5" max="95" value="40"></label><span id="rv" class="readout"></span>
+    <label style="margin-left:10px">n = <input type="number" id="n" min="1" max="30" value="5" style="width:60px"></label>
+    <button type="button" id="toss">硬貨を n+2 回投げる</button>
+    <button type="button" id="mc">10万回シミュレーション</button>
+    <div class="balls" id="balls"></div>
+    <div class="readout" id="res"></div>
+    <canvas id="gr" class="fig" width="420" height="220" style="margin-top:8px"></canvas>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+
+  <h3>(3) の山場：「最後の 1 回は関係ない」</h3>
+  <p>1 回目が表のとき、残りは $n+1$ 回ですが、$p_{n-2}$ の定義は「$n$ 回投げたとき」です。回数が合わないように見えますが、新たな列の $n$ 番目までの玉は最初の $n$ 回で確定するので、最後の 1 回は結果に影響しません。こうした「定義の回数」と「実際の回数」のずれを正しく処理できるかが、この問題のポイントです。</p>
+
+  <h3>極限 $\dfrac{(1-r)^3}{1+r}$ の意味</h3>
+  <p>$0 \lt r \lt 1$ より $(-r)^n \to 0$ なので</p>
+  $$\lim_{n\to\infty} p_n = \frac{(1-r)^3}{1+r}$$
+  <p>この形には、きれいな解釈があります。各回の硬貨で置かれる玉のまとまり（白 2 つ、または黒 1 つ）を「ブロック」と呼び、$n$ 番目の位置がちょうど<b>ブロックの先頭</b>になっている確率を $q_n$ とします。</p>
+  <ul>
+    <li>$n,\ n+1,\ n+2$ 番目がすべて黒 $\iff$ $n$ 番目がブロックの先頭で、そこから 3 回連続で裏。</li>
+    <li>よって $p_n = q_n(1-r)^3$。</li>
+  </ul>
+  <p>$q_n$ も同じ漸化式 $q_n = (1-r)q_{n-1} + rq_{n-2}$（$q_1 = 1,\ q_2 = 1-r$）をみたし、</p>
+  $$q_n = \frac{1 - (-r)^n}{1+r} \ \longrightarrow\ \frac{1}{1+r}$$
+  <p>となります。ブロックの長さの平均は $2\cdot r + 1\cdot(1-r) = 1 + r$ なので、十分先では「平均 $1+r$ 個に 1 回の割合でブロックの先頭が来る」 ── これが極限 $\dfrac{1}{1+r}$ の意味です。確率論では<b>再生定理</b>と呼ばれる考え方です。</p>
+
+  <h3>振動する理由</h3>
+  <p>$(-r)^n$ の符号が交互に変わるので、$p_n$ は極限値の上下を行き来します。直感的には、1 番目は必ずブロックの先頭ですが、2 番目は（1 回目が表なら）先頭になれません。この「先頭になりやすい位置／なりにくい位置」の偏りが、$n$ が大きくなるにつれて薄まっていくのです。</p>
+  <div class="point">白玉 2 つと黒玉 1 つで列を作るのは、長さ 2 と長さ 1 のタイルで 1 列を敷き詰めることと同じ。長さ $n$ の敷き詰め方の総数がフィボナッチ数列になるのと同じく、「1 つ前と 2 つ前から決まる」3 項間漸化式が現れるのは自然なことです。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+
+  <div class="ruidai">
+    <p>本問と同じ設定で，硬貨を十分多く投げたとき，左から $n$ 番目の玉が黒である確率 $b_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$n$ 番目が黒 $\iff$ $n$ 番目がブロックの先頭で、その回が裏。よって $b_n = (1-r)q_n$。$q_n$ は本問と同様に 1 回目で場合分けして $q_n = (1-r)q_{n-1} + rq_{n-2}$、$q_1 = 1$、$q_2 = 1 - r$ から $q_n = \dfrac{1-(-r)^n}{1+r}$。</p>
+    $$b_n = \frac{(1-r)\{1 - (-r)^n\}}{1+r}$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問と同じ設定で，硬貨を十分多く投げたとき，左から $n$ 番目と $n+1$ 番目の玉がともに白である確率を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2026　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>次の 2 つの場合がある（$q_0 = 0$ とする）。</p>
+    <ul>
+      <li>$n$ 番目が白ブロックの先頭：確率 $rq_n$</li>
+      <li>$n$ 番目が白ブロックの 2 つ目で、$n+1$ 番目から新しい白ブロック：確率 $rq_{n-1}\cdot r$</li>
+    </ul>
+    $$rq_n + r^2q_{n-1} = \frac{r\{1 - (-r)^n\} + r^2\{1 - (-r)^{n-1}\}}{1+r} = \frac{r(1+r) - r(-r)^n + r(-r)^n}{1+r} = r$$
+    <p>なんと $n$ によらず<b>常に $r$</b>。$n = 1$ なら「1 回目が表」の確率そのものなので当然ですが、どの位置でも同じになるのは驚きです。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const rIn = document.getElementById("r"), nIn = document.getElementById("n");
+  const res = document.getElementById("res"), ballsEl = document.getElementById("balls");
+  const gr = document.getElementById("gr"), g = gr.getContext("2d");
+  const R = () => rIn.value / 100, Nn = () => Math.max(1, Math.min(30, parseInt(nIn.value) || 1));
+  const pn = (r, n) => (1 - r) ** 3 * (1 - (-r) ** n) / (1 + r);
+
+  function tossOnce(r, n) { // n+2 回投げて玉の列とブロック境界を返す
+    const balls = [];
+    for (let k = 0; k < n + 2; k++) {
+      if (Math.random() < r) balls.push({ c: "w", start: true }, { c: "w", start: false });
+      else balls.push({ c: "b", start: true });
+    }
+    return balls;
+  }
+  function showToss() {
+    const r = R(), n = Nn(), bs = tossOnce(r, n);
+    const ok = [n - 1, n, n + 1].every((i) => bs[i].c === "b");
+    ballsEl.innerHTML = bs.map((b, i) =>
+      `<div class="ball ${b.c}${i >= n - 1 && i <= n + 1 ? " hl" : ""}${b.c === "w" && !b.start ? " pairgap" : ""}">${i + 1}</div>`).join("");
+    res.innerHTML = `${n}, ${n + 1}, ${n + 2} 番目（オレンジ枠）は ` + (ok ? '<span class="ok">すべて黒！</span>' : '<span class="ng">すべて黒ではない</span>') +
+      `　／　理論値 p<sub>${n}</sub> = ${pn(r, n).toFixed(5)}`;
+  }
+  function mc() {
+    const r = R(), n = Nn(), T = 100000; let hit = 0;
+    for (let k = 0; k < T; k++) { const bs = tossOnce(r, n); if (bs[n - 1].c === "b" && bs[n].c === "b" && bs[n + 1].c === "b") hit++; }
+    res.innerHTML = `シミュレーション：${hit} / ${T} = <b>${(hit / T).toFixed(5)}</b>　／　理論値 p<sub>${n}</sub> = <b>${pn(r, n).toFixed(5)}</b>`;
+  }
+  function graph() {
+    const r = R(), n0 = Nn(); document.getElementById("rv").textContent = ` ${r.toFixed(2)} `;
+    const GW = gr.width, GH = gr.height, pad = 34, M = 20;
+    const vals = Array.from({ length: M }, (_, i) => pn(r, i + 1));
+    const lim = (1 - r) ** 3 / (1 + r), ymax = Math.max(...vals) * 1.15;
+    const X = (n) => pad + (n - 0.5) / M * (GW - pad - 10), Y = (v) => GH - pad - v / ymax * (GH - pad - 12);
+    g.clearRect(0, 0, GW, GH);
+    g.strokeStyle = "#999"; g.lineWidth = 1; g.beginPath(); g.moveTo(pad, Y(0)); g.lineTo(GW - 5, Y(0)); g.moveTo(pad, GH - pad); g.lineTo(pad, 6); g.stroke();
+    g.setLineDash([4, 4]); g.strokeStyle = "#1c7ed6"; g.beginPath(); g.moveTo(pad, Y(lim)); g.lineTo(GW - 5, Y(lim)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = "#1c7ed6"; g.font = "11px sans-serif"; g.fillText(`極限 (1−r)³/(1+r) = ${lim.toFixed(4)}`, pad + 60, Y(lim) - 5);
+    g.strokeStyle = "#8a1538"; g.lineWidth = 1.5; g.beginPath(); vals.forEach((v, i) => (i ? g.lineTo(X(i + 1), Y(v)) : g.moveTo(X(i + 1), Y(v)))); g.stroke();
+    vals.forEach((v, i) => { g.fillStyle = i + 1 === n0 ? "#f59f00" : "#8a1538"; g.beginPath(); g.arc(X(i + 1), Y(v), i + 1 === n0 ? 5 : 3, 0, 7); g.fill(); });
+    g.fillStyle = "#666"; [1, 5, 10, 15, 20].forEach((n) => g.fillText(n, X(n) - 4, GH - pad + 14)); g.fillText("n", GW - 14, GH - pad + 14); g.fillText("pₙ", 6, 14);
+  }
+  document.getElementById("toss").onclick = showToss;
+  document.getElementById("mc").onclick = mc;
+  rIn.addEventListener("input", () => { graph(); });
+  nIn.addEventListener("input", () => { graph(); });
+  graph(); showToss();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

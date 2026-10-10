@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2022年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2022-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>座標空間内の 5 点</p>
+    $$\mathrm{O}(0,\ 0,\ 0),\ \mathrm{A}(1,\ 1,\ 0),\ \mathrm{B}(2,\ 1,\ 2),\ \mathrm{P}(4,\ 0,\ -1),\ \mathrm{Q}(4,\ 0,\ 5)$$
+    <p>を考える。3 点 $\mathrm{O}$，$\mathrm{A}$，$\mathrm{B}$ を通る平面を $\alpha$ とし，$\vec a = \overrightarrow{\mathrm{OA}}$，$\vec b = \overrightarrow{\mathrm{OB}}$ とおく。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　ベクトル $\vec a,\ \vec b$ の両方に垂直であり，$x$ 成分が正であるような，大きさが $1$ のベクトル $\vec n$ を求めよ。</li>
+      <li>(2)　平面 $\alpha$ に関して点 $\mathrm{P}$ と対称な点 $\mathrm{P'}$ の座標を求めよ。</li>
+      <li>(3)　点 $\mathrm{R}$ が平面 $\alpha$ 上を動くとき，$|\overrightarrow{\mathrm{PR}}| + |\overrightarrow{\mathrm{RQ}}|$ が最小となるような点 $\mathrm{R}$ の座標を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2022 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) 法線ベクトル → (2) 対称点 → (3) 折れ線の最短経路、という一本道の誘導。(3) は平面上の「川の問題（光の反射）」の空間版で、<b>P と Q が平面の同じ側にあることを確認</b>してから対称点を使う。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\vec n = (p,\ q,\ r)$ とすると $\vec a\cdot\vec n = p + q = 0$，$\vec b\cdot\vec n = 2p + q + 2r = 0$。$q = -p$，$r = -\frac p2$ より $\vec n = \frac p2(2,\ -2,\ -1)$。$|(2, -2, -1)| = 3$ で、$x$ 成分が正かつ大きさ $1$ なので</p>
+      $$\vec n = \left(\frac23,\ -\frac23,\ -\frac13\right)$$
+
+      <h3>(2)</h3>
+      <p>$\alpha$ は原点を通り $\vec n$ に垂直なので、方程式は $2x - 2y - z = 0$。点 $(x,\ y,\ z)$ の「$\alpha$ からの符号付き距離」は $\dfrac{2x - 2y - z}{3}$ で、P では $\dfrac{8 + 1}{3} = 3$。よって</p>
+      $$\overrightarrow{\mathrm{OP'}} = \overrightarrow{\mathrm{OP}} - 2\cdot 3\,\vec n = (4,\ 0,\ -1) - (4,\ -4,\ -2) = (0,\ 4,\ 1)$$
+      <p>$\mathrm{P'}(0,\ 4,\ 1)$。（PP′ の中点 $(2,\ 2,\ 0)$ が $\alpha$ 上にあり、$\overrightarrow{\mathrm{PP'}} \parallel \vec n$ であることが確認できる。）</p>
+
+      <h3>(3)</h3>
+      <p>$h(x,\ y,\ z) = 2x - 2y - z$ とすると $h(\mathrm{P}) = 9 \gt 0$，$h(\mathrm{Q}) = 8 - 5 = 3 \gt 0$ なので、P と Q は $\alpha$ に関して同じ側にある。また $h(\mathrm{P'}) = -9 \lt 0$ なので P′ と Q は反対側。</p>
+      <p>$\alpha$ 上の点 R について、$\alpha$ は線分 PP′ の垂直二等分面なので $\mathrm{PR} = \mathrm{P'R}$。よって</p>
+      $$\mathrm{PR} + \mathrm{RQ} = \mathrm{P'R} + \mathrm{RQ} \ge \mathrm{P'Q}$$
+      <p>等号は R が線分 P′Q と $\alpha$ の交点のとき。線分 P′Q 上の点は $(0,\ 4,\ 1) + u(4,\ -4,\ 4) = (4u,\ 4 - 4u,\ 1 + 4u)$ で、$h = 8u - 8 + 8u - 1 - 4u = 12u - 9 = 0$ より $u = \frac34$。</p>
+      $$\mathrm{R}(3,\ 1,\ 4)\qquad(\text{最小値は}\ \mathrm{P'Q} = 4\sqrt3)$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>平面 $\alpha$ 上で R を動かして、$\mathrm{PR} + \mathrm{RQ}$ を小さくしてみましょう。図はドラッグで回転できます。点線は P′ からの経路で、$\mathrm{PR} = \mathrm{P'R}$ が常に成り立っています。</p>
+
+  <div class="widget">
+    <label>R の位置 u：<input type="range" id="u" min="-300" max="600" value="100"></label><br>
+    <label>R の位置 v：<input type="range" id="v" min="-300" max="600" value="300"></label>
+    <button id="best">最小にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="380"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>光の反射とフェルマーの原理</h3>
+  <p>P から出た光が鏡 $\alpha$ で反射して Q に届くとき、光は<b>最短時間（最短距離）の経路</b>を通ります（フェルマーの原理）。本問の R はまさに反射点で、PR と RQ は $\alpha$ の法線と等しい角をなします（入射角 = 反射角）。</p>
+  <h3>同じ側か、反対側か</h3>
+  <p>もし P と Q が $\alpha$ の反対側にあれば、線分 PQ と $\alpha$ の交点が答えで、対称点は不要です。$h(\mathrm{P})$ と $h(\mathrm{Q})$ の符号を調べるのは、答案で必ず書くべきポイントです（chopin 先生も「P, Q は α について同じ側にあるので、折れ線の長さを最小化する問題になる」と解説しています）。</p>
+  <div class="point">平面に関する対称点は、<b>「符号付き距離 × 2 だけ法線方向に戻る」</b>で一発。中点が平面上にあることと、PP′ が法線と平行なことで検算できます。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>本問の P，Q と平面 $\alpha$ について，点 R が $\alpha$ 上を動くとき，$\bigl|\,|\overrightarrow{\mathrm{PR}}| - |\overrightarrow{\mathrm{QR}}|\,\bigr|$ の最大値と，そのときの R の座標を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>三角形の成立条件（三角不等式）より $|\mathrm{PR} - \mathrm{QR}| \le \mathrm{PQ} = 6$。等号は R が直線 PQ 上で、P，Q の外側にあるとき。直線 PQ：$(4,\ 0,\ -1 + 6u)$ と $\alpha$ の交点は $8 + 1 - 6u = 0$ より $u = \frac32$、$\mathrm{R}(4,\ 0,\ 8)$（PR $= 9$，QR $= 3$）。最大値 $6$。</p>
+    <p>（和の最小は「反対側に折り返す」、差の最大は「同じ側のまま延長する」。対になっています。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の P，Q について，点 R が平面 $\alpha$ と $xy$ 平面の交線上を動くとき，$|\overrightarrow{\mathrm{PR}}| + |\overrightarrow{\mathrm{RQ}}|$ の最小値と，そのときの R の座標を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2022　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>交線は $2x - 2y - z = 0,\ z = 0$ より $x = y,\ z = 0$。$\mathrm{R}(u,\ u,\ 0)$ とおくと</p>
+    $$\mathrm{PR} = \sqrt{2(u - 2)^2 + 9},\qquad \mathrm{RQ} = \sqrt{2(u - 2)^2 + 33}$$
+    <p>どちらも $u = 2$ で最小になるので、和の最小値は $3 + \sqrt{33}$（$\mathrm{R}(2,\ 2,\ 0)$）。</p>
+    <p>（「平面上」から「直線上」に制限すると、対称点の方法ではなく、それぞれの距離を直接最小化する方が速い、という例です。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const { v3 } = Fig;
+  const cv = document.getElementById("cv");
+  const V = Fig.view3d(cv, { scale: 34, center: [2, 1.5, 2], az: -1.1, el: 0.35, onChange: () => draw() });
+  const uIn = document.getElementById("u"), vIn = document.getElementById("v");
+  const P = [4, 0, -1], Q = [4, 0, 5], Pp = [0, 4, 1], Rbest = [3, 1, 4];
+  const n = v3.unit([2, -2, -1]);
+  const e1 = v3.unit([1, 1, 0]), e2 = v3.unit(v3.cross(n, e1));
+  const onPlane = (u, v) => v3.add(v3.mul(e1, u), v3.mul(e2, v));
+  // Rbest の (u, v) 座標
+  const ub = v3.dot(Rbest, e1), vb = v3.dot(Rbest, e2);
+  function draw() {
+    const u = uIn.value / 100, v = vIn.value / 100, R = onPlane(u, v);
+    V.clear();
+    // 平面 α
+    const corners = [[-2.5, -2.5], [5.5, -2.5], [5.5, 5.5], [-2.5, 5.5]].map(([s, t]) => onPlane(s, t));
+    V.poly(corners, "rgba(28,126,214,.4)", 1, [], "rgba(28,126,214,.08)");
+    V.axes(4.5);
+    V.poly([P, Pp], "#aaa", 1, [3, 3]);
+    V.poly([Pp, R], "#e8590c", 1.4, [5, 4]);
+    V.poly([P, R, Q], "#8a1538", 2.4);
+    V.dot(P, "#222", 4, "P").dot(Q, "#222", 4, "Q").dot(Pp, "#e8590c", 4, "P′").dot([0, 0, 0], "#666", 3, "O");
+    V.dot(Rbest, "#2b8a3e", 3);
+    V.dot(R, "#c92a2a", 5, "R");
+    const L = v3.len(v3.sub(R, P)) + v3.len(v3.sub(Q, R));
+    document.getElementById("info").innerHTML =
+      `R = (${R.map((x) => x.toFixed(2)).join(", ")})<br>PR = ${v3.len(v3.sub(R, P)).toFixed(3)}<br>P′R = ${v3.len(v3.sub(R, Pp)).toFixed(3)}<br>RQ = ${v3.len(v3.sub(Q, R)).toFixed(3)}<br>` +
+      `<b>PR + RQ = ${L.toFixed(4)}</b><br>最小値 4√3 = ${(4 * Math.sqrt(3)).toFixed(4)}` +
+      (L - 4 * Math.sqrt(3) < 0.002 ? `<br><span class="ok">✔ 最小！ R(3, 1, 4)</span>` : "") +
+      `<br><span style="color:#666;font-size:.9em">緑の点 = 最小となる R</span>`;
+  }
+  document.getElementById("best").onclick = () => { uIn.value = Math.round(ub * 100); vIn.value = Math.round(vb * 100); draw(); };
+  [uIn, vIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

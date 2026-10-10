@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2016年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2016-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$t$ を $0 \lt t \lt 1$ を満たす実数とする。面積が 1 である三角形 $\mathrm{ABC}$ において，辺 $\mathrm{AB},\ \mathrm{BC},\ \mathrm{CA}$ をそれぞれ $2 : 1,\ t : 1 - t,\ 1 : 3$ に内分する点を $\mathrm{D},\ \mathrm{E},\ \mathrm{F}$ とする。また，$\mathrm{AE}$ と $\mathrm{BF}$，$\mathrm{BF}$ と $\mathrm{CD}$，$\mathrm{CD}$ と $\mathrm{AE}$ の交点をそれぞれ $\mathrm{P},\ \mathrm{Q},\ \mathrm{R}$ とする。このとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　3 直線 $\mathrm{AE},\ \mathrm{BF},\ \mathrm{CD}$ が 1 点で交わるときの $t$ の値 $t_0$ を求めよ。</li>
+    </ol>
+    <p>以下，$t$ は $0 \lt t \lt t_0$ を満たすものとする。</p>
+    <ol>
+      <li>(2)　$\mathrm{AP} = k\mathrm{AE}$，$\mathrm{CR} = l\mathrm{CD}$ を満たす実数 $k,\ l$ をそれぞれ求めよ。</li>
+      <li>(3)　三角形 $\mathrm{BCQ}$ の面積を求めよ。</li>
+      <li>(4)　三角形 $\mathrm{PQR}$ の面積を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2016 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) はチェバの定理で即答。(2)(3) は $\vec b = \overrightarrow{\mathrm{AB}}$，$\vec c = \overrightarrow{\mathrm{AC}}$ で交点を表す定番計算。(4) は全体から 3 つの三角形を引く。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>チェバの定理より $\dfrac{\mathrm{AD}}{\mathrm{DB}}\cdot\dfrac{\mathrm{BE}}{\mathrm{EC}}\cdot\dfrac{\mathrm{CF}}{\mathrm{FA}} = 2\cdot\dfrac{t}{1 - t}\cdot\dfrac13 = 1$。よって $2t = 3(1 - t)$，$t_0 = \dfrac35$。</p>
+
+      <h3>(2)</h3>
+      <p>$\vec b = \overrightarrow{\mathrm{AB}}$，$\vec c = \overrightarrow{\mathrm{AC}}$ とおく。$\overrightarrow{\mathrm{AD}} = \frac23\vec b$，$\overrightarrow{\mathrm{AE}} = (1 - t)\vec b + t\vec c$，$\overrightarrow{\mathrm{AF}} = \frac34\vec c$。</p>
+      <p><b>P</b>：$\overrightarrow{\mathrm{AP}} = k(1 - t)\vec b + kt\vec c$ が直線 BF 上 $\iff$ $\vec b$ と $\overrightarrow{\mathrm{AF}}$ の係数の和が 1：</p>
+      $$k(1 - t) + \frac43kt = 1 \quad\therefore\ k = \frac{3}{3 + t}$$
+      <p><b>R</b>：$\overrightarrow{\mathrm{AR}} = \overrightarrow{\mathrm{AC}} + l\,\overrightarrow{\mathrm{CD}} = \frac{2l}{3}\vec b + (1 - l)\vec c$ が直線 AE 上 $\iff$ $\vec b,\ \vec c$ の係数の比が $(1 - t) : t$：</p>
+      $$\frac{2l}{3}\cdot t = (1 - l)(1 - t) \quad\therefore\ l = \frac{3(1 - t)}{3 - t}$$
+
+      <h3>(3)</h3>
+      <p>Q を CD 上に $\overrightarrow{\mathrm{AQ}} = \frac{2u}{3}\vec b + (1 - u)\vec c$ とおくと、直線 BF 上の条件は $\frac{2u}{3} + \frac43(1 - u) = 1$、すなわち $u = \frac12$。Q は CD の中点で（$t$ によらない）</p>
+      $$\triangle\mathrm{BCQ} = \frac12\triangle\mathrm{BCD} = \frac12\cdot\frac13 = \frac16$$
+
+      <h3>(4)</h3>
+      <p>$0 \lt t \lt t_0$ のとき、$\triangle\mathrm{ABC}$ は $\triangle\mathrm{ABP}$，$\triangle\mathrm{BCQ}$，$\triangle\mathrm{CAR}$，$\triangle\mathrm{PQR}$ に分割される。</p>
+      <ul>
+        <li>$\triangle\mathrm{ABP} = k\,\triangle\mathrm{ABE} = k\cdot t = \dfrac{3t}{3 + t}$</li>
+        <li>$\triangle\mathrm{CAR} = l\,\triangle\mathrm{CAD} = l\cdot\dfrac23 = \dfrac{2(1 - t)}{3 - t}$</li>
+      </ul>
+      $$\triangle\mathrm{PQR} = 1 - \frac{3t}{3 + t} - \frac16 - \frac{2(1 - t)}{3 - t} = \frac{(5t - 3)^2}{6(9 - t^2)}$$
+      <p>（$t = t_0 = \frac35$ で $0$ になり、検算になる。）</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>$t$ を動かすと E が辺 BC 上を動き、真ん中の三角形 PQR（赤）が伸び縮みします。$t = \frac35$ で 3 直線が 1 点で交わり、PQR がつぶれます。</p>
+
+  <div class="widget">
+    <label>t：<input type="range" id="t" min="2" max="98" value="30"></label>
+    <span class="readout no-math" id="tv"></span>
+    <button id="t0">t = 3/5 にする</button>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="380" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>チェバの定理とラウスの定理</h3>
+  <p>3 本のチェバ線（頂点と対辺上の点を結ぶ線分）で囲まれる真ん中の三角形の面積には、<b>ラウスの定理</b>という一般公式があります。各辺の比を $\frac{\mathrm{AD}}{\mathrm{DB}} = x$，$\frac{\mathrm{BE}}{\mathrm{EC}} = y$，$\frac{\mathrm{CF}}{\mathrm{FA}} = z$ とすると</p>
+  $$\frac{\triangle\mathrm{PQR}}{\triangle\mathrm{ABC}} = \frac{(xyz - 1)^2}{(xy + x + 1)(yz + y + 1)(zx + z + 1)}$$
+  <p>分子の $(xyz - 1)^2$ が 0 になるのがチェバの定理の条件です。本問の答えの分子 $(5t - 3)^2$ もまさにこの形です。</p>
+  <p>chopin 先生は「(1) は初等幾何で習うチェバの定理を使うのが最も手っ取り早い」「(3) 全体から BCQ，ABP，ACR の面積を引けばよい。答えは (1) の答えを入れると 0 になり、それ以外の $t$ で正になるので、妥当性も十分です」とコメントしています。</p>
+  <div class="point">交点の位置ベクトルは「直線上の点 $\iff$ 係数の和が 1」で求める。答えが $t = t_0$ で 0 になるかで検算できる。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\triangle\mathrm{ABC}$ の辺 AB を $1 : 2$，辺 BC を $3 : 1$ に内分する点をそれぞれ D，E とし，AE と CD の交点を P とする。$\mathrm{AP} : \mathrm{PE}$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\overrightarrow{\mathrm{AP}} = k\overrightarrow{\mathrm{AE}} = \frac k4\vec b + \frac{3k}{4}\vec c = \frac{3k}{4}\overrightarrow{\mathrm{AD}} + \frac{3k}{4}\vec c$（$\overrightarrow{\mathrm{AD}} = \frac13\vec b$）。直線 CD 上なので $\frac{3k}{4} + \frac{3k}{4} = 1$，$k = \frac23$。$\mathrm{AP} : \mathrm{PE} = 2 : 1$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問で $t_0 \lt t \lt 1$ の場合も，三角形 PQR の面積は (4) と同じ式 $\dfrac{(5t - 3)^2}{6(9 - t^2)}$ で表されることを示せ。また，$0 \lt t \lt 1$ における PQR の面積の取りうる値の範囲を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2016　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$t_0 \lt t$ では 3 本の線分の交わり方が変わり、(4) の「4 つに分割」はそのままでは使えない。しかし (2)(3) の計算は $t$ の範囲によらず成り立つので、$\vec b,\ \vec c$ を基底とする座標で</p>
+    $$\mathrm{P}\left(\tfrac{3(1-t)}{3+t},\ \tfrac{3t}{3+t}\right),\quad \mathrm{Q}\left(\tfrac13,\ \tfrac12\right),\quad \mathrm{R}\left(\tfrac{2(1-t)}{3-t},\ \tfrac{2t}{3-t}\right)$$
+    <p>と表せる。$\triangle\mathrm{ABC}$ の面積が 1（基底 $\vec b,\ \vec c$ の平行四辺形の面積が 2）なので、$\triangle\mathrm{PQR} = |\det(\overrightarrow{\mathrm{PQ}},\ \overrightarrow{\mathrm{PR}})|$ で、計算すると $\dfrac{(5t-3)^2}{6(9-t^2)}$ となり、$t$ の範囲によらない（図解で $t \gt 0.6$ にして確認できる）。</p>
+    <p>$f(t) = \frac{(5t - 3)^2}{6(9 - t^2)}$ は $t = \frac35$ で最小値 0。$f'(t)$ の分子は $(5t - 3)\{10(9 - t^2) + 2t(5t - 3)\} = (5t - 3)(90 - 6t)$ で、$0 \lt t \lt \frac35$ で減少、$\frac35 \lt t \lt 1$ で増加。$f(0) = \frac16$，$f(1) = \frac1{12}$ なので、値の範囲は</p>
+    $$0 \le \triangle\mathrm{PQR} \lt \frac16$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const P = Fig.plane($("cv"), { xmin: -0.15, xmax: 2.25, ymin: -0.2, ymax: 1.7, equal: true });
+  const A = [0, 0], B = [2, 0], C = [0.6, 1.5];
+  const L = (p, q, s) => [p[0] + (q[0] - p[0]) * s, p[1] + (q[1] - p[1]) * s];
+  function X(p1, p2, p3, p4) {
+    const d1 = [p2[0] - p1[0], p2[1] - p1[1]], d2 = [p4[0] - p3[0], p4[1] - p3[1]];
+    const den = d1[0] * d2[1] - d1[1] * d2[0]; if (Math.abs(den) < 1e-12) return p1;
+    const s = ((p3[0] - p1[0]) * d2[1] - (p3[1] - p1[1]) * d2[0]) / den; return L(p1, p2, s);
+  }
+  const area = (p, q, r) => Math.abs((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])) / 2;
+  const S0 = area(A, B, C);
+  function draw() {
+    const t = $("t").value / 100;
+    const D = L(A, B, 2 / 3), E = L(B, C, t), F = L(C, A, 1 / 4);
+    const Pp = X(A, E, B, F), Q = X(B, F, C, D), R = X(C, D, A, E);
+    P.clear();
+    P.fill([A, B, C], "rgba(0,0,0,.03)").line([A, B, C, A], "#222", 1.8);
+    P.line([A, E], "#1c7ed6", 1.4).line([B, F], "#2f9e44", 1.4).line([C, D], "#e8590c", 1.4);
+    P.fill([Pp, Q, R], "rgba(138,21,56,.55)");
+    [[A, "A", -14, 14], [B, "B", 6, 14], [C, "C", 4, -6], [D, "D", -4, 16], [E, "E", 6, -2], [F, "F", -14, 0]].forEach(([p, s, dx, dy]) => P.dot(p[0], p[1], "#222", 3.5, s, dx, dy));
+    P.dot(Pp[0], Pp[1], "#8a1538", 3, "P", 4, -4).dot(Q[0], Q[1], "#8a1538", 3, "Q", 4, 12).dot(R[0], R[1], "#8a1538", 3, "R", -14, -4);
+    const real = area(Pp, Q, R) / S0, fm = (5 * t - 3) ** 2 / (6 * (9 - t * t));
+    $("tv").textContent = ` t = ${t.toFixed(2)}`;
+    $("info").innerHTML = `k = 3/(3+t) = ${(3 / (3 + t)).toFixed(4)}<br>l = 3(1−t)/(3−t) = ${(3 * (1 - t) / (3 - t)).toFixed(4)}<br>△BCQ = ${(area(B, C, Q) / S0).toFixed(4)}（= 1/6）<br>△PQR（実測）= ${real.toFixed(4)}<br>(5t−3)²/(6(9−t²)) = ${fm.toFixed(4)}` +
+      (Math.abs(t - 0.6) < 0.005 ? '<br><span class="ok">3 直線が 1 点で交わる</span>' : "") + (t > 0.6 ? '<br><span style="color:#888">（t > t₀：魔改造の範囲）</span>' : "");
+  }
+  $("t").addEventListener("input", draw);
+  $("t0").onclick = () => { $("t").value = 60; draw(); };
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

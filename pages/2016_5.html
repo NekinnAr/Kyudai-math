@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2016年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2016-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$\theta$ を $0 \le \theta \lt 2\pi$ を満たす実数，$i$ を虚数単位とし，$z$ を $z = \cos\theta + i\sin\theta$ で表される複素数とする。このとき，整数 $n$ に対して次の式を証明せよ。
+        $$\cos n\theta = \frac12\left(z^n + \frac{1}{z^n}\right),\qquad \sin n\theta = -\frac i2\left(z^n - \frac{1}{z^n}\right)$$</li>
+      <li>(2)　次の方程式を満たす実数 $x$（$0 \le x \lt 2\pi$）を求めよ。
+        $$\cos x + \cos 2x - \cos 3x = 1$$</li>
+      <li>(3)　次の式を証明せよ。
+        $$\sin^2 20^\circ + \sin^2 40^\circ + \sin^2 60^\circ + \sin^2 80^\circ = \frac94$$</li>
+    </ol>
+  </div>
+  <p class="source">（2016 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) はド・モアブル。(2) は $\cos x$ の 3 次方程式がきれいに因数分解できる。(3) は半角の公式で $\cos 40^\circ + \cos 80^\circ + \cos 160^\circ = 0$ に帰着。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>ド・モアブルの定理より $z^n = \cos n\theta + i\sin n\theta$，$\dfrac1{z^n} = z^{-n} = \cos n\theta - i\sin n\theta$（$n$ は負の整数でもよい）。</p>
+      $$z^n + \frac1{z^n} = 2\cos n\theta,\qquad z^n - \frac1{z^n} = 2i\sin n\theta$$
+      <p>よって $\cos n\theta = \frac12\left(z^n + \frac1{z^n}\right)$，$\sin n\theta = \frac{1}{2i}\left(z^n - \frac1{z^n}\right) = -\frac i2\left(z^n - \frac1{z^n}\right)$。</p>
+
+      <h3>(2)</h3>
+      <p>$c = \cos x$ とおくと $\cos 2x = 2c^2 - 1$，$\cos 3x = 4c^3 - 3c$ なので</p>
+      $$c + 2c^2 - 1 - 4c^3 + 3c = 1 \iff 2c^3 - c^2 - 2c + 1 = 0 \iff (c^2 - 1)(2c - 1) = 0$$
+      <p>$\cos x = 1,\ -1,\ \frac12$ より</p>
+      $$x = 0,\ \frac\pi3,\ \pi,\ \frac{5\pi}{3}$$
+
+      <h3>(3)</h3>
+      <p>$\sin^2 60^\circ = \frac34$。残りは半角の公式 $\sin^2\alpha = \frac{1 - \cos 2\alpha}{2}$ より</p>
+      $$\sin^2 20^\circ + \sin^2 40^\circ + \sin^2 80^\circ = \frac32 - \frac12(\cos 40^\circ + \cos 80^\circ + \cos 160^\circ)$$
+      <p>和積の公式で $\cos 40^\circ + \cos 80^\circ = 2\cos 60^\circ\cos 20^\circ = \cos 20^\circ$，また $\cos 160^\circ = -\cos 20^\circ$。よって括弧内は $0$。</p>
+      $$\text{左辺} = \frac32 + \frac34 = \frac94$$
+      <p><b>(1) を使う別解。</b>$z = \cos 40^\circ + i\sin 40^\circ$ とすると $z^9 = 1$，$z \ne 1$ なので $1 + z + z^2 + \cdots + z^8 = 0$。(1) より（$\cos 280^\circ = \cos 80^\circ$ などに注意して）</p>
+      $$\cos 40^\circ + \cos 80^\circ + \cos 160^\circ = \frac12(z + z^8 + z^2 + z^7 + z^4 + z^5) = \frac12\{(-1) - (z^3 + z^6)\}$$
+      <p>$z^3 = \cos 120^\circ + i\sin 120^\circ = \omega$ は $\omega^2 + \omega + 1 = 0$ をみたすので $z^3 + z^6 = -1$。よって括弧内は $0$。</p>
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>グラフは $y = \cos x + \cos 2x - \cos 3x$ です。直線 $y = 1$ との交点が (2) の解。下のボタンで (3) の 3 つの角 $40^\circ,\ 80^\circ,\ 160^\circ$ を単位円上に表示し、$x$ 座標の和が 0 になる様子を見られます。</p>
+
+  <div class="widget">
+    <label>表示：<select id="mode"><option value="0">(2) のグラフ</option><option value="1">(3) cos40° + cos80° + cos160°</option></select></label>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="400" height="280"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>20° と 9 次の 1 の冪根</h3>
+  <p>$\cos 20^\circ$ は $\cos 3\theta = \frac12$ の解なので $4c^3 - 3c = \frac12$ という 3 次方程式をみたし、これは有理数の範囲で因数分解できません（作図不可能 → 角の 3 等分問題）。それでも $\cos 40^\circ + \cos 80^\circ + \cos 160^\circ = 0$ のような対称式はきれいな値になります。$40^\circ,\ 160^\circ,\ 280^\circ$ は 120° ずつずれた 3 方向なので、ベクトルの和が 0 になる、と見ることもできます（$\cos 280^\circ = \cos 80^\circ$）。</p>
+  <p>chopin 先生は「誘導形式かと思いきや、小問集合に近い」「(2) は倍角の公式を使うと $\cos x$ の 3 次関数となります。幸い $\cos x$ は角度が求まる値になります」「(3) $\theta = 20^\circ$ とすると $\cos\theta - \cos2\theta - \cos4\theta$ となり、$\cos 3\theta = \frac12$ から次数下げ」とコメントしています。</p>
+  <div class="point">$\sin^2,\ \cos^2$ の和は半角の公式で 1 次の $\cos$ の和へ。120° ずつずれた 3 つの角の $\cos$ の和は 0（正三角形の頂点ベクトルの和）。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\cos 20^\circ\cos 40^\circ\cos 80^\circ = \dfrac18$ を証明せよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>左辺に $\sin 20^\circ$ をかけて 2 倍角の公式を 3 回使うと $\sin 20^\circ\cos 20^\circ\cos 40^\circ\cos 80^\circ = \frac18\sin 160^\circ = \frac18\sin 20^\circ$。両辺を $\sin 20^\circ \ne 0$ で割る。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\sin^4 20^\circ + \sin^4 40^\circ + \sin^4 80^\circ$ の値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2016　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\sin^4\alpha = \left(\frac{1 - \cos 2\alpha}{2}\right)^2 = \frac{3 - 4\cos 2\alpha + \cos 4\alpha}{8}$。</p>
+    <p>$\alpha = 20^\circ,\ 40^\circ,\ 80^\circ$ で和をとると、$\cos 2\alpha$ の和は $\cos 40^\circ + \cos 80^\circ + \cos 160^\circ = 0$、$\cos 4\alpha$ の和は $\cos 80^\circ + \cos 160^\circ + \cos 320^\circ = \cos 80^\circ + \cos 160^\circ + \cos 40^\circ = 0$。</p>
+    $$\sin^4 20^\circ + \sin^4 40^\circ + \sin^4 80^\circ = \frac98$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const cv = $("cv");
+  function draw() {
+    const mode = +$("mode").value;
+    if (mode === 0) {
+      const P = Fig.plane(cv, { xmin: -0.3, xmax: 6.6, ymin: -2.2, ymax: 3.3 });
+      P.clear().grid(1, "#f3f3f3").axes();
+      P.line([[0, 1], [6.6, 1]], "#1c7ed6", 1.4, [5, 3]);
+      P.fn((x) => Math.cos(x) + Math.cos(2 * x) - Math.cos(3 * x), 0, 2 * Math.PI, "#8a1538", 2.2);
+      [[0, "0"], [Math.PI / 3, "π/3"], [Math.PI, "π"], [5 * Math.PI / 3, "5π/3"]].forEach(([x, s]) => P.dot(x, 1, "#e8590c", 4.5, s, 4, -8));
+      P.text("2π", 2 * Math.PI - 0.1, -0.25, "#666");
+      $("info").innerHTML = "cos x + cos 2x − cos 3x = 1<br>⇔ (cos²x − 1)(2cos x − 1) = 0<br>cos x = 1, −1, 1/2<br>x = 0, π/3, π, 5π/3";
+    } else {
+      const P = Fig.plane(cv, { xmin: -1.6, xmax: 1.6, ymin: -1.25, ymax: 1.25, equal: true });
+      P.clear().axes();
+      P.circle(0, 0, 1, "#bbb", 1);
+      const angs = [40, 160, 280], cols = ["#8a1538", "#1c7ed6", "#2f9e44"];
+      angs.forEach((d, i) => { const a = d * Math.PI / 180, x = Math.cos(a), y = Math.sin(a); P.line([[0, 0], [x, y]], cols[i], 2); P.line([[x, y], [x, 0]], cols[i], 1, [3, 3]); P.dot(x, y, cols[i], 4, d + "°", 4, -4); });
+      P.line([[Math.cos(40 * Math.PI / 180), Math.sin(40 * Math.PI / 180)], [Math.cos(160 * Math.PI / 180), Math.sin(160 * Math.PI / 180)], [Math.cos(280 * Math.PI / 180), Math.sin(280 * Math.PI / 180)], [Math.cos(40 * Math.PI / 180), Math.sin(40 * Math.PI / 180)]], "rgba(0,0,0,.25)", 1);
+      const s = angs.reduce((t, d) => t + Math.cos(d * Math.PI / 180), 0);
+      $("info").innerHTML = `40°，160°，280° は 120° ずつ<br>（正三角形の頂点）<br>cos40° = ${Math.cos(40 * Math.PI / 180).toFixed(4)}<br>cos160° = ${Math.cos(160 * Math.PI / 180).toFixed(4)}<br>cos280° = cos80° = ${Math.cos(80 * Math.PI / 180).toFixed(4)}<br>和 = ${Math.abs(s) < 1e-12 ? "0" : s.toExponential(2)}`;
+    }
+  }
+  $("mode").addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

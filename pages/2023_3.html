@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2023年 九大理系数学 第3問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2023-3">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>点 $\mathrm{O}$ を原点とする座標平面上の $\vec 0$ でない 2 つのベクトル</p>
+    $$\vec m = (a,\ c),\qquad \vec n = (b,\ d)$$
+    <p>に対して，$D = ad - bc$ とおく。座標平面上のベクトル $\vec q$ に対して，次の条件を考える。</p>
+    <p>　条件 I　　$r\vec m + s\vec n = \vec q$ を満たす実数 $r,\ s$ が存在する。<br>
+       　条件 II　 $r\vec m + s\vec n = \vec q$ を満たす整数 $r,\ s$ が存在する。</p>
+    <p>以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　条件 I がすべての $\vec q$ に対して成り立つとする。$D \neq 0$ であることを示せ。</li>
+    </ol>
+    <p>以下，$D \neq 0$ であるとする。</p>
+    <ol>
+      <li>(2)　座標平面上のベクトル $\vec v,\ \vec w$ で
+        $$\vec m\cdot\vec v = \vec n\cdot\vec w = 1,\qquad \vec m\cdot\vec w = \vec n\cdot\vec v = 0$$
+        を満たすものを求めよ。</li>
+      <li>(3)　さらに $a,\ b,\ c,\ d$ が整数であるとし，$x$ 成分と $y$ 成分がともに整数であるすべてのベクトル $\vec q$ に対して条件 II が成り立つとする。$D$ のとりうる値をすべて求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2023 九州大学 前期 理系 第3問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>中身は「行列 $\begin{pmatrix} a & b \\ c & d\end{pmatrix}$ による 1 次変換」で、$D$ はその<b>行列式</b>。(2) の $\vec v,\ \vec w$ は、$r\vec m + s\vec n = \vec q$ と内積をとって $r,\ s$ を取り出すための道具になる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$D = 0$ と仮定する。$\vec q = (-c,\ a)$ とおくと、$\vec m \neq \vec 0$ より $\vec q \neq \vec 0$ で</p>
+      $$\vec m\cdot\vec q = -ac + ca = 0,\qquad \vec n\cdot\vec q = -bc + da = D = 0$$
+      <p>条件 I より $r\vec m + s\vec n = \vec q$ となる実数 $r,\ s$ がある。両辺と $\vec q$ の内積をとると $0 = |\vec q|^2 \gt 0$ となり矛盾。よって $D \neq 0$。</p>
+
+      <h3>(2)</h3>
+      <p>$\vec v = (x,\ y)$ とすると $\vec m\cdot\vec v = ax + cy = 1$，$\vec n\cdot\vec v = bx + dy = 0$。$D \neq 0$ なのでこれを解いて $x = \dfrac{d}{D},\ y = -\dfrac{b}{D}$。$\vec w$ も同様にして</p>
+      $$\vec v = \frac1D(d,\ -b),\qquad \vec w = \frac1D(-c,\ a)$$
+
+      <h3>(3)</h3>
+      <p>$r\vec m + s\vec n = \vec q$ の両辺と $\vec v$，$\vec w$ の内積をとると、(2) より</p>
+      $$r = \vec q\cdot\vec v,\qquad s = \vec q\cdot\vec w$$
+      <p>（逆に、$D \neq 0$ なので $\vec m,\ \vec n$ は 1 次独立で、$r,\ s$ はこれで一意に決まる。）</p>
+      <p>$\vec q = (1,\ 0)$ のとき $r = \dfrac{d}{D}$，$s = -\dfrac{c}{D}$。$\vec q = (0,\ 1)$ のとき $r = -\dfrac{b}{D}$，$s = \dfrac{a}{D}$。条件 II よりこれらはすべて整数なので、$a,\ b,\ c,\ d$ はすべて $D$ の倍数。$a = Da',\ b = Db',\ c = Dc',\ d = Dd'$（$a', b', c', d'$ は整数）とおくと</p>
+      $$D = ad - bc = D^2(a'd' - b'c')$$
+      <p>よって $1 = D(a'd' - b'c')$ で、$D$ は $1$ の約数。$D = \pm1$。</p>
+      <p>逆に $D = \pm1$ なら、整数成分の $\vec q = (x,\ y)$ に対して $r = \pm(dx - by)$，$s = \pm(-cx + ay)$ は整数なので条件 II が成り立つ。</p>
+      $$D = 1,\ -1$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>灰色の点が格子点（整数成分の点）、青い点が $r\vec m + s\vec n$（$r,\ s$ は整数）の点です。$|D| = 1$ のときだけ、青い点がすべての格子点を覆います。$|D|$ は $\vec m,\ \vec n$ が張る平行四辺形（オレンジ）の面積で、$|D| \ge 2$ だと格子点の一部しか届きません。</p>
+
+  <div class="widget">
+    <div class="no-math" style="display:flex;flex-wrap:wrap;gap:10px">
+      <label>a <input type="number" id="a" value="2" min="-4" max="4" style="width:3.2em"></label>
+      <label>c <input type="number" id="c" value="1" min="-4" max="4" style="width:3.2em"></label>
+      <span>／</span>
+      <label>b <input type="number" id="b" value="1" min="-4" max="4" style="width:3.2em"></label>
+      <label>d <input type="number" id="d" value="1" min="-4" max="4" style="width:3.2em"></label>
+    </div>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="340" height="340"></canvas>
+      <div class="no-math" id="info" style="min-width:200px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>行列と格子</h3>
+  <p>現行課程では行列は扱いませんが、本問は「整数行列 $A = \begin{pmatrix} a & b \\ c & d\end{pmatrix}$ が、整数ベクトル全体を整数ベクトル全体に<b>1 対 1 に</b>移すのはいつか」という問題です。答えは $\det A = \pm1$ で、このような行列は<b>ユニモジュラ行列</b>と呼ばれます。(2) の $\vec v,\ \vec w$ は、実は逆行列 $A^{-1} = \dfrac1D\begin{pmatrix} d & -b \\ -c & a\end{pmatrix}$ の行ベクトルです。</p>
+  <h3>面積で見ると</h3>
+  <p>$\vec m,\ \vec n$ が張る平行四辺形の面積は $|D|$ です。平面全体をこの平行四辺形で敷き詰めると、各平行四辺形が「格子点 $|D|$ 個分」の面積を占めるので、$r\vec m + s\vec n$ の形で表せる格子点は全体の $\frac{1}{|D|}$ しかありません。図解の「届く格子点の割合」がそれです。</p>
+  <div class="point">「すべての $\vec q$ に対して」は、<b>具体的な $\vec q$（基本ベクトル $(1, 0),\ (0, 1)$ など）を代入して必要条件を出す</b>のが定石。(1) でも (3) でも使っています。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$\vec m = (2,\ 1)$，$\vec n = (1,\ 1)$ とする。$r\vec m + s\vec n = (3,\ 5)$ をみたす整数 $r,\ s$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$D = 2\cdot1 - 1\cdot1 = 1$。(2) より $\vec v = (1,\ -1)$，$\vec w = (-1,\ 2)$ なので $r = (3,5)\cdot(1,-1) = -2$，$s = (3,5)\cdot(-1,2) = 7$。確かに $-2(2,1) + 7(1,1) = (3,\ 5)$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$a,\ b,\ c,\ d$ を整数とし，$D = ad - bc = \pm1$ とする。$\vec m = (a,\ c)$，$\vec n = (b,\ d)$ について，4 点 $\mathrm{O}$，$\vec m$，$\vec m + \vec n$，$\vec n$ を頂点とする平行四辺形の周および内部にある格子点は，4 つの頂点だけであることを示せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2023　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>平行四辺形の周および内部の点は $\vec q = r\vec m + s\vec n$（$0 \le r \le 1,\ 0 \le s \le 1$）と書ける。$\vec q$ が格子点なら、本問 (3) と同様に $r = \vec q\cdot\vec v = \pm(dx - by)$，$s = \vec q\cdot\vec w$ は整数。よって $r,\ s \in \{0,\ 1\}$ で、$\vec q$ は 4 頂点のいずれか。</p>
+    <p>（逆に、平行四辺形が頂点以外の格子点を含まないなら $|D| = 1$ であることも、ピックの定理「面積 $= i + \frac{b}{2} - 1$」から分かります。）</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -6.5, xmax: 6.5, ymin: -6.5, ymax: 6.5, equal: true });
+  const ids = ["a", "b", "c", "d"], el = {}; ids.forEach((k) => (el[k] = document.getElementById(k)));
+  function draw() {
+    const [a, b, c, d] = ids.map((k) => Math.round(+el[k].value || 0));
+    const D = a * d - b * c;
+    P.clear().axes("", "");
+    // 格子点
+    for (let x = -6; x <= 6; x++) for (let y = -6; y <= 6; y++) P.dot(x, y, "#ccc", 2.5);
+    let hit = 0, tot = 0;
+    if (D !== 0) {
+      for (let x = -6; x <= 6; x++) for (let y = -6; y <= 6; y++) {
+        tot++;
+        const r = (d * x - b * y) / D, s = (-c * x + a * y) / D;
+        if (Number.isInteger(r) && Number.isInteger(s)) { hit++; P.dot(x, y, "#1c7ed6", 4); }
+      }
+    } else {
+      // D = 0: 1 直線上
+      for (let r = -12; r <= 12; r++) for (let s = -12; s <= 12; s++) {
+        const x = r * a + s * b, y = r * c + s * d;
+        if (Math.abs(x) <= 6 && Math.abs(y) <= 6) P.dot(x, y, "#1c7ed6", 4);
+      }
+    }
+    P.fill([[0, 0], [a, c], [a + b, c + d], [b, d]], "rgba(232,89,12,.18)");
+    P.line([[0, 0], [a, c]], "#c92a2a", 2.5).line([[0, 0], [b, d]], "#2b8a3e", 2.5);
+    P.dot(a, c, "#c92a2a", 4, "m").dot(b, d, "#2b8a3e", 4, "n");
+    document.getElementById("info").innerHTML =
+      `D = ad − bc = ${a}·${d} − ${b}·${c} = <b>${D}</b><br>平行四辺形の面積 |D| = ${Math.abs(D)}<br>` +
+      (D === 0 ? `<span class="ng">D = 0：m, n が平行で、1 直線上にしか届かない</span>` :
+        `届く格子点の割合（表示範囲）：${hit}/${tot} ≈ ${(hit / tot).toFixed(3)}<br>理論値 1/|D| = ${(1 / Math.abs(D)).toFixed(3)}<br>` +
+        (Math.abs(D) === 1 ? `<span class="ok">✔ すべての格子点に届く</span>` : `<span class="ng">✘ 届かない格子点がある</span>`));
+  }
+  ids.forEach((k) => el[k].addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

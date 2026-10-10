@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2024年 九大理系数学 第1問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2024-1">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$a$ を実数とし，座標空間内の 3 点 $\mathrm{P}(-1,\ 1,\ -1)$，$\mathrm{Q}(1,\ 1,\ 1)$，$\mathrm{R}(a,\ a^2,\ a^3)$ を考える。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a \neq -1$，$a \neq 1$ のとき，3 点 $\mathrm{P}$，$\mathrm{Q}$，$\mathrm{R}$ は一直線上にないことを示せ。</li>
+      <li>(2)　$a$ が $-1 \lt a \lt 1$ の範囲を動くとき，三角形 $\mathrm{PQR}$ の面積の最大値を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2024 九州大学 前期 理系 第1問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>空間の三角形の面積は $\dfrac12\sqrt{|\vec u|^2|\vec v|^2 - (\vec u\cdot\vec v)^2}$ で計算できる。ここでは R から直線 PQ までの距離を求める方法で解く（どちらでも計算量は同程度）。ルートの中は $a$ の 6 次式だが、$a^2$ の 3 次式として扱える。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\overrightarrow{\mathrm{PQ}} = (2,\ 0,\ 2)$ より、直線 PQ 上の点は実数 $s$ を用いて $(s,\ 1,\ s)$ と表せる。R がこの直線上にあるとすると</p>
+      $$a = s,\quad a^2 = 1,\quad a^3 = s$$
+      <p>第 2 式より $a = \pm1$ となり、$a \neq \pm1$ に反する。よって P，Q，R は一直線上にない。</p>
+
+      <h3>(2)</h3>
+      <p>直線 PQ 上の点 $\mathrm{H}(s,\ 1,\ s)$ について</p>
+      $$\mathrm{RH}^2 = (s - a)^2 + (1 - a^2)^2 + (s - a^3)^2 = 2\left(s - \frac{a + a^3}{2}\right)^2 + \frac{(a^3 - a)^2}{2} + (1 - a^2)^2$$
+      <p>なので、R と直線 PQ の距離 $d$ は（$s = \frac{a+a^3}{2}$ のとき）</p>
+      $$d^2 = \frac{a^2(1-a^2)^2}{2} + (1-a^2)^2 = \frac{(1-a^2)^2(a^2+2)}{2}$$
+      <p>$\mathrm{PQ} = 2\sqrt2$ だから、三角形 PQR の面積を $S$ とすると</p>
+      $$S = \frac12\cdot 2\sqrt2\cdot d = (1-a^2)\sqrt{a^2+2}\qquad(-1 \lt a \lt 1)$$
+      <p>$b = a^2$ とおくと $0 \le b \lt 1$ で、$S^2 = (1-b)^2(b+2) = g(b)$ とおくと</p>
+      $$g'(b) = -2(1-b)(b+2) + (1-b)^2 = -3(1-b)(b+1) \lt 0\quad(0 \le b \lt 1)$$
+      <p>よって $g(b)$ は減少関数で、最大となるのは $b = 0$、すなわち $a = 0$ のとき。$g(0) = 2$ より</p>
+      $$S\ \text{の最大値は}\ \sqrt2\qquad(a = 0\ \text{のとき})$$
+    </div>
+  </details>
+
+  <div class="note">
+    <p><b>外積を知っていれば</b>：$\overrightarrow{\mathrm{PQ}}\times\overrightarrow{\mathrm{PR}} = 2(a^2-1)(-1,\ -a,\ 1)$ となり、$S = \frac12\cdot 2|1-a^2|\sqrt{a^2+2}$ が一瞬で出ます。答案では上のように高校範囲の方法で書くのが無難です。</p>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>R は曲線 $(t,\ t^2,\ t^3)$ の上を動きます。実は <b>P，Q もこの曲線上の点</b>（$t = -1,\ 1$）です。左の図はドラッグで回転できます。</p>
+
+  <div class="widget">
+    <label>a：<input type="range" id="a" min="-99" max="99" value="50"></label>
+    <span class="readout no-math" id="av"></span>
+    <div class="row" style="margin-top:8px">
+      <canvas id="cv3" class="fig" width="380" height="380" style="touch-action:none;cursor:grab"></canvas>
+      <canvas id="gr" class="fig" width="300" height="220"></canvas>
+    </div>
+    <p class="no-math" style="font-size:.9em;color:#666">赤＝曲線 (t, t², t³)，青＝三角形 PQR，右＝面積 S(a) のグラフ</p>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>曲線 $(t,\ t^2,\ t^3)$：ねじれ 3 次曲線</h3>
+  <p>点 $(t,\ t^2,\ t^3)$ が描く曲線は<b>ねじれ 3 次曲線</b>（twisted cubic）と呼ばれます。P，Q，R はすべてこの曲線上の点なので、(1) は「この曲線上のどの 3 点も一直線上にない」ことの一部を示していることになります。</p>
+  <p>実はもっと強く、<b>この曲線上のどの 4 点も同一平面上にない</b>ことが知られています。平面 $px + qy + rz = k$ と曲線の交点は、3 次方程式 $rt^3 + qt^2 + pt - k = 0$ の解に対応し、これは高々 3 個しかないからです（下の類題 1）。</p>
+  <div class="point">2 次元の放物線 $(t,\ t^2)$ 上の 3 点は一直線上にない。3 次元のねじれ 3 次曲線 $(t,\ t^2,\ t^3)$ 上の 4 点は同一平面上にない。次数と次元がそろった美しい対応です。</div>
+
+  <h3>(2) の置き換え</h3>
+  <p>面積の 2 乗が $a^2$ だけの式になるのは、図形が $y$ 軸まわりの対称性（$a \to -a$ で R は $(x,\ z) \to (-x,\ -z)$ に移り、P と Q が入れ替わる）を持つからです。偶関数を見たら $a^2 = b$ とおく、は定石です。</p>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>曲線 $C:\ (t,\ t^2,\ t^3)$（$t$ は実数）上の相異なる 4 点は，同一平面上にないことを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>4 点 $(t_i,\ t_i^2,\ t_i^3)$（$i = 1,2,3,4$、相異なる）が平面 $px + qy + rz = k$（$(p,q,r) \neq (0,0,0)$）上にあるとすると、$t_1,\ \dots,\ t_4$ は方程式 $rt^3 + qt^2 + pt - k = 0$ の相異なる 4 つの解。$r,\ q,\ p$ のいずれかは $0$ でないので、左辺は 1 次以上 3 次以下の多項式であり、相異なる解は高々 3 個。矛盾。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の P，Q と，曲線 $(t,\ t^2,\ t^3)$ 上の 2 点 $\mathrm{R}(a,\ a^2,\ a^3)$，$\mathrm{S}(b,\ b^2,\ b^3)$（$-1 \lt a \lt b \lt 1$）を頂点とする四面体 $\mathrm{PQRS}$ の体積の最大値を求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2024　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$\overrightarrow{\mathrm{PQ}},\ \overrightarrow{\mathrm{PR}},\ \overrightarrow{\mathrm{PS}}$ で張る四面体の体積を計算すると（底面 PQR の法線 $(-1,\ -a,\ 1)$ 方向への S の高さを使うなど）</p>
+    $$V = \frac13(1-a^2)(1-b^2)(b-a)$$
+    <p>（一般に、パラメータ $t_1, \dots, t_4$ の 4 点の四面体の体積は $\frac16\prod_{i\lt j}|t_i - t_j|$。）</p>
+    <p>$a = c - d,\ b = c + d$（$d \gt 0$）とおくと $(1-a^2)(1-b^2) = (1 - c^2 - d^2)^2 - 4c^2d^2$。$d$ を固定して $u = c^2$ の関数と見ると、$u$ で微分すると $-2(1 + 2d - d^2 - u)$。$|c| + d \lt 1$ より $u \lt (1-d)^2 = 1 - 2d + d^2 \le 1 + 2d - d^2$（$0 \lt d \lt 1$）なので、これは負。よって $c = 0$ で最大になり、</p>
+    $$V \le \frac13(1-d^2)^2\cdot 2d$$
+    <p>右辺は $d = \frac{1}{\sqrt5}$ で最大となる。最大値は</p>
+    $$V = \frac{2}{3}\cdot\frac{1}{\sqrt5}\cdot\frac{16}{25} = \frac{32\sqrt5}{375}\qquad\left(a = -\frac{1}{\sqrt5},\ b = \frac{1}{\sqrt5}\right)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv3"), c = cv.getContext("2d");
+  const gr = document.getElementById("gr"), g = gr.getContext("2d");
+  const aIn = document.getElementById("a");
+  let az = -0.6, el = 0.4;
+  const W = cv.width, SC = 105;
+  const proj = ([x, y0, z]) => {
+    const y = y0 - 0.5;
+    const ca = Math.cos(az), sa = Math.sin(az), cb = Math.cos(el), sb = Math.sin(el);
+    const u = -x * sa + y * ca, v = z * cb - (x * ca + y * sa) * sb;
+    return [W / 2 + SC * u, W / 2 - SC * v];
+  };
+  function poly(pts, col, w = 1.5, dash = [], fill = null) {
+    c.beginPath();
+    pts.forEach((p, i) => { const q = proj(p); i ? c.lineTo(...q) : c.moveTo(...q); });
+    if (fill) { c.closePath(); c.fillStyle = fill; c.fill(); }
+    c.strokeStyle = col; c.lineWidth = w; c.setLineDash(dash); c.stroke(); c.setLineDash([]);
+  }
+  function dot(p, col, label) {
+    const q = proj(p); c.fillStyle = col; c.beginPath(); c.arc(...q, 4, 0, 7); c.fill();
+    c.fillStyle = "#222"; c.font = "bold 13px sans-serif"; c.fillText(label, q[0] + 6, q[1] - 6);
+  }
+  const S = (a) => (1 - a * a) * Math.sqrt(a * a + 2);
+
+  function draw() {
+    const a = aIn.value / 100;
+    const P = [-1, 1, -1], Q = [1, 1, 1], R = [a, a * a, a * a * a];
+    c.clearRect(0, 0, W, W);
+    poly([[-1.6, 0, 0], [1.6, 0, 0]], "#bbb", 1); poly([[0, -0.3, 0], [0, 1.6, 0]], "#bbb", 1); poly([[0, 0, -1.6], [0, 0, 1.6]], "#bbb", 1);
+    c.fillStyle = "#888"; c.font = "12px sans-serif";
+    [["x", [1.7, 0, 0]], ["y", [0, 1.7, 0]], ["z", [0, 0, 1.7]]].forEach(([s, p]) => c.fillText(s, ...proj(p)));
+    // 直線 PQ
+    poly([[-1.4, 1, -1.4], [1.4, 1, 1.4]], "#999", 1, [4, 4]);
+    // 曲線
+    const curve = []; for (let i = 0; i <= 120; i++) { const t = -1.15 + 2.3 * i / 120; curve.push([t, t * t, t ** 3]); }
+    poly(curve, "#c92a2a", 2);
+    // 三角形
+    poly([P, Q, R], "#1c7ed6", 1.8, [], "rgba(28,126,214,.18)");
+    // R から PQ への垂線
+    const s = (a + a ** 3) / 2; poly([R, [s, 1, s]], "#1c7ed6", 1, [3, 3]);
+    dot(P, "#222", "P"); dot(Q, "#222", "Q"); dot(R, "#c92a2a", "R");
+    document.getElementById("av").textContent = ` a = ${a.toFixed(2)}　面積 S = (1−a²)√(a²+2) = ${S(a).toFixed(4)}` + (a === 0 ? "（最大 √2）" : "");
+
+    // グラフ
+    const GW = gr.width, GH = gr.height, pad = 28;
+    const X = (t) => pad + (t + 1) / 2 * (GW - pad - 10), Y = (v) => GH - pad - v / 1.6 * (GH - pad - 12);
+    g.clearRect(0, 0, GW, GH);
+    g.strokeStyle = "#aaa"; g.lineWidth = 1; g.beginPath(); g.moveTo(pad, Y(0)); g.lineTo(GW - 5, Y(0)); g.moveTo(X(0), GH - pad + 4); g.lineTo(X(0), 6); g.stroke();
+    g.setLineDash([3, 3]); g.beginPath(); g.moveTo(pad, Y(Math.SQRT2)); g.lineTo(GW - 5, Y(Math.SQRT2)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = "#8a1538"; g.lineWidth = 2; g.beginPath();
+    for (let i = 0; i <= 200; i++) { const t = -1 + 2 * i / 200; i ? g.lineTo(X(t), Y(S(t))) : g.moveTo(X(t), Y(S(t))); } g.stroke();
+    g.fillStyle = "#c92a2a"; g.beginPath(); g.arc(X(a), Y(S(a)), 4, 0, 7); g.fill();
+    g.fillStyle = "#666"; g.font = "11px sans-serif"; g.fillText("S(a)", X(0) + 4, 14); g.fillText("√2", 4, Y(Math.SQRT2) + 4);
+    g.fillText("−1", X(-1) - 6, GH - pad + 14); g.fillText("1", X(1) - 4, GH - pad + 14); g.fillText("a", GW - 12, Y(0) - 4);
+  }
+  let drag = null;
+  cv.addEventListener("pointerdown", (e) => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    az -= (e.clientX - drag[0]) * 0.01; el = Math.max(-1.4, Math.min(1.4, el + (e.clientY - drag[1]) * 0.01));
+    drag = [e.clientX, e.clientY]; draw();
+  });
+  cv.addEventListener("pointerup", () => (drag = null));
+  aIn.addEventListener("input", draw);
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

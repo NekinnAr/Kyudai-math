@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2016年 九大理系数学 第4問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2016-4">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>自然数 $n$ に対して，$10^n$ を 13 で割った余りを $a_n$ とおく。$a_n$ は 0 から 12 までの整数である。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$a_{n+1}$ は $10a_n$ を 13 で割った余りに等しいことを示せ。</li>
+      <li>(2)　$a_1,\ a_2,\ \cdots,\ a_6$ を求めよ。</li>
+      <li>(3)　以下の 3 条件を満たす自然数 $N$ をすべて求めよ。
+        <ul style="list-style:none">
+          <li>(i)　$N$ を十進数で表示したとき 6 桁となる。</li>
+          <li>(ii)　$N$ を十進数で表示して，最初と最後の桁の数字を取り除くと 2016 となる。</li>
+          <li>(iii)　$N$ は 13 で割り切れる。</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+  <p class="source">（2016 九州大学 前期 理系 第4問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>$10^n$ の余りは $10$ 倍していけば順に求まる。$N = \overline{x2016y}$ を位ごとに分解して、各位の $10^k$ を余りに置きかえる。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$10^n = 13q + a_n$（$q$ は整数）とおくと $10^{n+1} = 13\cdot10q + 10a_n$。$10a_n$ を 13 で割った余りを $r$ とし $10a_n = 13q' + r$ とすると $10^{n+1} = 13(10q + q') + r$，$0 \le r \le 12$。よって $a_{n+1} = r$。</p>
+
+      <h3>(2)</h3>
+      <p>$a_1 = 10$。(1) を繰り返して</p>
+      <table class="simple">
+        <tr><th>$n$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+        <tr><th>$10a_{n-1}$</th><td>—</td><td>100</td><td>90</td><td>120</td><td>30</td><td>40</td></tr>
+        <tr><th>$a_n$</th><td>10</td><td>9</td><td>12</td><td>3</td><td>4</td><td>1</td></tr>
+      </table>
+
+      <h3>(3)</h3>
+      <p>最初の桁を $x$（$1 \le x \le 9$），最後の桁を $y$（$0 \le y \le 9$）とすると</p>
+      $$N = x\cdot10^5 + 2\cdot10^4 + 0\cdot10^3 + 1\cdot10^2 + 6\cdot10 + y$$
+      <p>13 を法として (2) の値を代入すると</p>
+      $$N \equiv 4x + 2\cdot3 + 9 + 6\cdot10 + y = 4x + y + 75 \equiv 4x + y + 10 \pmod{13}$$
+      <p>$4x + y + 10 \equiv 0$，すなわち $y \equiv 3 - 4x \pmod{13}$ で $0 \le y \le 9$ となるものを探す。</p>
+      <table class="simple">
+        <tr><th>$x$</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><th>$3 - 4x$ の余り</th><td>12</td><td>8</td><td>4</td><td>0</td><td>9</td><td>5</td><td>1</td><td>10</td><td>6</td></tr>
+      </table>
+      <p>$x = 1,\ 8$ は $y \ge 10$ で不適。よって</p>
+      $$N = 220168,\ 320164,\ 420160,\ 520169,\ 620165,\ 720161,\ 920166$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>最初と最後の桁を選ぶと、各位の「$10^k$ の余り × 数字」の和から $N$ を 13 で割った余りが計算されます。真ん中の 4 桁も変えられます（初期値 2016）。</p>
+
+  <div class="widget">
+    <label>最初の桁 x：<input type="range" id="x" min="1" max="9" value="2"></label>
+    <label>最後の桁 y：<input type="range" id="y" min="0" max="9" value="8"></label>
+    <label>真ん中：<input type="text" id="mid" value="2016" maxlength="4" size="5"></label>
+    <div class="no-math" id="info" style="margin-top:8px;line-height:1.9"></div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>$10^6 \equiv 1 \pmod{13}$ と 1001</h3>
+  <p>$a_6 = 1$ より $10^6 \equiv 1 \pmod{13}$ で、余りは周期 6 で繰り返します。実は $10^3 = 1000 \equiv -1$（$1001 = 7 \times 11 \times 13$）なので、$a_4 = 13 - a_1$，$a_5 = 13 - a_2$ … という関係もあります。これを使うと「3 桁ずつ区切って交互に足し引きする」という<b>7, 11, 13 の倍数判定法</b>が得られます。</p>
+  <p>chopin 先生は「(1) は合同式を考えれば瞬殺」「(3) 最高位の数字を $a$，1 の位を $b$ とすると、$N = a\times10^5 + 2\times10^4 + 1\times10^2 + 6\times10 + b$ となるので、(2) を使うと $N$ を 13 で割った余りが求まります」とコメントしています。</p>
+  <div class="point">桁の問題は $N = \sum d_k10^k$ と分解し、$10^k$ を余りに置きかえる。$1001 = 7\cdot11\cdot13$ は覚えておくと便利。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$10^n$ を 7 で割った余りを $n = 1,\ 2,\ \cdots,\ 6$ について求め，$111111$ が 7 で割り切れることを示せ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>余りは $3,\ 2,\ 6,\ 4,\ 5,\ 1$（$10^0$ は 1）。$111111 = \sum_{k=0}^{5}10^k \equiv 1 + 3 + 2 + 6 + 4 + 5 = 21 \equiv 0 \pmod 7$。</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問 (3) の条件 (iii) を「$N$ は 91 で割り切れる」に変えたとき，条件を満たす $N$ をすべて求めよ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2016　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$91 = 7 \times 13$。13 の倍数は本問の 7 個。7 を法とする $10^k$ の余り（$10^5 \equiv 5$，$10^4 \equiv 4$，$10^2 \equiv 2$，$10 \equiv 3$）より</p>
+    $$N \equiv 5x + 8 + 2 + 18 + y = 5x + y + 28 \equiv 5x + y \pmod 7$$
+    <p>7 個を調べると $(x,\ y) = (2,8)：18,\ (3,4)：19,\ (4,0)：20,\ (5,9)：34,\ (6,5)：35,\ (7,1)：36,\ (9,6)：51$ で、7 の倍数は $(6,\ 5)$ のみ。</p>
+    $$N = 620165\ (= 91 \times 6815)$$
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const $ = (id) => document.getElementById(id);
+  const r = [1, 10, 9, 12, 3, 4]; // 10^k mod 13（k = 0..5）
+  function draw() {
+    const x = +$("x").value, y = +$("y").value;
+    let mid = ($("mid").value.replace(/\D/g, "") + "0000").slice(0, 4);
+    const digits = [x, ...mid.split("").map(Number), y]; // 10^5 .. 10^0
+    let sum = 0, terms = [];
+    digits.forEach((d, i) => { const k = 5 - i; sum += d * r[k]; terms.push(`${d}×${r[k]}`); });
+    const N = Number(digits.join("")), rem = N % 13;
+    let sols = [];
+    for (let a = 1; a <= 9; a++) for (let b = 0; b <= 9; b++) { const M = Number([a, ...mid.split(""), b].join("")); if (M % 13 === 0) sols.push(M); }
+    $("info").innerHTML = `N = <b>${N}</b><br>10^k の余り：10⁵→4，10⁴→3，10³→12，10²→9，10→10，1→1<br>` +
+      `N ≡ ${terms.join(" + ")} = ${sum} ≡ <b>${sum % 13}</b> (mod 13)　（実際の余り ${rem}）<br>` +
+      (rem === 0 ? '<span class="ok">13 で割り切れる！</span>' : '<span class="ng">割り切れない</span>') +
+      `<br>真ん中 ${mid} で条件をみたす N：${sols.join(", ") || "なし"}（${sols.length} 個）`;
+  }
+  ["x", "y", "mid"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2024年 九大理系数学 第5問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2024-5">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>自然数 $m,\ n$ に対して</p>
+    $$I(m,\ n) = \int_1^e x^m e^x (\log x)^n\,dx$$
+    <p>とする。以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　$I(m+1,\ n+1)$ を $I(m,\ n+1)$，$I(m,\ n)$，$m$，$n$ を用いて表せ。</li>
+      <li>(2)　すべての自然数 $m$ に対して，$\displaystyle\lim_{n\to\infty} I(m,\ n) = 0$ が成り立つことを示せ。</li>
+    </ol>
+  </div>
+  <p class="source">（2024 九州大学 前期 理系 第5問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は $e^x$ を積分する側にした部分積分。(2) は (1) の式を $I(m,\ n)$ について解き、「$I$ はすべて正」という情報だけで<b>はさみうち</b>にする。漸化式の $m$ がずれているので、$m$ を固定したまま $n$ だけを動かす意識が大切。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$\left\{x^{m+1}(\log x)^{n+1}\right\}' = (m+1)x^m(\log x)^{n+1} + (n+1)x^m(\log x)^n$ に注意して部分積分すると</p>
+      $$\begin{aligned}
+      I(m+1,\ n+1) &= \Bigl[x^{m+1}(\log x)^{n+1}e^x\Bigr]_1^e - \int_1^e \left\{(m+1)x^m(\log x)^{n+1} + (n+1)x^m(\log x)^n\right\}e^x\,dx \\
+      &= e^{m+1}\cdot e^e - (m+1)I(m,\ n+1) - (n+1)I(m,\ n)
+      \end{aligned}$$
+      <p>よって</p>
+      $$I(m+1,\ n+1) = e^{m+e+1} - (m+1)I(m,\ n+1) - (n+1)I(m,\ n)$$
+
+      <h3>(2)</h3>
+      <p>$1 \lt x \lt e$ で $x^m e^x(\log x)^n \gt 0$ なので、すべての自然数 $m,\ n$ で $I(m,\ n) \gt 0$。(1) より</p>
+      $$(n+1)I(m,\ n) = e^{m+e+1} - (m+1)I(m,\ n+1) - I(m+1,\ n+1) \lt e^{m+e+1}$$
+      <p>したがって</p>
+      $$0 \lt I(m,\ n) \lt \frac{e^{m+e+1}}{n+1}$$
+      <p>$m$ を固定して $n \to \infty$ とすると右辺 $\to 0$ なので、はさみうちの原理より</p>
+      $$\lim_{n\to\infty} I(m,\ n) = 0$$
+    </div>
+  </details>
+
+  <div class="note">
+    <p><b>別解（(1) を使わない評価）</b>：$1 \le x \le e$ で $x^m e^x \le e^m\cdot e^e$。また $x = e^t$ と置換すると</p>
+    $$\int_1^e (\log x)^n\,dx = \int_0^1 t^n e^t\,dt \le e\int_0^1 t^n\,dt = \frac{e}{n+1}$$
+    <p>なので $0 \lt I(m,\ n) \le \dfrac{e^{m+e+1}}{n+1}$。偶然にも同じ評価式になります。</p>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>被積分関数 $y = x^m e^x(\log x)^n$ のグラフです。$n$ を大きくすると、$x = e$ での高さ $e^{m+e}$ は変わらないのに、グラフは右端に押しつぶされて面積 $I(m,\ n)$ は $0$ に近づきます。</p>
+
+  <div class="widget">
+    <label>m：<input type="range" id="m" min="1" max="5" value="1"></label> <span class="readout no-math" id="mv"></span>　
+    <label>n：<input type="range" id="n" min="1" max="100" value="3"></label> <span class="readout no-math" id="nv"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="260"></canvas>
+      <div class="no-math" id="info" style="min-width:230px;line-height:1.9"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>「$(\log x)^n \to 0$ だから積分も $0$」は正しいか？</h3>
+  <p>$1 \le x \lt e$ では $0 \le \log x \lt 1$ なので $(\log x)^n \to 0$ です。だから「被積分関数が $0$ に近づくので積分も $0$」と言いたくなりますが、これは<b>答案としては不十分</b>です。$x = e$ だけは $(\log e)^n = 1$ のままで、しかも $e$ の近くでは収束がいくらでも遅くなるからです。</p>
+  <p>実際、次のような例があります。</p>
+  $$f_n(x) = (n+1)x^n\quad(0 \le x \le 1)\qquad\Longrightarrow\qquad \lim_{n\to\infty} f_n(x) = 0\ \ (0 \le x \lt 1)\ \text{なのに}\ \int_0^1 f_n(x)\,dx = 1$$
+  <p>「極限」と「積分」の順序を入れ替えてよい条件は、大学で学ぶ<b>ルベーグの収束定理</b>などで扱われる深いテーマです。chopin 先生が「(2) は大学数学の深遠な世界に入りかねない」と書いているのはこのことでしょう。高校数学では、<b>はさみうちで評価する</b>のが正攻法です。</p>
+
+  <h3>実は $I(m,\ n)$ は $\frac1n$ くらいの速さで $0$ に近づく</h3>
+  <p>(2) の不等式 $I(m,\ n) \lt \dfrac{e^{m+e+1}}{n+1}$ はかなり精密で、実は $nI(m,\ n) \to e^{m+e+1}$ となります（魔改造類題）。図解の「$(n+1)I$」の値が $e^{m+e+1}$ に近づいていく様子で確かめられます。</p>
+  <div class="point">積分の極限は「<b>上下から評価してはさみうち</b>」が基本。評価の道具は (1) の漸化式（$I \gt 0$ を使う）か、被積分関数の一部を最大値で押さえる方法です。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>自然数 $n$ に対して $J_n = \displaystyle\int_1^e (\log x)^n\,dx$ とする。$J_{n+1}$ を $J_n$ と $n$ で表し，$\displaystyle\lim_{n\to\infty} J_n$ と $\displaystyle\lim_{n\to\infty} nJ_n$ を求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>部分積分で $J_{n+1} = \Bigl[x(\log x)^{n+1}\Bigr]_1^e - (n+1)J_n = e - (n+1)J_n$。</p>
+    <p>$J_n \gt 0$ より $(n+1)J_n = e - J_{n+1} \lt e$、よって $0 \lt J_n \lt \dfrac{e}{n+1} \to 0$。</p>
+    <p>すると $(n+1)J_n = e - J_{n+1} \to e$ なので $nJ_n = \dfrac{n}{n+1}\cdot(n+1)J_n \to e$。</p>
+    $$\lim_{n\to\infty} J_n = 0,\qquad \lim_{n\to\infty} nJ_n = e$$
+  </div></details>
+
+  <div class="ruidai">
+    <p>本問の $I(m,\ n)$ について，すべての自然数 $m$ に対して $\displaystyle\lim_{n\to\infty} nI(m,\ n) = e^{m+e+1}$ が成り立つことを示せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2024　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>(1) より $(n+1)I(m,\ n) = e^{m+e+1} - (m+1)I(m,\ n+1) - I(m+1,\ n+1)$。</p>
+    <p>(2) は<b>すべての</b>自然数 $m$ で成り立つので、$m$ と $m+1$ の両方に使えて、右辺の第 2 項・第 3 項はともに $0$ に収束する。よって $(n+1)I(m,\ n) \to e^{m+e+1}$ で、</p>
+    $$nI(m,\ n) = \frac{n}{n+1}\cdot(n+1)I(m,\ n) \to e^{m+e+1}$$
+    <p>(2) で「すべての $m$ に対して」と問われていた理由がここで効いてきます。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+window.initPage = function () {
+  const cv = document.getElementById("cv"), c = cv.getContext("2d");
+  const mIn = document.getElementById("m"), nIn = document.getElementById("n");
+  const E = Math.E;
+  const h = (m, n, x) => Math.pow(x, m) * Math.exp(x) * Math.pow(Math.log(x), n);
+  function I(m, n) { // シンプソン則
+    const N = 4000, d = (E - 1) / N; let s = h(m, n, 1) + h(m, n, E);
+    for (let i = 1; i < N; i++) s += (i % 2 ? 4 : 2) * h(m, n, 1 + i * d);
+    return s * d / 3;
+  }
+  function draw() {
+    const m = +mIn.value, n = +nIn.value;
+    document.getElementById("mv").textContent = ` ${m}`; document.getElementById("nv").textContent = ` ${n}`;
+    const W = cv.width, H = cv.height, pad = 30, top = Math.pow(E, m + E);
+    const X = (x) => pad + (x - 1) / (E - 1) * (W - pad - 14), Y = (y) => H - pad - y / top * (H - pad - 16);
+    c.clearRect(0, 0, W, H);
+    c.strokeStyle = "#aaa"; c.lineWidth = 1; c.beginPath(); c.moveTo(pad, H - pad); c.lineTo(W - 4, H - pad); c.moveTo(pad, H - pad); c.lineTo(pad, 6); c.stroke();
+    c.fillStyle = "rgba(138,21,56,.2)"; c.beginPath(); c.moveTo(X(1), Y(0));
+    for (let i = 0; i <= 400; i++) { const x = 1 + (E - 1) * i / 400; c.lineTo(X(x), Y(h(m, n, x))); }
+    c.lineTo(X(E), Y(0)); c.closePath(); c.fill();
+    c.strokeStyle = "#8a1538"; c.lineWidth = 2; c.beginPath();
+    for (let i = 0; i <= 400; i++) { const x = 1 + (E - 1) * i / 400; i ? c.lineTo(X(x), Y(h(m, n, x))) : c.moveTo(X(x), Y(h(m, n, x))); } c.stroke();
+    c.setLineDash([3, 3]); c.strokeStyle = "#1c7ed6"; c.beginPath(); c.moveTo(pad, Y(top)); c.lineTo(X(E), Y(top)); c.stroke(); c.setLineDash([]);
+    c.fillStyle = "#666"; c.font = "11px sans-serif";
+    c.fillText("1", X(1) - 3, H - pad + 14); c.fillText("e", X(E) - 3, H - pad + 14); c.fillText("x", W - 12, H - pad - 4);
+    c.fillText(`e^(m+e) ≈ ${top.toFixed(1)}`, pad + 4, Y(top) - 4);
+    const v = I(m, n), B = Math.pow(E, m + E + 1);
+    document.getElementById("info").innerHTML =
+      `I(${m}, ${n}) ≈ <b>${v.toFixed(4)}</b><br>上からの評価 e^(m+e+1)/(n+1) ≈ ${(B / (n + 1)).toFixed(4)}<br>` +
+      `(n+1)·I(m, n) ≈ ${((n + 1) * v).toFixed(3)}<br><span style="color:#666;font-size:.9em">→ n → ∞ で e^(m+e+1) ≈ ${B.toFixed(3)} に近づく</span>`;
+  }
+  [mIn, nIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

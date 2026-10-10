@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2022年 九大理系数学 第2問</title>
+  <link rel="stylesheet" href="../assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root=".." data-id="2022-2">
+<main class="article">
+  <div id="article-head"></div>
+
+  <div class="problem">
+    <p>$n$ を $3$ 以上の自然数，$\alpha,\ \beta$ を相異なる実数とするとき，以下の問いに答えよ。</p>
+    <ol>
+      <li>(1)　次をみたす実数 $A,\ B,\ C$ と整式 $Q(x)$ が存在することを示せ。
+        $$x^n = (x - \alpha)(x - \beta)^2 Q(x) + A(x - \alpha)(x - \beta) + B(x - \alpha) + C$$</li>
+      <li>(2)　(1) の $A,\ B,\ C$ を $n,\ \alpha,\ \beta$ で表せ。</li>
+      <li>(3)　(2) の $A$ について，$n$ と $\alpha$ を固定して，$\beta$ を $\alpha$ に近づけたときの極限 $\displaystyle\lim_{\beta\to\alpha}A$ を求めよ。</li>
+    </ol>
+  </div>
+  <p class="source">（2022 九州大学 前期 理系 第2問）</p>
+
+  <!-- ===================================================== -->
+  <h2>解答例</h2>
+  <p>(1) は「3 次式で割った余りは 2 次以下」。(2) は $x = \alpha,\ \beta$ を代入し、さらに $(x - \beta)^2$ の因数を活かすために<b>微分してから $x = \beta$ を代入</b>する。(3) は $\frac00$ 型の極限で、$\beta^k - \alpha^k$ を因数分解して処理する。</p>
+
+  <details class="answer">
+    <summary>解答例（タップで展開）</summary>
+    <div class="body">
+      <h3>(1)</h3>
+      <p>$x^n$ を 3 次式 $(x - \alpha)(x - \beta)^2$ で割った商を $Q(x)$、余りを $R(x)$ とすると、$R(x)$ は 2 次以下の実数係数の整式。$R(x)$ の $x^2$ の係数を $A$ とすると $R(x) - A(x - \alpha)(x - \beta)$ は 1 次以下なので、$B(x - \alpha) + C$ の形に書ける（$B$ は $x$ の係数、$C$ は $x = \alpha$ での値）。よって題意の $A,\ B,\ C,\ Q(x)$ が存在する。</p>
+
+      <h3>(2)</h3>
+      <p>$x = \alpha$ を代入して $C = \alpha^n$。$x = \beta$ を代入して $\beta^n = B(\beta - \alpha) + \alpha^n$ より</p>
+      $$B = \frac{\beta^n - \alpha^n}{\beta - \alpha}$$
+      <p>両辺を $x$ で微分すると、$(x - \beta)^2$ を含む項の微分は $(x - \beta)$ を因数にもつので</p>
+      $$nx^{n-1} = (x - \beta)\{\cdots\} + A(2x - \alpha - \beta) + B$$
+      <p>$x = \beta$ を代入して $n\beta^{n-1} = A(\beta - \alpha) + B$。よって</p>
+      $$A = \frac{n\beta^{n-1} - B}{\beta - \alpha} = \frac{n\beta^{n-1}(\beta - \alpha) - (\beta^n - \alpha^n)}{(\beta - \alpha)^2},\qquad B = \frac{\beta^n - \alpha^n}{\beta - \alpha},\qquad C = \alpha^n$$
+
+      <h3>(3)</h3>
+      <p>$B = \displaystyle\sum_{k=0}^{n-1}\alpha^k\beta^{n-1-k}$ なので、$n\beta^{n-1} = \displaystyle\sum_{k=0}^{n-1}\beta^{n-1}$ と書くと</p>
+      $$A = \frac{1}{\beta - \alpha}\sum_{k=0}^{n-1}\left(\beta^{n-1} - \alpha^k\beta^{n-1-k}\right) = \sum_{k=1}^{n-1}\beta^{n-1-k}\cdot\frac{\beta^k - \alpha^k}{\beta - \alpha}$$
+      <p>ここで $\dfrac{\beta^k - \alpha^k}{\beta - \alpha} = \displaystyle\sum_{j=0}^{k-1}\alpha^j\beta^{k-1-j} \to k\alpha^{k-1}$（$\beta \to \alpha$）なので</p>
+      $$\lim_{\beta\to\alpha}A = \sum_{k=1}^{n-1}\alpha^{n-1-k}\cdot k\alpha^{k-1} = \alpha^{n-2}\sum_{k=1}^{n-1}k = \frac{n(n-1)}{2}\alpha^{n-2}$$
+    </div>
+  </details>
+
+  <!-- ===================================================== -->
+  <h2>動く図解</h2>
+  <p>余り $R(x) = A(x - \alpha)(x - \beta) + B(x - \alpha) + C$ は、「$x = \alpha$ で $y = x^n$ を通り、$x = \beta$ で $y = x^n$ に<b>接する</b>」放物線です。$\beta$ を $\alpha$ に近づけると、$x = \alpha$ で $y = x^n$ に 2 次の精度で寄り添う放物線（テイラー展開の 2 次近似）に近づきます。</p>
+
+  <div class="widget">
+    <label>n：<input type="range" id="n" min="3" max="8" value="4"></label> <span class="readout no-math" id="nv"></span>　
+    <label>α：<input type="range" id="al" min="-120" max="120" value="60"></label> <span class="readout no-math" id="alv"></span><br>
+    <label>β：<input type="range" id="be" min="-150" max="150" value="120"></label> <span class="readout no-math" id="bev"></span>
+    <div class="row" style="margin-top:8px;align-items:flex-start">
+      <canvas id="cv" class="fig" width="360" height="300"></canvas>
+      <div class="no-math" id="info" style="min-width:220px;line-height:1.8"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <h2>問題の背景</h2>
+  <h3>重解と微分</h3>
+  <p>「$(x - \beta)^2$ で割り切れる ⇔ $x = \beta$ を代入しても、微分してから代入しても $0$」は、重解の判定法として重要です。これにより、余りの放物線は $x = \beta$ で元の曲線に<b>接する</b>ことになります。</p>
+  <h3>テイラー展開とロピタルの定理</h3>
+  <p>(3) の極限は $\frac{n(n-1)}{2}\alpha^{n-2} = \frac{f''(\alpha)}{2}$（$f(x) = x^n$）です。$\beta = \alpha$ のときの余り（$x^n$ を $(x - \alpha)^3$ で割った余り）は</p>
+  $$f(\alpha) + f'(\alpha)(x - \alpha) + \frac{f''(\alpha)}{2}(x - \alpha)^2$$
+  <p>で、これは<b>テイラー展開</b>の 2 次までの部分そのものです。chopin 先生は「大学入試でロピタルの定理が禁じ手なのが悔やまれる」と書いていますが、(3) は 2 回ロピタルを使えば一瞬の極限です。答案では上のように因数分解で処理しましょう。</p>
+  <div class="point">$\dfrac{\beta^k - \alpha^k}{\beta - \alpha} = \beta^{k-1} + \beta^{k-2}\alpha + \cdots + \alpha^{k-1}$ は極限計算の万能道具。$\beta \to \alpha$ で $k\alpha^{k-1}$（$x^k$ の微分係数）になります。</div>
+
+  <!-- ===================================================== -->
+  <h2>類題紹介</h2>
+  <div class="ruidai">
+    <p>$n$ を $3$ 以上の自然数とする。$x^n$ を $(x - 1)^3$ で割った余りを求めよ。</p>
+  </div>
+  <p class="source">（自作）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>二項定理より $x^n = \{1 + (x - 1)\}^n = \displaystyle\sum_{k=0}^{n}{}_n\mathrm{C}_k(x - 1)^k$。$k \ge 3$ の項は $(x - 1)^3$ で割り切れるので、余りは</p>
+    $$1 + n(x - 1) + \frac{n(n-1)}{2}(x - 1)^2$$
+    <p>（本問 (3) で $\alpha = 1$ とした値 $\frac{n(n-1)}{2}$ が $(x - 1)^2$ の係数に現れています。）</p>
+  </div></details>
+
+  <div class="ruidai">
+    <p>$\alpha,\ \beta,\ \gamma$ を相異なる実数とする。$x^n$ を $(x - \alpha)(x - \beta)(x - \gamma)$ で割った余りを $A(x - \alpha)(x - \beta) + B(x - \alpha) + C$ と表すとき，$A$ を $n,\ \alpha,\ \beta,\ \gamma$ で表せ。</p>
+  </div>
+  <p class="source">（<span class="src-kai">九大 2022　魔改造</span>）</p>
+  <details class="answer"><summary>略解</summary><div class="body">
+    <p>$x = \alpha,\ \beta,\ \gamma$ を順に代入すると $C = \alpha^n$，$B = \dfrac{\beta^n - \alpha^n}{\beta - \alpha}$，$\gamma^n = A(\gamma - \alpha)(\gamma - \beta) + B(\gamma - \alpha) + \alpha^n$。整理すると</p>
+    $$A = \frac{\alpha^n}{(\alpha - \beta)(\alpha - \gamma)} + \frac{\beta^n}{(\beta - \alpha)(\beta - \gamma)} + \frac{\gamma^n}{(\gamma - \alpha)(\gamma - \beta)}$$
+    <p>これは<b>ラグランジュ補間</b>（3 点を通る放物線）の $x^2$ の係数で、$\alpha,\ \beta,\ \gamma$ について対称です。$\gamma \to \beta$ とすると本問の $A$ に、さらに $\beta \to \alpha$ とすると $\frac{n(n-1)}{2}\alpha^{n-2}$ になります。</p>
+  </div></details>
+
+  <nav class="pager" id="pager"></nav>
+</main>
+
+<script src="../assets/vendor/katex/katex.min.js"></script>
+<script src="../assets/vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/fig.js"></script>
+<script>
+window.initPage = function () {
+  const P = Fig.plane(document.getElementById("cv"), { xmin: -1.8, xmax: 1.8, ymin: -2, ymax: 4 });
+  const nIn = document.getElementById("n"), alIn = document.getElementById("al"), beIn = document.getElementById("be");
+  function draw() {
+    const n = +nIn.value, al = alIn.value / 100; let be = beIn.value / 100;
+    document.getElementById("nv").textContent = ` ${n}`;
+    document.getElementById("alv").textContent = ` ${al.toFixed(2)}`;
+    document.getElementById("bev").textContent = ` ${be.toFixed(2)}` + (Math.abs(be - al) < 1e-9 ? "（α と一致：本問では不可）" : "");
+    const f = (x) => Math.pow(x, n);
+    P.clear().grid(1).axes();
+    P.fn(f, -1.8, 1.8, "#8a1538", 2.2);
+    const lim = n * (n - 1) / 2 * Math.pow(al, n - 2);
+    let A, B, C = Math.pow(al, n);
+    if (Math.abs(be - al) < 1e-9) { B = n * Math.pow(al, n - 1); A = lim; be = al; }
+    else { B = (Math.pow(be, n) - Math.pow(al, n)) / (be - al); A = (n * Math.pow(be, n - 1) - B) / (be - al); }
+    const R = (x) => A * (x - al) * (x - be) + B * (x - al) + C;
+    const T = (x) => lim * (x - al) ** 2 + n * Math.pow(al, n - 1) * (x - al) + C;
+    P.fn(T, -1.8, 1.8, "#bbb", 1.2, 200, [4, 4]);
+    P.fn(R, -1.8, 1.8, "#1c7ed6", 2);
+    P.dot(al, f(al), "#222", 4, "α", -4, 16).dot(be, f(be), "#e8590c", 5, "β", 4, -8);
+    P.label(`y = x^${n}`, 10, 16, "#8a1538").label("余り R(x)", 10, 32, "#1c7ed6").label("β→α の極限の放物線", 10, 48, "#999");
+    document.getElementById("info").innerHTML =
+      `A = ${A.toFixed(4)}<br>B = ${B.toFixed(4)}<br>C = ${C.toFixed(4)}<br><br>lim<sub>β→α</sub> A = n(n−1)/2 · α<sup>n−2</sup><br>　= ${lim.toFixed(4)}<br>|A − 極限| = ${Math.abs(A - lim).toFixed(4)}`;
+  }
+  [nIn, alIn, beIn].forEach((e) => e.addEventListener("input", draw));
+  draw();
+};
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
