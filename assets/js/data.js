@@ -7,7 +7,7 @@ window.SITE = {
   title: "九大理系数学の探究",
   subtitle: "九州大学 前期日程 理系数学の過去問を、年代別に解説・深掘りするサイトです。",
   author: "管理人",
-  contact: "https://x.com/your_account", // 問い合わせ先（X など）。空文字なら非表示
+  contact: "https://x.com/itijistop", // 問い合わせ先（X など）。空文字なら非表示
   startYear: 1997,
   endYear: 2026,
   defaultProblemCount: 5, // 九大理系は例年5問。年度ごとの例外は YEARS[year].count で上書き
